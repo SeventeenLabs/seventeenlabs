@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SeventeenLabs.io - Modern Digital Agency
 
-## Getting Started
+A modern, clean SaaS-style website built with Next.js, featuring AI tools, automation services, and digital agency solutions.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Modern SaaS Design**: Clean, professional aesthetic with navy blue accents
+- **Responsive Layout**: Mobile-first design that works on all devices
+- **Smooth Animations**: Subtle Framer Motion animations for enhanced UX
+- **TypeScript**: Full type safety throughout the application
+- **shadcn/ui Components**: Beautiful, accessible UI components
+- **SEO Optimized**: Meta tags, structured data, and performance optimized
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14+ with App Router
+- **Styling**: TailwindCSS for utility-first CSS
+- **Animations**: Framer Motion for smooth interactions
+- **Components**: shadcn/ui component library
+- **Icons**: Lucide React icons
+- **Language**: TypeScript for type safety
+- **Deployment**: Optimized for Vercel deployment
+
+## 🎨 Design System
+
+- **Primary Color**: Navy Blue (#1E3A8A - blue-900)
+- **Accent Color**: Blue (#2563EB - blue-600)
+- **Background**: Pure white (#FFFFFF) and light gray (#F9FAFB)
+- **Typography**: Large, bold sans-serif with excellent readability
+- **Animations**: Subtle fade-ins, slide-ups, and hover effects
+
+## 📱 Services
+
+- **Agency Services**: Custom web development and digital strategy
+- **N8N Workflows**: Business process automation solutions
+- **AI Applications**: Intelligent tools powered by cutting-edge AI
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd seventeenlabs
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📝 Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm run build` - Build the application for production
+- `npm run start` - Start the production server
+- `npm run lint` - Run ESLint for code quality
+
+## 🏗 Project Structure
+
+```
+src/
+├── app/                 # Next.js App Router pages
+│   ├── layout.tsx      # Root layout with metadata
+│   ├── page.tsx        # Home page
+│   └── globals.css     # Global styles
+├── components/         # Reusable React components
+│   └── ui/            # shadcn/ui components
+└── lib/               # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Key Features Implemented
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Hero Section**: Large, bold headline with clear value proposition
+- **Service Cards**: Clean cards with hover effects for different service areas
+- **Newsletter Signup**: Email collection with modern input design
+- **Footer**: Minimal, professional footer with essential links
+- **Responsive Design**: Mobile-first approach with perfect scaling
+- **Accessibility**: Semantic HTML and proper ARIA labels
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Deployment
 
-## Learn More
+This project is optimized for deployment on Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with zero configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📧 Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For more information about SeventeenLabs services, visit [seventeenlabs.io](https://seventeenlabs.io)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ using Next.js, TailwindCSS, and Framer Motion
