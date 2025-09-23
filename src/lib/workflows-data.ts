@@ -14,6 +14,7 @@ export interface Workflow {
   features?: string[];
   requirements?: string[];
   videoUrl?: string;
+  mermaidChart?: string;
 }
 
 export const workflows: Workflow[] = [
@@ -44,7 +45,38 @@ export const workflows: Workflow[] = [
       "Email account for notifications",
       "Slack workspace (optional)"
     ],
-    videoUrl: "https://example.com/demo-video"
+    videoUrl: "https://example.com/demo-video",
+    mermaidChart: `
+flowchart LR
+    A["New Lead Form"] --> B{"Lead Data Valid?"}
+    B -->|"Yes"| C["Score Lead"]
+    B -->|"No"| D["Send Error Alert"]
+    C --> E["Enrich Data"]
+    E --> F{"Check Score Threshold"}
+    F -->|"High Score"| G["Add to Hot Leads"]
+    F -->|"Medium Score"| H["Add to Warm Leads"]  
+    F -->|"Low Score"| I["Add to Cold Leads"]
+    G --> J["Notify Sales Team"]
+    H --> K["Schedule Follow-up"]
+    I --> L["Add to Nurture Campaign"]
+    J --> M["Sync to CRM"]
+    K --> M
+    L --> M
+    M --> N["Send Slack Alert"]
+    M --> O["Update Dashboard"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef hotNode fill:#ffebee,stroke:#f44336,stroke-width:2px,color:#374151
+    classDef endNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class C,E processNode
+    class B,F decisionNode
+    class G hotNode
+    class M,N,O endNode
+    `
   },
   {
     id: 2,
@@ -73,7 +105,40 @@ export const workflows: Workflow[] = [
       "Email service for notifications",
       "Inventory management system"
     ],
-    videoUrl: "https://example.com/demo-video"
+    videoUrl: "https://example.com/demo-video",
+    mermaidChart: `
+flowchart LR
+    A["New Order Placed"] --> B["Validate Payment"]
+    B -->|"Success"| C["Update Inventory"]
+    B -->|"Failed"| D["Send Payment Failed Email"]
+    C --> E{"Stock Available?"}
+    E -->|"Yes"| F["Generate Order Confirmation"]
+    E -->|"No"| G["Send Backorder Notification"]
+    F --> H["Print Shipping Label"]
+    G --> I["Update ETA"]
+    H --> J["Pack Order"]
+    I --> J
+    J --> K["Ship Package"]
+    K --> L["Send Tracking Email"]
+    L --> M["Update Order Status"]
+    M --> N["Monitor Delivery"]
+    N --> O{"Delivered?"}
+    O -->|"Yes"| P["Send Review Request"]
+    O -->|"No"| Q["Send Delivery Alert"]
+    D --> R["Notify Admin"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef errorNode fill:#ffebee,stroke:#f44336,stroke-width:2px,color:#374151
+    classDef endNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class B,C,F,H,J,K,L,M processNode
+    class E,O decisionNode
+    class D,R errorNode
+    class P endNode
+    `
   },
   {
     id: 3,
@@ -102,7 +167,40 @@ export const workflows: Workflow[] = [
       "Content creation tools",
       "Slack workspace for notifications"
     ],
-    videoUrl: "https://example.com/demo-video"
+    videoUrl: "https://example.com/demo-video",
+    mermaidChart: `
+flowchart LR
+    A["Create Content"] --> B["Content Scheduler"]
+    B --> C{"Platform Check"}
+    C -->|"Twitter"| D["Format for Twitter"]
+    C -->|"LinkedIn"| E["Format for LinkedIn"]
+    C -->|"Facebook"| F["Format for Facebook"]
+    D --> G["Schedule Tweet"]
+    E --> H["Schedule LinkedIn Post"]
+    F --> I["Schedule Facebook Post"]
+    G --> J["Add to Calendar"]
+    H --> J
+    I --> J
+    J --> K["Send Team Notification"]
+    K --> L{"Publish Time?"}
+    L -->|"Yes"| M["Publish Content"]
+    L -->|"No"| N["Wait for Schedule"]
+    M --> O["Track Performance"]
+    N --> L
+    O --> P["Generate Report"]
+    P --> Q["Send Analytics Email"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef socialNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    classDef endNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class B,D,E,F,G,H,I,J,K,M,O,P processNode
+    class C,L decisionNode
+    class Q endNode
+    `
   },
   {
     id: 4,
@@ -142,5 +240,72 @@ export const workflows: Workflow[] = [
     integrations: ["Airtable", "Google Calendar"],
     price: 0,
     isFree: true
+  },
+  {
+    id: 7,
+    title: "AI-Powered Feedback Analysis",
+    description: "Automatically analyze and categorize customer feedback using OpenAI GPT models",
+    longDescription: "This advanced workflow automatically processes customer feedback through an AI-powered analysis system. When feedback is submitted via webhook, it checks for existing categorization, uses OpenAI to analyze uncategorized feedback, extracts categories and tags, then updates the database with structured insights. Perfect for SaaS platforms, support teams, and product managers who need to understand customer sentiment at scale.",
+    category: "AI Applications",
+    difficulty: "Advanced",
+    time: "25 min",
+    users: 142,
+    rating: 4.9,
+    integrations: ["OpenAI", "Supabase", "Webhooks"],
+    price: 59,
+    isFree: false,
+    features: [
+      "AI-powered feedback categorization (bug, feature_request, question, other)",
+      "Automatic tag generation for better organization",
+      "Batch processing for multiple feedback items",
+      "Webhook integration for real-time processing",
+      "Supabase database integration",
+      "Structured JSON output with OpenAI GPT-4",
+      "Error handling and data validation"
+    ],
+    requirements: [
+      "OpenAI API account with GPT-4 access",
+      "Supabase database with feedback_items table",
+      "Webhook endpoint configuration",
+      "Basic understanding of JSON structures"
+    ],
+    mermaidChart: `
+flowchart LR
+    A["Webhook Trigger"] --> B["Parse JSON Body"]
+    B --> C{"ID Exists?"}
+    C -->|"Single Item"| D["Get Single Row"]
+    C -->|"Batch Mode"| E["Get Batch Items"]
+    D --> F{"Category Empty?"}
+    E --> G["Split Into Batches"]
+    F -->|"Needs Analysis"| H["OpenAI Analysis"]
+    F -->|"Already Categorized"| I["Skip Processing"]
+    G --> J["Process Each Item"]
+    J --> K{"Category Empty?"}
+    K -->|"Analyze"| H
+    K -->|"Skip"| I
+    H --> L["GPT-4 Analysis"]
+    L --> M["Structured Output Parser"]
+    M --> N["Extract Category and Tags"]
+    N --> O["Update Database"]
+    I --> P["Continue Loop"]
+    O --> Q["Continue Loop"]
+    P --> R{"More Items?"}
+    Q --> R
+    R -->|"Yes"| J
+    R -->|"No"| S["Send Response"]
+    S --> T["End"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef aiNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    classDef endNode fill:#ffebee,stroke:#f44336,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class B,D,E,G,J,N,O processNode
+    class C,F,K,R decisionNode
+    class H,L,M aiNode
+    class T endNode
+    `
   }
 ];

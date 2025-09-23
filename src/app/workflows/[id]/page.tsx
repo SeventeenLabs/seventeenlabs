@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
+import MermaidDiagram from "@/components/mermaid-diagram";
 
 // Helper function to detect if we're on workflows subdomain
 function isWorkflowsSubdomain(): boolean {
@@ -139,16 +140,29 @@ export default function WorkflowDetailPage() {
                     {workflow.longDescription}
                   </p>
                   
-                  {/* Demo Video */}
-                  <div className="bg-slate-100 rounded-lg p-8 text-center">
-                    <Play className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-slate-900 mb-2">Watch Demo</h3>
-                    <p className="text-slate-600 mb-4">See this workflow in action</p>
-                    <Button variant="outline">
-                      <Play className="mr-2 h-4 w-4" />
-                      Play Demo Video
-                    </Button>
-                  </div>
+                  {/* Workflow Diagram */}
+                  {workflow.mermaidChart ? (
+                    <div className="bg-slate-50 rounded-lg p-6 mb-6">
+                      <h3 className="text-lg font-medium text-slate-900 mb-4 flex items-center">
+                        <Code className="mr-2 h-5 w-5" />
+                        Workflow Diagram
+                      </h3>
+                      <MermaidDiagram 
+                        chart={workflow.mermaidChart} 
+                        className="bg-white rounded-lg border border-slate-200 p-4"
+                      />
+                    </div>
+                  ) : (
+                    <div className="bg-slate-100 rounded-lg p-8 text-center">
+                      <Play className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-slate-900 mb-2">Watch Demo</h3>
+                      <p className="text-slate-600 mb-4">See this workflow in action</p>
+                      <Button variant="outline">
+                        <Play className="mr-2 h-4 w-4" />
+                        Play Demo Video
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
 
