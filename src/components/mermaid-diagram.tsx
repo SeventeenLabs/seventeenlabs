@@ -1,21 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ZoomIn, ZoomOut, RotateCcw, Maximize } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCcw, Maximize, X, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface MermaidDiagramProps {
   chart: string;
   className?: string;
+  isPreview?: boolean;
 }
 
-export default function MermaidDiagram({ chart, className = "" }: MermaidDiagramProps) {
+export default function MermaidDiagram({ chart, className = "", isPreview = false }: MermaidDiagramProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [showLegend, setShowLegend] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const diagramRef = useRef<HTMLDivElement>(null);
 
@@ -123,6 +125,15 @@ export default function MermaidDiagram({ chart, className = "" }: MermaidDiagram
           }
           
           setIsLoaded(true);
+          
+          // Fit the entire workflow to view initially with multiple attempts
+          setTimeout(() => {
+            handleFitToView();
+            // Retry after a longer delay to ensure proper rendering
+            setTimeout(() => {
+              handleFitToView();
+            }, 200);
+          }, 150);
         }
       } catch (err) {
         console.error('Error loading mermaid:', err);
@@ -209,27 +220,93 @@ export default function MermaidDiagram({ chart, className = "" }: MermaidDiagram
   };
 
   const handleReset = () => {
-    setZoom(1);
-    setPan({ x: 0, y: 0 });
+    // Reset to fit-to-view instead of zoom level 1
+    setTimeout(() => {
+      handleFitToView();
+    }, 50);
   };
 
-  const handleFitToView = () => {
+  const handleFitToView = useCallback(() => {
     if (containerRef.current && diagramRef.current) {
       const container = containerRef.current;
       const svgElement = diagramRef.current.querySelector('svg');
       if (svgElement) {
-        const containerRect = container.getBoundingClientRect();
-        const svgRect = svgElement.getBoundingClientRect();
+        // Get container dimensions
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
         
-        const scaleX = (containerRect.width - 40) / svgRect.width;
-        const scaleY = (containerRect.height - 40) / svgRect.height;
+        // Get SVG viewBox or fallback to getBBox()
+        const viewBox = svgElement.viewBox.baseVal;
+        let svgWidth = viewBox.width;
+        let svgHeight = viewBox.height;
+        
+        // If viewBox is empty, try to get the actual content dimensions
+        if (!svgWidth || !svgHeight) {
+          try {
+            const bbox = svgElement.getBBox();
+            svgWidth = bbox.width || 800;
+            svgHeight = bbox.height || 600;
+          } catch {
+            svgWidth = 800;
+            svgHeight = 600;
+          }
+        }
+        
+        // Calculate scale to fit with some padding
+        const padding = 40;
+        const scaleX = (containerWidth - padding) / svgWidth;
+        const scaleY = (containerHeight - padding) / svgHeight;
         const newZoom = Math.min(scaleX, scaleY, 1);
         
         setZoom(newZoom);
-        setPan({ x: 0, y: 0 });
+        
+        // Center the diagram at the new zoom level
+        setTimeout(() => {
+          const centerX = Math.max(0, (containerWidth - svgWidth * newZoom) / 2);
+          const centerY = Math.max(0, (containerHeight - svgHeight * newZoom) / 2);
+          setPan({ x: centerX, y: centerY });
+        }, 50);
       }
     }
-  };
+  }, []);
+
+  const centerDiagram = useCallback(() => {
+    if (containerRef.current && diagramRef.current) {
+      const container = containerRef.current;
+      const svgElement = diagramRef.current.querySelector('svg');
+      if (svgElement) {
+        // Get container dimensions
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+        
+        // Get SVG viewBox or fallback to clientWidth/clientHeight
+        const viewBox = svgElement.viewBox.baseVal;
+        const svgWidth = viewBox.width || svgElement.clientWidth || 800;
+        const svgHeight = viewBox.height || svgElement.clientHeight || 600;
+        
+        // Calculate center position
+        const centerX = Math.max(0, (containerWidth - svgWidth * zoom) / 2);
+        const centerY = Math.max(0, (containerHeight - svgHeight * zoom) / 2);
+        
+        setPan({ 
+          x: centerX, 
+          y: centerY 
+        });
+      }
+    }
+  }, [zoom]);
+
+  // Re-fit to view on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (isLoaded) {
+        setTimeout(() => handleFitToView(), 100);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isLoaded, handleFitToView]);
 
   if (error) {
     return (
@@ -327,6 +404,64 @@ export default function MermaidDiagram({ chart, className = "" }: MermaidDiagram
           </div>
           <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded px-3 py-1 text-xs text-gray-500 shadow-sm">
             Scroll to zoom • Drag to pan
+          </div>
+          {!showLegend && (
+            <button
+              onClick={() => setShowLegend(true)}
+              className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded px-3 py-1 text-xs text-gray-500 shadow-sm hover:bg-white hover:text-gray-700 transition-colors flex items-center gap-1"
+            >
+              <Info className="w-3 h-3" />
+              Show Legend
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Legend */}
+      {isLoaded && showLegend && (
+        <div className="absolute top-4 right-4 z-10">
+          <div className="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg p-3 shadow-lg min-w-[180px]">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-xs font-semibold text-gray-700 flex items-center gap-1">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                Workflow Legend
+              </h4>
+              <button
+                onClick={() => setShowLegend(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors p-0.5"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+            <div className="space-y-2.5">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-green-100 border-2 border-green-500 flex-shrink-0"></div>
+                <span className="text-xs text-gray-600">Start/Trigger</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-blue-100 border-2 border-blue-500 flex-shrink-0"></div>
+                <span className="text-xs text-gray-600">Process Step</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-orange-100 border-2 border-orange-500 flex-shrink-0"></div>
+                <span className="text-xs text-gray-600">Decision Point</span>
+              </div>
+              {isPreview && (
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="w-4 h-4 rounded bg-gray-100 border-2 border-gray-400 border-dashed flex-shrink-0"></div>
+                    <span className="text-xs text-gray-600">Hidden Step</span>
+                  </div>
+                  <div className="pt-1 border-t border-gray-100">
+                    <div className="text-xs text-amber-600 font-medium">🔒 Premium Content</div>
+                  </div>
+                </>
+              )}
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded bg-purple-100 border-2 border-purple-500 flex-shrink-0"></div>
+                <span className="text-xs text-gray-600">End/Result</span>
+              </div>
+            </div>
           </div>
         </div>
       )}

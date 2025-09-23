@@ -161,6 +161,7 @@ export default function WorkflowDetailPage() {
                       <MermaidDiagram 
                         chart={!workflow.isFree && workflow.previewChart ? workflow.previewChart : workflow.mermaidChart} 
                         className="bg-white rounded-lg border border-slate-200 p-4"
+                        isPreview={!workflow.isFree && !!workflow.previewChart}
                       />
                     </div>
                   ) : (
