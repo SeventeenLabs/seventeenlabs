@@ -78,12 +78,26 @@ src/
 
 ## 🎯 Key Features Implemented
 
-- **Hero Section**: Large, bold headline with clear value proposition
-- **Service Cards**: Clean cards with hover effects for different service areas
-- **Newsletter Signup**: Email collection with modern input design
-- **Footer**: Minimal, professional footer with essential links
-- **Responsive Design**: Mobile-first approach with perfect scaling
-- **Accessibility**: Semantic HTML and proper ARIA labels
+
+## Agency subdomain (agency.seventeenlabs.io)
+
+This project routes all traffic from the `agency.` subdomain to the `/agency` section using Next.js host-based rewrites.
+
+How it works:
+- `next.config.ts` defines rewrites with a `has: [{ type: 'host', value: 'agency.seventeenlabs.io' }]` condition.
+- Requests to `https://agency.seventeenlabs.io/anything` are internally served from `/agency/anything`.
+- No middleware is used; this is a simpler, built-in Next.js approach.
+
+Setup steps:
+1. DNS: Create a CNAME for `agency` -> your deployment host (e.g., `cname.vercel-dns.com` on Vercel) or an A/AAAA per your provider.
+2. Vercel project:
+   - Add `agency.seventeenlabs.io` as a domain on your project.
+   - Ensure the apex/root domain is also configured on the same project.
+   - No Vercel Dashboard rewrites are required—the Next.js config handles it.
+
+Local testing (optional):
+- Map `127.0.0.1 agency.localhost` in your hosts file and open `http://agency.localhost:3000`.
+
 
 ## 🚀 Deployment
 
