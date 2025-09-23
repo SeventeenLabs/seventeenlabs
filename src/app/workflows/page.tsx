@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Clock, Users, Star, Zap, Database, Mail, Calendar, ShoppingCart, MessageSquare } from "lucide-react";
+import { Search, Clock, Users, Star, Zap, Database, Mail, Calendar, ShoppingCart, MessageSquare, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
+import { usePurchase } from "@/contexts/purchase-context";
 
 const categories = [
   "All Workflows",
@@ -33,6 +34,7 @@ const integrations = [
 export default function WorkflowsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Workflows");
+  const { isPurchased } = usePurchase();
   
   // Check if we're on a workflows subdomain
   const isWorkflowsSubdomain = typeof window !== 'undefined' && /^workflows\./i.test(window.location.host);
@@ -190,17 +192,24 @@ export default function WorkflowsPage() {
                   )}
                 </div>
 
-                <Link href={`/workflows/${workflow.id}`}>
+                <Link href={getWorkflowLink(workflow.id)}>
                   <Button 
                     variant="outline" 
                     size="sm" 
                     className={`w-full transition-colors ${
-                      workflow.isFree 
+                      (workflow.isFree || isPurchased(workflow.id))
                         ? "group-hover:bg-green-600 group-hover:text-white" 
                         : "group-hover:bg-slate-900 group-hover:text-white"
                     }`}
                   >
-                    {workflow.isFree ? "Download Free" : `Buy for $${workflow.price}`}
+                    {(workflow.isFree || isPurchased(workflow.id)) ? (
+                      <div className="flex items-center gap-2">
+                        {isPurchased(workflow.id) && <Check className="h-4 w-4" />}
+                        {workflow.isFree ? "Download Free" : "Download"}
+                      </div>
+                    ) : (
+                      `Buy for $${workflow.price}`
+                    )}
                   </Button>
                 </Link>
               </CardContent>

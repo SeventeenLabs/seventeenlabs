@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
 import MermaidDiagram from "@/components/mermaid-diagram";
+import PurchaseModal from "@/components/purchase-modal";
+import { usePurchase } from "@/contexts/purchase-context";
 
 // Helper function to detect if we're on workflows subdomain
 function isWorkflowsSubdomain(): boolean {
@@ -27,10 +29,24 @@ export default function WorkflowDetailPage() {
   const workflow = workflows.find(w => w.id === workflowId);
   const [activeTab, setActiveTab] = useState("overview");
   const [workflowsLink, setWorkflowsLink] = useState("/workflows");
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const { isPurchased, addPurchase } = usePurchase();
 
   useEffect(() => {
     setWorkflowsLink(getWorkflowsListLink());
   }, []);
+
+  const handlePurchaseClick = () => {
+    setShowPurchaseModal(true);
+  };
+
+  const handlePurchaseComplete = (workflowId: number) => {
+    addPurchase(workflowId);
+    setShowPurchaseModal(false);
+  };
+
+  // Check if user has purchased this workflow
+  const isWorkflowPurchased = workflow ? (workflow.isFree || isPurchased(workflow.id)) : false;
 
   if (!workflow) {
     return (
@@ -147,7 +163,7 @@ export default function WorkflowDetailPage() {
                         <Code className="mr-2 h-5 w-5" />
                         Workflow Diagram
                       </h3>
-                      {!workflow.isFree && workflow.previewChart && (
+                      {!workflow.isFree && !isWorkflowPurchased && workflow.previewChart && (
                         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
                           <div className="flex items-center gap-2 text-amber-800">
                             <Lock className="h-4 w-4" />
@@ -159,9 +175,9 @@ export default function WorkflowDetailPage() {
                         </div>
                       )}
                       <MermaidDiagram 
-                        chart={!workflow.isFree && workflow.previewChart ? workflow.previewChart : workflow.mermaidChart} 
+                        chart={(!workflow.isFree && !isWorkflowPurchased && workflow.previewChart) ? workflow.previewChart : workflow.mermaidChart} 
                         className="bg-white rounded-lg border border-slate-200 p-4"
-                        isPreview={!workflow.isFree && !!workflow.previewChart}
+                        isPreview={!workflow.isFree && !isWorkflowPurchased && !!workflow.previewChart}
                       />
                     </div>
                   ) : (
@@ -228,14 +244,22 @@ export default function WorkflowDetailPage() {
               
               <CardContent className="space-y-4">
                 <Button 
+                  onClick={handlePurchaseClick}
                   className={`w-full ${
-                    workflow.isFree 
-                      ? "bg-green-600 hover:bg-green-700" 
-                      : "bg-slate-900 hover:bg-slate-800"
+                    isWorkflowPurchased
+                      ? "bg-green-600 hover:bg-green-700"
+                      : workflow.isFree 
+                        ? "bg-green-600 hover:bg-green-700" 
+                        : "bg-slate-900 hover:bg-slate-800"
                   } text-white`}
                   size="lg"
                 >
-                  {workflow.isFree ? (
+                  {isWorkflowPurchased ? (
+                    <>
+                      <Download className="mr-2 h-4 w-4" />
+                      Download Workflow
+                    </>
+                  ) : workflow.isFree ? (
                     <>
                       <Download className="mr-2 h-4 w-4" />
                       Download Free
@@ -274,6 +298,16 @@ export default function WorkflowDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Purchase Modal */}
+      {workflow && (
+        <PurchaseModal
+          workflow={workflow}
+          isOpen={showPurchaseModal}
+          onClose={() => setShowPurchaseModal(false)}
+          onPurchaseComplete={handlePurchaseComplete}
+        />
+      )}
     </main>
   );
 }
