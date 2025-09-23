@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
@@ -196,7 +196,7 @@ export default function WorkflowDetailPage() {
 
               {activeTab === "features" && (
                 <div>
-                  <h2 className="text-xl font-semibold text-slate-900 mb-4">What's Included</h2>
+                  <h2 className="text-xl font-semibold text-slate-900 mb-4">What&apos;s Included</h2>
                   <div className="space-y-3">
                     {workflow.features?.map((feature, index) => (
                       <div key={index} className="flex items-start gap-3">

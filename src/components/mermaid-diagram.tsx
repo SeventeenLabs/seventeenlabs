@@ -270,32 +270,6 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
     }
   }, []);
 
-  const centerDiagram = useCallback(() => {
-    if (containerRef.current && diagramRef.current) {
-      const container = containerRef.current;
-      const svgElement = diagramRef.current.querySelector('svg');
-      if (svgElement) {
-        // Get container dimensions
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-        
-        // Get SVG viewBox or fallback to clientWidth/clientHeight
-        const viewBox = svgElement.viewBox.baseVal;
-        const svgWidth = viewBox.width || svgElement.clientWidth || 800;
-        const svgHeight = viewBox.height || svgElement.clientHeight || 600;
-        
-        // Calculate center position
-        const centerX = Math.max(0, (containerWidth - svgWidth * zoom) / 2);
-        const centerY = Math.max(0, (containerHeight - svgHeight * zoom) / 2);
-        
-        setPan({ 
-          x: centerX, 
-          y: centerY 
-        });
-      }
-    }
-  }, [zoom]);
-
   // Re-fit to view on window resize
   useEffect(() => {
     const handleResize = () => {

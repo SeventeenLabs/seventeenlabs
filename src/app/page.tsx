@@ -2,7 +2,6 @@
 
 import LandingHero from "@/components/landing-hero";
 import Highlights from "@/components/highlights";
-import ProcessLanesBand from "@/components/process-lanes-band";
 import SiteFooter from "@/components/site-footer";
 import About from "@/components/about";
 
