@@ -15,6 +15,7 @@ export interface Workflow {
   requirements?: string[];
   videoUrl?: string;
   mermaidChart?: string;
+  previewChart?: string; // Obfuscated version for paid workflows
 }
 
 export const workflows: Workflow[] = [
@@ -76,6 +77,35 @@ flowchart LR
     class B,F decisionNode
     class G hotNode
     class M,N,O endNode
+    `,
+    previewChart: `
+flowchart LR
+    A["New Lead Form"] --> B{"Data Validation"}
+    B -->|"Valid"| C["Lead Processing"]
+    B -->|"Invalid"| D["Send Error Alert"]
+    C --> E["Score Calculation"]
+    E --> F{"Priority Assessment"}
+    F -->|"High"| G["Premium Pipeline"]
+    F -->|"Low"| H["Standard Pipeline"]
+    G --> I["Advanced Enrichment"]
+    H --> I
+    I --> J["CRM Integration"]
+    J --> K["Data Mapping"]
+    K --> L["Field Updates"]
+    L --> M["Sync to CRM"]
+    M --> N["Send Notifications"]
+    D --> O["Error Handling"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef hiddenNode fill:#f5f5f5,stroke:#999,stroke-width:2px,color:#666,stroke-dasharray: 5 5
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef endNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class D,M,N processNode
+    class C,E,G,H,I,J,K,L,O hiddenNode
+    class B,F decisionNode
     `
   },
   {
@@ -138,6 +168,40 @@ flowchart LR
     class E,O decisionNode
     class D,R errorNode
     class P endNode
+    `,
+    previewChart: `
+flowchart LR
+    A["New Order Placed"] --> B["Payment Processing"]
+    B -->|"Success"| C["Order Validation"]
+    B -->|"Failed"| D["Send Payment Failed Email"]
+    C --> E{"Stock Check"}
+    E -->|"Available"| F["Order Confirmation"]
+    E -->|"Low Stock"| G["Backorder Process"]
+    F --> H["Label Generation"]
+    G --> I["ETA Calculation"]
+    H --> J["Package Preparation"]
+    I --> J
+    J --> K["Ship Package"]
+    K --> L["Send Tracking Email"]
+    L --> M["Status Updates"]
+    M --> N["Delivery Monitoring"]
+    N --> O{"Delivery Status"}
+    O -->|"Delivered"| P["Review Request"]
+    O -->|"Pending"| Q["Follow-up Alert"]
+    D --> R["Notify Admin"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef hiddenNode fill:#f5f5f5,stroke:#999,stroke-width:2px,color:#666,stroke-dasharray: 5 5
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef errorNode fill:#ffebee,stroke:#f44336,stroke-width:2px,color:#374151
+    classDef endNode fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class K,L processNode
+    class B,C,F,G,H,I,J,M,N,P,Q hiddenNode
+    class E,O decisionNode
+    class D,R errorNode
     `
   },
   {
@@ -305,6 +369,44 @@ flowchart LR
     class B,D,E,G,J,N,O processNode
     class C,F,K,R decisionNode
     class H,L,M aiNode
+    class T endNode
+    `,
+    previewChart: `
+flowchart LR
+    A["Webhook Trigger"] --> B["Data Parsing"]
+    B --> C{"Request Type"}
+    C -->|"Single Item"| D["Single Processing"]
+    C -->|"Batch Mode"| E["Batch Processing"]
+    D --> F{"Category Status"}
+    E --> G["Batch Splitting"]
+    F -->|"Needs Analysis"| H["AI Processing"]
+    F -->|"Categorized"| I["Skip Processing"]
+    G --> J["Item Processing"]
+    J --> K{"Analysis Required"}
+    K -->|"Analyze"| H
+    K -->|"Skip"| I
+    H --> L["GPT Analysis"]
+    L --> M["Output Parsing"]
+    M --> N["Data Extraction"]
+    N --> O["Update Database"]
+    I --> P["Loop Continue"]
+    O --> Q["Loop Continue"]
+    P --> R{"More Items"}
+    Q --> R
+    R -->|"Yes"| J
+    R -->|"No"| S["Send Response"]
+    S --> T["End"]
+    
+    classDef startNode fill:#e8f5e8,stroke:#4caf50,stroke-width:2px,color:#374151
+    classDef processNode fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#374151
+    classDef hiddenNode fill:#f5f5f5,stroke:#999,stroke-width:2px,color:#666,stroke-dasharray: 5 5
+    classDef decisionNode fill:#fff3e0,stroke:#ff9800,stroke-width:2px,color:#374151
+    classDef endNode fill:#ffebee,stroke:#f44336,stroke-width:2px,color:#374151
+    
+    class A startNode
+    class O,S processNode
+    class B,D,E,G,H,I,J,L,M,N,P,Q hiddenNode
+    class C,F,K,R decisionNode
     class T endNode
     `
   }

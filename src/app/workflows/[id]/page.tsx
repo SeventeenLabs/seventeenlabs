@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle } from "lucide-react";
+import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -147,8 +147,19 @@ export default function WorkflowDetailPage() {
                         <Code className="mr-2 h-5 w-5" />
                         Workflow Diagram
                       </h3>
+                      {!workflow.isFree && workflow.previewChart && (
+                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                          <div className="flex items-center gap-2 text-amber-800">
+                            <Lock className="h-4 w-4" />
+                            <span className="text-sm font-medium">Preview Mode</span>
+                          </div>
+                          <p className="text-sm text-amber-700 mt-1">
+                            Workflow structure shown with obfuscated step details. Purchase to see complete node labels and implementation specifics.
+                          </p>
+                        </div>
+                      )}
                       <MermaidDiagram 
-                        chart={workflow.mermaidChart} 
+                        chart={!workflow.isFree && workflow.previewChart ? workflow.previewChart : workflow.mermaidChart} 
                         className="bg-white rounded-lg border border-slate-200 p-4"
                       />
                     </div>
