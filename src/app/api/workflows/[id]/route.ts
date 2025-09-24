@@ -4,10 +4,11 @@ import { getWorkflowById, updateWorkflow, deleteWorkflow } from '@/lib/workflow-
 // GET /api/workflows/[id] - Get workflow by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const { id: idStr } = await params;
+    const id = parseInt(idStr);
     
     if (isNaN(id)) {
       return NextResponse.json(
@@ -41,11 +42,12 @@ export async function GET(
 // PUT /api/workflows/[id] - Update workflow (admin only)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // TODO: Add authentication check for admin users
-    const id = parseInt(params.id);
+    const { id: idStr } = await params;
+    const id = parseInt(idStr);
     
     if (isNaN(id)) {
       return NextResponse.json(
@@ -86,11 +88,12 @@ export async function PUT(
 // DELETE /api/workflows/[id] - Delete workflow (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // TODO: Add authentication check for admin users
-    const id = parseInt(params.id);
+    const { id: idStr } = await params;
+    const id = parseInt(idStr);
     
     if (isNaN(id)) {
       return NextResponse.json(

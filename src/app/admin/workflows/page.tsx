@@ -309,10 +309,10 @@ export default function AdminWorkflowsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <RefreshCw className="h-5 w-5" />
-            n8n Integration
+            n8n Integration (SeventeenLabs Folder)
           </CardTitle>
           <CardDescription>
-            Sync workflows from your n8n instance via webhook
+            Sync workflows from the SeventeenLabs folder in your n8n instance
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -337,38 +337,74 @@ export default function AdminWorkflowsPage() {
           </div>
           <div className="flex gap-2 flex-wrap">
             <Button
+              variant="default"
+              onClick={async () => {
+                try {
+                  const response = await fetch('/api/workflows/enhanced-sync?method=api', {
+                    method: 'POST',
+                    headers: { 'x-api-key': 'your-secret-api-key' }
+                  });
+                  const data = await response.json();
+                  if (data.success) {
+                    alert(`API Sync Complete: ${data.results.created} created, ${data.results.updated} updated`);
+                    loadWorkflows(); // Refresh the workflows
+                  } else {
+                    alert('API Sync failed: ' + data.error);
+                  }
+                } catch (error) {
+                  alert('API Sync error: ' + error);
+                }
+              }}
+              className="flex items-center gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Direct API Sync
+            </Button>
+            <Button
               variant="outline"
               onClick={() => setShowWebhookUrl(!showWebhookUrl)}
               className="flex items-center gap-2"
             >
               <Eye className="h-4 w-4" />
-              {showWebhookUrl ? 'Hide' : 'Show'} Webhook URL
+              {showWebhookUrl ? 'Hide' : 'Show'} Webhook Setup
             </Button>
             <Button
               variant="outline"
-              onClick={() => window.open('/api/workflows/n8n-sync', '_blank')}
+              onClick={() => window.open('/api/workflows/enhanced-sync', '_blank')}
               className="flex items-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
-              Test Endpoint
+              Test Connection
             </Button>
           </div>
           {showWebhookUrl && (
-            <div className="mt-4 p-3 bg-slate-50 rounded-lg">
-              <p className="text-sm text-slate-600 mb-2">Webhook URL for n8n:</p>
-              <code className="text-xs bg-white p-2 rounded border block mb-3">
-                {typeof window !== 'undefined' ? `${window.location.origin}/api/workflows/n8n-sync` : '/api/workflows/n8n-sync'}
-              </code>
-              
-              <p className="text-sm text-slate-600 mb-2">Authentication:</p>
-              <div className="bg-white p-2 rounded border">
-                <p className="text-xs mb-1">Add one of these headers to your n8n HTTP Request node:</p>
-                <code className="text-xs block mb-1">x-api-key: your-secret-api-key</code>
-                <p className="text-xs mb-1">OR</p>
-                <code className="text-xs block">Authorization: Bearer your-secret-api-key</code>
+            <div className="mt-4 p-3 bg-slate-50 rounded-lg space-y-4">
+              <div>
+                <p className="text-sm text-slate-600 mb-2">Method 1: Direct API Sync (Recommended)</p>
+                <div className="bg-white p-2 rounded border">
+                  <p className="text-xs mb-1">Environment Variables:</p>
+                  <code className="text-xs block mb-1">N8N_API_BASE_URL=http://your-n8n-instance:5678</code>
+                  <code className="text-xs block mb-2">N8N_API_KEY=your-n8n-api-key</code>
+                  <p className="text-xs text-orange-600 font-medium">🏷️ Only syncs workflows tagged with "SeventeenLabs" or containing "SeventeenLabs" in the name</p>
+                </div>
               </div>
               
-              <p className="text-xs text-slate-500 mt-2">
+              <div>
+                <p className="text-sm text-slate-600 mb-2">Method 2: Webhook URL for n8n:</p>
+                <code className="text-xs bg-white p-2 rounded border block mb-3">
+                  {typeof window !== 'undefined' ? `${window.location.origin}/api/workflows/n8n-sync` : '/api/workflows/n8n-sync'}
+                </code>
+                
+                <p className="text-sm text-slate-600 mb-2">Authentication Headers:</p>
+                <div className="bg-white p-2 rounded border">
+                  <p className="text-xs mb-1">Add one of these headers to your n8n HTTP Request node:</p>
+                  <code className="text-xs block mb-1">x-api-key: your-secret-api-key</code>
+                  <p className="text-xs mb-1">OR</p>
+                  <code className="text-xs block">Authorization: Bearer your-secret-api-key</code>
+                </div>
+              </div>
+              
+              <p className="text-xs text-slate-500">
                 Configure the N8N_WEBHOOK_API_KEY environment variable for security.
               </p>
             </div>

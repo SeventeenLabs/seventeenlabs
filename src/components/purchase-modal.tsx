@@ -6,16 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import getStripe from "@/lib/stripe";
+import { WorkflowData } from "@/hooks/useWorkflows";
 
 interface PurchaseModalProps {
-  workflow: {
-    id: number;
-    title: string;
-    price: number;
-    isFree: boolean;
-    description: string;
-    integrations: string[];
-  };
+  workflow: WorkflowData;
   isOpen: boolean;
   onClose: () => void;
   onPurchaseComplete: (workflowId: number) => void;
@@ -23,7 +17,7 @@ interface PurchaseModalProps {
 
 // Stripe payment form component
 function PaymentForm({ workflow, onSuccess, onError }: {
-  workflow: PurchaseModalProps['workflow'];
+  workflow: WorkflowData;
   onSuccess: (paymentIntentId: string) => void;
   onError: (error: string) => void;
 }) {
@@ -257,61 +251,74 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
   };
 
   const handleDownload = () => {
-    // Generate download file content
-    const downloadContent = {
-      workflow: {
-        id: workflow.id,
-        title: workflow.title,
-        description: workflow.description,
-        integrations: workflow.integrations,
-      },
-      n8nWorkflow: {
+    // Use the actual n8n workflow data if available, otherwise create a basic structure
+    let downloadContent;
+    
+    if (workflow.n8nData) {
+      // Use the real n8n workflow format
+      downloadContent = {
+        name: workflow.title,
+        nodes: workflow.n8nData.nodes,
+        connections: workflow.n8nData.connections,
+        active: false,
+        settings: workflow.n8nData.settings || {},
+        staticData: workflow.n8nData.staticData || {},
+        pinData: workflow.n8nData.pinData || {},
+        versionId: workflow.n8nVersionId || undefined,
+        meta: {
+          templateCredsSetupCompleted: false,
+          instanceId: undefined
+        },
+        id: workflow.n8nId || undefined,
+        tags: []
+      };
+    } else {
+      // Fallback for workflows without n8n data - create a minimal n8n structure
+      downloadContent = {
         name: workflow.title,
         nodes: [
           {
-            id: "trigger",
-            type: "webhook",
-            name: "Webhook Trigger",
-            position: [250, 300],
-            parameters: {
-              path: "workflow-webhook",
-              httpMethod: "POST"
-            }
+            parameters: {},
+            type: "n8n-nodes-base.start",
+            typeVersion: 1,
+            position: [240, 300],
+            id: "start-node",
+            name: "Start"
           },
           {
-            id: "process",
-            type: "function",
-            name: "Process Data",
-            position: [450, 300],
             parameters: {
-              functionCode: "// Your workflow processing logic here\nreturn items;"
-            }
+              notice: `This is a template for: ${workflow.title}\n\nDescription: ${workflow.description}\n\nIntegrations: ${workflow.integrations.join(', ')}\n\nPlease configure the nodes according to your needs.`
+            },
+            type: "n8n-nodes-base.noOp",
+            typeVersion: 1,
+            position: [460, 300],
+            id: "template-info",
+            name: "Template Info"
           }
         ],
         connections: {
-          "trigger": {
+          "Start": {
             "main": [
               [
                 {
-                  "node": "process",
+                  "node": "Template Info",
                   "type": "main",
                   "index": 0
                 }
               ]
             ]
           }
-        }
-      },
-      installation: {
-        steps: [
-          "1. Import this JSON file into N8N",
-          "2. Configure your integrations",
-          "3. Test the workflow",
-          "4. Activate when ready"
-        ],
-        documentation: "https://docs.seventeenlabs.io/workflows/" + workflow.id
-      }
-    };
+        },
+        active: false,
+        settings: {},
+        staticData: {},
+        pinData: {},
+        meta: {
+          templateCredsSetupCompleted: false
+        },
+        tags: []
+      };
+    }
 
     // Create and download file
     const blob = new Blob([JSON.stringify(downloadContent, null, 2)], { type: 'application/json' });

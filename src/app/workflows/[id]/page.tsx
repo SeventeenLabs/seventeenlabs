@@ -24,6 +24,90 @@ export default function WorkflowDetailPage() {
     setShowPurchaseModal(true);
   };
 
+  const handleDirectDownload = () => {
+    if (!workflow) return;
+
+    // Use the actual n8n workflow data if available, otherwise create a basic structure
+    let downloadContent;
+    
+    if (workflow.n8nData) {
+      // Use the real n8n workflow format
+      downloadContent = {
+        name: workflow.title,
+        nodes: workflow.n8nData.nodes,
+        connections: workflow.n8nData.connections,
+        active: false,
+        settings: workflow.n8nData.settings || {},
+        staticData: workflow.n8nData.staticData || {},
+        pinData: workflow.n8nData.pinData || {},
+        versionId: workflow.n8nVersionId || undefined,
+        meta: {
+          templateCredsSetupCompleted: false,
+          instanceId: undefined
+        },
+        id: workflow.n8nId || undefined,
+        tags: []
+      };
+    } else {
+      // Fallback for workflows without n8n data - create a minimal n8n structure
+      downloadContent = {
+        name: workflow.title,
+        nodes: [
+          {
+            parameters: {},
+            type: "n8n-nodes-base.start",
+            typeVersion: 1,
+            position: [240, 300],
+            id: "start-node",
+            name: "Start"
+          },
+          {
+            parameters: {
+              notice: `This is a template for: ${workflow.title}\n\nDescription: ${workflow.description}\n\nIntegrations: ${workflow.integrations.join(', ')}\n\nPlease configure the nodes according to your needs.`
+            },
+            type: "n8n-nodes-base.noOp",
+            typeVersion: 1,
+            position: [460, 300],
+            id: "template-info",
+            name: "Template Info"
+          }
+        ],
+        connections: {
+          "Start": {
+            "main": [
+              [
+                {
+                  "node": "Template Info",
+                  "type": "main",
+                  "index": 0
+                }
+              ]
+            ]
+          }
+        },
+        active: false,
+        settings: {},
+        staticData: {},
+        pinData: {},
+        meta: {
+          templateCredsSetupCompleted: false
+        },
+        tags: []
+      };
+    }
+
+    // Create and download file
+    const blob = new Blob([JSON.stringify(downloadContent, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${workflow.title.toLowerCase().replace(/\s+/g, '-')}-workflow.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const handlePurchaseComplete = async (workflowId: number) => {
     // Refresh purchases from server to get the latest state
     await refreshPurchases();
@@ -251,7 +335,7 @@ export default function WorkflowDetailPage() {
                 
                 <CardContent className="space-y-4">
                   <Button 
-                    onClick={handlePurchaseClick}
+                    onClick={isWorkflowPurchased ? handleDirectDownload : handlePurchaseClick}
                     className={`w-full ${
                       isWorkflowPurchased
                         ? "bg-green-600 hover:bg-green-700"
