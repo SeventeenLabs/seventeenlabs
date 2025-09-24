@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 export function middleware() {
-  // Middleware can handle other functionality if needed
-  // Subdomain routing is now handled by next.config.ts rewrites
+  // Subdomain routing is handled by next.config.ts rewrites
   return NextResponse.next();
 }
 

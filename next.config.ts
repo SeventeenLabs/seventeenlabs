@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async rewrites() {
     return [
+      // Agency subdomain
       {
         source: "/:path*",
         has: [
@@ -13,7 +14,18 @@ const nextConfig: NextConfig = {
         ],
         destination: "/agency/:path*",
       },
-      // Local testing convenience (map agency.localhost in hosts file)
+      // Workflows subdomain  
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "workflows.seventeenlabs.io",
+          },
+        ],
+        destination: "/workflows/:path*",
+      },
+      // Local development convenience
       {
         source: "/:path*",
         has: [
@@ -29,17 +41,6 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: "host",
-            value: "workflows.seventeenlabs.io",
-          },
-        ],
-        destination: "/workflows/:path*",
-      },
-      // Local testing convenience (map workflows.localhost in hosts file)
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
             value: "workflows.localhost",
           },
         ],
@@ -49,24 +50,25 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Redirect /agency routes from main domain to agency subdomain
       {
         source: "/agency/:path*",
         has: [
           {
             type: "host",
-            value: "(?!agency\\.).*seventeenlabs\\.io",
+            value: "seventeenlabs.io",
           },
         ],
         destination: "https://agency.seventeenlabs.io/:path*",
         permanent: false,
       },
-      // Only redirect workflows routes in production/live environments
+      // Redirect /workflows routes from main domain to workflows subdomain
       {
         source: "/workflows/:path*",
         has: [
           {
             type: "host",
-            value: "(?!workflows\\.).*seventeenlabs\\.io",
+            value: "seventeenlabs.io",
           },
         ],
         destination: "https://workflows.seventeenlabs.io/:path*",
