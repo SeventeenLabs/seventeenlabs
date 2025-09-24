@@ -28,6 +28,17 @@ export interface WorkflowData {
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
+  // n8n integration fields
+  n8nId?: string;
+  n8nVersionId?: string;
+  lastSyncAt?: string;
+  n8nData?: {
+    nodes: any[];
+    connections: any;
+    settings?: any;
+    staticData?: any;
+    pinData?: any;
+  };
 }
 
 interface UseWorkflowsOptions {

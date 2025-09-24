@@ -227,5 +227,57 @@
     "createdAt": "2025-09-24T09:14:37.587Z",
     "updatedAt": "2025-09-24T09:14:37.587Z",
     "isActive": true
+  },
+  {
+    "n8nId": "test-n8n-workflow-123",
+    "n8nVersionId": "",
+    "title": "Enhanced Email to Slack Notification",
+    "category": "Communication",
+    "description": "Enhanced email filtering and Slack notifications with priority handling",
+    "longDescription": "",
+    "difficulty": "Advanced",
+    "time": "30 min",
+    "price": 20,
+    "isFree": false,
+    "users": 0,
+    "rating": 0,
+    "integrations": [
+      "Gmail",
+      "Slack"
+    ],
+    "features": [
+      "Smart email filtering",
+      "Priority-based notifications",
+      "Custom Slack formatting"
+    ],
+    "requirements": [],
+    "videoUrl": "",
+    "mermaidChart": "flowchart TD\n    Start[\"Start\"]\n    Gmail[\"Gmail\"]\n    Filter[\"Filter\"]\n    Slack[\"Slack\"]\n",
+    "lastSyncAt": "2025-09-24T09:37:07.477Z",
+    "n8nData": {
+      "nodes": [
+        {
+          "name": "Start",
+          "type": "n8n-nodes-base.start"
+        },
+        {
+          "name": "Gmail",
+          "type": "n8n-nodes-base.gmail"
+        },
+        {
+          "name": "Filter",
+          "type": "n8n-nodes-base.filter"
+        },
+        {
+          "name": "Slack",
+          "type": "n8n-nodes-base.slack"
+        }
+      ],
+      "connections": {}
+    },
+    "id": 8,
+    "createdAt": "2025-09-24T09:36:48.698Z",
+    "updatedAt": "2025-09-24T09:37:07.478Z",
+    "isActive": true
   }
 ]

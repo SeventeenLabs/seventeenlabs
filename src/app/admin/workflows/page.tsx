@@ -42,6 +42,12 @@ export default function AdminWorkflowsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingWorkflow, setEditingWorkflow] = useState<WorkflowData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showWebhookUrl, setShowWebhookUrl] = useState(false);
+  const [n8nSyncStats, setN8nSyncStats] = useState({
+    lastSync: null as string | null,
+    n8nWorkflows: 0,
+    totalSynced: 0
+  });
 
   // Form state
   const [formData, setFormData] = useState({
@@ -83,6 +89,19 @@ export default function AdminWorkflowsPage() {
       const data = await response.json();
       if (data.success) {
         setWorkflows(data.workflows);
+        
+        // Calculate n8n sync stats
+        const n8nWorkflows = data.workflows.filter((w: WorkflowData) => w.n8nId);
+        const lastSyncDates = n8nWorkflows
+          .map((w: WorkflowData) => w.lastSyncAt)
+          .filter(Boolean)
+          .sort((a: string, b: string) => new Date(b).getTime() - new Date(a).getTime());
+        
+        setN8nSyncStats({
+          lastSync: lastSyncDates[0] || null,
+          n8nWorkflows: n8nWorkflows.length,
+          totalSynced: n8nWorkflows.length
+        });
       }
     } catch (error) {
       console.error('Failed to load workflows:', error);
@@ -285,6 +304,78 @@ export default function AdminWorkflowsPage() {
         </div>
       )}
 
+      {/* n8n Sync Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <RefreshCw className="h-5 w-5" />
+            n8n Integration
+          </CardTitle>
+          <CardDescription>
+            Sync workflows from your n8n instance via webhook
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div className="flex flex-col">
+              <span className="text-sm text-slate-600">n8n Workflows</span>
+              <span className="text-2xl font-bold text-blue-600">{n8nSyncStats.n8nWorkflows}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-slate-600">Total Synced</span>
+              <span className="text-2xl font-bold text-green-600">{n8nSyncStats.totalSynced}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-slate-600">Last Sync</span>
+              <span className="text-sm font-medium text-slate-800">
+                {n8nSyncStats.lastSync 
+                  ? new Date(n8nSyncStats.lastSync).toLocaleString()
+                  : 'Never'
+                }
+              </span>
+            </div>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              variant="outline"
+              onClick={() => setShowWebhookUrl(!showWebhookUrl)}
+              className="flex items-center gap-2"
+            >
+              <Eye className="h-4 w-4" />
+              {showWebhookUrl ? 'Hide' : 'Show'} Webhook URL
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => window.open('/api/workflows/n8n-sync', '_blank')}
+              className="flex items-center gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Test Endpoint
+            </Button>
+          </div>
+          {showWebhookUrl && (
+            <div className="mt-4 p-3 bg-slate-50 rounded-lg">
+              <p className="text-sm text-slate-600 mb-2">Webhook URL for n8n:</p>
+              <code className="text-xs bg-white p-2 rounded border block mb-3">
+                {typeof window !== 'undefined' ? `${window.location.origin}/api/workflows/n8n-sync` : '/api/workflows/n8n-sync'}
+              </code>
+              
+              <p className="text-sm text-slate-600 mb-2">Authentication:</p>
+              <div className="bg-white p-2 rounded border">
+                <p className="text-xs mb-1">Add one of these headers to your n8n HTTP Request node:</p>
+                <code className="text-xs block mb-1">x-api-key: your-secret-api-key</code>
+                <p className="text-xs mb-1">OR</p>
+                <code className="text-xs block">Authorization: Bearer your-secret-api-key</code>
+              </div>
+              
+              <p className="text-xs text-slate-500 mt-2">
+                Configure the N8N_WEBHOOK_API_KEY environment variable for security.
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1">
@@ -333,7 +424,14 @@ export default function AdminWorkflowsPage() {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="text-lg">{workflow.title}</CardTitle>
+                    <div className="flex items-center gap-2 mb-1">
+                      <CardTitle className="text-lg">{workflow.title}</CardTitle>
+                      {workflow.n8nId && (
+                        <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                          n8n
+                        </Badge>
+                      )}
+                    </div>
                     <CardDescription className="mt-1">
                       {workflow.description}
                     </CardDescription>
@@ -381,6 +479,14 @@ export default function AdminWorkflowsPage() {
                   <p><strong>Setup Time:</strong> {workflow.time}</p>
                   <p><strong>Created:</strong> {new Date(workflow.createdAt).toLocaleDateString()}</p>
                   <p><strong>Updated:</strong> {new Date(workflow.updatedAt).toLocaleDateString()}</p>
+                  {workflow.n8nId && (
+                    <>
+                      <p><strong>n8n ID:</strong> {workflow.n8nId}</p>
+                      {workflow.lastSyncAt && (
+                        <p><strong>Last Sync:</strong> {new Date(workflow.lastSyncAt).toLocaleString()}</p>
+                      )}
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
