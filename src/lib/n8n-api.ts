@@ -97,40 +97,31 @@ export class N8nApiClient {
     return response.json();
   }
 
-  // Get all workflows from n8n (filtered by folder if specified)
-  async getAllWorkflows(folderName?: string): Promise<N8nWorkflow[]> {
+  // Get all workflows from n8n (filtered by tag if specified)
+  async getAllWorkflows(tagName?: string): Promise<N8nWorkflow[]> {
     const response = await this.makeRequest('/workflows');
     const workflows = response.data || response; // Handle both {data: [...]} and [...] responses
     
-    // If folder name is specified, filter workflows by folder
-    if (folderName) {
+    // If tag name is specified, filter workflows by tag
+    if (tagName) {
       return workflows.filter((workflow: N8nWorkflow) => {
-        // Check if workflow has folder/tags that match
+        // Check if workflow has the specified tag
         const tags = workflow.tags || [];
-        const isInFolder = tags.some(tag => 
-          tag.name?.toLowerCase() === folderName.toLowerCase()
+        const hasTag = tags.some(tag => 
+          tag.name?.toLowerCase() === tagName.toLowerCase()
         );
         
-        // Also check if the workflow name contains folder reference
-        const nameContainsFolder = workflow.name.toLowerCase().includes(folderName.toLowerCase());
-        
-        // For SeventeenLabs folder, use specific workflow IDs since folder API isn't accessible
-        // Currently includes the "Test" workflow ID: zYO5KbBsvJMUmwba
-        const seventeenLabsWorkflowIds = ['zYO5KbBsvJMUmwba'];
-        const isInSeventeenLabsFolder = folderName.toLowerCase() === 'seventeenlabs' && 
-          seventeenLabsWorkflowIds.includes(workflow.id);
-        
-        return isInFolder || nameContainsFolder || isInSeventeenLabsFolder;
+        return hasTag;
       });
     }
     
     return workflows;
   }
 
-  // Get SeventeenLabs workflows specifically
+  // Get SeventeenLabs workflows specifically (by tag)
   async getSeventeenLabsWorkflows(): Promise<N8nWorkflow[]> {
-    // Only return workflows that are explicitly tagged with SeventeenLabs or have SeventeenLabs in the name
-    return this.getAllWorkflows('SeventeenLabs');
+    // Return workflows tagged with "SeventeenLabs_Workflow"
+    return this.getAllWorkflows('SeventeenLabs_Workflow');
   }
 
   // Get specific workflow by ID

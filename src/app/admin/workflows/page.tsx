@@ -309,10 +309,10 @@ export default function AdminWorkflowsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <RefreshCw className="h-5 w-5" />
-            n8n Integration (SeventeenLabs Folder)
+            n8n Integration (SeventeenLabs_Workflow Tag)
           </CardTitle>
           <CardDescription>
-            Sync workflows from the SeventeenLabs folder in your n8n instance
+            Sync workflows tagged with "SeventeenLabs_Workflow" from your n8n instance
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -340,25 +340,33 @@ export default function AdminWorkflowsPage() {
               variant="default"
               onClick={async () => {
                 try {
-                  const response = await fetch('/api/workflows/enhanced-sync?method=api', {
+                  const response = await fetch('/api/workflows/fetch-n8n', {
                     method: 'POST',
                     headers: { 'x-api-key': 'your-secret-api-key' }
                   });
                   const data = await response.json();
                   if (data.success) {
-                    alert(`API Sync Complete: ${data.results.created} created, ${data.results.updated} updated`);
+                    alert(`Fetch & Sync Complete: ${data.results.created} created, ${data.results.updated} updated`);
                     loadWorkflows(); // Refresh the workflows
                   } else {
-                    alert('API Sync failed: ' + data.error);
+                    alert('Fetch & Sync failed: ' + data.error);
                   }
                 } catch (error) {
-                  alert('API Sync error: ' + error);
+                  alert('Fetch & Sync error: ' + error);
                 }
               }}
               className="flex items-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
-              Direct API Sync
+              Fetch Tagged Workflows
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => window.open('/api/workflows/fetch-n8n', '_blank')}
+              className="flex items-center gap-2"
+            >
+              <Eye className="h-4 w-4" />
+              Preview Tagged Workflows
             </Button>
             <Button
               variant="outline"
@@ -385,7 +393,7 @@ export default function AdminWorkflowsPage() {
                   <p className="text-xs mb-1">Environment Variables:</p>
                   <code className="text-xs block mb-1">N8N_API_BASE_URL=http://your-n8n-instance:5678</code>
                   <code className="text-xs block mb-2">N8N_API_KEY=your-n8n-api-key</code>
-                  <p className="text-xs text-orange-600 font-medium">🏷️ Only syncs workflows tagged with "SeventeenLabs" or containing "SeventeenLabs" in the name</p>
+                  <p className="text-xs text-orange-600 font-medium">🏷️ Only syncs workflows tagged with "SeventeenLabs_Workflow"</p>
                 </div>
               </div>
               
