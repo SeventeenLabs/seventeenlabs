@@ -16,14 +16,18 @@ export function middleware(request: NextRequest) {
   }
   
   // Handle workflows subdomain
-  if (hostname === "workflows.seventeenlabs.io") {
+  if (hostname === "workflows.seventeenlabs.io" || 
+      hostname === "workflows.localhost:3000" || 
+      hostname === "workflows.localhost") {
     const url = request.nextUrl.clone();
     url.pathname = `/workflows${pathname}`;
     return NextResponse.rewrite(url);
   }
   
   // Handle agency subdomain
-  if (hostname === "agency.seventeenlabs.io") {
+  if (hostname === "agency.seventeenlabs.io" || 
+      hostname === "agency.localhost:3000" || 
+      hostname === "agency.localhost") {
     const url = request.nextUrl.clone();
     url.pathname = `/agency${pathname}`;
     return NextResponse.rewrite(url);

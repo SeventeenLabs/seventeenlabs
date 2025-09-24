@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import ConditionalHeader from "@/components/conditional-header";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,24 +15,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SeventeenLabs - Digital Agency | Web Development & Design",
-  description: "SeventeenLabs is a cutting-edge digital agency specializing in web development, UI/UX design, and digital transformation. We craft exceptional digital experiences that drive growth and innovation.",
-  keywords: "digital agency, web development, UI/UX design, Next.js, React, TypeScript, Tailwind CSS, Framer Motion",
-  authors: [{ name: "SeventeenLabs" }],
-  creator: "SeventeenLabs",
-  publisher: "SeventeenLabs",
-  openGraph: {
-    title: "SeventeenLabs - Digital Agency",
-    description: "We craft exceptional digital experiences that drive growth and innovation.",
-    url: "https://seventeenlabs.io",
-    siteName: "SeventeenLabs",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SeventeenLabs - Digital Agency",
-    description: "We craft exceptional digital experiences that drive growth and innovation.",
-  },
+  title: "SeventeenLabs",
+  description: "SeventeenLabs platform",
 };
 
 export default function RootLayout({
@@ -46,7 +29,6 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
       >
-        <ConditionalHeader />
         {children}
       </body>
     </html>
