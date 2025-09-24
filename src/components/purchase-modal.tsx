@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { X, ShoppingCart, Download, CreditCard, Lock, Check, FileText } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, ShoppingCart, Download, CreditCard, Lock, Check, FileText, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import getStripe from "@/lib/stripe";
 
 interface PurchaseModalProps {
   workflow: {
@@ -19,20 +21,124 @@ interface PurchaseModalProps {
   onPurchaseComplete: (workflowId: number) => void;
 }
 
-export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseComplete }: PurchaseModalProps) {
-  const [step, setStep] = useState<'checkout' | 'processing' | 'success'>('checkout');
+// Stripe payment form component
+function PaymentForm({ workflow, onSuccess, onError }: {
+  workflow: PurchaseModalProps['workflow'];
+  onSuccess: () => void;
+  onError: (error: string) => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // Create payment intent
+      const response = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: workflow.price,
+          workflowId: workflow.id,
+          workflowTitle: workflow.title,
+        }),
+      });
+
+      const { clientSecret, error: intentError } = await response.json();
+
+      if (intentError) {
+        onError(intentError);
+        setIsProcessing(false);
+        return;
+      }
+
+      // Confirm payment
+      const cardElement = elements.getElement(CardElement);
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement!,
+        },
+      });
+
+      if (error) {
+        onError(error.message || 'Payment failed');
+      } else if (paymentIntent?.status === 'succeeded') {
+        onSuccess();
+      }
+    } catch (error) {
+      onError('Payment failed. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="p-4 border border-slate-200 rounded-lg">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#334155',
+                fontFamily: 'system-ui, sans-serif',
+                '::placeholder': {
+                  color: '#94a3b8',
+                },
+              },
+            },
+          }}
+        />
+      </div>
+      
+      <Button
+        type="submit"
+        disabled={!stripe || isProcessing}
+        className="w-full bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+        size="lg"
+      >
+        {isProcessing ? (
+          <>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+            Processing...
+          </>
+        ) : (
+          <>
+            <CreditCard className="mr-2 h-4 w-4" />
+            Complete Purchase - ${workflow.price}
+          </>
+        )}
+      </Button>
+    </form>
+  );
+}
+
+export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseComplete }: PurchaseModalProps) {
+  const [step, setStep] = useState<'checkout' | 'processing' | 'success' | 'error'>('checkout');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [stripePromise] = useState(() => getStripe());
 
   if (!isOpen) return null;
 
-  const handlePurchase = async () => {
+  const handleFreeDownload = async () => {
     setIsProcessing(true);
     setStep('processing');
 
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simulate processing for free downloads
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Store purchase in localStorage (in real app, this would be backend)
+    // Store purchase in localStorage
     const purchases = JSON.parse(localStorage.getItem('purchased_workflows') || '[]');
     if (!purchases.includes(workflow.id)) {
       purchases.push(workflow.id);
@@ -41,6 +147,29 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
 
     setStep('success');
     onPurchaseComplete(workflow.id);
+  };
+
+  const handlePaymentSuccess = () => {
+    // Store purchase in localStorage
+    const purchases = JSON.parse(localStorage.getItem('purchased_workflows') || '[]');
+    if (!purchases.includes(workflow.id)) {
+      purchases.push(workflow.id);
+      localStorage.setItem('purchased_workflows', JSON.stringify(purchases));
+    }
+
+    setStep('success');
+    onPurchaseComplete(workflow.id);
+  };
+
+  const handlePaymentError = (error: string) => {
+    setErrorMessage(error);
+    setStep('error');
+  };
+
+  const resetModal = () => {
+    setStep('checkout');
+    setErrorMessage('');
+    setIsProcessing(false);
   };
 
   const handleDownload = () => {
@@ -212,7 +341,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
 
               {workflow.isFree ? (
                 <Button
-                  onClick={handlePurchase}
+                  onClick={handleFreeDownload}
                   disabled={isProcessing}
                   className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors"
                   size="lg"
@@ -232,15 +361,13 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                     </p>
                   </div>
 
-                  <Button
-                    onClick={handlePurchase}
-                    disabled={isProcessing}
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white transition-colors"
-                    size="lg"
-                  >
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    Complete Purchase - ${workflow.price}
-                  </Button>
+                  <Elements stripe={stripePromise}>
+                    <PaymentForm
+                      workflow={workflow}
+                      onSuccess={handlePaymentSuccess}
+                      onError={handlePaymentError}
+                    />
+                  </Elements>
                 </>
               )}
 
@@ -256,6 +383,36 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
               <p className="text-slate-600">
                 {workflow.isFree ? 'Preparing your download...' : 'Processing your payment...'}
               </p>
+            </div>
+          )}
+
+          {step === 'error' && (
+            <div className="space-y-4">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                <AlertCircle className="h-8 w-8 text-red-600 mx-auto mb-2" />
+                <h3 className="font-semibold text-red-800 mb-1">
+                  Payment Failed
+                </h3>
+                <p className="text-sm text-red-700">
+                  {errorMessage}
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={resetModal}
+                  variant="outline"
+                  className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50"
+                >
+                  Try Again
+                </Button>
+                <Button
+                  onClick={onClose}
+                  className="flex-1 bg-slate-900 hover:bg-slate-800 text-white"
+                >
+                  Close
+                </Button>
+              </div>
             </div>
           )}
 
