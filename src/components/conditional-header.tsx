@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import SiteHeader from "./site-header";
-import WorkflowsHeader from "./workflows-header";
 
 export default function ConditionalHeader() {
   const pathname = usePathname();
