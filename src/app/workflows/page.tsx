@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
 import { usePurchase } from "@/contexts/purchase-context";
-import EmailVerification from "@/components/email-verification";
 
 const categories = [
   "All Workflows",
@@ -85,9 +84,6 @@ export default function WorkflowsPage() {
             {workflows.length} workflow templates available
           </div>
         </div>
-
-        {/* Email Verification */}
-        <EmailVerification />
 
         {/* Search */}
         <div className="mb-8">

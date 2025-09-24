@@ -2,13 +2,52 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Zap, ShoppingCart, User } from "lucide-react";
+import { Menu, X, Zap, ShoppingCart, User, Mail, Loader2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { usePurchase } from "@/contexts/purchase-context";
+import { workflows } from "@/lib/workflows-data";
 
 export default function WorkflowsHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { purchasedWorkflows } = usePurchase();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isVerifying, setIsVerifying] = useState(false);
+  const { purchasedWorkflows, userEmail, setUserEmail } = usePurchase();
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) return;
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
+    setIsVerifying(true);
+    
+    try {
+      setUserEmail(email.trim());
+    } catch (error) {
+      console.error('Error setting user email:', error);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const handleChangeEmail = () => {
+    setUserEmail('');
+    setEmail('');
+  };
+
+  // Get purchased workflow details
+  const purchasedWorkflowDetails = purchasedWorkflows.map(id => 
+    workflows.find(w => w.id === id)
+  ).filter(Boolean);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -67,7 +106,12 @@ export default function WorkflowsHeader() {
                   Agency
                 </Link>
               </Button>
-              <Button variant="ghost" size="sm" className="relative">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="relative"
+                onClick={() => setIsCartOpen(!isCartOpen)}
+              >
                 <ShoppingCart className="h-4 w-4" />
                 {purchasedWorkflows.length > 0 && (
                   <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-blue-600 text-[10px] font-medium text-white flex items-center justify-center">
@@ -120,6 +164,146 @@ export default function WorkflowsHeader() {
             </nav>
           </div>
         </div>
+      )}
+
+      {/* Cart Panel */}
+      {isCartOpen && (
+        <div className="absolute top-16 right-4 w-96 z-50">
+          <Card className="shadow-2xl border-slate-200">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">My Workflows</CardTitle>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setIsCartOpen(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              <CardDescription>
+                Manage your purchased workflows and account
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent className="space-y-4">
+              {/* Email Verification Section */}
+              {!userEmail ? (
+                <div className="border border-slate-200 rounded-lg p-4">
+                  <h3 className="font-medium text-slate-900 mb-2">Sign In</h3>
+                  <p className="text-sm text-slate-600 mb-3">
+                    Enter your email to access your purchased workflows
+                  </p>
+                  <form onSubmit={handleEmailSubmit} className="space-y-3">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      className="w-full px-3 py-2 text-sm border border-slate-200 rounded-md focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none"
+                      required
+                    />
+                    <Button
+                      type="submit"
+                      disabled={isVerifying || !email.trim()}
+                      size="sm"
+                      className="w-full bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+                    >
+                      {isVerifying ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Verifying...
+                        </>
+                      ) : (
+                        <>
+                          <Mail className="mr-2 h-4 w-4" />
+                          Sign In
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </div>
+              ) : (
+                <div className="border border-slate-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-medium text-slate-900">Signed in as:</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={handleChangeEmail}
+                      className="text-xs"
+                    >
+                      Change
+                    </Button>
+                  </div>
+                  <p className="text-sm text-slate-600 truncate">{userEmail}</p>
+                </div>
+              )}
+
+              {/* Purchased Workflows */}
+              <div>
+                <h3 className="font-medium text-slate-900 mb-3">
+                  Your Workflows ({purchasedWorkflows.length})
+                </h3>
+                
+                {purchasedWorkflowDetails.length > 0 ? (
+                  <div className="space-y-2 max-h-60 overflow-y-auto">
+                    {purchasedWorkflowDetails.map((workflow) => (
+                      <div key={workflow!.id} className="flex items-center justify-between p-2 bg-slate-50 rounded-md">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-slate-900 truncate">
+                            {workflow!.title}
+                          </p>
+                          <div className="flex items-center gap-2 mt-1">
+                            {workflow!.isFree ? (
+                              <Badge className="bg-green-100 text-green-700 text-xs">
+                                Free
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-xs">
+                                ${workflow!.price}
+                              </Badge>
+                            )}
+                            <Check className="h-3 w-3 text-green-600" />
+                          </div>
+                        </div>
+                        <Link href={`/workflows/${workflow!.id}`}>
+                          <Button variant="ghost" size="sm" className="text-xs">
+                            View
+                          </Button>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-slate-600 text-center py-4">
+                    {userEmail ? 'No workflows purchased yet' : 'Sign in to see your workflows'}
+                  </p>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="border-t border-slate-200 pt-4">
+                <Link href="/workflows" onClick={() => setIsCartOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full">
+                    Browse More Workflows
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Backdrop for cart panel */}
+      {isCartOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-40"
+          onClick={() => setIsCartOpen(false)}
+        />
       )}
     </header>
   );
