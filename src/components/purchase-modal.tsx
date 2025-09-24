@@ -113,60 +113,60 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-white shadow-2xl">
-        <CardHeader className="relative">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-lg bg-white shadow-xl border-slate-200 rounded-xl">
+        <CardHeader className="relative pb-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="absolute right-2 top-2 h-8 w-8 p-0"
+            className="absolute right-3 top-3 h-8 w-8 p-0 hover:bg-slate-100"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 text-slate-500" />
           </Button>
           
           {step === 'checkout' && (
             <>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-slate-900 text-xl">
                 {workflow.isFree ? (
                   <Download className="h-5 w-5 text-green-600" />
                 ) : (
-                  <ShoppingCart className="h-5 w-5 text-blue-600" />
+                  <ShoppingCart className="h-5 w-5 text-slate-700" />
                 )}
                 {workflow.isFree ? 'Download Workflow' : 'Purchase Workflow'}
               </CardTitle>
-              <CardDescription>{workflow.title}</CardDescription>
+              <CardDescription className="text-slate-600">{workflow.title}</CardDescription>
             </>
           )}
 
           {step === 'processing' && (
             <>
-              <CardTitle className="flex items-center gap-2">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+              <CardTitle className="flex items-center gap-2 text-slate-900 text-xl">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-slate-700"></div>
                 Processing...
               </CardTitle>
-              <CardDescription>Please wait while we process your purchase</CardDescription>
+              <CardDescription className="text-slate-600">Please wait while we process your purchase</CardDescription>
             </>
           )}
 
           {step === 'success' && (
             <>
-              <CardTitle className="flex items-center gap-2 text-green-600">
+              <CardTitle className="flex items-center gap-2 text-green-600 text-xl">
                 <Check className="h-5 w-5" />
                 Purchase Complete!
               </CardTitle>
-              <CardDescription>Your workflow is ready to download</CardDescription>
+              <CardDescription className="text-slate-600">Your workflow is ready to download</CardDescription>
             </>
           )}
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6 pt-2">
           {step === 'checkout' && (
             <>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">{workflow.title}</span>
-                  <span className="font-medium">
+                  <span className="text-sm text-slate-600">{workflow.title}</span>
+                  <span className="font-semibold text-slate-900">
                     {workflow.isFree ? 'Free' : `$${workflow.price}`}
                   </span>
                 </div>
@@ -174,11 +174,11 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                 {!workflow.isFree && (
                   <>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Processing fee</span>
-                      <span>$0.00</span>
+                      <span className="text-slate-500">Processing fee</span>
+                      <span className="text-slate-700">$0.00</span>
                     </div>
-                    <hr className="border-gray-200" />
-                    <div className="flex items-center justify-between font-medium">
+                    <hr className="border-slate-200" />
+                    <div className="flex items-center justify-between font-semibold text-slate-900">
                       <span>Total</span>
                       <span>${workflow.price}</span>
                     </div>
@@ -186,24 +186,24 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                 )}
               </div>
 
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-900">What&apos;s included:</h4>
-                <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-900">What&apos;s included:</h4>
+                <ul className="space-y-3 text-sm text-slate-600">
+                  <li className="flex items-center gap-3">
+                    <FileText className="h-4 w-4 text-slate-500" />
                     Complete N8N workflow JSON file
                   </li>
-                  <li className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
+                  <li className="flex items-center gap-3">
+                    <FileText className="h-4 w-4 text-slate-500" />
                     Setup documentation
                   </li>
-                  <li className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
+                  <li className="flex items-center gap-3">
+                    <FileText className="h-4 w-4 text-slate-500" />
                     Integration guides
                   </li>
                   {!workflow.isFree && (
-                    <li className="flex items-center gap-2">
-                      <FileText className="h-4 w-4" />
+                    <li className="flex items-center gap-3">
+                      <FileText className="h-4 w-4 text-slate-500" />
                       Email support for 30 days
                     </li>
                   )}
@@ -214,7 +214,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                 <Button
                   onClick={handlePurchase}
                   disabled={isProcessing}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors"
                   size="lg"
                 >
                   <Download className="mr-2 h-4 w-4" />
@@ -222,12 +222,12 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                 </Button>
               ) : (
                 <>
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                    <div className="flex items-center gap-2 text-blue-800 text-sm">
-                      <Lock className="h-4 w-4" />
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                    <div className="flex items-center gap-2 text-slate-800 text-sm">
+                      <Lock className="h-4 w-4 text-slate-600" />
                       <span className="font-medium">Secure Payment</span>
                     </div>
-                    <p className="text-xs text-blue-700 mt-1">
+                    <p className="text-xs text-slate-600 mt-1">
                       Your payment is processed securely. We never store your payment information.
                     </p>
                   </div>
@@ -235,7 +235,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                   <Button
                     onClick={handlePurchase}
                     disabled={isProcessing}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full bg-slate-900 hover:bg-slate-800 text-white transition-colors"
                     size="lg"
                   >
                     <CreditCard className="mr-2 h-4 w-4" />
@@ -244,7 +244,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                 </>
               )}
 
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-slate-500 text-center">
                 By {workflow.isFree ? 'downloading' : 'purchasing'}, you agree to our Terms of Service and Privacy Policy
               </p>
             </>
@@ -252,8 +252,8 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
 
           {step === 'processing' && (
             <div className="py-8 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-700 mx-auto mb-4"></div>
+              <p className="text-slate-600">
                 {workflow.isFree ? 'Preparing your download...' : 'Processing your payment...'}
               </p>
             </div>
@@ -263,7 +263,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
             <div className="space-y-4">
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
                 <Check className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                <h3 className="font-medium text-green-800 mb-1">
+                <h3 className="font-semibold text-green-800 mb-1">
                   {workflow.isFree ? 'Download Ready!' : 'Payment Successful!'}
                 </h3>
                 <p className="text-sm text-green-700">
@@ -273,7 +273,7 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
 
               <Button
                 onClick={handleDownload}
-                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                className="w-full bg-green-600 hover:bg-green-700 text-white transition-colors"
                 size="lg"
               >
                 <Download className="mr-2 h-4 w-4" />
@@ -281,10 +281,10 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
               </Button>
 
               <div className="text-center space-y-2">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-600">
                   Need help with setup?
                 </p>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="border-slate-200 text-slate-700 hover:bg-slate-50">
                   View Documentation
                 </Button>
               </div>
