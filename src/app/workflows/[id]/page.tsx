@@ -18,14 +18,15 @@ export default function WorkflowDetailPage() {
   const workflow = workflows.find(w => w.id === workflowId);
   const [activeTab, setActiveTab] = useState("overview");
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const { isPurchased, addPurchase } = usePurchase();
+  const { isPurchased, refreshPurchases } = usePurchase();
 
   const handlePurchaseClick = () => {
     setShowPurchaseModal(true);
   };
 
-  const handlePurchaseComplete = (workflowId: number) => {
-    addPurchase(workflowId);
+  const handlePurchaseComplete = async (workflowId: number) => {
+    // Refresh purchases from server to get the latest state
+    await refreshPurchases();
     setShowPurchaseModal(false);
   };
 

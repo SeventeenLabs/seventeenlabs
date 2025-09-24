@@ -3,49 +3,123 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface PurchaseContextType {
+  userEmail: string | null;
   purchasedWorkflows: number[];
+  isLoaded: boolean;
   isPurchased: (workflowId: number) => boolean;
-  addPurchase: (workflowId: number) => void;
+  setUserEmail: (email: string) => void;
+  verifyPurchase: (workflowId: number) => Promise<boolean>;
+  refreshPurchases: () => Promise<void>;
 }
 
 const PurchaseContext = createContext<PurchaseContextType | undefined>(undefined);
 
 export function PurchaseProvider({ children }: { children: ReactNode }) {
+  const [userEmail, setUserEmailState] = useState<string | null>(null);
   const [purchasedWorkflows, setPurchasedWorkflows] = useState<number[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load purchases from localStorage on mount
+  // Load user email from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem('purchased_workflows');
-    if (stored) {
-      try {
-        setPurchasedWorkflows(JSON.parse(stored));
-      } catch (error) {
-        console.error('Error loading purchased workflows:', error);
-        setPurchasedWorkflows([]);
-      }
+    const storedEmail = localStorage.getItem('user_email');
+    if (storedEmail) {
+      setUserEmailState(storedEmail);
+      // Auto-refresh purchases when email is loaded
+      refreshPurchasesForEmail(storedEmail);
+    } else {
+      setIsLoaded(true);
     }
-    setIsLoaded(true);
   }, []);
 
+  const refreshPurchasesForEmail = async (email: string) => {
+    if (!email) return;
+
+    try {
+      const response = await fetch('/api/verify-purchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'list-purchases',
+          email: email,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const workflowIds = data.purchases.map((p: any) => p.workflowId);
+        setPurchasedWorkflows(workflowIds);
+      }
+    } catch (error) {
+      console.error('Error fetching purchases:', error);
+    } finally {
+      setIsLoaded(true);
+    }
+  };
+
+  const setUserEmail = (email: string) => {
+    setUserEmailState(email);
+    localStorage.setItem('user_email', email);
+    // Reset purchases and reload for new email
+    setPurchasedWorkflows([]);
+    setIsLoaded(false);
+    refreshPurchasesForEmail(email);
+  };
+
+  const verifyPurchase = async (workflowId: number): Promise<boolean> => {
+    if (!userEmail) return false;
+
+    try {
+      const response = await fetch('/api/verify-purchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'verify-purchase',
+          email: userEmail,
+          workflowId,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Update local state if purchase is confirmed
+        if (data.hasPurchased && !purchasedWorkflows.includes(workflowId)) {
+          setPurchasedWorkflows(prev => [...prev, workflowId]);
+        }
+        
+        return data.hasPurchased;
+      }
+    } catch (error) {
+      console.error('Error verifying purchase:', error);
+    }
+
+    return false;
+  };
+
+  const refreshPurchases = async () => {
+    if (!userEmail) return;
+    await refreshPurchasesForEmail(userEmail);
+  };
+
   const isPurchased = (workflowId: number): boolean => {
-    if (!isLoaded) return false;
+    if (!isLoaded || !userEmail) return false;
     return purchasedWorkflows.includes(workflowId);
   };
 
-  const addPurchase = (workflowId: number) => {
-    setPurchasedWorkflows(prev => {
-      if (prev.includes(workflowId)) return prev;
-      const updated = [...prev, workflowId];
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('purchased_workflows', JSON.stringify(updated));
-      }
-      return updated;
-    });
-  };
-
   return (
-    <PurchaseContext.Provider value={{ purchasedWorkflows, isPurchased, addPurchase }}>
+    <PurchaseContext.Provider value={{ 
+      userEmail,
+      purchasedWorkflows, 
+      isLoaded,
+      isPurchased, 
+      setUserEmail,
+      verifyPurchase,
+      refreshPurchases
+    }}>
       {children}
     </PurchaseContext.Provider>
   );

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { workflows } from "@/lib/workflows-data";
 import { usePurchase } from "@/contexts/purchase-context";
+import EmailVerification from "@/components/email-verification";
 
 const categories = [
   "All Workflows",
@@ -34,7 +35,7 @@ const integrations = [
 export default function WorkflowsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Workflows");
-  const { isPurchased } = usePurchase();
+  const { isPurchased, userEmail } = usePurchase();
   
   // Check if we're on a workflows subdomain
   const isWorkflowsSubdomain = typeof window !== 'undefined' && /^workflows\./i.test(window.location.host);
@@ -84,6 +85,9 @@ export default function WorkflowsPage() {
             {workflows.length} workflow templates available
           </div>
         </div>
+
+        {/* Email Verification */}
+        <EmailVerification />
 
         {/* Search */}
         <div className="mb-8">

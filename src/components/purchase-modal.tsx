@@ -24,12 +24,13 @@ interface PurchaseModalProps {
 // Stripe payment form component
 function PaymentForm({ workflow, onSuccess, onError }: {
   workflow: PurchaseModalProps['workflow'];
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId: string) => void;
   onError: (error: string) => void;
 }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [email, setEmail] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -38,23 +39,54 @@ function PaymentForm({ workflow, onSuccess, onError }: {
       return;
     }
 
+    if (!email.trim()) {
+      onError('Please enter your email address');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      onError('Please enter a valid email address');
+      return;
+    }
+
     setIsProcessing(true);
 
     try {
-      // Create payment intent
+      // First check if user has already purchased this workflow
+      const verifyResponse = await fetch('/api/verify-purchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'verify-purchase',
+          email: email.trim(),
+          workflowId: workflow.id,
+        }),
+      });
+
+      const verifyData = await verifyResponse.json();
+      
+      if (verifyData.hasPurchased) {
+        onSuccess('already_purchased');
+        setIsProcessing(false);
+        return;
+      }
+
+      // Create payment intent using workflow ID
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: workflow.price,
           workflowId: workflow.id,
-          workflowTitle: workflow.title,
         }),
       });
 
-      const { clientSecret, error: intentError } = await response.json();
+      const { clientSecret, workflow: workflowData, error: intentError } = await response.json();
 
       if (intentError) {
         onError(intentError);
@@ -62,18 +94,40 @@ function PaymentForm({ workflow, onSuccess, onError }: {
         return;
       }
 
+      // Log sync status for debugging
+      if (workflowData && !workflowData.syncedWithStripe) {
+        console.warn('⚠️ Workflow not synced with Stripe products. Using fallback pricing.');
+      }
+
       // Confirm payment
       const cardElement = elements.getElement(CardElement);
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardElement!,
+          billing_details: {
+            email: email.trim(),
+          },
         },
       });
 
       if (error) {
         onError(error.message || 'Payment failed');
       } else if (paymentIntent?.status === 'succeeded') {
-        onSuccess();
+        // Confirm the purchase in our database
+        await fetch('/api/verify-purchase', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'confirm-purchase',
+            email: email.trim(),
+            workflowId: workflow.id,
+            paymentIntentId: paymentIntent.id,
+          }),
+        });
+
+        onSuccess(paymentIntent.id);
       }
     } catch (error) {
       onError('Payment failed. Please try again.');
@@ -84,21 +138,44 @@ function PaymentForm({ workflow, onSuccess, onError }: {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="p-4 border border-slate-200 rounded-lg">
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: '16px',
-                color: '#334155',
-                fontFamily: 'system-ui, sans-serif',
-                '::placeholder': {
-                  color: '#94a3b8',
+      <div className="space-y-2">
+        <label htmlFor="email" className="text-sm font-medium text-slate-700">
+          Email Address
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none"
+          required
+        />
+        <p className="text-xs text-slate-500">
+          We'll use this to verify your purchase and send download links
+        </p>
+      </div>
+      
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-slate-700">
+          Payment Information
+        </label>
+        <div className="p-4 border border-slate-200 rounded-lg">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#334155',
+                  fontFamily: 'system-ui, sans-serif',
+                  '::placeholder': {
+                    color: '#94a3b8',
+                  },
                 },
               },
-            },
-          }}
-        />
+            }}
+          />
+        </div>
       </div>
       
       <Button
@@ -149,13 +226,20 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
     onPurchaseComplete(workflow.id);
   };
 
-  const handlePaymentSuccess = () => {
-    // Store purchase in localStorage
-    const purchases = JSON.parse(localStorage.getItem('purchased_workflows') || '[]');
-    if (!purchases.includes(workflow.id)) {
-      purchases.push(workflow.id);
-      localStorage.setItem('purchased_workflows', JSON.stringify(purchases));
+  const handlePaymentSuccess = (paymentIntentId: string) => {
+    if (paymentIntentId === 'already_purchased') {
+      // User already owns this workflow
+      setStep('success');
+      onPurchaseComplete(workflow.id);
+      return;
     }
+
+    // Store purchase info temporarily for download
+    sessionStorage.setItem('recent_purchase', JSON.stringify({
+      workflowId: workflow.id,
+      paymentIntentId,
+      timestamp: Date.now()
+    }));
 
     setStep('success');
     onPurchaseComplete(workflow.id);

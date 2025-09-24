@@ -16,6 +16,8 @@ export interface Workflow {
   videoUrl?: string;
   mermaidChart?: string;
   previewChart?: string; // Obfuscated version for paid workflows
+  stripeProductId?: string;
+  stripePriceId?: string;
 }
 
 export const workflows: Workflow[] = [
