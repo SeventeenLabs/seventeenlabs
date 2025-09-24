@@ -159,7 +159,7 @@ export default function WorkflowDetailPage() {
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
           <h1 className="text-2xl font-semibold text-slate-900 mb-4">Error loading workflow</h1>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Link href="/workflows">
+          <Link href="/">
             <Button variant="outline">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Workflows
@@ -175,7 +175,7 @@ export default function WorkflowDetailPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl font-semibold text-slate-900 mb-4">Workflow not found</h1>
-          <Link href="/workflows">
+          <Link href="/">
             <Button variant="outline">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Workflows
@@ -200,7 +200,7 @@ export default function WorkflowDetailPage() {
       <div className="max-w-6xl mx-auto">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href="/workflows">
+          <Link href="/">
             <Button variant="outline" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Workflows

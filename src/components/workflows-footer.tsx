@@ -42,27 +42,27 @@ export default function WorkflowsFooter() {
             <h4 className="text-sm font-semibold">Browse</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/workflows" className="hover:text-foreground transition-colors">
+                <Link href="/" className="hover:text-foreground transition-colors">
                   All Workflows
                 </Link>
               </li>
               <li>
-                <Link href="/workflows?category=Free" className="hover:text-foreground transition-colors">
+                <Link href="/?category=Free" className="hover:text-foreground transition-colors">
                   Free Templates
                 </Link>
               </li>
               <li>
-                <Link href="/workflows?category=Premium" className="hover:text-foreground transition-colors">
+                <Link href="/?category=Premium" className="hover:text-foreground transition-colors">
                   Premium Templates
                 </Link>
               </li>
               <li>
-                <Link href="/workflows?category=Sales%20%26%20CRM" className="hover:text-foreground transition-colors">
+                <Link href="/?category=Sales%20%26%20CRM" className="hover:text-foreground transition-colors">
                   Sales & CRM
                 </Link>
               </li>
               <li>
-                <Link href="/workflows?category=Marketing" className="hover:text-foreground transition-colors">
+                <Link href="/?category=Marketing" className="hover:text-foreground transition-colors">
                   Marketing
                 </Link>
               </li>
@@ -85,7 +85,7 @@ export default function WorkflowsFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/workflows?category=Data%20Processing" className="hover:text-foreground transition-colors">
+                <Link href="/?category=Data%20Processing" className="hover:text-foreground transition-colors">
                   Custom Workflows
                 </Link>
               </li>

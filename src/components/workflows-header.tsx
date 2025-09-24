@@ -54,7 +54,7 @@ export default function WorkflowsHeader() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link className="flex items-center" href="/workflows">
+          <Link className="flex items-center" href="/">
             <div className="relative flex items-baseline">
               <span className="font-bold text-base">SeventeenLabs</span>
               <span className="font-mono text-xs text-blue-900 ml-1 -translate-y-2">
@@ -67,19 +67,19 @@ export default function WorkflowsHeader() {
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             <Link
               className="transition-colors hover:text-foreground/80 text-foreground"
-              href="/workflows"
+              href="/"
             >
               Browse
             </Link>
             <Link
               className="transition-colors hover:text-foreground/80 text-foreground/60"
-              href="/workflows?category=Free"
+              href="/?category=Free"
             >
               Free
             </Link>
             <Link
               className="transition-colors hover:text-foreground/80 text-foreground/60"
-              href="/workflows?category=Premium"
+              href="/?category=Premium"
             >
               Premium
             </Link>
@@ -100,12 +100,6 @@ export default function WorkflowsHeader() {
 
             {/* Desktop actions */}
             <div className="hidden md:flex items-center space-x-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/">
-                  <User className="h-4 w-4 mr-2" />
-                  Agency
-                </Link>
-              </Button>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -132,35 +126,25 @@ export default function WorkflowsHeader() {
             <nav className="flex flex-col space-y-1 py-4">
               <Link
                 className="px-3 py-2 text-sm font-medium transition-colors hover:bg-accent rounded-md"
-                href="/workflows"
+                href="/"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Browse All
               </Link>
               <Link
                 className="px-3 py-2 text-sm font-medium transition-colors hover:bg-accent rounded-md text-muted-foreground"
-                href="/workflows?category=Free"
+                href="/?category=Free"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Free Workflows
               </Link>
               <Link
                 className="px-3 py-2 text-sm font-medium transition-colors hover:bg-accent rounded-md text-muted-foreground"
-                href="/workflows?category=Premium"
+                href="/?category=Premium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Premium
               </Link>
-              <div className="border-t pt-2 mt-2">
-                <Link
-                  className="px-3 py-2 text-sm font-medium transition-colors hover:bg-accent rounded-md text-muted-foreground flex items-center"
-                  href="/"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Back to Agency
-                </Link>
-              </div>
             </nav>
           </div>
         </div>
@@ -270,7 +254,7 @@ export default function WorkflowsHeader() {
                             <Check className="h-3 w-3 text-green-600" />
                           </div>
                         </div>
-                        <Link href={`/workflows/${workflow!.id}`}>
+                        <Link href={`//${workflow!.id}`}>
                           <Button variant="ghost" size="sm" className="text-xs">
                             View
                           </Button>
@@ -287,7 +271,7 @@ export default function WorkflowsHeader() {
 
               {/* Actions */}
               <div className="border-t border-slate-200 pt-4">
-                <Link href="/workflows" onClick={() => setIsCartOpen(false)}>
+                <Link href="/" onClick={() => setIsCartOpen(false)}>
                   <Button variant="outline" size="sm" className="w-full">
                     Browse More Workflows
                   </Button>
