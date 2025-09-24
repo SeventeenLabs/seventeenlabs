@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getN8nClient, checkN8nConnection } from '@/lib/n8n-api';
-import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/workflow-db';
+import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows/fetch-n8n - Fetch workflows from n8n with SeventeenLabs_Workflow tag
 export async function GET(request: NextRequest) {
@@ -170,7 +170,7 @@ export async function POST(request: NextRequest) {
 
         if (existing) {
           // Update existing workflow
-          const updated = updateWorkflow(existing.id, {
+          const updated = await updateWorkflow(existing.id, {
             ...n8nWorkflow,
             updatedAt: new Date().toISOString()
           });
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
           }
         } else {
           // Create new workflow
-          const created = addWorkflow({
+          const created = await addWorkflow({
             title: n8nWorkflow.title || 'Untitled Workflow',
             description: n8nWorkflow.description || `Automated workflow from n8n`,
             longDescription: n8nWorkflow.longDescription,

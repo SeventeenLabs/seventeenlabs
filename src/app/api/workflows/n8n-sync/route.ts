@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllWorkflows, addWorkflow, updateWorkflow, getWorkflowById } from '@/lib/workflow-db';
+import { getAllWorkflows, addWorkflow, updateWorkflow, getWorkflowByN8nId } from '@/lib/supabase-workflow-db';
 
 // Type for n8n workflow data
 interface N8nWorkflow {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getN8nClient, checkN8nConnection } from '@/lib/n8n-api';
-import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/workflow-db';
+import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/supabase-workflow-db';
 
 export async function POST(request: NextRequest) {
   try {

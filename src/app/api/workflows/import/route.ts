@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bulkImportWorkflows } from '@/lib/workflow-db';
+import { bulkImportWorkflows } from '@/lib/supabase-workflow-db';
 
 // POST /api/workflows/import - Bulk import workflows (admin only)
 export async function POST(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const importedWorkflows = bulkImportWorkflows(workflows);
+    const importedWorkflows = await bulkImportWorkflows(workflows);
     
     return NextResponse.json({
       success: true,

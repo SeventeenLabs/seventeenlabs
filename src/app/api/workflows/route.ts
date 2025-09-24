@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllWorkflows, getWorkflowById, addWorkflow, searchWorkflows, getWorkflowsByCategory, getPopularWorkflows, getHighlyRatedWorkflows } from '@/lib/workflow-db';
+import { getAllWorkflows, getWorkflowById, addWorkflow, searchWorkflows, getWorkflowsByCategory } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows - Get all workflows with optional filtering
 export async function GET(request: NextRequest) {
@@ -14,16 +14,24 @@ export async function GET(request: NextRequest) {
     let workflows;
     
     if (search) {
-      workflows = searchWorkflows(search);
+      workflows = await searchWorkflows(search);
     } else if (category && category !== 'All Workflows') {
-      workflows = getWorkflowsByCategory(category);
-    } else if (popular === 'true') {
-      workflows = getPopularWorkflows(limit ? parseInt(limit) : 10);
-    } else if (highly_rated === 'true') {
-      const minRating = parseFloat(searchParams.get('min_rating') || '4.5');
-      workflows = getHighlyRatedWorkflows(minRating, limit ? parseInt(limit) : 10);
+      workflows = await getWorkflowsByCategory(category);
     } else {
-      workflows = getAllWorkflows(true); // Only active workflows
+      workflows = await getAllWorkflows(true); // Only active workflows
+      
+      // Apply additional filters
+      if (popular === 'true') {
+        workflows = workflows
+          .sort((a, b) => b.users - a.users)
+          .slice(0, limit ? parseInt(limit) : 10);
+      } else if (highly_rated === 'true') {
+        const minRating = parseFloat(searchParams.get('min_rating') || '4.5');
+        workflows = workflows
+          .filter(w => w.rating >= minRating)
+          .sort((a, b) => b.rating - a.rating)
+          .slice(0, limit ? parseInt(limit) : 10);
+      }
     }
     
     return NextResponse.json({
@@ -68,7 +76,14 @@ export async function POST(request: NextRequest) {
       tags: workflowData.tags || []
     };
     
-    const newWorkflow = addWorkflow(workflowToAdd);
+    const newWorkflow = await addWorkflow(workflowToAdd);
+    
+    if (!newWorkflow) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to create workflow' },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json({
       success: true,

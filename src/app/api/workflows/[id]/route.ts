@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getWorkflowById, updateWorkflow, deleteWorkflow } from '@/lib/workflow-db';
+import { getWorkflowById, updateWorkflow, deleteWorkflow } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows/[id] - Get workflow by ID
 export async function GET(
@@ -17,7 +17,7 @@ export async function GET(
       );
     }
     
-    const workflow = getWorkflowById(id);
+    const workflow = await getWorkflowById(id);
     
     if (!workflow) {
       return NextResponse.json(
@@ -63,11 +63,11 @@ export async function PUT(
       updateData.isFree = updateData.price === 0;
     }
     
-    const updatedWorkflow = updateWorkflow(id, updateData);
+    const updatedWorkflow = await updateWorkflow(id, updateData);
     
     if (!updatedWorkflow) {
       return NextResponse.json(
-        { success: false, error: 'Workflow not found' },
+        { success: false, error: 'Workflow not found or failed to update' },
         { status: 404 }
       );
     }
@@ -108,11 +108,11 @@ export async function DELETE(
     let success;
     if (hard) {
       // Hard delete - remove from database completely
-      const { hardDeleteWorkflow } = await import('@/lib/workflow-db');
-      success = hardDeleteWorkflow(id);
+      const { hardDeleteWorkflow } = await import('@/lib/supabase-workflow-db');
+      success = await hardDeleteWorkflow(id);
     } else {
       // Soft delete - set isActive to false
-      success = deleteWorkflow(id);
+      success = await deleteWorkflow(id);
     }
     
     if (!success) {
