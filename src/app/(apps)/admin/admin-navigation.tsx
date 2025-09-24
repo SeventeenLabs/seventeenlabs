@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Settings, Database, BarChart3 } from "lucide-react";
+import { Settings, Database, BarChart3, Home } from "lucide-react";
 
 const adminNavItems = [
+  {
+    href: "/admin",
+    label: "Dashboard",
+    icon: Home,
+    description: "Overview and quick actions"
+  },
   {
     href: "/admin/workflows",
     label: "Workflows",

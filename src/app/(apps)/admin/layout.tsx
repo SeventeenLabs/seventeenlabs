@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AdminNavigation from "./admin-navigation";
+import AdminAuth from "@/components/admin-auth";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard - SeventeenLabs",
@@ -13,17 +14,19 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="flex">
-        <AdminNavigation />
-        <main className="flex-1">
-          <div className="p-8">
-            <div className="max-w-7xl mx-auto">
-              {children}
+    <AdminAuth>
+      <div className="min-h-screen bg-gray-50">
+        <div className="flex">
+          <AdminNavigation />
+          <main className="flex-1">
+            <div className="p-8">
+              <div className="max-w-7xl mx-auto">
+                {children}
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </AdminAuth>
   );
 }
