@@ -223,7 +223,7 @@ export async function addWorkflow(workflowData: Omit<WorkflowData, 'id' | 'creat
         preview_chart: workflowData.previewChart || null,
         n8n_id: workflowData.n8nId || null,
         n8n_version_id: workflowData.n8nVersionId || null,
-        n8n_json_url: null, // Will be updated below if needed
+        n8n_json_url: workflowData.n8nJsonUrl || null, // Handle direct n8nJsonUrl
         last_sync_at: workflowData.lastSyncAt || null,
         author: workflowData.author || 'SeventeenLabs',
         version: workflowData.version || '1.0',
@@ -294,6 +294,7 @@ export async function updateWorkflow(id: number, updates: Partial<Omit<WorkflowD
     if (updates.previewChart !== undefined) updateData.preview_chart = updates.previewChart;
     if (updates.n8nId !== undefined) updateData.n8n_id = updates.n8nId;
     if (updates.n8nVersionId !== undefined) updateData.n8n_version_id = updates.n8nVersionId;
+    if (updates.n8nJsonUrl !== undefined) updateData.n8n_json_url = updates.n8nJsonUrl;
     if (updates.lastSyncAt !== undefined) updateData.last_sync_at = updates.lastSyncAt;
     if (updates.author !== undefined) updateData.author = updates.author;
     if (updates.version !== undefined) updateData.version = updates.version;

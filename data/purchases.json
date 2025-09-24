@@ -1,2 +1,18 @@
 [
+  {
+    "workflowId": 4,
+    "userEmail": "christian.lutz.privat@gmail.com",
+    "stripePaymentIntentId": "pi_3SAscLHtRW1kUhEp0K7SWivK",
+    "stripeCustomerId": null,
+    "amount": 1900,
+    "currency": "usd",
+    "status": "completed",
+    "metadata": {
+      "syncedWithStripe": "false",
+      "workflowId": "4",
+      "workflowTitle": "Invoice Generation & Tracking"
+    },
+    "id": "df2aea70-ef3b-4aa9-a14d-3532aa214a58",
+    "purchaseDate": "2025-09-24T13:20:20.923Z"
+  }
 ]

@@ -36,6 +36,35 @@ export async function uploadWorkflowJson(workflowId: number, jsonData: any): Pro
 }
 
 /**
+ * Upload a workflow JSON file with a custom filename to Supabase Storage
+ */
+export async function uploadWorkflowJsonWithFilename(fileName: string, jsonContent: string): Promise<string | null> {
+  try {
+    const { data, error } = await supabaseAdmin.storage
+      .from(WORKFLOW_FILES_BUCKET)
+      .upload(fileName, jsonContent, {
+        contentType: 'application/json',
+        upsert: false
+      });
+
+    if (error) {
+      console.error('Error uploading workflow JSON:', error);
+      return null;
+    }
+
+    // Get the public URL for the uploaded file
+    const { data: { publicUrl } } = supabaseAdmin.storage
+      .from(WORKFLOW_FILES_BUCKET)
+      .getPublicUrl(fileName);
+
+    return publicUrl;
+  } catch (error) {
+    console.error('Error uploading workflow JSON:', error);
+    return null;
+  }
+}
+
+/**
  * Update an existing workflow JSON file in Supabase Storage
  */
 export async function updateWorkflowJson(currentJsonUrl: string, jsonData: any): Promise<string | null> {

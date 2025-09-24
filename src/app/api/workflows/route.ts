@@ -73,8 +73,15 @@ export async function POST(request: NextRequest) {
       isFree: workflowData.price === 0,
       features: workflowData.features || [],
       requirements: workflowData.requirements || [],
-      tags: workflowData.tags || []
+      tags: workflowData.tags || [],
+      // Ensure n8nJsonUrl is passed through if provided
+      n8nJsonUrl: workflowData.n8nJsonUrl || undefined
     };
+    
+    console.log('Creating workflow with data:', { 
+      title: workflowToAdd.title, 
+      n8nJsonUrl: workflowToAdd.n8nJsonUrl 
+    });
     
     const newWorkflow = await addWorkflow(workflowToAdd);
     
