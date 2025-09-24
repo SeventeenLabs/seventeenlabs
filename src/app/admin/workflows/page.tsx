@@ -15,7 +15,6 @@ import {
   RefreshCw, 
   Loader2, 
   Search,
-  Users,
   Star,
   DollarSign,
   FileText,
@@ -206,7 +205,7 @@ export default function AdminWorkflowsPage() {
     setIsSubmitting(true);
 
     try {
-      let workflowData: any = {
+      const workflowData: any = {
         ...formData,
         isFree: formData.price === 0
       };

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle, Lock, Loader2, AlertCircle } from "lucide-react";
+import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Code, CheckCircle, Lock, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -129,7 +129,7 @@ export default function WorkflowDetailPage() {
   }
 };
 
-  const handlePurchaseComplete = async (workflowId: number) => {
+  const handlePurchaseComplete = async () => {
     // Refresh purchases from server to get the latest state
     await refreshPurchases();
     setShowPurchaseModal(false);
