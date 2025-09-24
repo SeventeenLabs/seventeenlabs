@@ -24,30 +24,47 @@ export default function WorkflowDetailPage() {
     setShowPurchaseModal(true);
   };
 
-  const handleDirectDownload = () => {
+  const handleDirectDownload = async () => {
     if (!workflow) return;
 
-    // Use the actual n8n workflow data if available, otherwise create a basic structure
-    let downloadContent;
-    
-    if (workflow.n8nData) {
-      // Use the real n8n workflow format
-      downloadContent = {
-        name: workflow.title,
-        nodes: workflow.n8nData.nodes,
-        connections: workflow.n8nData.connections,
-        active: false,
-        settings: workflow.n8nData.settings || {},
-        staticData: workflow.n8nData.staticData || {},
-        pinData: workflow.n8nData.pinData || {},
-        versionId: workflow.n8nVersionId || undefined,
-        meta: {
-          templateCredsSetupCompleted: false,
-          instanceId: undefined
-        },
-        id: workflow.n8nId || undefined,
-        tags: []
-      };
+    try {
+      // If we have a direct n8n JSON URL, use that instead of generating content
+      if (workflow.n8nJsonUrl) {
+        // Fetch the file and create a blob to force download
+        const response = await fetch(workflow.n8nJsonUrl);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${workflow.title.toLowerCase().replace(/\s+/g, '-')}-workflow.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        return;
+      }
+
+      // Fallback: Generate content if no direct URL available
+      let downloadContent;
+      
+      if (workflow.n8nData) {
+        // Use the real n8n workflow format
+        downloadContent = {
+          name: workflow.title,
+          nodes: workflow.n8nData.nodes,
+          connections: workflow.n8nData.connections,
+          active: false,
+          settings: workflow.n8nData.settings || {},
+          staticData: workflow.n8nData.staticData || {},
+          pinData: workflow.n8nData.pinData || {},
+          versionId: workflow.n8nVersionId || undefined,
+          meta: {
+            templateCredsSetupCompleted: false,
+            instanceId: undefined
+          },
+          id: workflow.n8nId || undefined,
+          tags: []
+        };
     } else {
       // Fallback for workflows without n8n data - create a minimal n8n structure
       downloadContent = {
@@ -106,7 +123,11 @@ export default function WorkflowDetailPage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  };
+  } catch (error) {
+    console.error('Error downloading workflow:', error);
+    alert('Failed to download workflow. Please try again.');
+  }
+};
 
   const handlePurchaseComplete = async (workflowId: number) => {
     // Refresh purchases from server to get the latest state

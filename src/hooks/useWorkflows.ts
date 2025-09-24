@@ -32,6 +32,7 @@ export interface WorkflowData {
   n8nId?: string;
   n8nVersionId?: string;
   lastSyncAt?: string;
+  n8nJsonUrl?: string;
   n8nData?: {
     nodes: any[];
     connections: any;

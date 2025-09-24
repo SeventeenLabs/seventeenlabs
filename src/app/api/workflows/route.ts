@@ -78,11 +78,6 @@ export async function POST(request: NextRequest) {
       n8nJsonUrl: workflowData.n8nJsonUrl || undefined
     };
     
-    console.log('Creating workflow with data:', { 
-      title: workflowToAdd.title, 
-      n8nJsonUrl: workflowToAdd.n8nJsonUrl 
-    });
-    
     const newWorkflow = await addWorkflow(workflowToAdd);
     
     if (!newWorkflow) {

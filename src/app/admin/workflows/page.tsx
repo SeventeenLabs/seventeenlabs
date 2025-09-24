@@ -21,7 +21,8 @@ import {
   FileText,
   Save,
   X,
-  Upload
+  Upload,
+  Download
 } from "lucide-react";
 
 interface WorkflowData {
@@ -741,10 +742,34 @@ export default function AdminWorkflowsPage() {
                       <span>Upload the workflow JSON file exported from n8n (optional)</span>
                     </div>
                     {editingWorkflow?.n8nJsonUrl && (
-                      <div className="text-sm text-blue-600">
-                        📎 Current file: <a href={editingWorkflow.n8nJsonUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                          {editingWorkflow.n8nJsonUrl.split('/').pop()}
-                        </a>
+                      <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded-lg border border-blue-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <FileText className="h-4 w-4" />
+                          <span className="font-medium">Current JSON file:</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <a 
+                            href={editingWorkflow.n8nJsonUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-blue-700 hover:underline text-sm break-all"
+                          >
+                            {editingWorkflow.n8nJsonUrl.split('/').pop()}
+                          </a>
+                          <Button 
+                            type="button"
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => window.open(editingWorkflow.n8nJsonUrl, '_blank')}
+                            className="ml-2 flex-shrink-0"
+                          >
+                            <Download className="h-3 w-3 mr-1" />
+                            View
+                          </Button>
+                        </div>
+                        <p className="text-xs text-blue-600 mt-2">
+                          Upload a new file to replace the current one
+                        </p>
                       </div>
                     )}
                     {workflowFile && (
