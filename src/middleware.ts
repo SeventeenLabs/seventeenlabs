@@ -1,7 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware() {
-  // Subdomain routing is handled by next.config.ts rewrites
+export function middleware(request: NextRequest) {
+  const hostname = request.headers.get("host") || "";
+  const pathname = request.nextUrl.pathname;
+  
+  // Handle workflows subdomain
+  if (hostname === "workflows.seventeenlabs.io") {
+    const url = request.nextUrl.clone();
+    url.pathname = `/workflows${pathname}`;
+    return NextResponse.rewrite(url);
+  }
+  
+  // Handle agency subdomain
+  if (hostname === "agency.seventeenlabs.io") {
+    const url = request.nextUrl.clone();
+    url.pathname = `/agency${pathname}`;
+    return NextResponse.rewrite(url);
+  }
+  
   return NextResponse.next();
 }
 
