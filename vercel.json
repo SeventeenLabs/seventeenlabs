@@ -1,6 +1,16 @@
 {
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "agency.seventeenlabs.io"
+        }
+      ],
+      "destination": "/agency"
+    },
+    {
       "source": "/(.*)",
       "has": [
         {
@@ -9,6 +19,16 @@
         }
       ],
       "destination": "/agency/$1"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host", 
+          "value": "workflows.seventeenlabs.io"
+        }
+      ],
+      "destination": "/workflows"
     },
     {
       "source": "/(.*)",
