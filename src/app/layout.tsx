@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import SiteHeader from "@/components/site-header";
-import { PurchaseProvider } from "@/contexts/purchase-context";
+import ConditionalHeader from "@/components/conditional-header";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -47,10 +46,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
       >
-        <PurchaseProvider>
-          <SiteHeader />
-          {children}
-        </PurchaseProvider>
+        <ConditionalHeader />
+        {children}
       </body>
     </html>
   );
