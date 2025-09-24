@@ -4,6 +4,17 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const pathname = request.nextUrl.pathname;
   
+  // Don't rewrite API routes, static files, or Next.js internal routes
+  if (
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/favicon.ico') ||
+    pathname.startsWith('/robots.txt') ||
+    pathname.startsWith('/sitemap.xml')
+  ) {
+    return NextResponse.next();
+  }
+  
   // Handle workflows subdomain
   if (hostname === "workflows.seventeenlabs.io") {
     const url = request.nextUrl.clone();
