@@ -60,18 +60,7 @@ const nextConfig: NextConfig = {
         destination: "https://agency.seventeenlabs.io/:path*",
         permanent: false,
       },
-      // Local testing redirect
-      {
-        source: "/agency/:path*",
-        has: [
-          {
-            type: "host",
-            value: "(?!agency\\.)localhost",
-          },
-        ],
-        destination: "http://agency.localhost:3000/:path*",
-        permanent: false,
-      },
+      // Only redirect workflows routes in production/live environments
       {
         source: "/workflows/:path*",
         has: [
@@ -81,18 +70,6 @@ const nextConfig: NextConfig = {
           },
         ],
         destination: "https://workflows.seventeenlabs.io/:path*",
-        permanent: false,
-      },
-      // Local testing redirect
-      {
-        source: "/workflows/:path*",
-        has: [
-          {
-            type: "host",
-            value: "(?!workflows\\.)localhost",
-          },
-        ],
-        destination: "http://workflows.localhost:3000/:path*",
         permanent: false,
       },
     ];
