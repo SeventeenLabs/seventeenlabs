@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Clock, Users, Star, Zap, Database, Mail, Calendar, ShoppingCart, MessageSquare, Check } from "lucide-react";
+import { Search, Clock, Users, Star, Zap, Database, Mail, Calendar, ShoppingCart, MessageSquare, Check, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { workflows } from "@/lib/workflows-data";
+import { useWorkflows } from "@/hooks/useWorkflows";
 import { usePurchase } from "@/contexts/purchase-context";
 
 const categories = [
@@ -34,7 +34,13 @@ const integrations = [
 export default function WorkflowsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Workflows");
-  const { isPurchased, userEmail } = usePurchase();
+  const { isPurchased } = usePurchase();
+  
+  // Fetch workflows from API based on current filters
+  const { workflows, loading, error } = useWorkflows({
+    search: searchTerm || undefined,
+    category: selectedCategory !== "All Workflows" ? selectedCategory : undefined
+  });
   
   // Check if we're on a workflows subdomain
   const isWorkflowsSubdomain = typeof window !== 'undefined' && /^workflows\./i.test(window.location.host);
@@ -44,20 +50,14 @@ export default function WorkflowsPage() {
     return isWorkflowsSubdomain ? `/${id}` : `/workflows/${id}`;
   };
 
+  // Filter workflows based on selected category
   const filteredWorkflows = workflows.filter(workflow => {
-    const matchesSearch = workflow.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         workflow.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    let matchesCategory = true;
     if (selectedCategory === "Free") {
-      matchesCategory = workflow.isFree;
+      return workflow.isFree;
     } else if (selectedCategory === "Premium") {
-      matchesCategory = !workflow.isFree;
-    } else if (selectedCategory !== "All Workflows") {
-      matchesCategory = workflow.category === selectedCategory;
+      return !workflow.isFree;
     }
-    
-    return matchesSearch && matchesCategory;
+    return true; // Search and category filtering already handled by API
   });
 
   const getDifficultyColor = (difficulty: string) => {
@@ -81,7 +81,7 @@ export default function WorkflowsPage() {
             Browse our collection of proven N8N workflows. Copy, customize, and deploy automation that works.
           </p>
           <div className="mt-6 text-sm text-slate-500">
-            {workflows.length} workflow templates available
+            {loading ? 'Loading...' : `${workflows.length} workflow templates available`}
           </div>
         </div>
 
@@ -95,6 +95,7 @@ export default function WorkflowsPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none"
+              disabled={loading}
             />
           </div>
         </div>
@@ -106,7 +107,8 @@ export default function WorkflowsPage() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                disabled={loading}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors disabled:opacity-50 ${
                   selectedCategory === category
                     ? "bg-slate-900 text-white"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -132,90 +134,127 @@ export default function WorkflowsPage() {
           </div>
         </div>
 
-        {/* Workflow Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          {filteredWorkflows.map((workflow) => (
-            <Card key={workflow.id} className="group hover:shadow-lg transition-all duration-200 border-slate-200">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={getDifficultyColor(workflow.difficulty)}>
-                      {workflow.difficulty}
-                    </Badge>
-                    {workflow.isFree ? (
-                      <Badge className="bg-green-100 text-green-700">
-                        Free
-                      </Badge>
-                    ) : (
-                      <Badge variant="outline" className="text-slate-700">
-                        ${workflow.price}
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-slate-500">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    {workflow.rating}
-                  </div>
-                </div>
-                <Link href={getWorkflowLink(workflow.id)}>
-                  <CardTitle className="text-lg group-hover:text-slate-600 transition-colors cursor-pointer">
-                    {workflow.title}
-                  </CardTitle>
-                </Link>
-                <CardDescription className="text-sm leading-relaxed">
-                  {workflow.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="flex items-center gap-4 text-xs text-slate-500 mb-3">
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-3 w-3" />
-                    {workflow.time}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="h-3 w-3" />
-                    {workflow.users}
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  {workflow.integrations.slice(0, 3).map((integration) => {
-                    const integrationData = integrations.find(i => i.name === integration);
-                    return integrationData ? (
-                      <div key={integration} className={`p-1 rounded ${integrationData.color}`}>
-                        <integrationData.icon className="h-3 w-3 text-white" />
-                      </div>
-                    ) : null;
-                  })}
-                  {workflow.integrations.length > 3 && (
-                    <span className="text-xs text-slate-500">+{workflow.integrations.length - 3}</span>
-                  )}
-                </div>
+        {/* Error State */}
+        {error && (
+          <div className="flex items-center justify-center py-8">
+            <div className="text-center">
+              <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">Error loading workflows</h3>
+              <p className="text-slate-600">{error}</p>
+            </div>
+          </div>
+        )}
 
-                <Link href={getWorkflowLink(workflow.id)}>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={`w-full transition-colors ${
-                      (workflow.isFree || isPurchased(workflow.id))
-                        ? "group-hover:bg-green-600 group-hover:text-white" 
-                        : "group-hover:bg-slate-900 group-hover:text-white"
-                    }`}
-                  >
-                    {(workflow.isFree || isPurchased(workflow.id)) ? (
-                      <div className="flex items-center gap-2">
-                        {isPurchased(workflow.id) && <Check className="h-4 w-4" />}
-                        {workflow.isFree ? "Download Free" : "Download"}
-                      </div>
-                    ) : (
-                      `Buy for $${workflow.price}`
+        {/* Loading State */}
+        {loading && (
+          <div className="flex items-center justify-center py-8">
+            <div className="text-center">
+              <Loader2 className="h-12 w-12 text-slate-400 mx-auto mb-4 animate-spin" />
+              <h3 className="text-lg font-medium text-slate-900 mb-2">Loading workflows...</h3>
+              <p className="text-slate-600">Please wait while we fetch the latest workflows</p>
+            </div>
+          </div>
+        )}
+
+        {/* Workflow Grid */}
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            {filteredWorkflows.map((workflow) => (
+              <Card key={workflow.id} className="group hover:shadow-lg transition-all duration-200 border-slate-200">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className={getDifficultyColor(workflow.difficulty)}>
+                        {workflow.difficulty}
+                      </Badge>
+                      {workflow.isFree ? (
+                        <Badge className="bg-green-100 text-green-700">
+                          Free
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-slate-700">
+                          ${workflow.price}
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-slate-500">
+                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                      {workflow.rating}
+                    </div>
+                  </div>
+                  <Link href={getWorkflowLink(workflow.id)}>
+                    <CardTitle className="text-lg group-hover:text-slate-600 transition-colors cursor-pointer">
+                      {workflow.title}
+                    </CardTitle>
+                  </Link>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {workflow.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="flex items-center gap-4 text-xs text-slate-500 mb-3">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {workflow.time}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="h-3 w-3" />
+                      {workflow.users}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mb-3">
+                    {workflow.integrations.slice(0, 3).map((integration) => {
+                      const integrationData = integrations.find(i => i.name === integration);
+                      return integrationData ? (
+                        <div key={integration} className={`p-1 rounded ${integrationData.color}`}>
+                          <integrationData.icon className="h-3 w-3 text-white" />
+                        </div>
+                      ) : null;
+                    })}
+                    {workflow.integrations.length > 3 && (
+                      <span className="text-xs text-slate-500">+{workflow.integrations.length - 3}</span>
                     )}
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  </div>
+
+                  <Link href={getWorkflowLink(workflow.id)}>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className={`w-full transition-colors ${
+                        (workflow.isFree || isPurchased(workflow.id))
+                          ? "group-hover:bg-green-600 group-hover:text-white" 
+                          : "group-hover:bg-slate-900 group-hover:text-white"
+                      }`}
+                    >
+                      {(workflow.isFree || isPurchased(workflow.id)) ? (
+                        <div className="flex items-center gap-2">
+                          {isPurchased(workflow.id) && <Check className="h-4 w-4" />}
+                          {workflow.isFree ? "Download Free" : "Download"}
+                        </div>
+                      ) : (
+                        `Buy for $${workflow.price}`
+                      )}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && filteredWorkflows.length === 0 && (
+          <div className="text-center py-8">
+            <h3 className="text-lg font-medium text-slate-900 mb-2">No workflows found</h3>
+            <p className="text-slate-600">
+              {searchTerm || selectedCategory !== "All Workflows" 
+                ? "Try adjusting your search criteria or category filter."
+                : "No workflows are currently available."
+              }
+            </p>
+          </div>
+        )}
 
         {/* Call to Action */}
         <div className="text-center bg-slate-50 rounded-xl p-6">

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Code, CheckCircle, Lock, Play } from "lucide-react";
+import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle, Lock, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { workflows } from "@/lib/workflows-data";
+import { useWorkflow } from "@/hooks/useWorkflows";
 import MermaidDiagram from "@/components/mermaid-diagram";
 import PurchaseModal from "@/components/purchase-modal";
 import { usePurchase } from "@/contexts/purchase-context";
@@ -15,7 +15,7 @@ import { usePurchase } from "@/contexts/purchase-context";
 export default function WorkflowDetailPage() {
   const params = useParams();
   const workflowId = parseInt(params.id as string);
-  const workflow = workflows.find(w => w.id === workflowId);
+  const { workflow, loading, error } = useWorkflow(workflowId);
   const [activeTab, setActiveTab] = useState("overview");
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const { isPurchased, refreshPurchases } = usePurchase();
@@ -32,6 +32,38 @@ export default function WorkflowDetailPage() {
 
   // Check if user has purchased this workflow
   const isWorkflowPurchased = workflow ? (workflow.isFree || isPurchased(workflow.id)) : false;
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <Loader2 className="h-12 w-12 text-slate-400 mx-auto mb-4 animate-spin" />
+          <h1 className="text-2xl font-semibold text-slate-900 mb-4">Loading workflow...</h1>
+          <p className="text-slate-600">Please wait while we fetch the workflow details</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-semibold text-slate-900 mb-4">Error loading workflow</h1>
+          <p className="text-slate-600 mb-6">{error}</p>
+          <Link href="/workflows">
+            <Button variant="outline">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Workflows
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   if (!workflow) {
     return (
