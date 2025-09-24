@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Zap, Mail, Twitter, Github, Linkedin } from "lucide-react";
+import { Zap, Mail, Github, Linkedin } from "lucide-react";
 
 export default function WorkflowsFooter() {
   return (
     <footer className="border-t bg-background">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
           {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
@@ -17,22 +17,19 @@ export default function WorkflowsFooter() {
             </p>
             <div className="flex space-x-3">
               <Link
-                href="#"
+                href="https://github.com/seventeenlabs"
                 className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Twitter className="h-4 w-4" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link
-                href="#"
+                href="https://linkedin.com/company/seventeenlabs"
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Linkedin className="h-4 w-4" />
                 <span className="sr-only">LinkedIn</span>
@@ -40,13 +37,13 @@ export default function WorkflowsFooter() {
             </div>
           </div>
 
-          {/* Workflows */}
+          {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold">Workflows</h4>
+            <h4 className="text-sm font-semibold">Browse</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link href="/workflows" className="hover:text-foreground transition-colors">
-                  Browse All
+                  All Workflows
                 </Link>
               </li>
               <li>
@@ -72,67 +69,25 @@ export default function WorkflowsFooter() {
             </ul>
           </div>
 
-          {/* Categories */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold">Categories</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/workflows?category=E-commerce" className="hover:text-foreground transition-colors">
-                  E-commerce
-                </Link>
-              </li>
-              <li>
-                <Link href="/workflows?category=Data%20Processing" className="hover:text-foreground transition-colors">
-                  Data Processing
-                </Link>
-              </li>
-              <li>
-                <Link href="/workflows?category=Communication" className="hover:text-foreground transition-colors">
-                  Communication
-                </Link>
-              </li>
-              <li>
-                <Link href="/workflows?category=Finance" className="hover:text-foreground transition-colors">
-                  Finance
-                </Link>
-              </li>
-              <li>
-                <Link href="/workflows?category=HR%20%26%20Recruiting" className="hover:text-foreground transition-colors">
-                  HR & Recruiting
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Support */}
           <div className="space-y-3">
             <h4 className="text-sm font-semibold">Support</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link href="/" className="hover:text-foreground transition-colors">
-                  About SeventeenLabs
+                  SeventeenLabs Agency
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
-                  Documentation
+                <Link href="mailto:workflows@seventeenlabs.io" className="hover:text-foreground transition-colors flex items-center">
+                  <Mail className="h-3 w-3 mr-2" />
+                  Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/workflows?category=Data%20Processing" className="hover:text-foreground transition-colors">
                   Custom Workflows
                 </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
-                  Contact Support
-                </Link>
-              </li>
-              <li>
-                <div className="flex items-center space-x-2 text-muted-foreground">
-                  <Mail className="h-3 w-3" />
-                  <span className="text-xs">workflows@seventeenlabs.io</span>
-                </div>
               </li>
             </ul>
           </div>
@@ -148,9 +103,6 @@ export default function WorkflowsFooter() {
             </Link>
             <Link href="#" className="hover:text-foreground transition-colors">
               Terms of Service
-            </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
-              Cookie Policy
             </Link>
           </div>
         </div>

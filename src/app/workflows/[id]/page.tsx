@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Play, Code, CheckCircle, Lock } from "lucide-react";
+import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Code, CheckCircle, Lock, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,29 +12,13 @@ import MermaidDiagram from "@/components/mermaid-diagram";
 import PurchaseModal from "@/components/purchase-modal";
 import { usePurchase } from "@/contexts/purchase-context";
 
-// Helper function to detect if we're on workflows subdomain
-function isWorkflowsSubdomain(): boolean {
-  if (typeof window === 'undefined') return false;
-  return /^workflows\./i.test(window.location.hostname);
-}
-
-// Helper function to get the correct workflows list link
-function getWorkflowsListLink(): string {
-  return isWorkflowsSubdomain() ? "/" : "/workflows";
-}
-
 export default function WorkflowDetailPage() {
   const params = useParams();
   const workflowId = parseInt(params.id as string);
   const workflow = workflows.find(w => w.id === workflowId);
   const [activeTab, setActiveTab] = useState("overview");
-  const [workflowsLink, setWorkflowsLink] = useState("/workflows");
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const { isPurchased, addPurchase } = usePurchase();
-
-  useEffect(() => {
-    setWorkflowsLink(getWorkflowsListLink());
-  }, []);
 
   const handlePurchaseClick = () => {
     setShowPurchaseModal(true);
@@ -50,10 +34,10 @@ export default function WorkflowDetailPage() {
 
   if (!workflow) {
     return (
-      <div className="px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl font-semibold text-slate-900 mb-4">Workflow not found</h1>
-          <Link href={workflowsLink}>
+          <Link href="/workflows">
             <Button variant="outline">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Workflows
@@ -74,11 +58,11 @@ export default function WorkflowDetailPage() {
   };
 
   return (
-    <main className="px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href={workflowsLink}>
+          <Link href="/workflows">
             <Button variant="outline" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Workflows
@@ -157,7 +141,7 @@ export default function WorkflowDetailPage() {
                   </p>
                   
                   {/* Workflow Diagram */}
-                  {workflow.mermaidChart ? (
+                  {workflow.mermaidChart && (
                     <div className="bg-slate-50 rounded-lg p-6 mb-6">
                       <h3 className="text-lg font-medium text-slate-900 mb-4 flex items-center">
                         <Code className="mr-2 h-5 w-5" />
@@ -179,16 +163,6 @@ export default function WorkflowDetailPage() {
                         className="bg-white rounded-lg border border-slate-200 p-4"
                         isPreview={!workflow.isFree && !isWorkflowPurchased && !!workflow.previewChart}
                       />
-                    </div>
-                  ) : (
-                    <div className="bg-slate-100 rounded-lg p-8 text-center">
-                      <Play className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-slate-900 mb-2">Watch Demo</h3>
-                      <p className="text-slate-600 mb-4">See this workflow in action</p>
-                      <Button variant="outline">
-                        <Play className="mr-2 h-4 w-4" />
-                        Play Demo Video
-                      </Button>
                     </div>
                   )}
                 </div>
@@ -230,50 +204,56 @@ export default function WorkflowDetailPage() {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-8">
-              <CardHeader>
-                <div className="text-center">
+            <div className="sticky top-20 z-10 space-y-6">
+              {/* Pricing Card */}
+              <Card>
+                <CardHeader className="text-center">
                   {workflow.isFree ? (
                     <div className="text-2xl font-bold text-green-600 mb-2">Free</div>
                   ) : (
                     <div className="text-3xl font-bold text-slate-900 mb-2">${workflow.price}</div>
                   )}
                   <p className="text-sm text-slate-600">One-time purchase</p>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <Button 
-                  onClick={handlePurchaseClick}
-                  className={`w-full ${
-                    isWorkflowPurchased
-                      ? "bg-green-600 hover:bg-green-700"
-                      : workflow.isFree 
-                        ? "bg-green-600 hover:bg-green-700" 
-                        : "bg-slate-900 hover:bg-slate-800"
-                  } text-white`}
-                  size="lg"
-                >
-                  {isWorkflowPurchased ? (
-                    <>
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Workflow
-                    </>
-                  ) : workflow.isFree ? (
-                    <>
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Free
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart className="mr-2 h-4 w-4" />
-                      Buy Now
-                    </>
-                  )}
-                </Button>
+                </CardHeader>
+                
+                <CardContent className="space-y-4">
+                  <Button 
+                    onClick={handlePurchaseClick}
+                    className={`w-full ${
+                      isWorkflowPurchased
+                        ? "bg-green-600 hover:bg-green-700"
+                        : workflow.isFree 
+                          ? "bg-green-600 hover:bg-green-700" 
+                          : "bg-slate-900 hover:bg-slate-800"
+                    } text-white`}
+                    size="lg"
+                  >
+                    {isWorkflowPurchased ? (
+                      <>
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Workflow
+                      </>
+                    ) : workflow.isFree ? (
+                      <>
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Free
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        Buy Now
+                      </>
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
 
-                <div className="pt-4 border-t">
-                  <h3 className="font-medium text-slate-900 mb-3">Integrations</h3>
+              {/* Integrations Card */}
+              <Card>
+                <CardHeader>
+                  <h3 className="font-medium text-slate-900">Integrations</h3>
+                </CardHeader>
+                <CardContent>
                   <div className="space-y-2">
                     {workflow.integrations.map((integration) => (
                       <div key={integration} className="flex items-center gap-2 text-sm text-slate-600">
@@ -282,19 +262,9 @@ export default function WorkflowDetailPage() {
                       </div>
                     ))}
                   </div>
-                </div>
-
-                <div className="pt-4 border-t">
-                  <h3 className="font-medium text-slate-900 mb-2">Support</h3>
-                  <p className="text-sm text-slate-600 mb-3">
-                    Get help with setup and customization
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full">
-                    Contact Support
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

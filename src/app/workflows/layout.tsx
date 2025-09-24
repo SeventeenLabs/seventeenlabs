@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import WorkflowsHeader from "@/components/workflows-header";
 import WorkflowsFooter from "@/components/workflows-footer";
 import { PurchaseProvider } from "@/contexts/purchase-context";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Workflows | SeventeenLabs - Professional N8N Templates",
@@ -30,14 +37,16 @@ export default function WorkflowsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <PurchaseProvider>
-      <div className="flex min-h-screen flex-col">
-        <WorkflowsHeader />
-        <div className="flex-1">
-          {children}
+    <div className={`${plusJakartaSans.variable} font-sans`}>
+      <PurchaseProvider>
+        <div className="flex min-h-screen flex-col">
+          <WorkflowsHeader />
+          <div className="flex-1">
+            {children}
+          </div>
+          <WorkflowsFooter />
         </div>
-        <WorkflowsFooter />
-      </div>
-    </PurchaseProvider>
+      </PurchaseProvider>
+    </div>
   );
 }
