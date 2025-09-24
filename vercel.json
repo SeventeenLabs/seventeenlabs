@@ -1,0 +1,48 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "agency.seventeenlabs.io"
+        }
+      ],
+      "destination": "/agency/$1"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host", 
+          "value": "workflows.seventeenlabs.io"
+        }
+      ],
+      "destination": "/workflows/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/agency/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "seventeenlabs.io"
+        }
+      ],
+      "destination": "https://agency.seventeenlabs.io/$1",
+      "permanent": false
+    },
+    {
+      "source": "/workflows/(.*)", 
+      "has": [
+        {
+          "type": "host",
+          "value": "seventeenlabs.io"
+        }
+      ],
+      "destination": "https://workflows.seventeenlabs.io/$1",
+      "permanent": false
+    }
+  ]
+}
