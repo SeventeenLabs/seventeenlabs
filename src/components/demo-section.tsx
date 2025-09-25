@@ -1,0 +1,172 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Play, ArrowRight, CheckCircle } from "lucide-react";
+import { useState } from "react";
+
+const workflowSteps = [
+  "Lead fills out form on website",
+  "Data automatically syncs to CRM", 
+  "Personalized email sequence begins",
+  "Follow-up tasks created for sales team",
+  "Analytics tracked in dashboard"
+];
+
+const stats = [
+  { label: "Potential Hours Saved", value: "15+" },
+  { label: "Expected Efficiency Gain", value: "40%" },
+  { label: "Setup Time", value: "< 1 Day" },
+];
+
+export default function DemoSection() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  return (
+    <section className="bg-slate-950 px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+            See Automation in Action
+          </h2>
+          <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
+            Watch how a simple lead capture workflow transforms into a complete sales pipeline automation.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          {/* Visual Demo Area */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative aspect-video rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-transparent to-slate-700/20"></div>
+              
+              {/* Mock Workflow Interface */}
+              <div className="p-6 h-full flex flex-col justify-between">
+                <div className="space-y-3">
+                  {workflowSteps.map((step, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0.3, scale: 0.95 }}
+                      animate={{
+                        opacity: index <= currentStep ? 1 : 0.3,
+                        scale: index <= currentStep ? 1 : 0.95,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className={`flex items-center gap-3 p-3 rounded-lg ${
+                        index <= currentStep ? 'bg-slate-800/80' : 'bg-slate-800/40'
+                      }`}
+                    >
+                      <div className={`size-6 rounded-full flex items-center justify-center ${
+                        index <= currentStep 
+                          ? 'bg-green-500 text-white' 
+                          : 'bg-slate-700 text-slate-400'
+                      }`}>
+                        {index <= currentStep ? (
+                          <CheckCircle className="size-4" />
+                        ) : (
+                          <span className="text-xs">{index + 1}</span>
+                        )}
+                      </div>
+                      <span className={`text-sm ${
+                        index <= currentStep ? 'text-white' : 'text-slate-400'
+                      }`}>
+                        {step}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* Play Button */}
+                <div className="text-center">
+                  <button
+                    onClick={() => {
+                      setCurrentStep(0);
+                      const interval = setInterval(() => {
+                        setCurrentStep(prev => {
+                          if (prev >= workflowSteps.length - 1) {
+                            clearInterval(interval);
+                            return prev;
+                          }
+                          return prev + 1;
+                        });
+                      }, 800);
+                    }}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-white font-medium transition-colors"
+                  >
+                    <Play className="size-4" />
+                    Watch Demo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Content & Stats */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                From Manual to Automated
+              </h3>
+              <p className="text-slate-300 text-lg leading-relaxed">
+                This lead capture workflow demonstrates how automation can eliminate hours of manual work. 
+                Every form submission triggers a complete sales pipeline that runs automatically, letting 
+                your team focus on closing deals instead of data entry.
+              </p>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-2xl font-bold text-slate-300 mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-slate-400">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="pt-4">
+              <a
+                href="https://n8nworkflows.seventeenlabs.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-slate-300 hover:text-white font-medium transition-colors"
+              >
+                Browse 50+ Ready-Made Workflows
+                <ArrowRight className="size-4" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

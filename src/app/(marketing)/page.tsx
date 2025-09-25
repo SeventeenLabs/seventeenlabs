@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import DemoSection from "@/components/demo-section";
 import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
 import NewsletterCta from "@/components/newsletter-cta";
@@ -9,12 +10,13 @@ import WhySeventeenLabs from "@/components/why-seventeenlabs";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50 font-sans">
+    <div className="min-h-screen bg-slate-950 font-sans">
       <LandingHeader />
       <main>
         <LandingHero />
         <WhatWeOffer />
         <WhySeventeenLabs />
+        <DemoSection />
         <NewsletterCta />
       </main>
       <SiteFooter />
