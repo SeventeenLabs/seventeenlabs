@@ -1,92 +1,109 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import LiquidEther from "@/components/ui/liquid-ether";
+import GlassSurface from "./GlassSurface";
+import Orb from "./ui/orb";
+import Prism from "./ui/prism";
+
+const features = [
+  "Ready-to-use AI tools & apps",
+  "Automation workflow marketplace", 
+  "Expert agency services & support"
+];
 
 export default function LandingHero() {
   return (
-    <section className="relative px-4 pt-8 pb-20 sm:px-6 lg:px-8">
-      {/* page-level ambient glows */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
-        <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.06),transparent_60%)] blur-2xl" />
-        <div className="absolute -bottom-32 left-0 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.06),transparent_60%)] blur-2xl" />
+    <div className="relative w-full min-h-screen overflow-hidden bg-slate-950">
+      <div style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+        <Prism
+    animationType="3drotate"
+    timeScale={0.4}
+    height={3.5}
+    baseWidth={5.5}
+    scale={3}
+    hueShift={0}
+    colorFrequency={1}
+    noise={0.1}
+    glow={0.4}
+  />
       </div>
+      <div className="relative flex min-h-screen items-center w-full z-20">
+        <div className="relative mx-auto w-full max-w-4xl px-6 py-24 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+        >
+          Save Time, Cut Costs, Grow Smarter
+        </motion.h1>
 
-      <div className="mx-auto max-w-5xl">
-        {/* hero surface */}
-        <div className="relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 px-6 py-12 backdrop-blur sm:px-10 sm:py-16">
-          {/* soft grid background masked to center */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] bg-[size:24px_24px]" />
-          </div>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="mx-auto mt-6 max-w-2xl text-xl leading-8 text-slate-300"
+        >
+          SeventeenLabs helps small businesses thrive with AI tools, automation workflows, and expert agency services. Everything you need to streamline operations and accelerate growth.
+        </motion.p>
 
-          {/* corner accents */}
-          <div aria-hidden className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.06),transparent_60%)] blur-2xl" />
-          <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.06),transparent_60%)] blur-2xl" />
-
-          {/* eyebrow chips */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-slate-200 bg-white/60 px-2.5 py-1 text-xs font-medium text-slate-700">AI engineering studio</span>
-            <span className="rounded-full border border-slate-200 bg-white/60 px-2.5 py-1 text-xs text-slate-600">Founder-led</span>
-            <span className="rounded-full border border-slate-200 bg-white/60 px-2.5 py-1 text-xs text-slate-600">Remote-first</span>
-          </div>
-
-          {/* headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mt-5 text-5xl font-semibold tracking-tight text-slate-900 md:text-6xl lg:text-7xl"
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+        >
+          <Button asChild size="lg" className="min-w-48 bg-white px-8 py-3 text-slate-900 hover:bg-slate-100">
+            <Link href="/apps">Explore Our Products</Link>
+          </Button>
+          <GlassSurface 
+            width={192} 
+            height={44}
+            borderRadius={6}
+            displace={2}
+            distortionScale={-120}
+            redOffset={3}
+            greenOffset={8}
+            blueOffset={15}
+            brightness={70}
+            opacity={0.25}
+            blur={15}
+            mixBlendMode="screen"
+            className="min-w-48 h-11 hover:scale-[1.02] transition-transform duration-200"
           >
-            We build thoughtful AI systems for real teams
-          </motion.h1>
-
-          {/* subcopy */}
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
-            className="mt-6 max-w-2xl text-lg text-slate-600"
-          >
-            We’re a small, hands-on studio. You’ll work directly with the engineers who design, build, and automate your workflows—cleanly, reliably, and with measurable impact.
-          </motion.p>
-
-          {/* links */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.16 }}
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
-          >
-            <Link href="#" className="group text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-slate-700">
-              <span>Get started</span>
-              <span aria-hidden className="ml-1 transition-transform group-hover:translate-x-0.5">→</span>
+            <Link 
+              href="https://workflows.seventeenlabs.io" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-2.5 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
+            >
+              Automation Workflows
             </Link>
-            <Link href="#" className="text-slate-600 hover:text-slate-900">
-              How it works
-            </Link>
-          </motion.div>
+          </GlassSurface>
+        </motion.div>
 
-          {/* minimal stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.22 }}
-            className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3"
-          >
-            {[ 
-              { k: "> 10", v: "systems shipped" }, 
-              { k: "24h", v: "response SLA" }, 
-              { k: "EU/US", v: "friendly timezones" },
-            ].map((s) => (
-              <div key={s.k} className="space-y-1">
-                <div className="text-base font-semibold text-slate-900">{s.k}</div>
-                <div className="text-sm text-slate-600">{s.v}</div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+          className="mt-16 grid gap-4 text-left sm:grid-cols-3"
+        >
+          {features.map((feature) => (
+            <div key={feature} className="flex items-center gap-3">
+              <div className="flex size-6 items-center justify-center rounded-full bg-white/10">
+                <Check className="size-4 text-white" />
               </div>
-            ))}
-          </motion.div>
-        </div>
+              <span className="text-sm text-slate-300">{feature}</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
-    </section>
+      </div>
+    </div>
   );
 }

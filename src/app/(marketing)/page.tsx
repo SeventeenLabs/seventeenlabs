@@ -1,14 +1,23 @@
 ﻿"use client";
 
+import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
-import Highlights from "@/components/highlights";
+import NewsletterCta from "@/components/newsletter-cta";
 import SiteFooter from "@/components/site-footer";
-import About from "@/components/about";
+import WhatWeOffer from "@/components/what-we-offer";
+import WhySeventeenLabs from "@/components/why-seventeenlabs";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50 font-sans">
-      <LandingHero />
+      <LandingHeader />
+      <main>
+        <LandingHero />
+        <WhatWeOffer />
+        <WhySeventeenLabs />
+        <NewsletterCta />
+      </main>
+      <SiteFooter />
     </div>
   );
 }
