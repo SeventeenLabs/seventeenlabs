@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function LandingHero() {
   return (
-    <section className="relative px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative px-4 pt-8 pb-20 sm:px-6 lg:px-8">
       {/* page-level ambient glows */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
         <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.06),transparent_60%)] blur-2xl" />
