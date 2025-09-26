@@ -5,9 +5,7 @@ import { Check } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import LiquidEther from "@/components/ui/liquid-ether";
 import GlassSurface from "./GlassSurface";
-import Orb from "./ui/orb";
 import Prism from "./ui/prism";
 
 const features = [
@@ -36,11 +34,6 @@ export default function LandingHero() {
 
   const titleVariants = {
     hidden: { opacity: 0, y: 40, scale: 0.9 },
-    visible: { opacity: 1, y: 0, scale: 1 }
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 15, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1 }
   };
 
@@ -127,7 +120,7 @@ export default function LandingHero() {
                 className="min-w-48 h-11 hover:scale-[1.02] transition-transform duration-200"
               >
                 <Link 
-                  href="https://workflows.seventeenlabs.io" 
+                  href="/workflows" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-8 py-2.5 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"

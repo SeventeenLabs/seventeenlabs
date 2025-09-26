@@ -10,8 +10,7 @@
 import { getAllWorkflows as getFileBasedWorkflows } from './workflow-db';
 import { 
   addWorkflow,
-  getAllWorkflows as getSupabaseWorkflows,
-  bulkImportWorkflows
+  getAllWorkflows as getSupabaseWorkflows
 } from './supabase-workflow-db';
 import { initializeWorkflowStorage } from './storage';
 

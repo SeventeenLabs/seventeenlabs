@@ -120,7 +120,6 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const purchases = hasUserPurchased(email, 0); // This will be updated to get all purchases
       // For now, let's check each workflow individually
       const userPurchases = [];
       

@@ -1,4 +1,4 @@
-import { supabaseAdmin, WorkflowRow, WorkflowInsert, WorkflowUpdate } from './supabase';
+import { supabaseAdmin, WorkflowRow, WorkflowUpdate } from './supabase';
 import { uploadWorkflowJson, updateWorkflowJson, deleteWorkflowJson, generateWorkflowJsonFromN8nData } from './storage';
 
 // Interface for the complete workflow data structure
@@ -188,13 +188,6 @@ export async function addWorkflow(workflowData: Omit<WorkflowData, 'id' | 'creat
     // Upload JSON file if n8nData exists
     let jsonUrl: string | null = null;
     if (workflowData.n8nData) {
-      const jsonData = generateWorkflowJsonFromN8nData({
-        n8nId: workflowData.n8nId,
-        n8nVersionId: workflowData.n8nVersionId,
-        title: workflowData.title,
-        n8nData: workflowData.n8nData,
-      });
-      
       // We'll update this after getting the workflow ID
       jsonUrl = 'placeholder';
     }

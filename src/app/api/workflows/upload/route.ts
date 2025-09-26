@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     // Validate JSON format
     try {
       JSON.parse(fileContent);
-    } catch (error) {
+    } catch {
       return NextResponse.json({ 
         success: false, 
         error: 'File must contain valid JSON' 
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Upload to Supabase Storage
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from(WORKFLOW_FILES_BUCKET)
       .upload(filename, fileContent, {
         contentType: 'application/json',

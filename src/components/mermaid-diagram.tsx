@@ -125,15 +125,6 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
           }
           
           setIsLoaded(true);
-          
-          // Fit the entire workflow to view initially with multiple attempts
-          setTimeout(() => {
-            handleFitToView();
-            // Retry after a longer delay to ensure proper rendering
-            setTimeout(() => {
-              handleFitToView();
-            }, 200);
-          }, 150);
         }
       } catch (err) {
         console.error('Error loading mermaid:', err);
@@ -280,6 +271,18 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, [isLoaded, handleFitToView]);
+
+  // Separate effect for initial fit to view
+  useEffect(() => {
+    if (isLoaded) {
+      setTimeout(() => {
+        handleFitToView();
+        setTimeout(() => {
+          handleFitToView();
+        }, 200);
+      }, 150);
+    }
   }, [isLoaded, handleFitToView]);
 
   if (error) {

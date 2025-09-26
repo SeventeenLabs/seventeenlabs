@@ -3,7 +3,7 @@ import { getN8nClient, checkN8nConnection } from '@/lib/n8n-api';
 import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows/fetch-n8n - Fetch workflows from n8n with SeventeenLabs_Workflow tag
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Check n8n connection
     const connectionStatus = await checkN8nConnection();

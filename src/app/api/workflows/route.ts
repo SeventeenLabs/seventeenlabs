@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllWorkflows, getWorkflowById, addWorkflow, searchWorkflows, getWorkflowsByCategory } from '@/lib/supabase-workflow-db';
+import { getAllWorkflows, addWorkflow, searchWorkflows, getWorkflowsByCategory } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows - Get all workflows with optional filtering
 export async function GET(request: NextRequest) {

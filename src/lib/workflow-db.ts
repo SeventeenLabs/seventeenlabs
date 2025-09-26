@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import crypto from 'crypto';
 
 const WORKFLOWS_FILE = path.join(process.cwd(), 'data', 'workflows.json');
 

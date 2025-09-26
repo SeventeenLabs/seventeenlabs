@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Simple hash function (same as in the client component)
-const simpleHash = (str: string): string => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32-bit integer
-  }
-  return Math.abs(hash).toString();
-};
-
 export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();

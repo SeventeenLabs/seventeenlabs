@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getWorkflowStats } from '@/lib/supabase-workflow-db';
 
 // GET /api/workflows/stats - Get workflow statistics
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const stats = await getWorkflowStats();
     

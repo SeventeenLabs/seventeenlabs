@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
         
         // Extract workflow information from metadata
         const workflowId = parseInt(paymentIntent.metadata.workflowId);
-        const workflowTitle = paymentIntent.metadata.workflowTitle;
         
         // Get customer email from payment method or customer object
         let customerEmail = '';

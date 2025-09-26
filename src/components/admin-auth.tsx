@@ -11,17 +11,6 @@ interface AdminAuthProps {
   children: React.ReactNode;
 }
 
-// Simple hash function for password verification
-const simpleHash = (str: string): string => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32-bit integer
-  }
-  return Math.abs(hash).toString();
-};
-
 // Session management
 const AUTH_KEY = 'seventeenlabs_admin_auth';
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
@@ -93,7 +82,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
         setAttemptCount(prev => prev + 1);
         setPassword('');
       }
-    } catch (error) {
+    } catch {
       setError('Authentication failed. Please try again.');
       setAttemptCount(prev => prev + 1);
     }

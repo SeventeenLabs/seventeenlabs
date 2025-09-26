@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllWorkflows, addWorkflow, updateWorkflow, getWorkflowByN8nId } from '@/lib/supabase-workflow-db';
+import { getAllWorkflows, addWorkflow, updateWorkflow } from '@/lib/supabase-workflow-db';
 
 // Type for n8n workflow data
 interface N8nWorkflow {
@@ -190,7 +190,7 @@ function generateMermaidFromWorkflow(workflow: N8nWorkflow): string {
     
     // Add connections
     Object.entries(connections).forEach(([fromNode, nodeConnections]) => {
-      Object.entries(nodeConnections as any).forEach(([outputIndex, connections]) => {
+      Object.entries(nodeConnections as any).forEach(([, connections]) => {
         (connections as any[]).forEach(connection => {
           const fromNodeId = fromNode.replace(/\s+/g, '_');
           const toNodeId = connection.node.replace(/\s+/g, '_');

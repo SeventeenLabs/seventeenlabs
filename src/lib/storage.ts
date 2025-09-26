@@ -11,7 +11,7 @@ export async function uploadWorkflowJson(workflowId: number, jsonData: any): Pro
     const fileName = `workflow-${workflowId}-${Date.now()}.json`;
     const jsonString = JSON.stringify(jsonData, null, 2);
     
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from(WORKFLOW_FILES_BUCKET)
       .upload(fileName, jsonString, {
         contentType: 'application/json',
@@ -40,7 +40,7 @@ export async function uploadWorkflowJson(workflowId: number, jsonData: any): Pro
  */
 export async function uploadWorkflowJsonWithFilename(fileName: string, jsonContent: string): Promise<string | null> {
   try {
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from(WORKFLOW_FILES_BUCKET)
       .upload(fileName, jsonContent, {
         contentType: 'application/json',
@@ -75,7 +75,7 @@ export async function updateWorkflowJson(currentJsonUrl: string, jsonData: any):
     
     const jsonString = JSON.stringify(jsonData, null, 2);
     
-    const { data, error } = await supabaseAdmin.storage
+    const { error } = await supabaseAdmin.storage
       .from(WORKFLOW_FILES_BUCKET)
       .update(fileName, jsonString, {
         contentType: 'application/json',
@@ -177,7 +177,7 @@ export async function initializeWorkflowStorage() {
     
     if (!bucketExists) {
       // Create the bucket
-      const { data, error: createError } = await supabaseAdmin.storage.createBucket(
+      const { error: createError } = await supabaseAdmin.storage.createBucket(
         WORKFLOW_FILES_BUCKET,
         {
           public: true,
