@@ -65,7 +65,6 @@ export default function AdminWorkflowsPage() {
   const router = useRouter();
   
   const [workflows, setWorkflows] = useState<WorkflowData[]>([]);
-  const [stats, setStats] = useState<WorkflowStats | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -113,16 +112,12 @@ export default function AdminWorkflowsPage() {
       const response = await fetch('/api/workflows/stats');
       const data = await response.json();
       if (data.success) {
-        setStats(data.stats);
+        // Stats loaded but not used in current UI
+        console.log('Stats loaded:', data.stats);
       }
     } catch (error) {
       console.error('Failed to load stats:', error);
     }
-  };
-
-  // Reset form
-  const resetForm = () => {
-    setMessage(null);
   };
 
   // Handle edit

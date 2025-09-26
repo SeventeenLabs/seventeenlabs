@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Download, Lock, Check, FileText, AlertCircle, ExternalLink } from "lucide-react";
+import { X, Download, Lock, Check, AlertCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkflowData } from "@/hooks/useWorkflows";
 

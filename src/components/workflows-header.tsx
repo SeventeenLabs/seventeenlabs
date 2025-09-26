@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePurchase } from "@/contexts/purchase-context";
-import { workflows } from "@/lib/workflows-data";
 
 export default function WorkflowsHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
