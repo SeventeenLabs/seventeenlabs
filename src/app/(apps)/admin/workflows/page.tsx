@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -64,6 +65,8 @@ interface WorkflowStats {
 }
 
 export default function AdminWorkflowsPage() {
+  const router = useRouter();
+  
   const [workflows, setWorkflows] = useState<WorkflowData[]>([]);
   const [stats, setStats] = useState<WorkflowStats | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +78,7 @@ export default function AdminWorkflowsPage() {
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const [workflowFile, setWorkflowFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form state
@@ -175,28 +179,7 @@ export default function AdminWorkflowsPage() {
 
   // Handle edit
   const handleEdit = (workflow: WorkflowData) => {
-    setFormData({
-      title: workflow.title,
-      description: workflow.description,
-      longDescription: workflow.longDescription || '',
-      category: workflow.category,
-      difficulty: workflow.difficulty,
-      time: workflow.time,
-      users: workflow.users,
-      rating: workflow.rating,
-      integrations: workflow.integrations,
-      price: workflow.price,
-      features: workflow.features || [],
-      requirements: workflow.requirements || [],
-      videoUrl: workflow.videoUrl || '',
-      mermaidChart: workflow.mermaidChart || '',
-      previewChart: workflow.previewChart || '',
-      tags: workflow.tags || [],
-      author: workflow.author || 'SeventeenLabs',
-      version: workflow.version || '1.0'
-    });
-    setEditingWorkflow(workflow);
-    setShowForm(true);
+    router.push(`/admin/workflows/edit/${workflow.id}`);
   };
 
   // Handle form submission
@@ -324,6 +307,63 @@ export default function AdminWorkflowsPage() {
     setWorkflowFile(file);
   };
 
+  // Analyze workflow file and extract metadata
+  const analyzeWorkflow = async () => {
+    if (!workflowFile) {
+      setMessage({ type: 'error', text: 'Please select a workflow file first' });
+      return;
+    }
+
+    setIsAnalyzing(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', workflowFile);
+
+      const response = await fetch('/api/workflows/analyze', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Update form data with analyzed metadata
+        setFormData(prev => ({
+          ...prev,
+          title: data.data.title || prev.title,
+          description: data.data.description || prev.description,
+          longDescription: data.data.longDescription || prev.longDescription,
+          category: data.data.category || prev.category,
+          difficulty: data.data.difficulty || prev.difficulty,
+          time: data.data.time || data.data.estimatedTime || prev.time,
+          users: data.data.users || prev.users,
+          rating: data.data.rating || prev.rating,
+          integrations: data.data.integrations || prev.integrations,
+          features: data.data.features || prev.features,
+          requirements: data.data.requirements || prev.requirements,
+          tags: data.data.tags || prev.tags,
+          price: data.data.price || prev.price,
+          videoUrl: data.data.videoUrl || prev.videoUrl,
+          mermaidChart: data.data.mermaidChart || prev.mermaidChart,
+          previewChart: data.data.previewChart || prev.previewChart,
+          author: data.data.author || prev.author,
+          version: data.data.version || prev.version
+        }));
+
+        setMessage({ 
+          type: 'success', 
+          text: 'Workflow analyzed successfully! Metadata has been populated.' 
+        });
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Failed to analyze workflow' });
+      }
+    } catch (error) {
+      console.error('Error analyzing workflow:', error);
+      setMessage({ type: 'error', text: 'Failed to analyze workflow' });
+    }
+    setIsAnalyzing(false);
+  };
+
   // Filter workflows
   const filteredWorkflows = workflows.filter(workflow => {
     const matchesSearch = workflow.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -441,7 +481,7 @@ export default function AdminWorkflowsPage() {
             Refresh
           </Button>
           
-          <Button onClick={() => setShowForm(true)} size="sm">
+          <Button onClick={() => router.push('/admin/workflows/edit/new')} size="sm">
             <Plus className="h-4 w-4 mr-2" />
             Add Workflow
           </Button>
@@ -728,17 +768,33 @@ export default function AdminWorkflowsPage() {
                 <div>
                   <Label htmlFor="workflowFile">Workflow JSON File</Label>
                   <div className="space-y-2">
-                    <Input
-                      id="workflowFile"
-                      ref={fileInputRef}
-                      type="file"
-                      accept=".json,application/json"
-                      onChange={handleFileChange}
-                      className="cursor-pointer"
-                    />
+                    <div className="flex gap-2">
+                      <Input
+                        id="workflowFile"
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".json,application/json"
+                        onChange={handleFileChange}
+                        className="cursor-pointer flex-1"
+                      />
+                      <Button
+                        type="button"
+                        onClick={analyzeWorkflow}
+                        disabled={!workflowFile || isAnalyzing}
+                        variant="outline"
+                        size="sm"
+                      >
+                        {isAnalyzing ? (
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        ) : (
+                          <RefreshCw className="h-4 w-4 mr-2" />
+                        )}
+                        {isAnalyzing ? 'Analyzing...' : 'Analyze'}
+                      </Button>
+                    </div>
                     <div className="flex items-center gap-2 text-sm text-slate-500">
                       <Upload className="h-4 w-4" />
-                      <span>Upload the workflow JSON file exported from n8n (optional)</span>
+                      <span>Upload the workflow JSON file exported from n8n, then click Analyze to auto-populate metadata</span>
                     </div>
                     {editingWorkflow?.n8nJsonUrl && (
                       <div className="text-sm text-blue-600 bg-blue-50 p-3 rounded-lg border border-blue-200">
