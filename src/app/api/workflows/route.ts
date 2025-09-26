@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
     // TODO: Add authentication check for admin users
     const workflowData = await request.json();
     
-    // Validate required fields
-    const requiredFields = ['title', 'description', 'category', 'difficulty', 'time', 'integrations', 'price'];
+    // Validate required fields (price is optional for free workflows)
+    const requiredFields = ['title', 'description', 'category', 'difficulty', 'time', 'integrations'];
     for (const field of requiredFields) {
       if (!workflowData[field]) {
         return NextResponse.json(
@@ -63,6 +63,14 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
+    }
+    
+    // Special validation for price: required if not marked as free
+    if (!workflowData.isFree && (!workflowData.price || workflowData.price <= 0)) {
+      return NextResponse.json(
+        { success: false, error: 'Price is required for paid workflows and must be greater than 0' },
+        { status: 400 }
+      );
     }
     
     // Set defaults
