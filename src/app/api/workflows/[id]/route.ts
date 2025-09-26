@@ -58,8 +58,12 @@ export async function PUT(
     
     const updateData = await request.json();
     
-    // If price is being updated, update isFree accordingly
-    if ('price' in updateData) {
+    // Handle isFree and price logic
+    if ('isFree' in updateData) {
+      if (updateData.isFree) {
+        updateData.price = 0;
+      }
+    } else if ('price' in updateData) {
       updateData.isFree = updateData.price === 0;
     }
     

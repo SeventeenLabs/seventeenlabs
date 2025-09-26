@@ -26,11 +26,14 @@ interface WorkflowData {
   requirements: string[];
   tags: string[];
   price: number;
+  isFree: boolean;
   videoUrl: string;
   mermaidChart: string;
   previewChart: string;
   author: string;
   version: string;
+  stripeProductId?: string;
+  stripePriceId?: string;
 }
 
 export default function EditWorkflowPage() {
@@ -52,6 +55,7 @@ export default function EditWorkflowPage() {
     requirements: [],
     tags: [],
     price: 0,
+    isFree: true,
     videoUrl: '',
     mermaidChart: '',
     previewChart: '',
@@ -103,11 +107,14 @@ export default function EditWorkflowPage() {
             requirements: Array.isArray(data.workflow.requirements) ? data.workflow.requirements : [],
             tags: Array.isArray(data.workflow.tags) ? data.workflow.tags : [],
             price: data.workflow.price || 0,
+            isFree: data.workflow.is_free !== undefined ? data.workflow.is_free : (data.workflow.price === 0),
             videoUrl: data.workflow.video_url || '',
             mermaidChart: data.workflow.mermaid_chart || '',
             previewChart: data.workflow.preview_chart || '',
             author: data.workflow.author || 'SeventeenLabs',
-            version: data.workflow.version || '1.0'
+            version: data.workflow.version || '1.0',
+            stripeProductId: data.workflow.stripe_product_id || undefined,
+            stripePriceId: data.workflow.stripe_price_id || undefined
           });
         } else {
           setMessage({ type: 'error', text: 'Failed to load workflow' });
@@ -155,12 +162,15 @@ export default function EditWorkflowPage() {
           features: formData.features,
           requirements: formData.requirements,
           tags: formData.tags,
-          price: formData.price,
+          price: formData.isFree ? 0 : formData.price,
+          isFree: formData.isFree,
           videoUrl: formData.videoUrl,
           mermaidChart: formData.mermaidChart,
           previewChart: formData.previewChart,
           author: formData.author,
-          version: formData.version
+          version: formData.version,
+          stripeProductId: formData.stripeProductId,
+          stripePriceId: formData.stripePriceId
         }),
       });
 
@@ -264,6 +274,54 @@ export default function EditWorkflowPage() {
       setMessage({ type: 'error', text: '❌ Failed to analyze workflow. Please check your connection and try again.' });
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  // Handle Stripe product creation
+  const handleCreateStripeProduct = async () => {
+    if (formData.isFree || !formData.title || !formData.description || formData.price <= 0) {
+      setMessage({ type: 'error', text: 'Please fill in title, description, and set a valid price before creating Stripe product' });
+      return;
+    }
+
+    try {
+      setMessage({ type: 'success', text: 'Creating Stripe product...' });
+      
+      const response = await fetch('/api/stripe/create-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          workflowId: formData.id,
+          title: formData.title,
+          description: formData.description,
+          price: formData.price,
+          category: formData.category,
+          difficulty: formData.difficulty,
+          integrations: formData.integrations
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormData(prev => ({
+          ...prev,
+          stripeProductId: data.productId,
+          stripePriceId: data.priceId
+        }));
+        
+        setMessage({ 
+          type: 'success', 
+          text: `✅ Stripe product ${formData.stripeProductId ? 'updated' : 'created'} successfully! Product ID: ${data.productId}` 
+        });
+      } else {
+        setMessage({ type: 'error', text: `❌ ${data.error || 'Failed to create Stripe product'}` });
+      }
+    } catch (error) {
+      console.error('Stripe product creation error:', error);
+      setMessage({ type: 'error', text: '❌ Failed to create Stripe product. Please check your connection and try again.' });
     }
   };
 
@@ -509,6 +567,97 @@ export default function EditWorkflowPage() {
                     />
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Pricing */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Pricing & Monetization</CardTitle>
+                <CardDescription>Configure pricing and Stripe integration</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label className="text-base font-medium mb-3 block">Pricing Model</Label>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        id="free"
+                        name="pricing"
+                        checked={formData.isFree}
+                        onChange={() => setFormData({...formData, isFree: true, price: 0})}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                      />
+                      <Label htmlFor="free" className="text-sm font-medium">
+                        Free Workflow
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        id="paid"
+                        name="pricing"
+                        checked={!formData.isFree}
+                        onChange={() => setFormData({...formData, isFree: false})}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                      />
+                      <Label htmlFor="paid" className="text-sm font-medium">
+                        Premium Workflow
+                      </Label>
+                    </div>
+                  </div>
+                </div>
+
+                {!formData.isFree && (
+                  <div className="space-y-4 border-t pt-4">
+                    <div>
+                      <Label htmlFor="price">Price (USD) *</Label>
+                      <Input
+                        id="price"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        value={formData.price}
+                        onChange={(e) => setFormData({...formData, price: parseFloat(e.target.value) || 0})}
+                        placeholder="9.99"
+                        required={!formData.isFree}
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Set your workflow price. Minimum $0.01
+                      </p>
+                    </div>
+
+                    {formData.stripeProductId && (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="text-sm font-medium text-green-800">Stripe Product Connected</span>
+                        </div>
+                        <div className="text-xs text-green-700 space-y-1">
+                          <div>Product ID: {formData.stripeProductId}</div>
+                          {formData.stripePriceId && <div>Price ID: {formData.stripePriceId}</div>}
+                        </div>
+                      </div>
+                    )}
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCreateStripeProduct}
+                      disabled={!formData.title || !formData.description || formData.price <= 0}
+                      className="w-full"
+                    >
+                      {formData.stripeProductId ? 'Update Stripe Product' : 'Create Stripe Product'}
+                    </Button>
+                    <p className="text-xs text-gray-500">
+                      {formData.stripeProductId 
+                        ? 'Update the Stripe product with current workflow details'
+                        : 'Create a Stripe product to enable payments for this workflow'
+                      }
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

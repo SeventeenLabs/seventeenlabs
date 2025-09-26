@@ -70,12 +70,16 @@ export async function POST(request: NextRequest) {
       ...workflowData,
       users: workflowData.users || 0,
       rating: workflowData.rating || 0,
-      isFree: workflowData.price === 0,
+      isFree: workflowData.isFree !== undefined ? workflowData.isFree : (workflowData.price === 0),
+      price: workflowData.isFree ? 0 : (workflowData.price || 0),
       features: workflowData.features || [],
       requirements: workflowData.requirements || [],
       tags: workflowData.tags || [],
       // Ensure n8nJsonUrl is passed through if provided
-      n8nJsonUrl: workflowData.n8nJsonUrl || undefined
+      n8nJsonUrl: workflowData.n8nJsonUrl || undefined,
+      // Stripe fields
+      stripeProductId: workflowData.stripeProductId || undefined,
+      stripePriceId: workflowData.stripePriceId || undefined
     };
     
     const newWorkflow = await addWorkflow(workflowToAdd);
