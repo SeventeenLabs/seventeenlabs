@@ -22,8 +22,10 @@ export default function DemoSection() {
   const [currentStep, setCurrentStep] = useState(0);
 
   return (
-    <section className="bg-slate-950 px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-slate-900 px-6 py-24 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-transparent to-slate-700/20"></div>
+      <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -30,8 +30,12 @@ const ctaOptions = [
 
 export default function NewsletterCta() {
   return (
-    <section className="bg-slate-950 px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-slate-950 px-6 py-24 relative">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-b from-slate-700 to-transparent"></div>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-t from-slate-700 to-transparent"></div>
+      
+      <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

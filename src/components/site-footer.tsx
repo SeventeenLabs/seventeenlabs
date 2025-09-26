@@ -21,7 +21,7 @@ const companyLinks = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800 px-6 py-16 text-slate-200">
+    <footer className="bg-slate-900 border-t border-slate-700 px-6 py-16 text-slate-200">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand & Contact */}
@@ -103,7 +103,7 @@ export default function SiteFooter() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-12 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-xs text-slate-500">
             © {new Date().getFullYear()} SeventeenLabs. All rights reserved.
           </div>

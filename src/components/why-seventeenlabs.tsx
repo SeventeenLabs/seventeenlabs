@@ -30,8 +30,9 @@ const benefits = [
 
 export default function WhySeventeenLabs() {
   return (
-    <section className="bg-slate-950 px-6 py-24 text-slate-100">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-slate-800 px-6 py-24 text-slate-100 relative">
+      
+      <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
