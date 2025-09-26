@@ -81,20 +81,74 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
             svgElement.style.maxWidth = 'none';
             svgElement.style.cursor = 'grab';
             
-            // Apply N8N-like styles to nodes
-            const nodes = svgElement.querySelectorAll('.node rect, .node circle, .node polygon');
-            nodes.forEach((node: any) => {
-              node.style.fill = '#ffffff';
-              node.style.stroke = '#d1d5db';
-              node.style.strokeWidth = '2px';
-              node.style.filter = 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))';
-            });
-
-            // Style decision nodes (diamonds)
-            const decisions = svgElement.querySelectorAll('.node polygon');
-            decisions.forEach((node: any) => {
-              node.style.fill = '#fef3c7';
-              node.style.stroke = '#f59e0b';
+            // Apply workflow-specific styles to nodes based on their type
+            const allNodes = svgElement.querySelectorAll('.node');
+            
+            // Parse the chart to find hiddenNode class assignments
+            const hiddenNodeIds = new Set<string>();
+            const classMatches = chart.match(/class\s+([^=\n]+)\s+hiddenNode/g);
+            if (classMatches) {
+              classMatches.forEach(match => {
+                const nodeIds = match.replace(/class\s+/, '').replace(/\s+hiddenNode/, '').split(',');
+                nodeIds.forEach(id => hiddenNodeIds.add(id.trim()));
+              });
+            }
+            
+            allNodes.forEach((nodeGroup: any, index: number) => {
+              const nodeShape = nodeGroup.querySelector('rect, circle, polygon');
+              const nodeText = nodeGroup.querySelector('text, .nodeLabel, .label');
+              const nodeId = nodeGroup.id || '';
+              const nodeClass = nodeGroup.className?.baseVal || '';
+              
+              // Extract clean node ID from the DOM (Mermaid adds prefixes)
+              const cleanNodeId = nodeId.replace(/^flowchart-[^-]+-/, '').replace(/-\d+$/, '');
+              
+              if (nodeShape) {
+                // Default styling for all nodes
+                nodeShape.style.strokeWidth = '2px';
+                nodeShape.style.filter = 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))';
+                
+                // Check if this node should be hidden (in preview mode)
+                const isHiddenNode = isPreview && (
+                  hiddenNodeIds.has(cleanNodeId) ||
+                  nodeText?.textContent?.includes('...') || 
+                  nodeText?.textContent?.includes('Hidden') ||
+                  nodeText?.textContent?.includes('Premium') ||
+                  nodeId.toLowerCase().includes('hidden') ||
+                  nodeClass.toLowerCase().includes('hidden')
+                );
+                
+                if (isHiddenNode) {
+                  // Hidden/Premium nodes - Gray with dashed border
+                  nodeShape.style.fill = '#f3f4f6';
+                  nodeShape.style.stroke = '#9ca3af';
+                  nodeShape.style.strokeDasharray = '5,5';
+                  nodeShape.style.opacity = '0.7';
+                } else if (nodeShape.tagName === 'polygon') {
+                  // Decision nodes (diamonds) - Orange
+                  nodeShape.style.fill = '#fed7aa';
+                  nodeShape.style.stroke = '#f97316';
+                } else if (nodeId.toLowerCase().includes('start') || nodeClass.toLowerCase().includes('start') || index === 0) {
+                  // Start/Trigger nodes - Green
+                  nodeShape.style.fill = '#dcfce7';
+                  nodeShape.style.stroke = '#22c55e';
+                } else if (nodeId.toLowerCase().includes('end') || nodeClass.toLowerCase().includes('end') || 
+                          nodeId.toLowerCase().includes('finish') || nodeClass.toLowerCase().includes('finish')) {
+                  // End/Result nodes - Purple
+                  nodeShape.style.fill = '#e9d5ff';
+                  nodeShape.style.stroke = '#a855f7';
+                } else {
+                  // Process Step nodes - Blue (default for middle nodes)
+                  nodeShape.style.fill = '#dbeafe';
+                  nodeShape.style.stroke = '#3b82f6';
+                }
+                
+                // Style hidden node text differently
+                if (isHiddenNode && nodeText) {
+                  nodeText.style.fontStyle = 'italic';
+                  nodeText.style.opacity = '0.6';
+                }
+              }
             });
 
             // Style text - ensure it's dark and visible
@@ -412,15 +466,15 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
             </div>
             <div className="space-y-2.5">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-green-100 border-2 border-green-500 flex-shrink-0"></div>
+                <div className="w-4 h-4 rounded bg-green-100 border-2 border-green-500 flex-shrink-0" style={{backgroundColor: '#dcfce7', borderColor: '#22c55e'}}></div>
                 <span className="text-xs text-gray-600">Start/Trigger</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-blue-100 border-2 border-blue-500 flex-shrink-0"></div>
+                <div className="w-4 h-4 rounded bg-blue-100 border-2 border-blue-500 flex-shrink-0" style={{backgroundColor: '#dbeafe', borderColor: '#3b82f6'}}></div>
                 <span className="text-xs text-gray-600">Process Step</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-orange-100 border-2 border-orange-500 flex-shrink-0"></div>
+                <div className="w-4 h-4 rounded bg-orange-100 border-2 border-orange-500 flex-shrink-0" style={{backgroundColor: '#fed7aa', borderColor: '#f97316'}}></div>
                 <span className="text-xs text-gray-600">Decision Point</span>
               </div>
               {isPreview && (
@@ -435,7 +489,7 @@ export default function MermaidDiagram({ chart, className = "", isPreview = fals
                 </>
               )}
               <div className="flex items-center gap-3">
-                <div className="w-4 h-4 rounded bg-purple-100 border-2 border-purple-500 flex-shrink-0"></div>
+                <div className="w-4 h-4 rounded bg-purple-100 border-2 border-purple-500 flex-shrink-0" style={{backgroundColor: '#e9d5ff', borderColor: '#a855f7'}}></div>
                 <span className="text-xs text-gray-600">End/Result</span>
               </div>
             </div>
