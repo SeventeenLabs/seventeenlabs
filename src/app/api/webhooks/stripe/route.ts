@@ -1,135 +1,85 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { addPurchase, updatePurchaseStatus } from '@/lib/purchase-db';
-import { workflows } from '@/lib/workflows-data';
+import { addPurchase } from '@/lib/purchases-db';
+import { getWorkflowById } from '@/lib/supabase-workflow-db';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-08-27.basil',
 });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-
 export async function POST(request: NextRequest) {
+  console.log('🔔 Stripe webhook received');
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
   if (!signature || !webhookSecret) {
-    return NextResponse.json(
-      { error: 'Missing signature or webhook secret' },
-      { status: 400 }
-    );
+    console.error('❌ Missing signature or webhook secret');
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
   }
 
   let event: Stripe.Event;
-
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    console.log('✅ Webhook verified, event type:', event.type);
   } catch (error) {
-    console.error('Webhook signature verification failed:', error);
-    return NextResponse.json(
-      { error: 'Invalid signature' },
-      { status: 400 }
-    );
+    console.error('❌ Webhook verification failed:', error);
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
-  try {
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        
-        // Extract workflow information from metadata
-        const workflowId = parseInt(paymentIntent.metadata.workflowId);
-        
-        // Get customer email from payment method or customer object
-        let customerEmail = '';
-        
-        // Try to get email from payment method billing details
-        if (paymentIntent.payment_method) {
-          try {
-            const paymentMethod = await stripe.paymentMethods.retrieve(
-              paymentIntent.payment_method as string
-            );
-            customerEmail = paymentMethod.billing_details?.email || '';
-          } catch (error) {
-            console.error('Error fetching payment method:', error);
-          }
-        }
-
-        // If no email in payment method, try to get from customer
-        if (!customerEmail && paymentIntent.customer) {
-          try {
-            const customer = await stripe.customers.retrieve(paymentIntent.customer as string);
-            if (!customer.deleted && customer.email) {
-              customerEmail = customer.email;
-            }
-          } catch (error) {
-            console.error('Error fetching customer:', error);
-          }
-        }
-
-        if (!customerEmail) {
-          console.error('No customer email found for payment:', paymentIntent.id);
-          break;
-        }
-
-        // Verify workflow exists
-        const workflow = workflows.find(w => w.id === workflowId);
-        if (!workflow) {
-          console.error('Workflow not found:', workflowId);
-          break;
-        }
-
-        // Check if purchase already exists
-        const existingPurchase = await import('@/lib/purchase-db').then(db => 
-          db.findPurchaseByStripeId(paymentIntent.id)
-        );
-
-        if (existingPurchase) {
-          // Update status to completed
-          updatePurchaseStatus(existingPurchase.id, 'completed');
-          console.log('Updated existing purchase to completed:', existingPurchase.id);
-        } else {
-          // Create new purchase record
-          const purchase = addPurchase({
-            workflowId,
-            userEmail: customerEmail,
-            stripePaymentIntentId: paymentIntent.id,
-            stripeCustomerId: paymentIntent.customer as string,
-            amount: paymentIntent.amount,
-            currency: paymentIntent.currency,
+  if (event.type === 'checkout.session.completed') {
+    console.log('💳 Processing checkout session completed');
+    const session = event.data.object as Stripe.Checkout.Session;
+    
+    console.log('📊 Session details:', {
+      id: session.id,
+      metadata: session.metadata,
+      customerEmail: session.customer_email || session.customer_details?.email,
+      paymentIntentId: session.payment_intent,
+      amountTotal: session.amount_total
+    });
+    
+    const workflowId = parseInt(session.metadata?.workflowId || '0');
+    const customerEmail = session.customer_email || session.customer_details?.email || '';
+    const paymentIntentId = session.payment_intent as string;
+    
+    console.log('🔍 Extracted values:', { workflowId, customerEmail, paymentIntentId });
+    
+    if (workflowId && customerEmail && paymentIntentId) {
+      const workflow = await getWorkflowById(workflowId);
+      if (workflow) {
+        console.log('✅ Workflow found:', workflow.title);
+        try {
+          console.log('💾 Creating purchase record...');
+          const purchase = await addPurchase({
+            workflow_id: workflowId,
+            user_email: customerEmail,
+            stripe_payment_intent_id: paymentIntentId,
+            stripe_session_id: session.id,
+            stripe_customer_id: session.customer as string,
+            amount: session.amount_total || 0,
+            currency: session.currency || 'usd',
             status: 'completed',
-            metadata: paymentIntent.metadata,
+            metadata: session.metadata || {},
           });
-
-          console.log('New purchase recorded:', purchase.id);
+          
+          if (purchase) {
+            console.log('✅ Purchase created successfully:', purchase.id);
+          } else {
+            console.error('❌ Purchase creation returned null');
+          }
+        } catch (error) {
+          console.error('❌ Error creating purchase:', error);
         }
-
-        break;
-
-      case 'payment_intent.payment_failed':
-        const failedPayment = event.data.object as Stripe.PaymentIntent;
-        console.log('Payment failed:', failedPayment.id);
-        
-        // You could update purchase status to failed here if needed
-        break;
-
-      case 'charge.dispute.created':
-        const dispute = event.data.object as Stripe.Dispute;
-        console.log('Dispute created for charge:', dispute.charge);
-        
-        // Handle disputes by marking purchases as disputed
-        break;
-
-      default:
-        console.log('Unhandled event type:', event.type);
+      } else {
+        console.error('❌ Workflow not found for ID:', workflowId);
+      }
+    } else {
+      console.error('❌ Missing required data:', { workflowId, customerEmail, paymentIntentId });
     }
-
-    return NextResponse.json({ received: true });
-  } catch (error) {
-    console.error('Error processing webhook:', error);
-    return NextResponse.json(
-      { error: 'Webhook processing failed' },
-      { status: 500 }
-    );
+  } else {
+    console.log('ℹ️ Unhandled event type:', event.type);
   }
+
+  return NextResponse.json({ received: true });
 }

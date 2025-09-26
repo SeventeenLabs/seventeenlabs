@@ -14,7 +14,7 @@ export default function WorkflowsHeader() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
-  const { purchasedWorkflows, userEmail, setUserEmail } = usePurchase();
+  const { purchasedWorkflows, purchasedWorkflowDetails, userEmail, setUserEmail } = usePurchase();
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,11 +43,6 @@ export default function WorkflowsHeader() {
     setUserEmail('');
     setEmail('');
   };
-
-  // Get purchased workflow details
-  const purchasedWorkflowDetails = purchasedWorkflows.map(id => 
-    workflows.find(w => w.id === id)
-  ).filter(Boolean);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -236,25 +231,19 @@ export default function WorkflowsHeader() {
                 {purchasedWorkflowDetails.length > 0 ? (
                   <div className="space-y-2 max-h-60 overflow-y-auto">
                     {purchasedWorkflowDetails.map((workflow) => (
-                      <div key={workflow!.id} className="flex items-center justify-between p-2 bg-slate-50 rounded-md">
+                      <div key={workflow.workflowId} className="flex items-center justify-between p-2 bg-slate-50 rounded-md">
                         <div className="flex-1">
                           <p className="text-sm font-medium text-slate-900 truncate">
-                            {workflow!.title}
+                            {workflow.title}
                           </p>
                           <div className="flex items-center gap-2 mt-1">
-                            {workflow!.isFree ? (
-                              <Badge className="bg-green-100 text-green-700 text-xs">
-                                Free
-                              </Badge>
-                            ) : (
-                              <Badge variant="outline" className="text-xs">
-                                ${workflow!.price}
-                              </Badge>
-                            )}
+                            <Badge className="bg-green-100 text-green-700 text-xs">
+                              Purchased
+                            </Badge>
                             <Check className="h-3 w-3 text-green-600" />
                           </div>
                         </div>
-                        <Link href={`//${workflow!.id}`}>
+                        <Link href={`/workflows/${workflow.workflowId}`}>
                           <Button variant="ghost" size="sm" className="text-xs">
                             View
                           </Button>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Code, CheckCircle, Lock, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -14,11 +14,89 @@ import { usePurchase } from "@/contexts/purchase-context";
 
 export default function WorkflowDetailPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const workflowId = parseInt(params.id as string);
   const { workflow, loading, error } = useWorkflow(workflowId);
   const [activeTab, setActiveTab] = useState("overview");
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const { isPurchased, refreshPurchases } = usePurchase();
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const { isPurchased, refreshPurchases, setUserEmail, verifyPurchase, confirmPurchase, userEmail } = usePurchase();
+  const paymentProcessedRef = useRef(false);
+
+  // Handle payment success from URL parameters
+  useEffect(() => {
+    const paymentStatus = searchParams.get('payment');
+    const email = searchParams.get('email');
+    const sessionId = searchParams.get('session_id');
+    
+    // Prevent processing the same payment multiple times
+    if (paymentStatus === 'success' && !paymentProcessedRef.current) {
+      paymentProcessedRef.current = true;
+      setIsProcessingPayment(true);
+      console.log('Payment success detected:', { email, sessionId });
+      
+      // Store email if provided and different from current
+      if (email && decodeURIComponent(email) !== userEmail) {
+        setUserEmail(decodeURIComponent(email));
+      }
+      
+      // Use a timeout to ensure the email is set before confirming purchase
+      setTimeout(async () => {
+        try {
+          // If we have a session ID, get the payment intent and confirm the purchase
+          if (sessionId && email) {
+            console.log('🔍 Getting session details...');
+            // Get payment intent from session ID and confirm purchase
+            const sessionResponse = await fetch('/api/stripe/get-session', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ sessionId }),
+            });
+            
+            const sessionData = await sessionResponse.json();
+            console.log('📋 Session data received:', sessionData);
+            
+            if (sessionData.paymentIntentId) {
+              console.log('💳 Got payment intent ID:', sessionData.paymentIntentId);
+              const confirmed = await confirmPurchase(workflowId, sessionData.paymentIntentId);
+              console.log('✅ Purchase confirmation result:', confirmed);
+              
+              if (confirmed) {
+                await refreshPurchases();
+                console.log('🔄 Purchases refreshed after confirmation');
+              }
+            } else {
+              console.error('❌ No payment intent ID in session data');
+            }
+          } else {
+            // Fallback: force verification of this specific purchase
+            if (email) {
+              console.log('🔍 Fallback: verifying purchase...');
+              const hasPurchased = await verifyPurchase(workflowId);
+              console.log('📊 Purchase verification result:', hasPurchased);
+              if (hasPurchased) {
+                await refreshPurchases();
+              }
+            } else {
+              console.log('🔄 Refreshing purchases (no email)...');
+              await refreshPurchases();
+            }
+          }
+        } catch (error) {
+          console.error('❌ Error in payment success flow:', error);
+          // Fallback to just refreshing purchases
+          await refreshPurchases();
+        } finally {
+          // Clean up the URL after processing is complete
+          console.log('🧹 Cleaning up URL parameters');
+          window.history.replaceState({}, '', window.location.pathname);
+          setIsProcessingPayment(false);
+        }
+      }, 500); // Wait 500ms before processing
+    }
+  }, [searchParams]); // Only depend on searchParams, not on the functions
 
   const handlePurchaseClick = () => {
     setShowPurchaseModal(true);
@@ -365,8 +443,14 @@ export default function WorkflowDetailPage() {
                           : "bg-slate-900 hover:bg-slate-800"
                     } text-white`}
                     size="lg"
+                    disabled={isProcessingPayment}
                   >
-                    {isWorkflowPurchased ? (
+                    {isProcessingPayment ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Processing Payment...
+                      </>
+                    ) : isWorkflowPurchased ? (
                       <>
                         <Download className="mr-2 h-4 w-4" />
                         Download Workflow

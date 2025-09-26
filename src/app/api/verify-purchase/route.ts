@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { hasUserPurchased, addPurchase, findPurchaseByStripeId } from '@/lib/purchase-db';
-import { workflows } from '@/lib/workflows-data';
+import { hasUserPurchased, addPurchase, findPurchaseByStripeId, getUserPurchases } from '@/lib/purchases-db';
+import { getWorkflowById } from '@/lib/supabase-workflow-db';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-08-27.basil',
@@ -20,8 +20,11 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const hasPurchased = hasUserPurchased(email, parseInt(workflowId));
-      const workflow = workflows.find(w => w.id === parseInt(workflowId));
+      console.log(`Verifying purchase for email: ${email}, workflowId: ${workflowId}`);
+      const hasPurchased = await hasUserPurchased(email, parseInt(workflowId));
+      const workflow = await getWorkflowById(parseInt(workflowId));
+      
+      console.log(`Purchase verification result: ${hasPurchased}`);
 
       return NextResponse.json({
         hasPurchased,
@@ -43,7 +46,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Check if we already have this purchase recorded
-      const existingPurchase = findPurchaseByStripeId(paymentIntentId);
+      const existingPurchase = await findPurchaseByStripeId(paymentIntentId);
       if (existingPurchase) {
         return NextResponse.json({
           success: true,
@@ -65,14 +68,25 @@ export async function POST(request: NextRequest) {
 
         // Verify the payment is for the correct workflow
         const paymentWorkflowId = paymentIntent.metadata.workflowId;
+        console.log('🔍 Comparing workflow IDs:', {
+          fromPayment: paymentWorkflowId,
+          fromRequest: workflowId.toString(),
+          match: paymentWorkflowId === workflowId.toString()
+        });
+        
         if (paymentWorkflowId !== workflowId.toString()) {
+          console.error('❌ Payment workflow ID mismatch:', {
+            expected: workflowId.toString(),
+            actual: paymentWorkflowId,
+            metadata: paymentIntent.metadata
+          });
           return NextResponse.json(
             { error: 'Payment does not match workflow' },
             { status: 400 }
           );
         }
 
-        const workflow = workflows.find(w => w.id === parseInt(workflowId));
+        const workflow = await getWorkflowById(parseInt(workflowId));
         if (!workflow) {
           return NextResponse.json(
             { error: 'Workflow not found' },
@@ -81,24 +95,41 @@ export async function POST(request: NextRequest) {
         }
 
         // Record the purchase
-        const purchase = addPurchase({
-          workflowId: parseInt(workflowId),
-          userEmail: email,
-          stripePaymentIntentId: paymentIntentId,
-          stripeCustomerId: paymentIntent.customer as string,
+        console.log('🔍 About to add purchase to database:', {
+          workflow_id: parseInt(workflowId),
+          user_email: email,
+          stripe_payment_intent_id: paymentIntentId,
+          amount: paymentIntent.amount
+        });
+        
+        const purchase = await addPurchase({
+          workflow_id: parseInt(workflowId),
+          user_email: email,
+          stripe_payment_intent_id: paymentIntentId,
+          stripe_customer_id: paymentIntent.customer as string,
           amount: paymentIntent.amount,
           currency: paymentIntent.currency,
           status: 'completed',
           metadata: paymentIntent.metadata,
         });
 
+        console.log('💾 Purchase add result:', purchase);
+
+        if (!purchase) {
+          console.error('❌ Failed to add purchase to database');
+          return NextResponse.json(
+            { error: 'Failed to record purchase' },
+            { status: 500 }
+          );
+        }
+
         return NextResponse.json({
           success: true,
           message: 'Purchase confirmed',
           purchase: {
-            id: purchase.id,
-            workflowId: purchase.workflowId,
-            purchaseDate: purchase.purchaseDate,
+            id: purchase?.id,
+            workflowId: purchase?.workflow_id,
+            purchaseDate: purchase?.created_at,
           },
         });
 
@@ -120,23 +151,35 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // For now, let's check each workflow individually
-      const userPurchases = [];
+      console.log(`Listing purchases for email: ${email}`);
       
-      for (const workflow of workflows) {
-        if (hasUserPurchased(email, workflow.id)) {
-          userPurchases.push({
-            workflowId: workflow.id,
-            title: workflow.title,
-            purchaseDate: new Date().toISOString(), // You'd get this from the actual purchase record
-          });
-        }
-      }
+      try {
+        const userPurchases = await getUserPurchases(email);
+        console.log(`Found ${userPurchases.length} purchases for user`);
+        
+        const purchasesWithWorkflowData = await Promise.all(
+          userPurchases.map(async purchase => {
+            const workflow = await getWorkflowById(purchase.workflow_id);
+            return {
+              workflowId: purchase.workflow_id,
+              title: workflow?.title || 'Unknown Workflow',
+              purchaseDate: purchase.created_at,
+            };
+          })
+        );
 
-      return NextResponse.json({
-        purchases: userPurchases,
-        total: userPurchases.length,
-      });
+        console.log(`Found ${purchasesWithWorkflowData.length} purchases for ${email}`);
+        return NextResponse.json({
+          purchases: purchasesWithWorkflowData,
+          total: purchasesWithWorkflowData.length,
+        });
+      } catch (error) {
+        console.error('Error fetching user purchases:', error);
+        return NextResponse.json(
+          { error: 'Failed to fetch purchases' },
+          { status: 500 }
+        );
+      }
     }
 
     return NextResponse.json(
@@ -167,8 +210,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const hasPurchased = hasUserPurchased(email, parseInt(workflowId));
-    const workflow = workflows.find(w => w.id === parseInt(workflowId));
+    const hasPurchased = await hasUserPurchased(email, parseInt(workflowId));
+    const workflow = await getWorkflowById(parseInt(workflowId));
 
     return NextResponse.json({
       hasPurchased,

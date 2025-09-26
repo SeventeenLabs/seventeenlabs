@@ -44,6 +44,10 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Get base URL - use environment variable or construct from request
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                   `${request.headers.get('x-forwarded-proto') || 'http'}://${request.headers.get('host')}`;
+
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -59,8 +63,14 @@ export async function POST(request: NextRequest) {
         workflowId: workflowId.toString(),
         workflowTitle: workflow.title,
       },
-      success_url: successUrl || `${process.env.NEXT_PUBLIC_BASE_URL}/workflows/${workflowId}?payment=success`,
-      cancel_url: cancelUrl || `${process.env.NEXT_PUBLIC_BASE_URL}/workflows/${workflowId}?payment=cancelled`,
+      payment_intent_data: {
+        metadata: {
+          workflowId: workflowId.toString(),
+          workflowTitle: workflow.title,
+        },
+      },
+      success_url: successUrl || `${baseUrl}/workflows/${workflowId}?payment=success&email=${encodeURIComponent(customerEmail)}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${baseUrl}/workflows/${workflowId}?payment=cancelled`,
     });
 
     return NextResponse.json({

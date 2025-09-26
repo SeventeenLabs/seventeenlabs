@@ -78,3 +78,49 @@ CREATE TRIGGER update_workflows_updated_at
 -- 1. Create bucket: workflow-files
 -- 2. Make it public
 -- 3. Set policies for public read, authenticated write
+
+-- Purchases table to track workflow purchases
+CREATE TABLE purchases (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  
+  -- Purchase details
+  workflow_id BIGINT NOT NULL REFERENCES workflows(id) ON DELETE CASCADE,
+  user_email VARCHAR(255) NOT NULL,
+  
+  -- Stripe integration
+  stripe_payment_intent_id VARCHAR(100) UNIQUE NOT NULL,
+  stripe_customer_id VARCHAR(100),
+  stripe_session_id VARCHAR(100),
+  
+  -- Payment details
+  amount INTEGER NOT NULL, -- Amount in cents
+  currency VARCHAR(3) NOT NULL DEFAULT 'usd',
+  
+  -- Status tracking
+  status VARCHAR(20) CHECK (status IN ('pending', 'completed', 'refunded', 'failed')) NOT NULL DEFAULT 'pending',
+  
+  -- Metadata
+  metadata JSONB DEFAULT '{}'::jsonb,
+  
+  -- Timestamps
+  purchase_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  completed_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Indexes for purchases
+CREATE INDEX idx_purchases_user_email ON purchases(user_email);
+CREATE INDEX idx_purchases_workflow_id ON purchases(workflow_id);
+CREATE INDEX idx_purchases_status ON purchases(status);
+CREATE INDEX idx_purchases_stripe_payment_intent ON purchases(stripe_payment_intent_id);
+CREATE INDEX idx_purchases_purchase_date ON purchases(purchase_date);
+
+-- Composite index for user purchases
+CREATE INDEX idx_purchases_user_workflow ON purchases(user_email, workflow_id);
+
+-- Trigger to update updated_at on purchases
+CREATE TRIGGER update_purchases_updated_at 
+  BEFORE UPDATE ON purchases 
+  FOR EACH ROW 
+  EXECUTE FUNCTION update_updated_at_column();

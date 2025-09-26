@@ -67,7 +67,7 @@ function PurchaseForm({ workflow, onSuccess, onError }: {
         body: JSON.stringify({
           workflowId: workflow.id,
           customerEmail: email.trim(),
-          successUrl: `${window.location.origin}/workflows/${workflow.id}?payment=success`,
+          // Let the API use its default success URL with session_id
           cancelUrl: `${window.location.origin}/workflows/${workflow.id}?payment=cancelled`,
         }),
       });
@@ -213,10 +213,6 @@ export default function PurchaseModal({ workflow, isOpen, onClose, onPurchaseCom
                       {workflow.description}
                     </p>
                     <div className="flex items-center gap-4 text-sm text-slate-500">
-                      <div className="flex items-center gap-1">
-                        <FileText className="h-4 w-4" />
-                        <span>{workflow.n8nData?.nodes?.length || 0} nodes</span>
-                      </div>
                       {workflow.category && (
                         <span className="px-2 py-1 bg-slate-100 rounded text-xs">
                           {workflow.category}
