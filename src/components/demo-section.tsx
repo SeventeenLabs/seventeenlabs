@@ -157,7 +157,7 @@ export default function DemoSection() {
             {/* CTA */}
             <div className="pt-4">
               <a
-                href="https://n8nworkflows.seventeenlabs.io"
+                href="/workflows"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-slate-300 hover:text-white font-medium transition-colors"

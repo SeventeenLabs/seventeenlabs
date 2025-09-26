@@ -6,7 +6,7 @@ const offerings = [
   {
     title: "Automation Workflows",
     description: "Pre-built n8n workflows that connect your favorite tools. Save hours on repetitive tasks and focus on what matters most.",
-    href: "https://n8nworkflows.seventeenlabs.io",
+    href: "/workflows",
     external: true,
     icon: Workflow,
   },

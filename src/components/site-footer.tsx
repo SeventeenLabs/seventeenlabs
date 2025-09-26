@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, ExternalLink } from "lucide-react";
 
 const mainLinks = [
-  { label: "Workflows", href: "https://n8nworkflows.seventeenlabs.io", external: true },
+  { label: "Workflows", href: "/workflows", external: true },
   { label: "Apps & Tools", href: "/apps", external: false },
   { label: "Agency Services", href: "/agency", external: false },
 ];
