@@ -578,6 +578,7 @@ export default function AdminWorkflowsPage() {
                     </CardHeader>
                     
                     <CardContent className="pt-0">
+                      {/* Main Stats */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                         <div>
                           <span className="text-gray-500 text-xs uppercase tracking-wide font-medium">Time</span>
@@ -601,6 +602,63 @@ export default function AdminWorkflowsPage() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Content Status */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {workflow.mermaidChart ? (
+                          <Badge className="bg-green-100 text-green-700 border-green-200 text-xs">
+                            ✓ Diagram
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-red-100 text-red-700 border-red-200 text-xs">
+                            ✗ No Diagram
+                          </Badge>
+                        )}
+                        {workflow.videoUrl && (
+                          <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs">
+                            ✓ Video
+                          </Badge>
+                        )}
+                        {workflow.previewChart && (
+                          <Badge className="bg-purple-100 text-purple-700 border-purple-200 text-xs">
+                            ✓ Preview
+                          </Badge>
+                        )}
+                        {workflow.features && workflow.features.length > 0 && (
+                          <Badge className="bg-gray-100 text-gray-700 border-gray-200 text-xs">
+                            {workflow.features.length} Features
+                          </Badge>
+                        )}
+                        {workflow.requirements && workflow.requirements.length > 0 && (
+                          <Badge className="bg-gray-100 text-gray-700 border-gray-200 text-xs">
+                            {workflow.requirements.length} Requirements
+                          </Badge>
+                        )}
+                      </div>
+
+                      {/* Integration Status */}
+                      {workflow.stripeProductId && (
+                        <div className="mb-4">
+                          <div className="bg-green-50 border border-green-200 rounded-md px-3 py-2">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-green-800 font-medium text-sm">Stripe Connected</span>
+                              <Badge className="bg-green-100 text-green-800 border-green-300 text-xs">Active</Badge>
+                            </div>
+                            <div className="flex flex-wrap gap-2 text-xs">
+                              <div className="text-green-700">
+                                <span className="font-medium">Product:</span>
+                                <span className="ml-1 font-mono">{workflow.stripeProductId.substring(0, 24)}...</span>
+                              </div>
+                              {workflow.stripePriceId && (
+                                <div className="text-green-700">
+                                  <span className="font-medium">Price:</span>
+                                  <span className="ml-1 font-mono">{workflow.stripePriceId.substring(0, 24)}...</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </CardContent>
                   </div>
 

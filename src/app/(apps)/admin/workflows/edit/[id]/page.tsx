@@ -482,10 +482,15 @@ export default function EditWorkflowPage() {
               </div>
 
               {/* Stripe Integration */}
-              {(formData.stripeProductId || formData.stripePriceId) && (
+              {(formData.stripeProductId || formData.stripePriceId || !formData.isFree) && (
                 <div className="space-y-3">
                   <h4 className="font-medium text-slate-900 border-b pb-1">Stripe Integration</h4>
                   <div className="space-y-2 text-sm">
+                    <div><span className="font-medium">Status:</span> {formData.stripeProductId ? 'Connected' : 'Not Connected'}</div>
+                    <div><span className="font-medium">Pricing Model:</span> {formData.isFree ? 'Free' : 'Premium'}</div>
+                    {!formData.isFree && (
+                      <div><span className="font-medium">Price:</span> ${formData.price}</div>
+                    )}
                     {formData.stripeProductId && (
                       <div>
                         <span className="font-medium">Product ID:</span>
@@ -496,6 +501,12 @@ export default function EditWorkflowPage() {
                       <div>
                         <span className="font-medium">Price ID:</span>
                         <code className="ml-2 text-xs bg-gray-100 px-2 py-1 rounded">{formData.stripePriceId}</code>
+                      </div>
+                    )}
+                    {!formData.stripeProductId && !formData.isFree && (
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                        <span className="text-yellow-700 text-xs">Ready to create Stripe product</span>
                       </div>
                     )}
                   </div>

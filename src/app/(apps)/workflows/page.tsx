@@ -408,12 +408,48 @@ export default function WorkflowsPage() {
         )}
 
         {/* Call to Action */}
-        <div className="text-center bg-slate-50 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 mb-2">Need a custom workflow?</h2>
-          <p className="text-slate-600 mb-4">
+        <div className="text-center bg-slate-900 rounded-xl p-8">
+          <h2 className="text-xl font-semibold text-white mb-2">Need a custom workflow?</h2>
+          <p className="text-slate-300 mb-8">
             We build tailored automation solutions for your specific needs.
           </p>
-          <Button className="bg-slate-900 hover:bg-slate-800 text-white">
+          
+          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+            <div className="bg-slate-800 rounded-lg p-4 border border-slate-700 shadow-sm">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <Zap className="h-4 w-4 text-blue-400" />
+                </div>
+                <h3 className="font-medium text-white text-sm">Custom Development</h3>
+              </div>
+              <p className="text-xs text-slate-400">Build workflows from scratch tailored to your exact requirements</p>
+            </div>
+            
+            <div className="bg-slate-800 rounded-lg p-4 border border-slate-700 shadow-sm">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                  <Database className="h-4 w-4 text-green-400" />
+                </div>
+                <h3 className="font-medium text-white text-sm">Your Server Setup</h3>
+              </div>
+              <p className="text-xs text-slate-400">Configure workflows on your existing n8n instance with training</p>
+            </div>
+            
+            <div className="bg-slate-800 rounded-lg p-4 border border-slate-700 shadow-sm">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                  <Users className="h-4 w-4 text-purple-400" />
+                </div>
+                <h3 className="font-medium text-white text-sm">Hosted by Me</h3>
+              </div>
+              <p className="text-xs text-slate-400">Fully managed n8n service with monitoring and maintenance</p>
+            </div>
+          </div>
+          
+          <Button 
+            className="bg-white hover:bg-slate-100 text-slate-900 hover:text-slate-900"
+            onClick={() => window.open('mailto:hello@seventeenlabs.com?subject=Custom Workflow Services&body=Hi! I\'m interested in your custom workflow services.%0A%0APlease let me know:%0A- Which service would work best for my needs%0A- Timeline for development/setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
+          >
             Contact Us
           </Button>
         </div>

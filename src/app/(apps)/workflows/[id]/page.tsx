@@ -402,6 +402,46 @@ export default function WorkflowDetailPage() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Setup Service Card */}
+              <Card className="border-slate-200 bg-gradient-to-br from-slate-50 to-gray-100">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center">
+                      <Users className="h-4 w-4 text-slate-600" />
+                    </div>
+                    <h3 className="font-medium text-slate-900">Need Help Setting This Up?</h3>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-sm text-slate-700">
+                    Save time and avoid setup headaches. I&apos;ll handle all the technical configuration, integration connections, and testing so you can focus on using the workflow instead of building it.
+                  </p>
+                  
+                  <p className="text-sm text-slate-600 font-medium">
+                    Choose your preferred option:
+                  </p>
+                  
+                  <div className="space-y-3">
+                    <div className="text-sm">
+                      <div className="font-medium text-slate-900">Your Server Setup</div>
+                      <div className="text-slate-600">Starting at $97</div>
+                    </div>
+                    <div className="text-sm">
+                      <div className="font-medium text-slate-900">Hosted by Me</div>
+                      <div className="text-slate-600">Starting at $197/month</div>
+                    </div>
+                  </div>
+
+                  <Button 
+                    size="sm" 
+                    className="w-full bg-slate-900 hover:bg-slate-800 text-white mt-4"
+                    onClick={() => window.open('mailto:hello@seventeenlabs.com?subject=Setup Service - ' + encodeURIComponent(workflow.title) + '&body=Hi! I\'m interested in having you set up the "' + encodeURIComponent(workflow.title) + '" workflow for me.%0A%0APlease let me know:%0A- Which hosting option would work best for my needs%0A- Timeline for setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
+                  >
+                    Contact for Setup
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
