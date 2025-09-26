@@ -19,6 +19,8 @@ interface N8nWorkflow {
   versionId?: string;
   id?: string;
   settings?: any;
+  staticData?: any;
+  pinData?: any;
   meta?: any;
 }
 
@@ -108,9 +110,24 @@ export async function POST(request: NextRequest) {
       }
     }
     
+    // Include the original n8n workflow data for storage
+    const responseData = {
+      ...workflowData,
+      n8nData: {
+        nodes: workflow.nodes || [],
+        connections: workflow.connections || {},
+        settings: workflow.settings || {},
+        staticData: workflow.staticData || {},
+        pinData: workflow.pinData || {},
+      },
+      n8nId: workflow.id || undefined,
+      n8nVersionId: workflow.versionId || undefined,
+      originalWorkflowName: workflow.name || undefined
+    };
+    
     return NextResponse.json({
       success: true,
-      data: workflowData
+      data: responseData
     });
     
   } catch (error) {

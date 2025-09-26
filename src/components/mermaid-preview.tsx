@@ -1,15 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { ZoomIn, ZoomOut, RotateCcw, Maximize } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCcw, Maximize, Eye, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface MermaidPreviewProps {
   chart: string;
+  previewChart?: string;
   className?: string;
 }
 
-export default function MermaidPreview({ chart, className = '' }: MermaidPreviewProps) {
+export default function MermaidPreview({ chart, previewChart, className = '' }: MermaidPreviewProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,7 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [currentChart, setCurrentChart] = useState<'normal' | 'preview'>('normal');
 
   useEffect(() => {
     let mounted = true;
@@ -61,7 +63,15 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
           }
         });
 
-        if (elementRef.current && chart) {
+        if (elementRef.current) {
+          const activeChart = currentChart === 'preview' && previewChart ? previewChart : chart;
+          
+          if (!activeChart) {
+            elementRef.current.innerHTML = '';
+            setIsLoaded(false);
+            return;
+          }
+
           setIsLoading(true);
           setError(null);
 
@@ -73,7 +83,7 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
             const id = `mermaid-preview-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
             
             // Render the diagram
-            const { svg } = await mermaid.render(id, chart);
+            const { svg } = await mermaid.render(id, activeChart);
             elementRef.current.innerHTML = svg;
             
             // Style the SVG for N8N-like appearance
@@ -155,7 +165,7 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
     return () => {
       mounted = false;
     };
-  }, [chart]);
+  }, [chart, previewChart, currentChart]);
 
   // Mouse wheel zoom handler
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -315,6 +325,32 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
 
   return (
     <div className={`mermaid-container relative bg-gray-50 border border-gray-200 rounded-lg ${className}`}>
+      {/* Chart Switcher - only show if preview chart exists */}
+      {previewChart && previewChart.trim() && (
+        <div className="absolute top-4 left-4 z-10 flex gap-1 bg-white rounded-lg shadow-lg border border-gray-200 p-1">
+          <Button
+            variant={currentChart === 'normal' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setCurrentChart('normal')}
+            className="h-8 px-3 text-xs"
+            title="Show Normal Chart"
+          >
+            <FileText className="h-3 w-3 mr-1" />
+            Normal
+          </Button>
+          <Button
+            variant={currentChart === 'preview' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setCurrentChart('preview')}
+            className="h-8 px-3 text-xs"
+            title="Show Preview Chart"
+          >
+            <Eye className="h-3 w-3 mr-1" />
+            Preview
+          </Button>
+        </div>
+      )}
+
       {/* Zoom Controls */}
       {isLoaded && (
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 bg-white rounded-lg shadow-lg border border-gray-200 p-1">
@@ -399,6 +435,11 @@ export default function MermaidPreview({ chart, className = '' }: MermaidPreview
           <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded px-3 py-1 text-xs text-gray-600 shadow-sm">
             {Math.round(zoom * 100)}%
           </div>
+          {previewChart && previewChart.trim() && (
+            <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded px-3 py-1 text-xs text-gray-600 shadow-sm">
+              {currentChart === 'normal' ? 'Normal Chart' : 'Preview Chart'}
+            </div>
+          )}
           <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded px-3 py-1 text-xs text-gray-500 shadow-sm">
             Scroll to zoom • Drag to pan
           </div>

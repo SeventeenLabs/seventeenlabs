@@ -34,6 +34,17 @@ interface WorkflowData {
   version: string;
   stripeProductId?: string;
   stripePriceId?: string;
+  // n8n workflow data
+  n8nId?: string;
+  n8nVersionId?: string;
+  n8nJsonUrl?: string;
+  n8nData?: {
+    nodes: any[];
+    connections: any;
+    settings?: any;
+    staticData?: any;
+    pinData?: any;
+  };
 }
 
 export default function EditWorkflowPage() {
@@ -60,7 +71,11 @@ export default function EditWorkflowPage() {
     mermaidChart: '',
     previewChart: '',
     author: 'SeventeenLabs',
-    version: '1.0'
+    version: '1.0',
+    n8nData: undefined,
+    n8nId: undefined,
+    n8nVersionId: undefined,
+    n8nJsonUrl: undefined
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -96,7 +111,7 @@ export default function EditWorkflowPage() {
             id: data.workflow.id,
             title: data.workflow.title || '',
             description: data.workflow.description || '',
-            longDescription: data.workflow.long_description || '',
+            longDescription: data.workflow.longDescription || '',
             category: data.workflow.category || '',
             difficulty: data.workflow.difficulty || 'Intermediate',
             time: data.workflow.time || '',
@@ -107,14 +122,18 @@ export default function EditWorkflowPage() {
             requirements: Array.isArray(data.workflow.requirements) ? data.workflow.requirements : [],
             tags: Array.isArray(data.workflow.tags) ? data.workflow.tags : [],
             price: data.workflow.price || 0,
-            isFree: data.workflow.is_free !== undefined ? data.workflow.is_free : (data.workflow.price === 0),
-            videoUrl: data.workflow.video_url || '',
-            mermaidChart: data.workflow.mermaid_chart || '',
-            previewChart: data.workflow.preview_chart || '',
+            isFree: data.workflow.isFree !== undefined ? data.workflow.isFree : (data.workflow.price === 0),
+            videoUrl: data.workflow.videoUrl || '',
+            mermaidChart: data.workflow.mermaidChart || '',
+            previewChart: data.workflow.previewChart || '',
             author: data.workflow.author || 'SeventeenLabs',
             version: data.workflow.version || '1.0',
-            stripeProductId: data.workflow.stripe_product_id || undefined,
-            stripePriceId: data.workflow.stripe_price_id || undefined
+            stripeProductId: data.workflow.stripeProductId || undefined,
+            stripePriceId: data.workflow.stripePriceId || undefined,
+            n8nId: data.workflow.n8nId || undefined,
+            n8nVersionId: data.workflow.n8nVersionId || undefined,
+            n8nJsonUrl: data.workflow.n8nJsonUrl || undefined,
+            n8nData: data.workflow.n8nData || undefined
           });
         } else {
           setMessage({ type: 'error', text: 'Failed to load workflow' });
@@ -170,7 +189,11 @@ export default function EditWorkflowPage() {
           author: formData.author,
           version: formData.version,
           stripeProductId: formData.stripeProductId,
-          stripePriceId: formData.stripePriceId
+          stripePriceId: formData.stripePriceId,
+          n8nId: formData.n8nId,
+          n8nVersionId: formData.n8nVersionId,
+          n8nJsonUrl: formData.n8nJsonUrl,
+          n8nData: formData.n8nData
         }),
       });
 
@@ -259,7 +282,10 @@ export default function EditWorkflowPage() {
           mermaidChart: data.data.mermaidChart || prev.mermaidChart,
           previewChart: data.data.previewChart || prev.previewChart,
           author: data.data.author || prev.author,
-          version: data.data.version || prev.version
+          version: data.data.version || prev.version,
+          n8nId: data.data.n8nId || prev.n8nId,
+          n8nVersionId: data.data.n8nVersionId || prev.n8nVersionId,
+          n8nData: data.data.n8nData || prev.n8nData
         }));
         
         setMessage({ 
@@ -379,6 +405,188 @@ export default function EditWorkflowPage() {
         </div>
       )}
 
+      {/* Workflow Data Overview - Only show for existing workflows */}
+      {workflowId !== 'new' && !isLoading && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              Workflow Data Overview
+            </CardTitle>
+            <CardDescription>Complete data loaded for this workflow</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Basic Info */}
+              <div className="space-y-3">
+                <h4 className="font-medium text-slate-900 border-b pb-1">Basic Information</h4>
+                <div className="space-y-2 text-sm">
+                  <div><span className="font-medium">ID:</span> {formData.id || 'N/A'}</div>
+                  <div><span className="font-medium">Author:</span> {formData.author || 'N/A'}</div>
+                  <div><span className="font-medium">Version:</span> {formData.version || 'N/A'}</div>
+                  <div><span className="font-medium">Category:</span> {formData.category || 'N/A'}</div>
+                  <div><span className="font-medium">Difficulty:</span> {formData.difficulty || 'N/A'}</div>
+                  <div><span className="font-medium">Time:</span> {formData.time || 'N/A'}</div>
+                </div>
+              </div>
+
+              {/* Metrics */}
+              <div className="space-y-3">
+                <h4 className="font-medium text-slate-900 border-b pb-1">Metrics & Pricing</h4>
+                <div className="space-y-2 text-sm">
+                  <div><span className="font-medium">Users:</span> {formData.users}</div>
+                  <div><span className="font-medium">Rating:</span> {formData.rating}/5</div>
+                  <div><span className="font-medium">Price:</span> {formData.isFree ? 'Free' : `$${formData.price}`}</div>
+                  <div><span className="font-medium">Video URL:</span> {formData.videoUrl ? 'Available' : 'N/A'}</div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">Mermaid Chart:</span>
+                    <div className={`w-2 h-2 rounded-full ${formData.mermaidChart && formData.mermaidChart.trim().length > 0 ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <span>{formData.mermaidChart && formData.mermaidChart.trim().length > 0 ? 'Available' : 'Missing'}</span>
+                    {formData.mermaidChart && formData.mermaidChart.trim().length > 0 && (
+                      <span className="text-xs text-gray-500">({formData.mermaidChart.length} chars)</span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">Preview Chart:</span>
+                    <div className={`w-2 h-2 rounded-full ${formData.previewChart && formData.previewChart.trim().length > 0 ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <span>{formData.previewChart && formData.previewChart.trim().length > 0 ? 'Available' : 'Missing'}</span>
+                    {formData.previewChart && formData.previewChart.trim().length > 0 && (
+                      <span className="text-xs text-gray-500">({formData.previewChart.length} chars)</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Collections */}
+              <div className="space-y-3">
+                <h4 className="font-medium text-slate-900 border-b pb-1">Collections</h4>
+                <div className="space-y-2 text-sm">
+                  <div><span className="font-medium">Integrations:</span> {formData.integrations.length} items</div>
+                  <div><span className="font-medium">Features:</span> {formData.features.length} items</div>
+                  <div><span className="font-medium">Requirements:</span> {formData.requirements.length} items</div>
+                  <div><span className="font-medium">Tags:</span> {formData.tags.length} items</div>
+                </div>
+                {formData.integrations.length > 0 && (
+                  <div>
+                    <div className="font-medium text-xs text-gray-500 mb-1">INTEGRATIONS:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {formData.integrations.slice(0, 3).map((item, index) => (
+                        <Badge key={index} variant="outline" className="text-xs">{item}</Badge>
+                      ))}
+                      {formData.integrations.length > 3 && (
+                        <Badge variant="outline" className="text-xs">+{formData.integrations.length - 3}</Badge>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Stripe Integration */}
+              {(formData.stripeProductId || formData.stripePriceId) && (
+                <div className="space-y-3">
+                  <h4 className="font-medium text-slate-900 border-b pb-1">Stripe Integration</h4>
+                  <div className="space-y-2 text-sm">
+                    {formData.stripeProductId && (
+                      <div>
+                        <span className="font-medium">Product ID:</span>
+                        <code className="ml-2 text-xs bg-gray-100 px-2 py-1 rounded">{formData.stripeProductId}</code>
+                      </div>
+                    )}
+                    {formData.stripePriceId && (
+                      <div>
+                        <span className="font-medium">Price ID:</span>
+                        <code className="ml-2 text-xs bg-gray-100 px-2 py-1 rounded">{formData.stripePriceId}</code>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* n8n Integration */}
+              {(formData.n8nData || formData.n8nId || formData.n8nJsonUrl) && (
+                <div className="space-y-3">
+                  <h4 className="font-medium text-slate-900 border-b pb-1">n8n Integration</h4>
+                  <div className="space-y-2 text-sm">
+                    {formData.n8nId && (
+                      <div><span className="font-medium">n8n ID:</span> {formData.n8nId}</div>
+                    )}
+                    {formData.n8nVersionId && (
+                      <div><span className="font-medium">Version ID:</span> {formData.n8nVersionId}</div>
+                    )}
+                    {formData.n8nData && (
+                      <div>
+                        <div><span className="font-medium">Nodes:</span> {formData.n8nData.nodes?.length || 0}</div>
+                        <div><span className="font-medium">Connections:</span> {Object.keys(formData.n8nData.connections || {}).length}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">Full Data:</span>
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span>Available</span>
+                        </div>
+                      </div>
+                    )}
+                    {formData.n8nJsonUrl && (
+                      <div>
+                        <span className="font-medium">JSON URL:</span>
+                        <a href={formData.n8nJsonUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:text-blue-800 text-xs">
+                          View File
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Content Preview */}
+              <div className="space-y-3 md:col-span-2 lg:col-span-3">
+                <h4 className="font-medium text-slate-900 border-b pb-1">Content Preview</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <div className="font-medium text-gray-700 mb-1">Title</div>
+                    <div className="bg-gray-50 p-2 rounded text-xs">{formData.title || 'No title'}</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-700 mb-1">Description</div>
+                    <div className="bg-gray-50 p-2 rounded text-xs">{formData.description || 'No description'}</div>
+                  </div>
+                </div>
+                {formData.longDescription && (
+                  <div>
+                    <div className="font-medium text-gray-700 mb-1">Long Description</div>
+                    <div className="bg-gray-50 p-2 rounded text-xs max-h-20 overflow-y-auto">
+                      {formData.longDescription}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Chart Data Preview */}
+                {(formData.mermaidChart || formData.previewChart) && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {formData.mermaidChart && formData.mermaidChart.trim().length > 0 && (
+                      <div>
+                        <div className="font-medium text-gray-700 mb-1">Mermaid Chart Preview</div>
+                        <div className="bg-gray-50 p-2 rounded text-xs max-h-32 overflow-y-auto font-mono">
+                          {formData.mermaidChart.substring(0, 200)}
+                          {formData.mermaidChart.length > 200 && '...'}
+                        </div>
+                      </div>
+                    )}
+                    {formData.previewChart && formData.previewChart.trim().length > 0 && (
+                      <div>
+                        <div className="font-medium text-gray-700 mb-1">Preview Chart Preview</div>
+                        <div className="bg-gray-50 p-2 rounded text-xs max-h-32 overflow-y-auto font-mono">
+                          {formData.previewChart.substring(0, 200)}
+                          {formData.previewChart.length > 200 && '...'}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Form Section */}
         <div className="space-y-6">
@@ -399,7 +607,25 @@ export default function EditWorkflowPage() {
                 <Upload className="w-5 h-5 text-gray-400" />
               </div>
               
-              {!uploadedFile && (
+              {/* Show n8n workflow data status */}
+              {formData.n8nData && (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-green-800">n8n Workflow Data Available</span>
+                  </div>
+                  <div className="text-xs text-green-700 space-y-1">
+                    <div>Nodes: {formData.n8nData.nodes?.length || 0}</div>
+                    {formData.n8nId && <div>Original n8n ID: {formData.n8nId}</div>}
+                    {formData.n8nVersionId && <div>Version: {formData.n8nVersionId}</div>}
+                    <div className="text-xs text-green-600 mt-2 pt-2 border-t border-green-200">
+                      💾 This workflow will be stored with complete n8n execution data
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {!uploadedFile && !formData.n8nData && (
                 <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">
                   💡 <strong>Tip:</strong> Upload your n8n workflow JSON file and click "Analyze" to automatically populate all form fields including title, description, integrations, and even generate a Mermaid diagram!
                 </div>
@@ -628,15 +854,34 @@ export default function EditWorkflowPage() {
                       </p>
                     </div>
 
-                    {formData.stripeProductId && (
-                      <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                        <div className="flex items-center gap-2 mb-2">
+                    {(formData.stripeProductId || formData.stripePriceId) && (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-3">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-sm font-medium text-green-800">Stripe Product Connected</span>
+                          <span className="text-sm font-medium text-green-800">Stripe Integration Active</span>
                         </div>
-                        <div className="text-xs text-green-700 space-y-1">
-                          <div>Product ID: {formData.stripeProductId}</div>
-                          {formData.stripePriceId && <div>Price ID: {formData.stripePriceId}</div>}
+                        <div className="space-y-2 text-xs text-green-700">
+                          {formData.stripeProductId && (
+                            <div className="flex justify-between items-center bg-green-100 rounded px-2 py-1">
+                              <span className="font-medium">Product ID:</span>
+                              <code className="text-green-800 font-mono bg-white px-2 py-0.5 rounded">{formData.stripeProductId}</code>
+                            </div>
+                          )}
+                          {formData.stripePriceId && (
+                            <div className="flex justify-between items-center bg-green-100 rounded px-2 py-1">
+                              <span className="font-medium">Price ID:</span>
+                              <code className="text-green-800 font-mono bg-white px-2 py-0.5 rounded">{formData.stripePriceId}</code>
+                            </div>
+                          )}
+                          {formData.price > 0 && (
+                            <div className="flex justify-between items-center bg-green-100 rounded px-2 py-1">
+                              <span className="font-medium">Current Price:</span>
+                              <span className="font-semibold text-green-800">${formData.price.toFixed(2)} USD</span>
+                            </div>
+                          )}
+                          <div className="text-xs text-green-600 mt-2 pt-2 border-t border-green-200">
+                            💡 Payments are processed through Stripe. Customers will be redirected to Stripe Checkout for secure payments.
+                          </div>
                         </div>
                       </div>
                     )}
@@ -648,12 +893,22 @@ export default function EditWorkflowPage() {
                       disabled={!formData.title || !formData.description || formData.price <= 0}
                       className="w-full"
                     >
-                      {formData.stripeProductId ? 'Update Stripe Product' : 'Create Stripe Product'}
+                      {formData.stripeProductId ? (
+                        <>
+                          <Sparkles className="w-4 h-4 mr-2" />
+                          Update Stripe Product & Price
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 mr-2" />
+                          Create Stripe Product & Enable Payments
+                        </>
+                      )}
                     </Button>
                     <p className="text-xs text-gray-500">
                       {formData.stripeProductId 
-                        ? 'Update the Stripe product with current workflow details'
-                        : 'Create a Stripe product to enable payments for this workflow'
+                        ? 'Sync current workflow details with Stripe and update pricing'
+                        : 'Set up Stripe product and pricing to enable customer payments'
                       }
                     </p>
                   </div>
@@ -775,11 +1030,28 @@ export default function EditWorkflowPage() {
                 <CardTitle>Mermaid Chart</CardTitle>
                 <CardDescription>Define the workflow diagram using Mermaid syntax</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <Textarea
                   value={formData.mermaidChart}
                   onChange={(e) => setFormData({...formData, mermaidChart: e.target.value})}
                   placeholder="flowchart TD&#10;    A([Start]) --> B[Process]&#10;    B --> C([End])"
+                  rows={8}
+                  className="font-mono text-sm"
+                />
+              </CardContent>
+            </Card>
+
+            {/* Preview Mermaid Chart */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Preview Mermaid Chart</CardTitle>
+                <CardDescription>Optional alternative diagram for preview purposes</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Textarea
+                  value={formData.previewChart}
+                  onChange={(e) => setFormData({...formData, previewChart: e.target.value})}
+                  placeholder="flowchart TD&#10;    A([Start]) --> B[Simplified Process]&#10;    B --> C([End])"
                   rows={8}
                   className="font-mono text-sm"
                 />
@@ -816,6 +1088,7 @@ export default function EditWorkflowPage() {
               <CardContent>
                 <MermaidPreview 
                   chart={formData.mermaidChart} 
+                  previewChart={formData.previewChart}
                   className="min-h-[400px]"
                 />
               </CardContent>
