@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 import GlassSurface from "./GlassSurface";
@@ -27,8 +28,14 @@ export default function LandingHeader() {
       >
         <nav className="flex items-center justify-between" aria-label="Global">
           <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="text-2xl font-bold text-white">SeventeenLabs</span>
+            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+              <Image
+                src="/Frame_37 (2).svg"
+                alt="SeventeenLabs Logo"
+                width={140}
+                height={26}
+                className="h-6 w-auto"
+              />
             </Link>
           </div>
           
@@ -44,34 +51,54 @@ export default function LandingHeader() {
           </div>
           
           <div className="hidden lg:flex lg:gap-x-8">
-            {navigation.map((item) => (
-              <Link
+            {navigation.map((item, index) => (
+              <motion.div
                 key={item.name}
-                href={item.href}
-                className="text-sm font-semibold leading-6 text-white/80 hover:text-white transition-colors"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ 
+                  duration: 0.6, 
+                  ease: "easeOut",
+                  delay: 1.0 + index * 0.1 // Start sooner with stagger
+                }}
               >
-                {item.name}
-              </Link>
+                <Link
+                  href={item.href}
+                  className="text-sm font-semibold leading-6 text-white/80 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
           </div>
           
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
-            <GlassSurface 
-              width={120} 
-              height={36}
-              borderRadius={6}
-              brightness={60}
-              opacity={0.8}
-              blur={12}
-              className="hover:scale-[1.02] transition-transform duration-200"
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                ease: "easeOut",
+                delay: 1.4 // After all menu items
+              }}
             >
-              <Link 
-                href="/workflows"
-                className="inline-flex items-center justify-center px-4 py-2 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
+              <GlassSurface 
+                width={120} 
+                height={36}
+                borderRadius={6}
+                brightness={60}
+                opacity={0.8}
+                blur={12}
+                className="hover:scale-[1.02] transition-transform duration-200"
               >
-                Get Started
-              </Link>
-            </GlassSurface>
+                <Link 
+                  href="/workflows"
+                  className="inline-flex items-center justify-center px-4 py-2 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
+                >
+                  Get Started
+                </Link>
+              </GlassSurface>
+            </motion.div>
           </div>
         </nav>
         
