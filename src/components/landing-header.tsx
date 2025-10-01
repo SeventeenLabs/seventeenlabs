@@ -5,18 +5,21 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useTranslations, useLocale } from "@/lib/i18n/context";
 
 import GlassSurface from "./GlassSurface";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Workflows", href: "/workflows" },
-  { name: "Apps", href: "/apps" },
-  { name: "Agency", href: "/agency" },
-];
-
 export default function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useTranslations();
+  const locale = useLocale();
+
+  const navigation = [
+    { name: t("common.home"), href: `/${locale}` },
+    { name: t("common.workflows"), href: `/${locale}/workflows` },
+    { name: t("common.apps"), href: `/${locale}/apps` },
+    { name: t("common.agency"), href: `/${locale}/agency` },
+  ];
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -30,7 +33,7 @@ export default function LandingHeader() {
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
               <Image
-                src="/Frame_37 (2).svg"
+                src="/logo_anim.svg"
                 alt="SeventeenLabs Logo"
                 width={140}
                 height={26}
@@ -95,7 +98,7 @@ export default function LandingHeader() {
                   href="/workflows"
                   className="inline-flex items-center justify-center px-4 py-2 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
                 >
-                  Get Started
+                  {t("common.getStarted")}
                 </Link>
               </GlassSurface>
             </motion.div>
@@ -145,7 +148,7 @@ export default function LandingHeader() {
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      Get Started
+                      {t("common.getStarted")}
                     </Link>
                   </div>
                 </div>

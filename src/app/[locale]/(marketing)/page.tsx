@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DemoSection from "@/components/demo-section";
 import LandingHeader from "@/components/landing-header";
@@ -12,7 +12,14 @@ import WhySeventeenLabs from "@/components/why-seventeenlabs";
 import Prism from "@/components/ui/prism";
 import Image from "next/image";
 
-export default function Home() {
+interface HomePageProps {
+  params: Promise<{
+    locale: string;
+  }>;
+}
+
+export default function Home({ params }: HomePageProps) {
+  const { locale } = use(params);
   const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
@@ -44,21 +51,19 @@ export default function Home() {
               style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: 0 }}
             >
               <Prism
-          animationType="3drotate"
-          timeScale={0.4}
-          height={3.5}
-          baseWidth={5.5}
-          scale={3}
-          hueShift={0}
-          colorFrequency={1}
-          noise={0.1}
-          glow={0.4}
-        />
+                animationType="3drotate"
+                timeScale={0.4}
+                height={3.5}
+                baseWidth={5.5}
+                scale={3}
+                hueShift={0}
+                colorFrequency={1}
+              />
             </motion.div>
             
             <div className="relative z-10 flex items-center justify-center min-h-screen">
               <Image
-                src="/Frame_37 (2).svg"
+                src="/logo_anim.svg"
                 alt="SeventeenLabs Logo"
                 width={500}
                 height={95}

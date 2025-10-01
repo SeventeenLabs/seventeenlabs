@@ -1,0 +1,82 @@
+{
+  "common": {
+    "getStarted": "Loslegen",
+    "home": "Startseite",
+    "workflows": "Workflows",
+    "apps": "Apps",
+    "agency": "Agentur",
+    "loading": "Wird geladen...",
+    "learnMore": "Mehr erfahren"
+  },
+  "hero": {
+    "title": "KI-gestützte Automatisierung & Apps",
+    "subtitle": "Transformieren Sie Ihr Unternehmen mit sofort einsatzbereiten KI-Tools, Automatisierungs-Workflows und professionellen Agentur-Services.",
+    "features": {
+      "tools": "Sofort einsatzbereite KI-Tools & Apps",
+      "automation": "Automatisierungs-Workflow-Marktplatz",
+      "support": "Professionelle Agentur-Services & Support"
+    },
+    "cta": {
+      "primary": "Jetzt starten",
+      "secondary": "Workflows ansehen"
+    }
+  },
+  "whatWeOffer": {
+    "title": "Was wir anbieten",
+    "subtitle": "Umfassende KI-Lösungen für moderne Unternehmen",
+    "aiTools": {
+      "title": "KI-Tools & Apps",
+      "description": "Zugang zu einer kuratierten Sammlung von KI-gestützten Anwendungen, die Ihren Workflow optimieren und die Produktivität steigern."
+    },
+    "workflows": {
+      "title": "Automatisierungs-Workflows",
+      "description": "Vorgefertigte Automatisierungslösungen, die sich nahtlos in Ihre bestehenden Tools und Prozesse integrieren."
+    },
+    "agency": {
+      "title": "Agentur-Services",
+      "description": "Expertenberatung und individuelle Entwicklungsservices, um Ihnen bei der Implementierung und Skalierung Ihrer KI-Initiativen zu helfen."
+    }
+  },
+  "whySeventeenLabs": {
+    "title": "Warum SeventeenLabs?",
+    "subtitle": "Die komplette KI-Automatisierungsplattform für moderne Unternehmen",
+    "reasons": {
+      "comprehensive": {
+        "title": "Umfassende Lösung",
+        "description": "Alles was Sie brauchen auf einer Plattform - von fertigen Tools bis zur individuellen Entwicklung."
+      },
+      "expertSupport": {
+        "title": "Experten-Support",
+        "description": "Unser Team von KI-Spezialisten bietet Führung und Unterstützung während Ihrer gesamten Automatisierungsreise."
+      },
+      "scalable": {
+        "title": "Skalierbar & Flexibel",
+        "description": "Lösungen, die mit Ihrem Unternehmen wachsen, vom Startup bis zum Enterprise-Level."
+      }
+    }
+  },
+  "demo": {
+    "title": "Sehen Sie es in Aktion",
+    "subtitle": "Erleben Sie die Kraft automatisierter Workflows",
+    "description": "Sehen Sie, wie unsere KI-gestützte Automatisierung Ihre Geschäftsprozesse in Minuten, nicht Monaten, transformieren kann."
+  },
+  "newsletter": {
+    "title": "Bleiben Sie auf dem Laufenden",
+    "subtitle": "Erhalten Sie die neuesten Updates zu KI-Automatisierung und neuen Workflow-Releases",
+    "emailPlaceholder": "E-Mail-Adresse eingeben",
+    "subscribe": "Abonnieren",
+    "success": "Vielen Dank für Ihr Abonnement!",
+    "error": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+  },
+  "footer": {
+    "company": "Unternehmen",
+    "products": "Produkte",
+    "support": "Support",
+    "legal": "Rechtliches",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "copyright": "© 2025 SeventeenLabs. Alle Rechte vorbehalten."
+  }
+}

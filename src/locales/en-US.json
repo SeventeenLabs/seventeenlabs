@@ -1,0 +1,82 @@
+{
+  "common": {
+    "getStarted": "Get Started",
+    "home": "Home",
+    "workflows": "Workflows",
+    "apps": "Apps",
+    "agency": "Agency",
+    "loading": "Loading...",
+    "learnMore": "Learn More"
+  },
+  "hero": {
+    "title": "AI-Powered Automation & Apps",
+    "subtitle": "Transform your business with ready-to-use AI tools, automation workflows, and expert agency services.",
+    "features": {
+      "tools": "Ready-to-use AI tools & apps",
+      "automation": "Automation workflow marketplace",
+      "support": "Expert agency services & support"
+    },
+    "cta": {
+      "primary": "Get Started Today",
+      "secondary": "View Workflows"
+    }
+  },
+  "whatWeOffer": {
+    "title": "What We Offer",
+    "subtitle": "Comprehensive AI solutions for modern businesses",
+    "aiTools": {
+      "title": "AI Tools & Apps",
+      "description": "Access a curated collection of AI-powered applications designed to streamline your workflow and boost productivity."
+    },
+    "workflows": {
+      "title": "Automation Workflows",
+      "description": "Pre-built automation solutions that integrate seamlessly with your existing tools and processes."
+    },
+    "agency": {
+      "title": "Agency Services",
+      "description": "Expert consultation and custom development services to help you implement and scale your AI initiatives."
+    }
+  },
+  "whySeventeenLabs": {
+    "title": "Why SeventeenLabs?",
+    "subtitle": "The complete AI automation platform for modern businesses",
+    "reasons": {
+      "comprehensive": {
+        "title": "Comprehensive Solution",
+        "description": "Everything you need in one platform - from ready-made tools to custom development."
+      },
+      "expertSupport": {
+        "title": "Expert Support",
+        "description": "Our team of AI specialists provides guidance and support throughout your automation journey."
+      },
+      "scalable": {
+        "title": "Scalable & Flexible",
+        "description": "Solutions that grow with your business, from startup to enterprise scale."
+      }
+    }
+  },
+  "demo": {
+    "title": "See It In Action",
+    "subtitle": "Experience the power of automated workflows",
+    "description": "Watch how our AI-powered automation can transform your business processes in minutes, not months."
+  },
+  "newsletter": {
+    "title": "Stay Updated",
+    "subtitle": "Get the latest updates on AI automation and new workflow releases",
+    "emailPlaceholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "success": "Thank you for subscribing!",
+    "error": "Please enter a valid email address"
+  },
+  "footer": {
+    "company": "Company",
+    "products": "Products",
+    "support": "Support",
+    "legal": "Legal",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2025 SeventeenLabs. All rights reserved."
+  }
+}
