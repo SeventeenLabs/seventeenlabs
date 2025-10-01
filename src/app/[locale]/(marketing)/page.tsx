@@ -58,7 +58,9 @@ export default function Home({ params }: HomePageProps) {
                 scale={3}
                 hueShift={0}
                 colorFrequency={1}
-              />
+                noise={0.1}
+                glow={0.4}
+                />
             </motion.div>
             
             <div className="relative z-10 flex items-center justify-center min-h-screen">
