@@ -1,34 +1,38 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { Clock, TrendingUp, Zap, Shield } from "lucide-react";
-
-const benefits = [
-  {
-    title: "Save Time",
-    description: "Automate repetitive tasks and workflows. What used to take hours now happens automatically in the background.",
-    icon: Clock,
-    stat: "10+ hrs/week saved",
-  },
-  {
-    title: "Smarter Growth",
-    description: "AI-powered insights and automation help you make data-driven decisions that scale your business intelligently.",
-    icon: TrendingUp,
-    stat: "3x faster scaling",
-  },
-  {
-    title: "Easy Implementation", 
-    description: "No complex setup or technical expertise required. Start seeing results within days, not months.",
-    icon: Zap,
-    stat: "Setup in 24hrs",
-  },
-  {
-    title: "Trusted Support",
-    description: "Expert guidance and ongoing support ensure you get maximum value from every tool and workflow.",
-    icon: Shield,
-    stat: "24/7 support",
-  },
-];
+import { useTranslations } from "@/lib/i18n/context";
 
 export default function WhySeventeenLabs() {
+  const { t } = useTranslations();
+
+  const benefits = [
+    {
+      title: t("whySeventeenLabs.reasons.saveTime.title"),
+      description: t("whySeventeenLabs.reasons.saveTime.description"),
+      icon: Clock,
+      stat: t("whySeventeenLabs.reasons.saveTime.stat"),
+    },
+    {
+      title: t("whySeventeenLabs.reasons.smarterGrowth.title"),
+      description: t("whySeventeenLabs.reasons.smarterGrowth.description"),
+      icon: TrendingUp,
+      stat: t("whySeventeenLabs.reasons.smarterGrowth.stat"),
+    },
+    {
+      title: t("whySeventeenLabs.reasons.easyImplementation.title"), 
+      description: t("whySeventeenLabs.reasons.easyImplementation.description"),
+      icon: Zap,
+      stat: t("whySeventeenLabs.reasons.easyImplementation.stat"),
+    },
+    {
+      title: t("whySeventeenLabs.reasons.trustedSupport.title"),
+      description: t("whySeventeenLabs.reasons.trustedSupport.description"),
+      icon: Shield,
+      stat: t("whySeventeenLabs.reasons.trustedSupport.stat"),
+    },
+  ];
   return (
     <section className="bg-slate-800 px-6 py-24 text-slate-100 relative">
       
@@ -41,10 +45,10 @@ export default function WhySeventeenLabs() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Why Choose SeventeenLabs?
+            {t("whySeventeenLabs.title")}
           </h2>
           <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
-            Built for small businesses ready to embrace automation and AI-powered growth.
+            {t("whySeventeenLabs.subtitle")}
           </p>
         </motion.div>
         
@@ -90,7 +94,7 @@ export default function WhySeventeenLabs() {
         >
           <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/50 border border-slate-800 px-6 py-3 text-sm text-slate-300">
             <div className="size-2 rounded-full bg-slate-500 animate-pulse"></div>
-            <span>Ready to serve small businesses worldwide</span>
+            <span>{t("whySeventeenLabs.readyToServe")}</span>
           </div>
         </motion.div>
       </div>

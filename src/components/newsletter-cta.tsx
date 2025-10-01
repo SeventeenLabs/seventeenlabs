@@ -3,32 +3,34 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail, MessageCircle, Calendar } from "lucide-react";
+import { useTranslations } from "@/lib/i18n/context";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const ctaOptions = [
-  {
-    icon: Mail,
-    title: "Get Weekly Tips",
-    description: "AI & automation insights delivered to your inbox",
-    action: "email",
-  },
-  {
-    icon: MessageCircle,
-    title: "Join Our Community",
-    description: "Connect with other small business owners",
-    action: "discord",
-  },
-  {
-    icon: Calendar,
-    title: "Book a Free Call",
-    description: "Get personalized automation recommendations",
-    action: "call",
-  },
-];
-
 export default function NewsletterCta() {
+  const { t } = useTranslations();
+
+  const ctaOptions = [
+    {
+      icon: Mail,
+      title: t("newsletter.options.getWeeklyTips.title"),
+      description: t("newsletter.options.getWeeklyTips.description"),
+      action: "email",
+    },
+    {
+      icon: MessageCircle,
+      title: t("newsletter.options.joinCommunity.title"),
+      description: t("newsletter.options.joinCommunity.description"),
+      action: "discord",
+    },
+    {
+      icon: Calendar,
+      title: t("newsletter.options.bookCall.title"),
+      description: t("newsletter.options.bookCall.description"),
+      action: "call",
+    },
+  ];
   return (
     <section className="bg-slate-950 px-6 py-24 relative">
       {/* Decorative elements */}
@@ -44,10 +46,10 @@ export default function NewsletterCta() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Ready to Transform Your Business?
+            {t("newsletter.title")}
           </h2>
           <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
-            Start your journey toward smarter automation and AI-powered growth with our tools and workflows.
+            {t("newsletter.subtitle")}
           </p>
         </motion.div>
 
@@ -60,27 +62,27 @@ export default function NewsletterCta() {
           className="mb-12 mx-auto max-w-2xl rounded-2xl border border-slate-800 bg-slate-900/50 p-8 text-center backdrop-blur sm:p-12"
         >
           <h3 className="text-2xl font-bold text-white mb-4">
-            Start with Free Resources
+            {t("newsletter.form.title")}
           </h3>
           <p className="text-slate-300 mb-8">
-            Get weekly automation tips, workflow templates, and AI tools recommendations delivered to your inbox.
+            {t("newsletter.form.description")}
           </p>
           
           <form className="flex flex-col gap-4 sm:flex-row sm:justify-center mb-6">
             <Input
               type="email"
               required
-              placeholder="your@business-email.com"
-              aria-label="Email address"
+              placeholder={t("newsletter.form.placeholder")}
+              aria-label={t("newsletter.form.emailLabel")}
               className="sm:w-80 bg-slate-800 border-slate-700 text-white placeholder:text-slate-400 focus:border-blue-500"
             />
             <Button type="submit" size="lg" className="bg-slate-800 hover:bg-slate-700 border border-slate-600 sm:px-8">
-              Get Free Tips
+              {t("newsletter.form.button")}
             </Button>
           </form>
           
           <p className="text-sm text-slate-400">
-            No spam, unsubscribe anytime. Be among the first to get our latest resources.
+            {t("newsletter.form.disclaimer")}
           </p>
         </motion.div>
 

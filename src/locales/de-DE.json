@@ -9,12 +9,16 @@
     "learnMore": "Mehr erfahren"
   },
   "hero": {
-    "title": "KI-gestützte Automatisierung & Apps",
-    "subtitle": "Transformieren Sie Ihr Unternehmen mit sofort einsatzbereiten KI-Tools, Automatisierungs-Workflows und professionellen Agentur-Services.",
+    "title": "KI-Automatisierung & Werkzeuge für Ihr Unternehmen",
+    "description": "Sofort einsetzbare Workflows, KI-Apps und Expertenberatung. Automatisieren Sie Prozesse und beschleunigen Sie Ihr Wachstum.",
     "features": {
       "tools": "Sofort einsatzbereite KI-Tools & Apps",
       "automation": "Automatisierungs-Workflow-Marktplatz",
       "support": "Professionelle Agentur-Services & Support"
+    },
+    "buttons": {
+      "exploreProducts": "Unsere Produkte entdecken",
+      "automationWorkflows": "Workflows"
     },
     "cta": {
       "primary": "Jetzt starten",
@@ -22,61 +26,73 @@
     }
   },
   "whatWeOffer": {
-    "title": "Was wir anbieten",
-    "subtitle": "Umfassende KI-Lösungen für moderne Unternehmen",
+    "title": "Alles was Sie zum Wachsen brauchen",
+    "subtitle": "Drei mächtige Säulen, die zusammenarbeiten, um Ihre Geschäftsabläufe zu transformieren und das Wachstum zu beschleunigen.",
+    "exploreLink": "Entdecken",
     "aiTools": {
-      "title": "KI-Tools & Apps",
-      "description": "Zugang zu einer kuratierten Sammlung von KI-gestützten Anwendungen, die Ihren Workflow optimieren und die Produktivität steigern."
+      "title": "Apps & Tools",
+      "description": "KI-gestützte SaaS-Anwendungen speziell für kleine Unternehmen entwickelt. Von Analysen bis hin zum Kundenmanagement."
     },
     "workflows": {
       "title": "Automatisierungs-Workflows",
-      "description": "Vorgefertigte Automatisierungslösungen, die sich nahtlos in Ihre bestehenden Tools und Prozesse integrieren."
+      "description": "Vorgefertigte n8n-Workflows, die Ihre bevorzugten Tools verbinden. Sparen Sie Stunden bei sich wiederholenden Aufgaben und konzentrieren Sie sich auf das Wesentliche."
     },
     "agency": {
       "title": "Agentur-Services",
-      "description": "Expertenberatung und individuelle Entwicklungsservices, um Ihnen bei der Implementierung und Skalierung Ihrer KI-Initiativen zu helfen."
+      "description": "Professionelle Implementierung und maßgeschneiderte Entwicklung. Wir übernehmen die technische Einrichtung, während Sie sich auf das Wachstum Ihres Unternehmens konzentrieren."
     }
   },
   "whySeventeenLabs": {
-    "title": "Warum SeventeenLabs?",
-    "subtitle": "Die komplette KI-Automatisierungsplattform für moderne Unternehmen",
+    "title": "Warum SeventeenLabs wählen?",
+    "subtitle": "Entwickelt für kleine Unternehmen, die bereit sind, Automatisierung und KI-gestütztes Wachstum zu nutzen.",
+    "readyToServe": "Bereit, kleine Unternehmen weltweit zu bedienen",
     "reasons": {
-      "comprehensive": {
-        "title": "Umfassende Lösung",
-        "description": "Alles was Sie brauchen auf einer Plattform - von fertigen Tools bis zur individuellen Entwicklung."
+      "saveTime": {
+        "title": "Zeit sparen",
+        "description": "Automatisieren Sie sich wiederholende Aufgaben und Arbeitsabläufe. Was früher Stunden dauerte, passiert jetzt automatisch im Hintergrund.",
+        "stat": "10+ Std./Woche gespart"
       },
-      "expertSupport": {
-        "title": "Experten-Support",
-        "description": "Unser Team von KI-Spezialisten bietet Führung und Unterstützung während Ihrer gesamten Automatisierungsreise."
+      "smarterGrowth": {
+        "title": "Intelligenteres Wachstum",
+        "description": "KI-gestützte Einblicke und Automatisierung helfen Ihnen, datengesteuerte Entscheidungen zu treffen, die Ihr Unternehmen intelligent skalieren.",
+        "stat": "3x schnellere Skalierung"
       },
-      "scalable": {
-        "title": "Skalierbar & Flexibel",
-        "description": "Lösungen, die mit Ihrem Unternehmen wachsen, vom Startup bis zum Enterprise-Level."
+      "easyImplementation": {
+        "title": "Einfache Implementierung",
+        "description": "Keine komplexe Einrichtung oder technische Expertise erforderlich. Sehen Sie Ergebnisse innerhalb von Tagen, nicht Monaten.",
+        "stat": "Einrichtung in 24 Std."
+      },
+      "trustedSupport": {
+        "title": "Vertrauensvolle Unterstützung",
+        "description": "Expertenberatung und kontinuierliche Unterstützung sorgen dafür, dass Sie maximalen Nutzen aus jedem Tool und Workflow ziehen.",
+        "stat": "24/7 Support"
       }
     }
   },
-  "demo": {
-    "title": "Sehen Sie es in Aktion",
-    "subtitle": "Erleben Sie die Kraft automatisierter Workflows",
-    "description": "Sehen Sie, wie unsere KI-gestützte Automatisierung Ihre Geschäftsprozesse in Minuten, nicht Monaten, transformieren kann."
-  },
   "newsletter": {
-    "title": "Bleiben Sie auf dem Laufenden",
-    "subtitle": "Erhalten Sie die neuesten Updates zu KI-Automatisierung und neuen Workflow-Releases",
-    "emailPlaceholder": "E-Mail-Adresse eingeben",
-    "subscribe": "Abonnieren",
-    "success": "Vielen Dank für Ihr Abonnement!",
-    "error": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
-  },
-  "footer": {
-    "company": "Unternehmen",
-    "products": "Produkte",
-    "support": "Support",
-    "legal": "Rechtliches",
-    "about": "Über uns",
-    "contact": "Kontakt",
-    "privacy": "Datenschutz",
-    "terms": "Nutzungsbedingungen",
-    "copyright": "© 2025 SeventeenLabs. Alle Rechte vorbehalten."
+    "title": "Bereit, Ihr Unternehmen zu transformieren?",
+    "subtitle": "Beginnen Sie Ihre Reise zu intelligenterer Automatisierung und KI-gestütztem Wachstum mit unseren Tools und Workflows.",
+    "form": {
+      "title": "Starten Sie mit kostenlosen Ressourcen",
+      "description": "Erhalten Sie wöchentliche Automatisierungstipps, Workflow-Vorlagen und KI-Tool-Empfehlungen direkt in Ihr Postfach.",
+      "placeholder": "ihre@unternehmens-email.de",
+      "emailLabel": "E-Mail-Adresse",
+      "button": "Kostenlose Tipps erhalten",
+      "disclaimer": "Kein Spam, jederzeit abbestellbar. Seien Sie unter den Ersten, die unsere neuesten Ressourcen erhalten."
+    },
+    "options": {
+      "getWeeklyTips": {
+        "title": "Wöchentliche Tipps erhalten",
+        "description": "KI- und Automatisierungseinblicke direkt in Ihr Postfach"
+      },
+      "joinCommunity": {
+        "title": "Unserer Community beitreten",
+        "description": "Vernetzen Sie sich mit anderen Kleinunternehmern"
+      },
+      "bookCall": {
+        "title": "Kostenlosen Anruf buchen",
+        "description": "Erhalten Sie personalisierte Automatisierungsempfehlungen"
+      }
+    }
   }
 }

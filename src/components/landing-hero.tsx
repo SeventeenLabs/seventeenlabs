@@ -3,18 +3,21 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { useTranslations, useLocale } from "@/lib/i18n/context";
 
 import { Button } from "@/components/ui/button";
 import GlassSurface from "./GlassSurface";
 import Prism from "./ui/prism";
 
-const features = [
-  "Ready-to-use AI tools & apps",
-  "Automation workflow marketplace", 
-  "Expert agency services & support"
-];
-
 export default function LandingHero() {
+  const { t } = useTranslations();
+  const locale = useLocale();
+
+  const features = [
+    t("hero.features.tools"),
+    t("hero.features.automation"),
+    t("hero.features.support")
+  ];
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -74,7 +77,7 @@ export default function LandingHero() {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
           >
-            Smart Business Automation & AI Tools for Growth
+            {t("hero.title")}
           </motion.h1>
 
           <motion.p
@@ -82,7 +85,7 @@ export default function LandingHero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="mx-auto mt-6 max-w-2xl text-xl leading-8 text-slate-300"
           >
-            From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -96,7 +99,7 @@ export default function LandingHero() {
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
             >
               <Button asChild size="lg" className="min-w-48 bg-white px-8 py-3 text-slate-900 hover:bg-slate-100">
-                <Link href="/apps">Explore Our Products</Link>
+                <Link href="/apps">{t("hero.buttons.exploreProducts")}</Link>
               </Button>
             </motion.div>
             <motion.div 
@@ -125,7 +128,7 @@ export default function LandingHero() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-8 py-2.5 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
                 >
-                  Automation Workflows
+                  {t("hero.buttons.automationWorkflows")}
                 </Link>
               </GlassSurface>
             </motion.div>

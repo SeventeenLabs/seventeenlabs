@@ -9,12 +9,16 @@
     "learnMore": "Learn More"
   },
   "hero": {
-    "title": "AI-Powered Automation & Apps",
-    "subtitle": "Transform your business with ready-to-use AI tools, automation workflows, and expert agency services.",
+    "title": "Smart Business Automation & AI Tools for Growth",
+    "description": "From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.",
     "features": {
       "tools": "Ready-to-use AI tools & apps",
       "automation": "Automation workflow marketplace",
       "support": "Expert agency services & support"
+    },
+    "buttons": {
+      "exploreProducts": "Explore Our Products",
+      "automationWorkflows": "Automation Workflows"
     },
     "cta": {
       "primary": "Get Started Today",
@@ -22,36 +26,46 @@
     }
   },
   "whatWeOffer": {
-    "title": "What We Offer",
-    "subtitle": "Comprehensive AI solutions for modern businesses",
+    "title": "Everything You Need to Grow",
+    "subtitle": "Three powerful pillars that work together to transform your business operations and accelerate growth.",
+    "exploreLink": "Explore",
     "aiTools": {
-      "title": "AI Tools & Apps",
-      "description": "Access a curated collection of AI-powered applications designed to streamline your workflow and boost productivity."
+      "title": "Apps & Tools",
+      "description": "AI-powered SaaS applications designed specifically for small businesses. From analytics to customer management."
     },
     "workflows": {
       "title": "Automation Workflows",
-      "description": "Pre-built automation solutions that integrate seamlessly with your existing tools and processes."
+      "description": "Pre-built n8n workflows that connect your favorite tools. Save hours on repetitive tasks and focus on what matters most."
     },
     "agency": {
       "title": "Agency Services",
-      "description": "Expert consultation and custom development services to help you implement and scale your AI initiatives."
+      "description": "Expert implementation and custom development. We handle the technical setup while you focus on growing your business."
     }
   },
   "whySeventeenLabs": {
-    "title": "Why SeventeenLabs?",
-    "subtitle": "The complete AI automation platform for modern businesses",
+    "title": "Why Choose SeventeenLabs?",
+    "subtitle": "Built for small businesses ready to embrace automation and AI-powered growth.",
+    "readyToServe": "Ready to serve small businesses worldwide",
     "reasons": {
-      "comprehensive": {
-        "title": "Comprehensive Solution",
-        "description": "Everything you need in one platform - from ready-made tools to custom development."
+      "saveTime": {
+        "title": "Save Time",
+        "description": "Automate repetitive tasks and workflows. What used to take hours now happens automatically in the background.",
+        "stat": "10+ hrs/week saved"
       },
-      "expertSupport": {
-        "title": "Expert Support",
-        "description": "Our team of AI specialists provides guidance and support throughout your automation journey."
+      "smarterGrowth": {
+        "title": "Smarter Growth",
+        "description": "AI-powered insights and automation help you make data-driven decisions that scale your business intelligently.",
+        "stat": "3x faster scaling"
       },
-      "scalable": {
-        "title": "Scalable & Flexible",
-        "description": "Solutions that grow with your business, from startup to enterprise scale."
+      "easyImplementation": {
+        "title": "Easy Implementation",
+        "description": "No complex setup or technical expertise required. Start seeing results within days, not months.",
+        "stat": "Setup in 24hrs"
+      },
+      "trustedSupport": {
+        "title": "Trusted Support",
+        "description": "Expert guidance and ongoing support ensure you get maximum value from every tool and workflow.",
+        "stat": "24/7 support"
       }
     }
   },
@@ -61,12 +75,30 @@
     "description": "Watch how our AI-powered automation can transform your business processes in minutes, not months."
   },
   "newsletter": {
-    "title": "Stay Updated",
-    "subtitle": "Get the latest updates on AI automation and new workflow releases",
-    "emailPlaceholder": "Enter your email address",
-    "subscribe": "Subscribe",
-    "success": "Thank you for subscribing!",
-    "error": "Please enter a valid email address"
+    "title": "Ready to Transform Your Business?",
+    "subtitle": "Start your journey toward smarter automation and AI-powered growth with our tools and workflows.",
+    "form": {
+      "title": "Start with Free Resources",
+      "description": "Get weekly automation tips, workflow templates, and AI tools recommendations delivered to your inbox.",
+      "placeholder": "your@business-email.com",
+      "emailLabel": "Email address",
+      "button": "Get Free Tips",
+      "disclaimer": "No spam, unsubscribe anytime. Be among the first to get our latest resources."
+    },
+    "options": {
+      "getWeeklyTips": {
+        "title": "Get Weekly Tips",
+        "description": "AI & automation insights delivered to your inbox"
+      },
+      "joinCommunity": {
+        "title": "Join Our Community",
+        "description": "Connect with other small business owners"
+      },
+      "bookCall": {
+        "title": "Book a Free Call",
+        "description": "Get personalized automation recommendations"
+      }
+    }
   },
   "footer": {
     "company": "Company",
