@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePurchase } from "@/contexts/purchase-context";
+import Image from "next/image";
+import WorkflowsLogo from "../../public/SeventeenLabsWorkflowsLogo.svg";
 
 export default function WorkflowsHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,12 +51,11 @@ export default function WorkflowsHeader() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link className="flex items-center" href="/">
-            <div className="relative flex items-baseline">
-              <span className="font-bold text-base">SeventeenLabs</span>
-              <span className="font-mono text-xs text-blue-900 ml-1 -translate-y-2">
-                Workflows
-              </span>
-            </div>
+            <Image
+              src={WorkflowsLogo}
+              alt="SeventeenLabs Workflows"
+              height={40}
+            />
           </Link>
 
           {/* Desktop Navigation */}

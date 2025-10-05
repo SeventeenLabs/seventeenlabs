@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Zap, Mail, Github, Linkedin } from "lucide-react";
+import Image from "next/image";
+import WorkflowsLogo from "../../public/SeventeenLabsWorkflowsLogo.svg";
 
 export default function WorkflowsFooter() {
   return (
@@ -9,8 +11,11 @@ export default function WorkflowsFooter() {
           {/* Brand */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
-              <Zap className="h-5 w-5 text-blue-600" />
-              <span className="font-bold">SeventeenLabs Workflows</span>
+              <Image
+                src={WorkflowsLogo}
+                alt="SeventeenLabs Workflows"
+                height={40}
+              />
             </div>
             <p className="text-sm text-muted-foreground">
               Professional N8N workflow templates to automate your business processes.

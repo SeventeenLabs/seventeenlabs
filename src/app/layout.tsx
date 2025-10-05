@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "SeventeenLabs",
   description: "SeventeenLabs platform",
 };
 
-// This is a minimal root layout that just wraps the locale-specific layouts
+// Root layout provides HTML structure for routes outside [locale]
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        {children}
+      </body>
+    </html>
+  );
 }
