@@ -3,23 +3,25 @@
 import { motion } from "framer-motion";
 import { Play, ArrowRight, CheckCircle } from "lucide-react";
 import { useState } from "react";
-
-const workflowSteps = [
-  "Lead fills out form on website",
-  "Data automatically syncs to CRM", 
-  "Personalized email sequence begins",
-  "Follow-up tasks created for sales team",
-  "Analytics tracked in dashboard"
-];
-
-const stats = [
-  { label: "Potential Hours Saved", value: "15+" },
-  { label: "Expected Efficiency Gain", value: "40%" },
-  { label: "Setup Time", value: "< 1 Day" },
-];
+import { useTranslations } from "@/lib/i18n/context";
 
 export default function DemoSection() {
   const [currentStep, setCurrentStep] = useState(0);
+  const { t } = useTranslations();
+
+  const workflowSteps = [
+    t("demo.steps.leadForm"),
+    t("demo.steps.syncCrm"),
+    t("demo.steps.emailSequence"),
+    t("demo.steps.followUp"),
+    t("demo.steps.analytics"),
+  ];
+
+  const stats = [
+    { label: t("demo.stats.hoursSaved"), value: "15+" },
+    { label: t("demo.stats.efficiency"), value: "40%" },
+    { label: t("demo.stats.setupTime"), value: "< 1 Day" },
+  ];
 
   return (
     <section className="bg-slate-900 px-6 py-24 relative overflow-hidden">
@@ -34,10 +36,10 @@ export default function DemoSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            See Automation in Action
+            {t("demo.workflowTitle")}
           </h2>
           <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
-            Watch how a simple lead capture workflow transforms into a complete sales pipeline automation.
+            {t("demo.workflowSubtitle")}
           </p>
         </motion.div>
 
@@ -107,7 +109,7 @@ export default function DemoSection() {
                     className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-white font-medium transition-colors"
                   >
                     <Play className="size-4" />
-                    Watch Demo
+                    {t("demo.watchDemo")}
                   </button>
                 </div>
               </div>
@@ -124,12 +126,10 @@ export default function DemoSection() {
           >
             <div>
               <h3 className="text-2xl font-bold text-white mb-4">
-                From Manual to Automated
+                {t("demo.contentTitle")}
               </h3>
               <p className="text-slate-300 text-lg leading-relaxed">
-                This lead capture workflow demonstrates how automation can eliminate hours of manual work. 
-                Every form submission triggers a complete sales pipeline that runs automatically, letting 
-                your team focus on closing deals instead of data entry.
+                {t("demo.contentDescription")}
               </p>
             </div>
 
@@ -162,7 +162,7 @@ export default function DemoSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-slate-300 hover:text-white font-medium transition-colors"
               >
-                Browse 50+ Ready-Made Workflows
+                {t("demo.browseWorkflows")}
                 <ArrowRight className="size-4" />
               </a>
             </div>

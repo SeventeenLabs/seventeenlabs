@@ -84,19 +84,6 @@ export default function WhySeventeenLabs() {
             );
           })}
         </div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/50 border border-slate-800 px-6 py-3 text-sm text-slate-300">
-            <div className="size-2 rounded-full bg-slate-500 animate-pulse"></div>
-            <span>{t("whySeventeenLabs.readyToServe")}</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

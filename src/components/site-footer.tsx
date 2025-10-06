@@ -1,26 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, ExternalLink } from "lucide-react";
-
-const mainLinks = [
-  { label: "Workflows", href: "/workflows", external: true },
-  { label: "Apps & Tools", href: "/apps", external: false },
-  { label: "Agency Services", href: "/agency", external: false },
-];
-
-const supportLinks = [
-  { label: "Contact Us", href: "mailto:hello@seventeenlabs.io", external: true },
-  { label: "Documentation", href: "/docs", external: false },
-  { label: "Community", href: "https://discord.gg/seventeenlabs", external: true },
-];
-
-const companyLinks = [
-  { label: "About", href: "/about", external: false },
-  { label: "Blog", href: "/blog", external: false },
-  { label: "Privacy", href: "/privacy", external: false },
-];
+import { useTranslations, useLocale } from "@/lib/i18n/context";
 
 export default function SiteFooter() {
+  const { t } = useTranslations();
+  const locale = useLocale();
+
+  const mainLinks = [
+    { label: t("footer.mainLinks.workflows"), href: "/workflows", external: true },
+    { label: t("footer.mainLinks.apps"), href: `/${locale}/apps`, external: false },
+    { label: t("footer.mainLinks.agency"), href: `/${locale}/agency`, external: false },
+  ];
+
+  const supportLinks = [
+    { label: t("footer.contactUs"), href: "mailto:hello@seventeenlabs.io", external: true },
+    { label: t("footer.documentation"), href: "/docs", external: false },
+    { label: t("footer.community"), href: "https://discord.gg/seventeenlabs", external: true },
+  ];
+
+  const companyLinks = [
+    { label: t("footer.about"), href: `/${locale}/about`, external: false },
+    { label: t("footer.blog"), href: `/${locale}/blog`, external: false },
+    { label: t("footer.privacy"), href: `/${locale}/privacy`, external: false },
+  ];
+
   return (
     <footer className="bg-slate-900 border-t border-slate-700 px-6 py-16 text-slate-200">
       <div className="mx-auto max-w-6xl">
@@ -37,7 +43,7 @@ export default function SiteFooter() {
               />
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Save time, cut costs, and grow smarter with AI tools, automation workflows, and expert agency services.
+              {t("footer.tagline")}
             </p>
             <div className="flex items-center gap-2 text-sm">
               <Mail className="size-4 text-slate-400" />
@@ -53,7 +59,7 @@ export default function SiteFooter() {
           {/* Main Services */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Services
+              {t("footer.products")}
             </h3>
             <nav className="space-y-3">
               {mainLinks.map((link) => (
@@ -74,7 +80,7 @@ export default function SiteFooter() {
           {/* Support */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Support
+              {t("footer.support")}
             </h3>
             <nav className="space-y-3">
               {supportLinks.map((link) => (
@@ -95,7 +101,7 @@ export default function SiteFooter() {
           {/* Company */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Company
+              {t("footer.company")}
             </h3>
             <nav className="space-y-3">
               {companyLinks.map((link) => (

@@ -1,32 +1,41 @@
-﻿import Link from "next/link";
+﻿"use client";
+
+import Link from "next/link";
 import { AppWindow, Handshake, Workflow } from "lucide-react";
 import { motion } from "framer-motion";
-
-const offerings = [
-  {
-    title: "Automation Workflows",
-    description: "Pre-built n8n workflows that connect your favorite tools. Save hours on repetitive tasks and focus on what matters most.",
-    href: "/workflows",
-    external: true,
-    icon: Workflow,
-  },
-  {
-    title: "Apps & Tools",
-    description: "AI-powered SaaS applications designed specifically for small businesses. From analytics to customer management.",
-    href: "/apps",
-    external: false,
-    icon: AppWindow,
-  },
-  {
-    title: "Agency Services",
-    description: "Expert implementation and custom development. We handle the technical setup while you focus on growing your business.",
-    href: "/agency",
-    external: false,
-    icon: Handshake,
-  },
-];
+import { useTranslations, useLocale } from "@/lib/i18n/context";
 
 export default function WhatWeOffer() {
+  const { t } = useTranslations();
+  const locale = useLocale();
+
+  const offerings = [
+    {
+      title: t("whatWeOffer.workflows.title"),
+      description: t("whatWeOffer.workflows.description"),
+      href: `/workflows`,
+      external: true,
+      icon: Workflow,
+      key: "workflows"
+    },
+    {
+      title: t("whatWeOffer.aiTools.title"),
+      description: t("whatWeOffer.aiTools.description"),
+      href: `/${locale}/apps`,
+      external: false,
+      icon: AppWindow,
+      key: "aiTools"
+    },
+    {
+      title: t("whatWeOffer.agency.title"),
+      description: t("whatWeOffer.agency.description"),
+      href: `/${locale}/agency`,
+      external: false,
+      icon: Handshake,
+      key: "agency"
+    },
+  ];
+
   return (
     <section style={{ position: 'relative', overflow: 'hidden' }} className="bg-slate-900">
       {/* Section divider */}
@@ -42,10 +51,10 @@ export default function WhatWeOffer() {
             className="mb-16 text-center"
           >
             <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-              Everything You Need to Grow
+              {t("whatWeOffer.title")}
             </h2>
             <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
-              Three powerful pillars that work together to transform your business operations and accelerate growth.
+              {t("whatWeOffer.subtitle")}
             </p>
           </motion.div>
           
@@ -60,14 +69,15 @@ export default function WhatWeOffer() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  className="flex"
                 >
                   <Link
                     href={item.href}
                     target={item.external ? "_blank" : undefined}
                     rel={item.external ? "noopener noreferrer" : undefined}
-                    className="group relative block overflow-hidden rounded-2xl bg-slate-900/50 border border-slate-800 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:bg-slate-900/70 hover:border-slate-700 hover:shadow-2xl hover:shadow-slate-500/10"
+                    className="group relative flex flex-col w-full overflow-hidden rounded-2xl bg-slate-900/50 border border-slate-800 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:bg-slate-900/70 hover:border-slate-700 hover:shadow-2xl hover:shadow-slate-500/10"
                   >
-                    <div className="inline-flex size-14 items-center justify-center rounded-xl bg-slate-800 border border-slate-700 text-slate-300 shadow-lg">
+                    <div className="inline-flex size-14 items-center justify-center rounded-xl bg-slate-800 border border-slate-700 text-slate-300 shadow-lg flex-shrink-0">
                       <Icon className="size-7" aria-hidden />
                     </div>
                     
@@ -75,12 +85,12 @@ export default function WhatWeOffer() {
                       {item.title}
                     </h3>
                     
-                    <p className="mt-4 text-base text-slate-300 leading-relaxed">
+                    <p className="mt-4 text-base text-slate-300 leading-relaxed flex-grow">
                       {item.description}
                     </p>
                     
                     <div className="mt-6 flex items-center text-sm font-medium text-slate-200 group-hover:text-white">
-                      <span>Explore {item.title.toLowerCase()}</span>
+                      <span>{t(`whatWeOffer.${item.key}.cta`)}</span>
                       <span
                         aria-hidden
                         className="ml-2 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-white"

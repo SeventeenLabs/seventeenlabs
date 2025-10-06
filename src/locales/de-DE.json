@@ -32,15 +32,18 @@
     "exploreLink": "Entdecken",
     "aiTools": {
       "title": "Apps & Tools",
-      "description": "KI-gestützte SaaS-Anwendungen speziell für kleine Unternehmen entwickelt. Von Analysen bis hin zum Kundenmanagement."
+      "description": "KI-gestützte SaaS-Anwendungen speziell für kleine Unternehmen entwickelt. Von Analysen bis hin zum Kundenmanagement.",
+      "cta": "Unsere Apps entdecken"
     },
     "workflows": {
       "title": "Automatisierungs-Workflows",
-      "description": "Vorgefertigte n8n-Workflows, die Ihre bevorzugten Tools verbinden. Sparen Sie Stunden bei sich wiederholenden Aufgaben und konzentrieren Sie sich auf das Wesentliche."
+      "description": "Vorgefertigte n8n-Workflows, die Ihre bevorzugten Tools verbinden. Sparen Sie Stunden bei sich wiederholenden Aufgaben und konzentrieren Sie sich auf das Wesentliche.",
+      "cta": "Workflows durchsuchen"
     },
     "agency": {
       "title": "Agentur-Services",
-      "description": "Professionelle Implementierung und maßgeschneiderte Entwicklung. Wir übernehmen die technische Einrichtung, während Sie sich auf das Wachstum Ihres Unternehmens konzentrieren."
+      "description": "Professionelle Implementierung und maßgeschneiderte Entwicklung. Wir übernehmen die technische Einrichtung, während Sie sich auf das Wachstum Ihres Unternehmens konzentrieren.",
+      "cta": "Mehr über unsere Services"
     }
   },
   "whySeventeenLabs": {
@@ -70,9 +73,37 @@
       }
     }
   },
+  "demo": {
+    "title": "Sehen Sie es in Aktion",
+    "subtitle": "Erleben Sie die Kraft automatisierter Workflows",
+    "description": "Sehen Sie, wie unsere KI-gestützte Automatisierung Ihre Geschäftsprozesse in Minuten statt Monaten transformieren kann.",
+    "workflowTitle": "Sehen Sie Automatisierung in Aktion",
+    "workflowSubtitle": "Sehen Sie, wie ein einfacher Lead-Capture-Workflow zu einer vollständigen Sales-Pipeline-Automatisierung wird.",
+    "watchDemo": "Demo ansehen",
+    "contentTitle": "Von manuell zu automatisiert",
+    "contentDescription": "Dieser Lead-Capture-Workflow zeigt, wie Automatisierung Stunden manueller Arbeit eliminieren kann. Jede Formularübermittlung löst eine vollständige Sales-Pipeline aus, die automatisch läuft, sodass Ihr Team sich auf den Abschluss von Geschäften konzentrieren kann, anstatt auf Dateneingabe.",
+    "browseWorkflows": "50+ vorgefertigte Workflows durchsuchen",
+    "steps": {
+      "leadForm": "Lead füllt Formular auf der Website aus",
+      "syncCrm": "Daten werden automatisch mit CRM synchronisiert",
+      "emailSequence": "Personalisierte E-Mail-Sequenz beginnt",
+      "followUp": "Follow-up-Aufgaben für Vertriebsteam erstellt",
+      "analytics": "Analysen im Dashboard verfolgt"
+    },
+    "stats": {
+      "hoursSaved": "Potenzielle eingesparte Stunden",
+      "efficiency": "Erwartete Effizienzsteigerung",
+      "setupTime": "Einrichtungszeit"
+    }
+  },
   "newsletter": {
     "title": "Bereit, Ihr Unternehmen zu transformieren?",
     "subtitle": "Beginnen Sie Ihre Reise zu intelligenterer Automatisierung und KI-gestütztem Wachstum mit unseren Tools und Workflows.",
+    "cta": {
+      "title": "Lassen Sie uns gemeinsam etwas Großartiges aufbauen",
+      "description": "Erzählen Sie uns von Ihren geschäftlichen Herausforderungen und Zielen. Wir zeigen Ihnen genau, wie unsere Automatisierungs-Workflows und KI-Tools Ihnen helfen können, Zeit zu sparen und schneller zu wachsen.",
+      "button": "Starten Sie Ihre Transformation"
+    },
     "form": {
       "title": "Starten Sie mit kostenlosen Ressourcen",
       "description": "Erhalten Sie wöchentliche Automatisierungstipps, Workflow-Vorlagen und KI-Tool-Empfehlungen direkt in Ihr Postfach.",
@@ -169,5 +200,26 @@
       }
     },
     "submit": "Absenden"
+  },
+  "footer": {
+    "company": "Unternehmen",
+    "products": "Produkte",
+    "support": "Support",
+    "legal": "Rechtliches",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "contactUs": "Kontaktieren Sie uns",
+    "documentation": "Dokumentation",
+    "community": "Community",
+    "blog": "Blog",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "copyright": "© 2025 SeventeenLabs. Alle Rechte vorbehalten.",
+    "tagline": "Sparen Sie Zeit, senken Sie Kosten und wachsen Sie intelligenter mit KI-Tools, Automatisierungs-Workflows und professionellen Agentur-Services.",
+    "mainLinks": {
+      "workflows": "Workflows",
+      "apps": "Apps & Tools",
+      "agency": "Agentur-Services"
+    }
   }
 }

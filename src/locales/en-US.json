@@ -32,15 +32,18 @@
     "exploreLink": "Explore",
     "aiTools": {
       "title": "Apps & Tools",
-      "description": "AI-powered SaaS applications designed specifically for small businesses. From analytics to customer management."
+      "description": "AI-powered SaaS applications designed specifically for small businesses. From analytics to customer management.",
+      "cta": "Explore our apps"
     },
     "workflows": {
       "title": "Automation Workflows",
-      "description": "Pre-built n8n workflows that connect your favorite tools. Save hours on repetitive tasks and focus on what matters most."
+      "description": "Pre-built n8n workflows that connect your favorite tools. Save hours on repetitive tasks and focus on what matters most.",
+      "cta": "Browse workflows"
     },
     "agency": {
       "title": "Agency Services",
-      "description": "Expert implementation and custom development. We handle the technical setup while you focus on growing your business."
+      "description": "Expert implementation and custom development. We handle the technical setup while you focus on growing your business.",
+      "cta": "Learn about our services"
     }
   },
   "whySeventeenLabs": {
@@ -73,11 +76,34 @@
   "demo": {
     "title": "See It In Action",
     "subtitle": "Experience the power of automated workflows",
-    "description": "Watch how our AI-powered automation can transform your business processes in minutes, not months."
+    "description": "Watch how our AI-powered automation can transform your business processes in minutes, not months.",
+    "workflowTitle": "See Automation in Action",
+    "workflowSubtitle": "Watch how a simple lead capture workflow transforms into a complete sales pipeline automation.",
+    "watchDemo": "Watch Demo",
+    "contentTitle": "From Manual to Automated",
+    "contentDescription": "This lead capture workflow demonstrates how automation can eliminate hours of manual work. Every form submission triggers a complete sales pipeline that runs automatically, letting your team focus on closing deals instead of data entry.",
+    "browseWorkflows": "Browse 50+ Ready-Made Workflows",
+    "steps": {
+      "leadForm": "Lead fills out form on website",
+      "syncCrm": "Data automatically syncs to CRM",
+      "emailSequence": "Personalized email sequence begins",
+      "followUp": "Follow-up tasks created for sales team",
+      "analytics": "Analytics tracked in dashboard"
+    },
+    "stats": {
+      "hoursSaved": "Potential Hours Saved",
+      "efficiency": "Expected Efficiency Gain",
+      "setupTime": "Setup Time"
+    }
   },
   "newsletter": {
     "title": "Ready to Transform Your Business?",
     "subtitle": "Start your journey toward smarter automation and AI-powered growth with our tools and workflows.",
+    "cta": {
+      "title": "Let's Build Something Amazing Together",
+      "description": "Tell us about your business challenges and goals. We'll show you exactly how our automation workflows and AI tools can help you save time and grow faster.",
+      "button": "Start Your Transformation"
+    },
     "form": {
       "title": "Start with Free Resources",
       "description": "Get weekly automation tips, workflow templates, and AI tools recommendations delivered to your inbox.",
@@ -108,9 +134,19 @@
     "legal": "Legal",
     "about": "About",
     "contact": "Contact",
+    "contactUs": "Contact Us",
+    "documentation": "Documentation",
+    "community": "Community",
+    "blog": "Blog",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "copyright": "© 2025 SeventeenLabs. All rights reserved."
+    "copyright": "© 2025 SeventeenLabs. All rights reserved.",
+    "tagline": "Save time, cut costs, and grow smarter with AI tools, automation workflows, and expert agency services.",
+    "mainLinks": {
+      "workflows": "Workflows",
+      "apps": "Apps & Tools",
+      "agency": "Agency Services"
+    }
   },
   "contactModal": {
     "title": "Tell us where you're at",
