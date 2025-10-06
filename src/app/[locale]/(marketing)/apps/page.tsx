@@ -69,25 +69,6 @@ export default function AppsPage({ params }: AppsPageProps) {
 
   return (
     <div className="min-h-screen bg-slate-950">
-      {/* Hero Section */}
-      <section className="relative py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Our Applications
-            </h1>
-            <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-              Professional SaaS tools designed to streamline your business operations.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Application Feature Sections */}
       {applications.map((app, appIndex) => (
         <section key={app.title} className="overflow-hidden py-24 sm:py-32">

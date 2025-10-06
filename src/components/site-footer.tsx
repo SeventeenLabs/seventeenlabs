@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, ExternalLink } from "lucide-react";
 
 const mainLinks = [
@@ -26,7 +27,15 @@ export default function SiteFooter() {
         <div className="grid gap-8 md:grid-cols-4">
           {/* Brand & Contact */}
           <div className="space-y-4 md:col-span-1">
-            <div className="text-2xl font-bold text-white">SeventeenLabs</div>
+            <div className="mb-4">
+              <Image
+                src="/logo_anim.svg"
+                alt="SeventeenLabs"
+                width={140}
+                height={20}
+                className="h-6 w-auto"
+              />
+            </div>
             <p className="text-sm text-slate-400 leading-relaxed">
               Save time, cut costs, and grow smarter with AI tools, automation workflows, and expert agency services.
             </p>

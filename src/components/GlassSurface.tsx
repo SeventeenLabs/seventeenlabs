@@ -230,8 +230,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
       width: typeof width === 'number' ? `${width}px` : width,
       height: typeof height === 'number' ? `${height}px` : height,
       borderRadius: `${borderRadius}px`,
-      '--glass-frost': backgroundOpacity,
-      '--glass-saturation': saturation
+      '--glass-frost': String(backgroundOpacity),
+      '--glass-saturation': String(saturation)
     } as React.CSSProperties;
 
     const svgSupported = supportsSVGFilters();
