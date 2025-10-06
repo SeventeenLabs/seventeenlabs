@@ -148,6 +148,121 @@
       "agency": "Agency Services"
     }
   },
+  "agency": {
+    "hero": {
+      "title": "Transform Your Business with Expert Implementation",
+      "description": "We partner with ambitious small businesses to implement AI tools, build custom automation workflows, and deliver tailored solutions that drive measurable growth.",
+      "cta": {
+        "primary": "Start Your Project",
+        "secondary": "View Our Work"
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "End-to-end solutions designed to solve your unique business challenges",
+      "items": {
+        "customDev": {
+          "title": "Custom Development",
+          "description": "Tailored applications and tools built specifically for your business needs and workflows.",
+          "features": [
+            "Full-stack web applications",
+            "AI-powered SaaS tools",
+            "Custom integrations & APIs",
+            "Mobile-responsive solutions"
+          ]
+        },
+        "automation": {
+          "title": "Workflow Automation",
+          "description": "Design, build, and implement automation workflows that eliminate manual tasks and boost efficiency.",
+          "features": [
+            "Custom n8n workflow development",
+            "Multi-platform integrations",
+            "Process optimization consulting",
+            "Ongoing maintenance & support"
+          ]
+        },
+        "aiIntegration": {
+          "title": "AI Integration",
+          "description": "Integrate cutting-edge AI capabilities into your existing systems and processes.",
+          "features": [
+            "GPT & LLM implementation",
+            "AI-powered data analysis",
+            "Intelligent automation",
+            "Custom AI model training"
+          ]
+        },
+        "consulting": {
+          "title": "Strategy & Consulting",
+          "description": "Expert guidance to identify opportunities and create actionable automation roadmaps.",
+          "features": [
+            "Process audit & analysis",
+            "Technology stack recommendations",
+            "ROI-focused planning",
+            "Implementation support"
+          ]
+        }
+      }
+    },
+    "process": {
+      "title": "How We Work",
+      "subtitle": "A proven process that delivers results",
+      "steps": {
+        "discovery": {
+          "title": "Discovery",
+          "description": "We start by understanding your business, challenges, and goals through in-depth consultation."
+        },
+        "planning": {
+          "title": "Planning",
+          "description": "We design a tailored solution with clear deliverables, timelines, and success metrics."
+        },
+        "implementation": {
+          "title": "Implementation",
+          "description": "Our team builds and deploys your solution with regular updates and transparent communication."
+        },
+        "support": {
+          "title": "Support & Growth",
+          "description": "We provide ongoing maintenance, optimization, and strategic guidance as your business evolves."
+        }
+      }
+    },
+    "results": {
+      "title": "Results That Matter",
+      "stats": {
+        "timeSaved": {
+          "value": "500+",
+          "label": "Hours Saved Monthly"
+        },
+        "projects": {
+          "value": "50+",
+          "label": "Projects Delivered"
+        },
+        "satisfaction": {
+          "value": "98%",
+          "label": "Client Satisfaction"
+        },
+        "roi": {
+          "value": "3.5x",
+          "label": "Average ROI"
+        }
+      }
+    },
+    "team": {
+      "title": "Expert Team",
+      "description": "We're a tight-knit network of senior engineers, designers, and automation specialists dedicated to delivering exceptional results.",
+      "expertise": [
+        "Full-Stack Development",
+        "AI & Machine Learning",
+        "Business Process Automation",
+        "UX/UI Design",
+        "DevOps & Cloud Infrastructure"
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business?",
+      "description": "Let's discuss how we can help you save time, reduce costs, and accelerate growth with custom automation and AI solutions.",
+      "button": "Schedule a Free Consultation"
+    }
+  },
   "contactModal": {
     "title": "Tell us where you're at",
     "fields": {

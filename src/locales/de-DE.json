@@ -127,6 +127,121 @@
       }
     }
   },
+  "agency": {
+    "hero": {
+      "title": "Transformieren Sie Ihr Unternehmen mit Expertenimplementierung",
+      "description": "Wir arbeiten mit ambitionierten kleinen Unternehmen zusammen, um KI-Tools zu implementieren, maßgeschneiderte Automatisierungs-Workflows zu erstellen und individuelle Lösungen zu liefern, die messbares Wachstum fördern.",
+      "cta": {
+        "primary": "Projekt starten",
+        "secondary": "Unsere Arbeit ansehen"
+      }
+    },
+    "services": {
+      "title": "Unsere Dienstleistungen",
+      "subtitle": "End-to-End-Lösungen zur Bewältigung Ihrer einzigartigen Geschäftsherausforderungen",
+      "items": {
+        "customDev": {
+          "title": "Individuelle Entwicklung",
+          "description": "Maßgeschneiderte Anwendungen und Tools, speziell für Ihre Geschäftsanforderungen und Arbeitsabläufe entwickelt.",
+          "features": [
+            "Full-Stack-Webanwendungen",
+            "KI-gestützte SaaS-Tools",
+            "Individuelle Integrationen & APIs",
+            "Mobile-responsive Lösungen"
+          ]
+        },
+        "automation": {
+          "title": "Workflow-Automatisierung",
+          "description": "Entwerfen, erstellen und implementieren Sie Automatisierungs-Workflows, die manuelle Aufgaben eliminieren und die Effizienz steigern.",
+          "features": [
+            "Individuelle n8n-Workflow-Entwicklung",
+            "Multiplattform-Integrationen",
+            "Prozessoptimierungsberatung",
+            "Laufende Wartung & Support"
+          ]
+        },
+        "aiIntegration": {
+          "title": "KI-Integration",
+          "description": "Integrieren Sie modernste KI-Funktionen in Ihre bestehenden Systeme und Prozesse.",
+          "features": [
+            "GPT & LLM-Implementierung",
+            "KI-gestützte Datenanalyse",
+            "Intelligente Automatisierung",
+            "Individuelles KI-Modelltraining"
+          ]
+        },
+        "consulting": {
+          "title": "Strategie & Beratung",
+          "description": "Expertenberatung zur Identifizierung von Chancen und Erstellung umsetzbarer Automatisierungs-Roadmaps.",
+          "features": [
+            "Prozessaudit & Analyse",
+            "Technologie-Stack-Empfehlungen",
+            "ROI-fokussierte Planung",
+            "Implementierungsunterstützung"
+          ]
+        }
+      }
+    },
+    "process": {
+      "title": "Wie wir arbeiten",
+      "subtitle": "Ein bewährter Prozess, der Ergebnisse liefert",
+      "steps": {
+        "discovery": {
+          "title": "Entdeckung",
+          "description": "Wir beginnen damit, Ihr Unternehmen, Ihre Herausforderungen und Ziele durch eingehende Beratung zu verstehen."
+        },
+        "planning": {
+          "title": "Planung",
+          "description": "Wir entwerfen eine maßgeschneiderte Lösung mit klaren Ergebnissen, Zeitplänen und Erfolgsmetriken."
+        },
+        "implementation": {
+          "title": "Implementierung",
+          "description": "Unser Team erstellt und implementiert Ihre Lösung mit regelmäßigen Updates und transparenter Kommunikation."
+        },
+        "support": {
+          "title": "Support & Wachstum",
+          "description": "Wir bieten laufende Wartung, Optimierung und strategische Beratung, während Ihr Unternehmen wächst."
+        }
+      }
+    },
+    "results": {
+      "title": "Ergebnisse, die zählen",
+      "stats": {
+        "timeSaved": {
+          "value": "500+",
+          "label": "Stunden monatlich gespart"
+        },
+        "projects": {
+          "value": "50+",
+          "label": "Projekte geliefert"
+        },
+        "satisfaction": {
+          "value": "98%",
+          "label": "Kundenzufriedenheit"
+        },
+        "roi": {
+          "value": "3,5x",
+          "label": "Durchschnittlicher ROI"
+        }
+      }
+    },
+    "team": {
+      "title": "Expertenteam",
+      "description": "Wir sind ein eng verbundenes Netzwerk von Senior-Ingenieuren, Designern und Automatisierungsspezialisten, die sich der Erbringung außergewöhnlicher Ergebnisse verschrieben haben.",
+      "expertise": [
+        "Full-Stack-Entwicklung",
+        "KI & maschinelles Lernen",
+        "Geschäftsprozess-Automatisierung",
+        "UX/UI-Design",
+        "DevOps & Cloud-Infrastruktur"
+      ]
+    },
+    "cta": {
+      "title": "Bereit, Ihr Unternehmen zu transformieren?",
+      "description": "Lassen Sie uns besprechen, wie wir Ihnen helfen können, Zeit zu sparen, Kosten zu senken und das Wachstum mit individueller Automatisierung und KI-Lösungen zu beschleunigen.",
+      "button": "Kostenlose Beratung vereinbaren"
+    }
+  },
   "contactModal": {
     "title": "Erzählen Sie uns, wo Sie stehen",
     "fields": {
