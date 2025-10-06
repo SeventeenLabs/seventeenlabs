@@ -15,8 +15,7 @@ export default function LandingHeader() {
   const locale = useLocale();
 
   const navigation = [
-    { name: t("common.home"), href: `/${locale}` },
-    { name: t("common.workflows"), href: `/${locale}/workflows` },
+    { name: t("common.workflows"), href: `/workflows` },
     { name: t("common.apps"), href: `/${locale}/apps` },
     { name: t("common.agency"), href: `/${locale}/agency` },
   ];
