@@ -19,14 +19,33 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-// Metadata is handled in root layout.tsx and individual pages
-// This layout focuses on locale-specific rendering
-
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: Promise<{
     locale: string;
   }>;
+}
+
+// Generate metadata dynamically for each locale
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const validLocale = getLocaleFromString(locale);
+  const isGerman = validLocale === 'de-DE';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+
+  return {
+    alternates: {
+      canonical: `${baseUrl}/${validLocale}`,
+      languages: {
+        'en-US': `${baseUrl}/en-US`,
+        'de-DE': `${baseUrl}/de-DE`,
+      },
+    },
+    openGraph: {
+      locale: isGerman ? 'de_DE' : 'en_US',
+      url: `${baseUrl}/${validLocale}`,
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -38,14 +57,15 @@ export default async function LocaleLayout({
   // Validate locale and ensure it's one of our supported locales
   const validLocale = getLocaleFromString(locale);
   const isGerman = validLocale === 'de-DE';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   
   return (
     <html lang={isGerman ? 'de' : 'en'} suppressHydrationWarning>
       <head>
-        {/* Hreflang tags for international SEO */}
-        <link rel="alternate" hrefLang="en-US" href="/en-US" />
-        <link rel="alternate" hrefLang="de-DE" href="/de-DE" />
-        <link rel="alternate" hrefLang="x-default" href="/en-US" />
+        {/* Hreflang tags with absolute URLs for international SEO */}
+        <link rel="alternate" hrefLang="en-US" href={`${baseUrl}/en-US`} />
+        <link rel="alternate" hrefLang="de-DE" href={`${baseUrl}/de-DE`} />
+        <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en-US`} />
       </head>
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}

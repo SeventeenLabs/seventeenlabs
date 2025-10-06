@@ -66,11 +66,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="alternate" hrefLang="en-US" href="/en-US" />
-        <link rel="alternate" hrefLang="de-DE" href="/de-DE" />
-        <link rel="alternate" hrefLang="x-default" href="/en-US" />
-      </head>
       <body suppressHydrationWarning>
         <StructuredData type="home" />
         {children}

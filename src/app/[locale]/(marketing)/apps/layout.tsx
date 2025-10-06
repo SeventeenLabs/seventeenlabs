@@ -9,26 +9,53 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Apps | SeventeenLabs - Business Applications & Tools",
-  description: "Explore our suite of business applications and tools. Access workflows, admin panel, and other productivity solutions designed to streamline your operations.",
-  keywords: "business apps, productivity tools, workflow management, admin panel, business automation, SeventeenLabs applications",
-  authors: [{ name: "SeventeenLabs" }],
-  creator: "SeventeenLabs",
-  publisher: "SeventeenLabs",
-  openGraph: {
-    title: "Apps | SeventeenLabs - Business Applications & Tools",
-    description: "Explore our suite of business applications and tools designed to streamline your operations.",
-    url: "https://seventeenlabs.io/apps",
-    siteName: "SeventeenLabs",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Apps | SeventeenLabs - Business Applications & Tools",
-    description: "Explore our suite of business applications and tools designed to streamline your operations.",
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isGerman = locale === 'de-DE';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+
+  return {
+    title: isGerman 
+      ? 'Apps | SeventeenLabs - Geschäftsanwendungen & Tools'
+      : 'Apps | SeventeenLabs - Business Applications & Tools',
+    description: isGerman
+      ? 'Entdecken Sie unsere Suite von Geschäftsanwendungen und Tools. Zugriff auf Workflows, Admin-Panel und andere Produktivitätslösungen zur Optimierung Ihrer Abläufe.'
+      : 'Explore our suite of business applications and tools. Access workflows, admin panel, and other productivity solutions designed to streamline your operations.',
+    keywords: isGerman
+      ? ['Geschäftsanwendungen', 'Produktivitätstools', 'Workflow-Management', 'Admin-Panel', 'Geschäftsautomatisierung', 'SeventeenLabs Anwendungen']
+      : ['business apps', 'productivity tools', 'workflow management', 'admin panel', 'business automation', 'SeventeenLabs applications'],
+    authors: [{ name: "SeventeenLabs" }],
+    creator: "SeventeenLabs",
+    publisher: "SeventeenLabs",
+    openGraph: {
+      title: isGerman 
+        ? 'Apps | SeventeenLabs - Geschäftsanwendungen & Tools'
+        : 'Apps | SeventeenLabs - Business Applications & Tools',
+      description: isGerman
+        ? 'Entdecken Sie unsere Suite von Geschäftsanwendungen zur Optimierung Ihrer Abläufe.'
+        : 'Explore our suite of business applications and tools designed to streamline your operations.',
+      url: `${baseUrl}/${locale}/apps`,
+      siteName: "SeventeenLabs",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: isGerman 
+        ? 'Apps | SeventeenLabs - Geschäftsanwendungen & Tools'
+        : 'Apps | SeventeenLabs - Business Applications & Tools',
+      description: isGerman
+        ? 'Entdecken Sie unsere Suite von Geschäftsanwendungen zur Optimierung Ihrer Abläufe.'
+        : 'Explore our suite of business applications and tools designed to streamline your operations.',
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/apps`,
+      languages: {
+        'en-US': `${baseUrl}/en-US/apps`,
+        'de-DE': `${baseUrl}/de-DE/apps`,
+      },
+    },
+  };
+}
 
 export default function AppsLayout({
   children,
