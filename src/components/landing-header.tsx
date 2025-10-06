@@ -6,11 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
-
-import GlassSurface from "./GlassSurface";
+import ContactModal from "./contact-modal";
 
 export default function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const { t } = useTranslations();
   const locale = useLocale();
 
@@ -74,32 +74,22 @@ export default function LandingHeader() {
             ))}
           </div>
           
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ 
                 duration: 0.6, 
                 ease: "easeOut",
-                delay: 1.4 // After all menu items
+                delay: 1.4
               }}
             >
-              <GlassSurface 
-                width={120} 
-                height={36}
-                borderRadius={6}
-                brightness={60}
-                opacity={0.8}
-                blur={12}
-                className="hover:scale-[1.02] transition-transform duration-200"
+              <button
+                onClick={() => setContactModalOpen(true)}
+                className="px-6 py-2 text-sm font-semibold text-white bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
               >
-                <Link 
-                  href="/workflows"
-                  className="inline-flex items-center justify-center px-4 py-2 text-white hover:text-white/90 transition-colors w-full h-full text-sm font-medium whitespace-nowrap"
-                >
-                  {t("common.getStarted")}
-                </Link>
-              </GlassSurface>
+                {t("common.getInTouch")}
+              </button>
             </motion.div>
           </div>
         </nav>
@@ -142,13 +132,15 @@ export default function LandingHeader() {
                   </div>
                   
                   <div className="py-6">
-                    <Link
-                      href="/workflows"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setContactModalOpen(true);
+                      }}
+                      className="w-full text-left -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
                     >
-                      {t("common.getStarted")}
-                    </Link>
+                      {t("common.getInTouch")}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -156,6 +148,12 @@ export default function LandingHeader() {
           </motion.div>
         )}
       </motion.div>
+
+      {/* Contact Modal */}
+      <ContactModal 
+        isOpen={contactModalOpen} 
+        onClose={() => setContactModalOpen(false)} 
+      />
     </header>
   );
 }
