@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { I18nProvider } from "@/lib/i18n/context";
 import { getLocaleFromString, locales } from "@/lib/i18n/config";
+import StructuredData from "@/components/structured-data";
 import "../globals.css";
 
 const inter = Inter({
@@ -18,10 +19,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "SeventeenLabs",
-  description: "SeventeenLabs platform",
-};
+// Metadata is handled in root layout.tsx and individual pages
+// This layout focuses on locale-specific rendering
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -42,6 +41,12 @@ export default async function LocaleLayout({
   
   return (
     <html lang={isGerman ? 'de' : 'en'} suppressHydrationWarning>
+      <head>
+        {/* Hreflang tags for international SEO */}
+        <link rel="alternate" hrefLang="en-US" href="/en-US" />
+        <link rel="alternate" hrefLang="de-DE" href="/de-DE" />
+        <link rel="alternate" hrefLang="x-default" href="/en-US" />
+      </head>
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
         suppressHydrationWarning
@@ -59,6 +64,10 @@ export default async function LocaleLayout({
             gtag('config', 'G-GP1PFPXNHD');
           `}
         </Script>
+        
+        {/* Structured Data */}
+        <StructuredData locale={validLocale} type="home" />
+        
         <I18nProvider locale={validLocale}>
           {children}
         </I18nProvider>

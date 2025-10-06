@@ -18,6 +18,10 @@ interface HomePageProps {
   }>;
 }
 
+// Note: Metadata generation for this page is in the parent layout
+// as this is a client component. Consider splitting into server/client components
+// for better SEO if needed.
+
 export default function Home({ params }: HomePageProps) {
   const { locale } = use(params);
   const [showLoading, setShowLoading] = useState(true);

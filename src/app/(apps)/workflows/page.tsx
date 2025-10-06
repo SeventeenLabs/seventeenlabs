@@ -448,7 +448,7 @@ export default function WorkflowsPage() {
           
           <Button 
             className="bg-white hover:bg-slate-100 text-slate-900 hover:text-slate-900"
-            onClick={() => window.open('mailto:hello@seventeenlabs.com?subject=Custom Workflow Services&body=Hi! I\'m interested in your custom workflow services.%0A%0APlease let me know:%0A- Which service would work best for my needs%0A- Timeline for development/setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
+            onClick={() => window.open('mailto:hello@seventeenlabs.io?subject=Custom Workflow Services&body=Hi! I\'m interested in your custom workflow services.%0A%0APlease let me know:%0A- Which service would work best for my needs%0A- Timeline for development/setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
           >
             Contact Us
           </Button>

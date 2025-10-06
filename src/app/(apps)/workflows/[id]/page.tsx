@@ -520,7 +520,7 @@ export default function WorkflowDetailPage() {
                   <Button 
                     size="sm" 
                     className="w-full bg-slate-900 hover:bg-slate-800 text-white mt-4"
-                    onClick={() => window.open('mailto:hello@seventeenlabs.com?subject=Setup Service - ' + encodeURIComponent(workflow.title) + '&body=Hi! I\'m interested in having you set up the "' + encodeURIComponent(workflow.title) + '" workflow for me.%0A%0APlease let me know:%0A- Which hosting option would work best for my needs%0A- Timeline for setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
+                    onClick={() => window.open('mailto:hello@seventeenlabs.io?subject=Setup Service - ' + encodeURIComponent(workflow.title) + '&body=Hi! I\'m interested in having you set up the "' + encodeURIComponent(workflow.title) + '" workflow for me.%0A%0APlease let me know:%0A- Which hosting option would work best for my needs%0A- Timeline for setup%0A- Final pricing%0A- What information you\'ll need from me%0A%0AThanks!', '_blank')}
                   >
                     Contact for Setup
                   </Button>

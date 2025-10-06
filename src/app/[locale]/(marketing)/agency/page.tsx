@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useState } from "react";
+import type { Metadata } from "next";
 import { Code2, Workflow, Brain, Lightbulb, CheckCircle2, TrendingUp, Users, Clock, Target } from "lucide-react";
 import LandingHeader from "@/components/landing-header";
 import SiteFooter from "@/components/site-footer";
@@ -11,6 +12,9 @@ import AgencyProcess from "@/components/agency/agency-process";
 import AgencyResults from "@/components/agency/agency-results";
 import AgencyTeam from "@/components/agency/agency-team";
 import AgencyCTA from "@/components/agency/agency-cta";
+
+// Note: For client components, metadata should be in layout.tsx
+// Consider creating a server component wrapper if needed
 
 interface AgencyPageProps {
   params: Promise<{
