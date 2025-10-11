@@ -1,17 +1,33 @@
 {
   "common": {
-    "getStarted": "Loslegen",
+    "getStarted": "Jetzt starten",
     "getInTouch": "Kontakt aufnehmen",
     "home": "Startseite",
     "workflows": "Workflows",
     "apps": "Apps",
     "agency": "Agentur",
-    "loading": "Wird geladen...",
-    "learnMore": "Mehr erfahren"
+    "loading": "Lädt...",
+    "learnMore": "Mehr erfahren",
+    "whatWeDo": "Unsere Leistungen",
+    "products": "Produkte",
+    "services": "Services"
   },
   "hero": {
     "title": "KI-Automatisierung & Werkzeuge für Ihr Unternehmen",
     "description": "Sofort einsetzbare Workflows, KI-Apps und Expertenberatung. Automatisieren Sie Prozesse und beschleunigen Sie Ihr Wachstum.",
+    "eyebrow": "KI-Transformation für modernes Business",
+    "mainTitle": "Wir bauen Systeme, die",
+    "mainTitleSecond": "Ihr Business skalieren",
+    "ctaPrimary": "Projekt starten",
+    "ctaSecondary": "Produkte ansehen",
+    "stats": {
+      "deployment": "2 Wochen",
+      "deploymentLabel": "bis zum ersten Deployment",
+      "costReduction": "80%",
+      "costReductionLabel": "Kostenersparnis",
+      "automation": "24/7",
+      "automationLabel": "automatisierte Prozesse"
+    },
     "features": {
       "tools": "Sofort einsatzbereite KI-Tools & Apps",
       "automation": "Automatisierungs-Workflow-Marktplatz",
@@ -44,6 +60,22 @@
       "title": "Agentur-Services",
       "description": "Professionelle Implementierung und maßgeschneiderte Entwicklung. Wir übernehmen die technische Einrichtung, während Sie sich auf das Wachstum Ihres Unternehmens konzentrieren.",
       "cta": "Mehr über unsere Services"
+    }
+  },
+  "whatWeDo": {
+    "title": "Was wir tun",
+    "subtitle": "Wir kombinieren KI-Innovation mit Automatisierungs-Expertise, um Lösungen zu liefern, die Geschäftsabläufe transformieren.",
+    "aiProducts": {
+      "title": "KI-Produkte",
+      "description": "Maßgeschneiderte KI-Anwendungen für Ihre spezifischen Geschäftsanforderungen, von Chatbots bis zu Datenanalyse-Plattformen."
+    },
+    "automation": {
+      "title": "Workflow-Automatisierung",
+      "description": "Optimieren Sie Ihre Abläufe mit intelligenter Automatisierung, die Ihre Tools verbindet und repetitive Aufgaben eliminiert."
+    },
+    "custom": {
+      "title": "Custom Solutions",
+      "description": "End-to-End-Entwicklung und Implementierung, um Ihre individuelle Automatisierungsvision zum Leben zu erwecken."
     }
   },
   "whySeventeenLabs": {

@@ -7,11 +7,27 @@
     "apps": "Apps",
     "agency": "Agency",
     "loading": "Loading...",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "whatWeDo": "What We Do",
+    "products": "Products",
+    "services": "Services"
   },
   "hero": {
     "title": "Smart Business Automation & AI Tools for Growth",
     "description": "From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.",
+    "eyebrow": "AI Transformation for modern business",
+    "mainTitle": "We build systems that",
+    "mainTitleSecond": "scale your business",
+    "ctaPrimary": "Start Your Project",
+    "ctaSecondary": "Explore Products",
+    "stats": {
+      "deployment": "2 weeks",
+      "deploymentLabel": "to first deployment",
+      "costReduction": "80%",
+      "costReductionLabel": "cost reduction",
+      "automation": "24/7",
+      "automationLabel": "automated operations"
+    },
     "features": {
       "tools": "Ready-to-use AI tools & apps",
       "automation": "Automation workflow marketplace",
@@ -44,6 +60,22 @@
       "title": "Agency Services",
       "description": "Expert implementation and custom development. We handle the technical setup while you focus on growing your business.",
       "cta": "Learn about our services"
+    }
+  },
+  "whatWeDo": {
+    "title": "What We Do",
+    "subtitle": "We combine AI innovation with automation expertise to deliver solutions that transform how businesses operate.",
+    "aiProducts": {
+      "title": "AI Products",
+      "description": "Custom-built AI applications tailored to your specific business needs, from chatbots to data analytics platforms."
+    },
+    "automation": {
+      "title": "Workflow Automation",
+      "description": "Streamline your operations with intelligent automation that connects your tools and eliminates repetitive tasks."
+    },
+    "custom": {
+      "title": "Custom Solutions",
+      "description": "End-to-end development and implementation services to bring your unique automation vision to life."
     }
   },
   "whySeventeenLabs": {

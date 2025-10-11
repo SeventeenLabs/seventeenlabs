@@ -7,6 +7,7 @@ import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
 import NewsletterCta from "@/components/newsletter-cta";
 import SiteFooter from "@/components/site-footer";
+import WhatWeDo from "@/components/what-we-do";
 import WhatWeOffer from "@/components/what-we-offer";
 import WhySeventeenLabs from "@/components/why-seventeenlabs";
 import Prism from "@/components/ui/prism";
@@ -105,6 +106,7 @@ export default function Home({ params }: HomePageProps) {
               <LandingHeader />
               <main>
                 <LandingHero />
+                <WhatWeDo />
                 <WhatWeOffer />
                 <WhySeventeenLabs />
                 <DemoSection />

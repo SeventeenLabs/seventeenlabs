@@ -15,9 +15,9 @@ export default function LandingHeader() {
   const locale = useLocale();
 
   const navigation = [
-    { name: t("common.workflows"), href: `/workflows` },
-    { name: t("common.apps"), href: `/${locale}/apps` },
-    { name: t("common.agency"), href: `/${locale}/agency` },
+    { name: t("common.whatWeDo"), href: `/${locale}#what-we-do` },
+    { name: t("common.products"), href: `/workflows` },
+    { name: t("common.services"), href: `/${locale}/agency` },
   ];
 
   return (
@@ -26,21 +26,50 @@ export default function LandingHeader() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto max-w-7xl px-6 py-6 lg:px-8"
+        className="w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-6"
       >
         <nav className="flex items-center justify-between" aria-label="Global">
-          <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+          {/* Logo and Navigation */}
+          <div className="flex items-center gap-8">
+            {/* Logo */}
+            <Link href={`/${locale}`} className="-m-1.5 p-1.5 flex items-center gap-2">
               <Image
                 src="/logo_anim.svg"
                 alt="SeventeenLabs Logo"
-                width={140}
-                height={26}
-                className="h-6 w-auto"
+                width={110}
+                height={20}
+                className="h-5 w-auto"
               />
             </Link>
+            
+            {/* Divider */}
+            <div className="hidden lg:block h-8 w-px bg-white/20" />
+            
+            {/* Desktop navigation */}
+            <div className="hidden lg:flex lg:gap-x-10">
+              {navigation.map((item, index) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: "easeOut",
+                    delay: 0.1 + index * 0.05
+                  }}
+                >
+                  <Link
+                    href={item.href}
+                    className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </div>
           
+          {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -52,43 +81,23 @@ export default function LandingHeader() {
             </button>
           </div>
           
-          <div className="hidden lg:flex lg:gap-x-8">
-            {navigation.map((item, index) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ 
-                  duration: 0.6, 
-                  ease: "easeOut",
-                  delay: 1.0 + index * 0.1 // Start sooner with stagger
-                }}
-              >
-                <Link
-                  href={item.href}
-                  className="text-sm font-semibold leading-6 text-white/80 hover:text-white transition-colors"
-                >
-                  {item.name}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-          
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          {/* CTA Button */}
+          <div className="hidden lg:flex">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ 
-                duration: 0.6, 
+                duration: 0.4, 
                 ease: "easeOut",
-                delay: 1.4
+                delay: 0.3
               }}
             >
               <button
                 onClick={() => setContactModalOpen(true)}
-                className="px-6 py-2 text-sm font-semibold text-white bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
+                className="group relative px-6 py-2.5 text-sm font-light text-white border border-white/30 rounded-lg hover:border-white/60 transition-all duration-300 overflow-hidden"
               >
-                {t("common.getInTouch")}
+                <span className="relative z-10">{t("common.getInTouch")}</span>
+                <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
               </button>
             </motion.div>
           </div>
@@ -103,8 +112,14 @@ export default function LandingHeader() {
           >
             <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-950/95 backdrop-blur-lg px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
-                <Link href="/" className="-m-1.5 p-1.5">
-                  <span className="text-xl font-bold text-white">SeventeenLabs</span>
+                <Link href={`/${locale}`} className="-m-1.5 p-1.5">
+                  <Image
+                    src="/logo_anim.svg"
+                    alt="SeventeenLabs Logo"
+                    width={140}
+                    height={26}
+                    className="h-7 w-auto"
+                  />
                 </Link>
                 <button
                   type="button"
@@ -137,7 +152,7 @@ export default function LandingHeader() {
                         setMobileMenuOpen(false);
                         setContactModalOpen(true);
                       }}
-                      className="w-full text-left -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
+                      className="w-full px-6 py-2.5 text-sm font-medium text-black bg-white rounded-md hover:bg-white/90 transition-all duration-200"
                     >
                       {t("common.getInTouch")}
                     </button>
