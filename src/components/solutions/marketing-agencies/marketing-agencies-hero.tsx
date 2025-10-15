@@ -61,8 +61,8 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent w-1/2" />
         </div>
         
-        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32 flex flex-col justify-between min-h-screen">
-          <div className="max-w-4xl mt-20">
+        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 pt-24 sm:pt-32 pb-8 flex flex-col min-h-screen">
+          <div className="max-w-4xl mt-20 mb-auto">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -124,7 +124,7 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.7 }}
-            className="grid grid-cols-3 gap-8 max-w-4xl"
+            className="grid grid-cols-3 gap-8 max-w-4xl mt-auto"
           >
             {t.stats.map((stat, index) => (
               <div key={index}>
