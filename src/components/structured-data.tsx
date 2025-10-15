@@ -1,13 +1,15 @@
 import Script from 'next/script';
+import { getLocalizedPath } from '@/lib/i18n/utils';
+import { Locale } from '@/lib/i18n/config';
 
 interface StructuredDataProps {
   locale?: string;
   type?: 'home' | 'agency' | 'product';
 }
 
-export default function StructuredData({ locale = 'en-US', type = 'home' }: StructuredDataProps) {
+export default function StructuredData({ locale = 'en', type = 'home' }: StructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const isGerman = locale === 'de-DE';
+  const isGerman = locale === 'de';
 
   // Organization schema
   const organizationSchema = {
@@ -69,7 +71,7 @@ export default function StructuredData({ locale = 'en-US', type = 'home' }: Stru
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'SeventeenLabs Agency',
-    url: `${baseUrl}/${locale}/agency`,
+    url: `${baseUrl}${getLocalizedPath(locale as Locale, '/agency')}`,
     description: isGerman
       ? 'Maßgeschneiderte Softwareentwicklung, KI-Integration und Workflow-Automatisierung'
       : 'Custom software development, AI integration, and workflow automation services',

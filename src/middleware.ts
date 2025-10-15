@@ -1,23 +1,19 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const locales = ['en-US', 'de-DE'];
-const defaultLocale = 'en-US';
+const locales = ['en', 'de'];
+const defaultLocale = 'en';
 
-function getLocaleFromPathname(pathname: string): string | null {
-  for (const locale of locales) {
-    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
-      return locale;
-    }
+function getLocaleFromPathname(pathname: string): string {
+  // Check if path starts with /de/ or is exactly /de
+  if (pathname.startsWith('/de/') || pathname === '/de') {
+    return 'de';
   }
-  return null;
+  // Everything else is English (default)
+  return 'en';
 }
 
 function detectLocaleFromRequest(request: NextRequest): string {
-  // Check if URL already has a locale
-  const pathnameLocale = getLocaleFromPathname(request.nextUrl.pathname);
-  if (pathnameLocale) return pathnameLocale;
-
-  // Check for explicit locale cookie first for consistency
+  // Check for explicit locale cookie first
   const localeCookie = request.cookies.get('preferred-locale')?.value;
   if (localeCookie && locales.includes(localeCookie as any)) {
     return localeCookie;
@@ -28,10 +24,7 @@ function detectLocaleFromRequest(request: NextRequest): string {
   if (acceptLanguage) {
     // Simple locale detection - check for German first
     if (acceptLanguage.includes('de')) {
-      return 'de-DE';
-    }
-    if (acceptLanguage.includes('en')) {
-      return 'en-US';
+      return 'de';
     }
   }
 
@@ -48,13 +41,14 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/robots.txt') ||
-    pathname.startsWith('/sitemap.xml')
+    pathname.startsWith('/sitemap.xml') ||
+    pathname.startsWith('/workflows') ||
+    pathname.startsWith('/(apps)')
   ) {
     return NextResponse.next();
   }
 
-  // Check if pathname already has a locale
-  const pathnameLocale = getLocaleFromPathname(pathname);
+  const locale = getLocaleFromPathname(pathname);
   
   // Handle workflows subdomain
   if (hostname === "workflows.seventeenlabs.io" || 
@@ -62,9 +56,9 @@ export function middleware(request: NextRequest) {
       hostname === "workflows.localhost") {
     const url = request.nextUrl.clone();
     
-    if (pathnameLocale) {
-      // Remove locale from pathname for subdomain routing
-      const pathWithoutLocale = pathname.replace(`/${pathnameLocale}`, '') || '/';
+    if (locale === 'de') {
+      // Remove /de prefix for subdomain routing
+      const pathWithoutLocale = pathname.replace('/de', '') || '/';
       url.pathname = `/workflows${pathWithoutLocale}`;
     } else {
       url.pathname = `/workflows${pathname}`;
@@ -78,9 +72,9 @@ export function middleware(request: NextRequest) {
       hostname === "agency.localhost") {
     const url = request.nextUrl.clone();
     
-    if (pathnameLocale) {
-      // Remove locale from pathname for subdomain routing
-      const pathWithoutLocale = pathname.replace(`/${pathnameLocale}`, '') || '/';
+    if (locale === 'de') {
+      // Remove /de prefix for subdomain routing
+      const pathWithoutLocale = pathname.replace('/de', '') || '/';
       url.pathname = `/agency${pathWithoutLocale}`;
     } else {
       url.pathname = `/agency${pathname}`;
@@ -88,20 +82,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Handle locale routing for main domain
-  if (!pathnameLocale) {
-    // Detect locale and redirect
-    const locale = detectLocaleFromRequest(request);
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
-    
-    // Set cookie to maintain consistency across requests
-    const response = NextResponse.redirect(newUrl);
-    response.cookies.set('preferred-locale', locale, {
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-      path: '/',
-    });
-    
-    return response;
+  // Rewrite URLs to include locale in the Next.js routing
+  // /de/* stays as /de/*
+  // /* gets rewritten to /en/* internally
+  if (locale === 'en' && !pathname.startsWith('/en')) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/en${pathname}`;
+    return NextResponse.rewrite(url);
   }
   
   return NextResponse.next();

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const isGerman = locale === 'de-DE';
+  const isGerman = locale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
 
   return {
@@ -22,14 +22,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: isGerman
         ? 'Maßgeschneiderte Softwareentwicklung und KI-Automatisierung für Ihr Unternehmen'
         : 'Custom software development and AI automation for your business',
-      url: `${baseUrl}/${locale}/agency`,
+      url: isGerman ? `${baseUrl}/de/agency` : `${baseUrl}/agency`,
       type: 'website',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/agency`,
+      canonical: isGerman ? `${baseUrl}/de/agency` : `${baseUrl}/agency`,
       languages: {
-        'en-US': `${baseUrl}/en-US/agency`,
-        'de-DE': `${baseUrl}/de-DE/agency`,
+        'en': `${baseUrl}/agency`,
+        'de': `${baseUrl}/de/agency`,
       },
     },
   };

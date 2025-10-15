@@ -30,20 +30,20 @@ interface LocaleLayoutProps {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = getLocaleFromString(locale);
-  const isGerman = validLocale === 'de-DE';
+  const isGerman = validLocale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
 
   return {
     alternates: {
-      canonical: `${baseUrl}/${validLocale}`,
+      canonical: isGerman ? `${baseUrl}/de` : baseUrl,
       languages: {
-        'en-US': `${baseUrl}/en-US`,
-        'de-DE': `${baseUrl}/de-DE`,
+        'en': baseUrl,
+        'de': `${baseUrl}/de`,
       },
     },
     openGraph: {
       locale: isGerman ? 'de_DE' : 'en_US',
-      url: `${baseUrl}/${validLocale}`,
+      url: isGerman ? `${baseUrl}/de` : baseUrl,
     },
   };
 }
@@ -56,16 +56,16 @@ export default async function LocaleLayout({
   
   // Validate locale and ensure it's one of our supported locales
   const validLocale = getLocaleFromString(locale);
-  const isGerman = validLocale === 'de-DE';
+  const isGerman = validLocale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   
   return (
     <html lang={isGerman ? 'de' : 'en'} suppressHydrationWarning>
       <head>
         {/* Hreflang tags with absolute URLs for international SEO */}
-        <link rel="alternate" hrefLang="en-US" href={`${baseUrl}/en-US`} />
-        <link rel="alternate" hrefLang="de-DE" href={`${baseUrl}/de-DE`} />
-        <link rel="alternate" hrefLang="x-default" href={`${baseUrl}/en-US`} />
+        <link rel="alternate" hrefLang="en" href={baseUrl} />
+        <link rel="alternate" hrefLang="de" href={`${baseUrl}/de`} />
+        <link rel="alternate" hrefLang="x-default" href={baseUrl} />
       </head>
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}

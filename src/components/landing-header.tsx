@@ -7,7 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 import ContactModal from "./contact-modal";
+import LanguageSwitcher from "./language-switcher";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,21 +26,47 @@ export default function LandingHeader() {
   const { t } = useTranslations();
   const locale = useLocale();
 
+  // Solutions - What problems we solve (industry-specific)
   const solutionsItems = [
     {
-      title: t("navigation.solutions.aiProducts.title"),
-      description: t("navigation.solutions.aiProducts.description"),
-      href: `/${locale}#ai-products`,
+      title: locale === 'de' ? "Marketing-Agenturen" : "Marketing Agencies",
+      description: locale === 'de' 
+        ? "Lead-Management, Social Media Automatisierung & Client Reporting"
+        : "Lead management, social media automation & client reporting",
+      href: getLocalizedPath(locale, '/solutions/marketing-agencies'),
     },
+    // Add more industry solutions here later
+  ];
+
+  // Products - Ready-to-use tools
+  const productsItems = [
     {
       title: t("navigation.solutions.workflowAutomation.title"),
       description: t("navigation.solutions.workflowAutomation.description"),
       href: `/workflows`,
     },
     {
-      title: t("navigation.solutions.customDevelopment.title"),
-      description: t("navigation.solutions.customDevelopment.description"),
-      href: `/${locale}/agency`,
+      title: t("navigation.solutions.aiProducts.title"),
+      description: t("navigation.solutions.aiProducts.description"),
+      href: `${getLocalizedPath(locale)}#ai-products`,
+    },
+  ];
+
+  // Services - Custom development
+  const servicesItems = [
+    {
+      title: locale === 'de' ? "Software-Entwicklung" : "Software Development",
+      description: locale === 'de' 
+        ? "Maßgeschneiderte Apps, Integrationen und APIs für Ihr Unternehmen"
+        : "Custom apps, integrations, and APIs tailored to your business",
+      href: getLocalizedPath(locale, '/agency'),
+    },
+    {
+      title: locale === 'de' ? "Automatisierungs-Beratung" : "Automation Consulting",
+      description: locale === 'de'
+        ? "Strategieberatung, Workflow-Design und Implementierung"
+        : "Strategy consulting, workflow design, and implementation",
+      href: getLocalizedPath(locale, '/services/automation-consulting'),
     },
   ];
 
@@ -54,7 +82,7 @@ export default function LandingHeader() {
           {/* Logo and Navigation */}
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <Link href={`/${locale}`} className="-m-1.5 p-1.5 flex items-center gap-2">
+            <Link href={getLocalizedPath(locale)} className="-m-1.5 p-1.5 flex items-center gap-2">
               <Image
                 src="/logo_anim.svg"
                 alt="SeventeenLabs Logo"
@@ -71,7 +99,7 @@ export default function LandingHeader() {
             <div className="hidden lg:flex lg:items-center">
               <NavigationMenu>
                 <NavigationMenuList className="space-x-6">
-                  {/* Solutions Dropdown */}
+                  {/* Solutions Dropdown - Industry-specific */}
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
                       {t("common.solutions")}
@@ -91,28 +119,54 @@ export default function LandingHeader() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
-                  {/* Services Link */}
+                  {/* Services Dropdown - Custom work */}
                   <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <Link 
-                        href={`/${locale}/agency`}
-                        className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200 inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2"
-                      >
-                        {t("common.services")}
-                      </Link>
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
+                      {t("common.services")}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
+                        {servicesItems.map((item) => (
+                          <ListItem
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
                   </NavigationMenuItem>
 
-                  {/* Products Link */}
+                  {/* Products Dropdown - Ready-to-use tools */}
                   <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <Link 
-                        href="/workflows"
-                        className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200 inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2"
-                      >
-                        {t("common.products")}
-                      </Link>
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
+                      {t("common.products")}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
+                        {productsItems.map((item) => (
+                          <ListItem
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  {/* About Link - No dropdown */}
+                  <NavigationMenuItem>
+                    <Link
+                      href={getLocalizedPath(locale, '/about')}
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                    >
+                      {locale === 'de' ? 'Über uns' : 'About'}
+                    </Link>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
@@ -131,8 +185,9 @@ export default function LandingHeader() {
             </button>
           </div>
           
-          {/* CTA Button */}
-          <div className="hidden lg:flex">
+          {/* CTA Button and Language Switcher */}
+          <div className="hidden lg:flex lg:items-center lg:gap-4">
+            <LanguageSwitcher />
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -162,7 +217,7 @@ export default function LandingHeader() {
           >
             <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-950/95 backdrop-blur-lg px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
-                <Link href={`/${locale}`} className="-m-1.5 p-1.5">
+                <Link href={getLocalizedPath(locale)} className="-m-1.5 p-1.5">
                   <Image
                     src="/logo_anim.svg"
                     alt="SeventeenLabs Logo"
@@ -184,7 +239,7 @@ export default function LandingHeader() {
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-white/20">
                   <div className="space-y-2 py-6">
-                    {/* Solutions submenu */}
+                    {/* Solutions - Industry-specific */}
                     <div className="px-3 py-2">
                       <div className="text-sm font-semibold text-white/50 mb-2">
                         {t("common.solutions")}
@@ -201,27 +256,59 @@ export default function LandingHeader() {
                         </Link>
                       ))}
                     </div>
-                    
+
                     {/* Services */}
-                    <Link
-                      href={`/${locale}/agency`}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {t("common.services")}
-                    </Link>
+                    <div className="px-3 py-2">
+                      <div className="text-sm font-semibold text-white/50 mb-2">
+                        {t("common.services")}
+                      </div>
+                      {servicesItems.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
+                        </Link>
+                      ))}
+                    </div>
 
                     {/* Products */}
+                    <div className="px-3 py-2">
+                      <div className="text-sm font-semibold text-white/50 mb-2">
+                        {t("common.products")}
+                      </div>
+                      {productsItems.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* About Link */}
+                  <div className="py-6 border-y border-white/20">
                     <Link
-                      href="/workflows"
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
+                      href={getLocalizedPath(locale, '/about')}
+                      className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {t("common.products")}
+                      {locale === 'de' ? 'Über uns' : 'About'}
                     </Link>
                   </div>
                   
-                  <div className="py-6">
+                  <div className="py-6 space-y-4">
+                    <div className="px-3">
+                      <LanguageSwitcher />
+                    </div>
                     <button
                       onClick={() => {
                         setMobileMenuOpen(false);

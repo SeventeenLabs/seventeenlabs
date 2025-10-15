@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/utils";
+import { Locale } from "@/lib/i18n/config";
 
 interface AgencyHeroProps {
   onContactClick: () => void;
@@ -98,7 +100,7 @@ export default function AgencyHero({ onContactClick, locale }: AgencyHeroProps) 
             </button>
             
             <a
-              href={`/${locale}/apps`}
+              href={getLocalizedPath(locale as Locale, '/apps')}
               className="group px-8 py-4 bg-slate-800/80 backdrop-blur-sm text-white font-semibold rounded-xl hover:bg-slate-700 transition-all duration-300 flex items-center justify-center gap-2 border border-slate-700 hover:border-slate-600 hover:scale-105"
             >
               {t("agency.hero.cta.secondary")}

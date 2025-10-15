@@ -40,8 +40,8 @@
     "ctaPrimary": "Projekt starten",
     "ctaSecondary": "Produkte ansehen",
     "stats": {
-      "deployment": "2 Wochen",
-      "deploymentLabel": "bis zum ersten Deployment",
+      "deployment": "20h",
+      "deploymentLabel": "gespart pro Woche",
       "costReduction": "80%",
       "costReductionLabel": "Kostenersparnis",
       "automation": "24/7",

@@ -5,12 +5,12 @@ import enUS from '@/locales/en-US.json';
 import deDE from '@/locales/de-DE.json';
 
 const translations = {
-  'en-US': enUS,
-  'de-DE': deDE,
+  'en': enUS,
+  'de': deDE,
 };
 
 export function getTranslations(locale: Locale) {
-  return translations[locale] || translations['en-US'];
+  return translations[locale] || translations['en'];
 }
 
 export function getNestedTranslation(

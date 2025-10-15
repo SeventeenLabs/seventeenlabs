@@ -11,7 +11,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const isGerman = locale === 'de-DE';
+  const isGerman = locale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
 
   return {
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: isGerman
         ? 'Entdecken Sie unsere Suite von Geschäftsanwendungen zur Optimierung Ihrer Abläufe.'
         : 'Explore our suite of business applications and tools designed to streamline your operations.',
-      url: `${baseUrl}/${locale}/apps`,
+      url: isGerman ? `${baseUrl}/de/apps` : `${baseUrl}/apps`,
       siteName: "SeventeenLabs",
       type: "website",
     },
@@ -48,10 +48,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         : 'Explore our suite of business applications and tools designed to streamline your operations.',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/apps`,
+      canonical: isGerman ? `${baseUrl}/de/apps` : `${baseUrl}/apps`,
       languages: {
-        'en-US': `${baseUrl}/en-US/apps`,
-        'de-DE': `${baseUrl}/de-DE/apps`,
+        'en': `${baseUrl}/apps`,
+        'de': `${baseUrl}/de/apps`,
       },
     },
   };

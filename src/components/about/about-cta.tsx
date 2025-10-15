@@ -1,0 +1,77 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import ContactModal from '../contact-modal';
+
+interface AboutCTAProps {
+  locale: string;
+}
+
+export function AboutCTA({ locale }: AboutCTAProps) {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
+  const content = {
+    en: {
+      title: 'Ready to Transform Your Business?',
+      description: "Let's discuss how we can help you achieve your automation goals.",
+      cta: 'Get in Touch',
+    },
+    de: {
+      title: 'Bereit, Ihr Unternehmen zu transformieren?',
+      description: 'Lassen Sie uns besprechen, wie wir Ihnen bei Ihren Automatisierungszielen helfen können.',
+      cta: 'Kontakt aufnehmen',
+    },
+  };
+
+  const t = content[locale as keyof typeof content] || content.en;
+
+  return (
+    <>
+      <section className="bg-black py-24 border-t border-white/10">
+        <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
+          <div className="max-w-3xl">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-light text-white"
+            >
+              {t.title}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="mt-6 text-lg text-white/70 font-light leading-relaxed"
+            >
+              {t.description}
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-8"
+            >
+              <button
+                onClick={() => setContactModalOpen(true)}
+                className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition-all"
+              >
+                {t.cta}
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <ContactModal
+        isOpen={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+      />
+    </>
+  );
+}

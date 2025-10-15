@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AppWindow, Handshake, Workflow } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 
 export default function WhatWeOffer() {
   const { t } = useTranslations();
@@ -21,7 +22,7 @@ export default function WhatWeOffer() {
     {
       title: t("whatWeOffer.aiTools.title"),
       description: t("whatWeOffer.aiTools.description"),
-      href: `/${locale}/apps`,
+      href: getLocalizedPath(locale, '/apps'),
       external: false,
       icon: AppWindow,
       key: "aiTools"
@@ -29,7 +30,7 @@ export default function WhatWeOffer() {
     {
       title: t("whatWeOffer.agency.title"),
       description: t("whatWeOffer.agency.description"),
-      href: `/${locale}/agency`,
+      href: getLocalizedPath(locale, '/agency'),
       external: false,
       icon: Handshake,
       key: "agency"

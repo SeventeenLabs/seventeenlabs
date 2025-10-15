@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
     languages: {
-      'en-US': '/en-US',
-      'de-DE': '/de-DE',
+      'en': '/',
+      'de': '/de',
     },
   },
   openGraph: {
@@ -64,12 +64,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <StructuredData type="home" />
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }
