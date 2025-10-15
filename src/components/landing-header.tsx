@@ -215,15 +215,15 @@ export default function LandingHeader() {
             animate={{ opacity: 1 }}
             className="lg:hidden fixed inset-0 z-50"
           >
-            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-950/95 backdrop-blur-lg px-6 py-6 sm:max-w-sm">
+            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black/95 backdrop-blur-lg px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
                 <Link href={getLocalizedPath(locale)} className="-m-1.5 p-1.5">
                   <Image
                     src="/logo_anim.svg"
                     alt="SeventeenLabs Logo"
-                    width={140}
-                    height={26}
-                    className="h-7 w-auto"
+                    width={110}
+                    height={20}
+                    className="h-5 w-auto"
                   />
                 </Link>
                 <button

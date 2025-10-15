@@ -27,7 +27,7 @@ export function AboutHero({ locale }: AboutHeroProps) {
   return (
     <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-slate-950 to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
       
       <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32">
         <div className="max-w-4xl">

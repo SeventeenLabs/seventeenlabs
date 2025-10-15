@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 interface MarketingAgenciesWorkflowsProps {
   locale: string;
@@ -12,94 +12,64 @@ export default function MarketingAgenciesWorkflows({ locale }: MarketingAgencies
 
   const content = {
     en: {
-      title: "Pre-Built Workflows for Agencies",
-      subtitle: "Get started in minutes with our ready-to-use automation workflows",
+      eyebrow: "Ready to Deploy",
+      title: "Pre-built workflows that solve real problems",
+      subtitle: "Start with proven automation templates and customize them to fit your agency's unique needs.",
       workflows: [
         {
           title: "Lead Capture & Qualification",
-          description: "Automatically capture leads from forms, ads, and landing pages. Qualify them based on your criteria and route to sales.",
-          features: [
-            "Multi-channel lead capture",
-            "AI-powered lead scoring",
-            "Automatic CRM sync",
-            "Slack/Teams notifications"
-          ]
+          description: "Automatically capture leads from website forms, social ads, and landing pages. Score and route them based on your criteria."
         },
         {
-          title: "Client Onboarding",
-          description: "Streamline new client onboarding with automated welcome emails, document collection, and project setup.",
-          features: [
-            "Automated welcome sequence",
-            "Document collection & storage",
-            "Project management setup",
-            "Team assignment"
-          ]
+          title: "Social Media Scheduler",
+          description: "Plan content calendars, schedule posts across platforms, and monitor engagement from one central dashboard."
         },
         {
-          title: "Social Media Management",
-          description: "Plan, schedule, and analyze social media content across all major platforms from one centralized hub.",
-          features: [
-            "Multi-platform posting",
-            "Content calendar",
-            "Engagement monitoring",
-            "Performance analytics"
-          ]
+          title: "Client Report Generator",
+          description: "Pull data from Google Analytics, Meta Ads, and other tools to create branded monthly reports automatically."
         },
         {
-          title: "Reporting & Analytics",
-          description: "Generate comprehensive client reports automatically, combining data from multiple marketing platforms.",
-          features: [
-            "Multi-source data aggregation",
-            "Branded report templates",
-            "Scheduled delivery",
-            "Custom KPI tracking"
-          ]
+          title: "Campaign Performance Tracker",
+          description: "Monitor KPIs in real-time, get alerts when campaigns underperform, and visualize results for stakeholders."
+        },
+        {
+          title: "Team Task Manager",
+          description: "Assign tasks based on project stages, send reminders, and track progress without manual check-ins."
+        },
+        {
+          title: "Client Onboarding Sequence",
+          description: "Welcome new clients with automated emails, questionnaires, and meeting scheduling to start projects smoothly."
         }
       ]
     },
     de: {
-      title: "Vorgefertigte Workflows für Agenturen",
-      subtitle: "Starten Sie in Minuten mit unseren gebrauchsfertigen Automatisierungs-Workflows",
+      eyebrow: "Sofort einsetzbar",
+      title: "Vorgefertigte Workflows, die echte Probleme lösen",
+      subtitle: "Beginnen Sie mit bewährten Automatisierungsvorlagen und passen Sie diese an die individuellen Bedürfnisse Ihrer Agentur an.",
       workflows: [
         {
-          title: "Lead-Erfassung & Qualifizierung",
-          description: "Erfassen Sie automatisch Leads aus Formularen, Anzeigen und Landing Pages. Qualifizieren Sie sie nach Ihren Kriterien und leiten Sie sie an den Vertrieb weiter.",
-          features: [
-            "Multi-Kanal Lead-Erfassung",
-            "KI-gestütztes Lead-Scoring",
-            "Automatische CRM-Synchronisierung",
-            "Slack/Teams Benachrichtigungen"
-          ]
+          title: "Lead-Erfassung & -Qualifizierung",
+          description: "Erfassen Sie automatisch Leads aus Website-Formularen, Social Ads und Landing Pages. Bewerten und leiten Sie sie nach Ihren Kriterien weiter."
         },
         {
-          title: "Kunden-Onboarding",
-          description: "Optimieren Sie das Onboarding neuer Kunden mit automatisierten Willkommens-E-Mails, Dokumentensammlung und Projekt-Setup.",
-          features: [
-            "Automatisierte Willkommens-Sequenz",
-            "Dokumentensammlung & Speicherung",
-            "Projektmanagement-Setup",
-            "Team-Zuweisung"
-          ]
+          title: "Social Media Planer",
+          description: "Planen Sie Content-Kalender, terminieren Sie Beiträge über Plattformen hinweg und überwachen Sie Engagement von einem zentralen Dashboard."
         },
         {
-          title: "Social Media Management",
-          description: "Planen, planen und analysieren Sie Social-Media-Inhalte über alle wichtigen Plattformen von einem zentralen Hub aus.",
-          features: [
-            "Multi-Plattform-Posting",
-            "Content-Kalender",
-            "Engagement-Überwachung",
-            "Performance-Analytik"
-          ]
+          title: "Kunden-Report-Generator",
+          description: "Ziehen Sie Daten aus Google Analytics, Meta Ads und anderen Tools, um automatisch gebrandete Monatsberichte zu erstellen."
         },
         {
-          title: "Reporting & Analytik",
-          description: "Erstellen Sie automatisch umfassende Kundenberichte, die Daten aus mehreren Marketing-Plattformen kombinieren.",
-          features: [
-            "Multi-Quellen Datenaggregation",
-            "Gebrandete Report-Vorlagen",
-            "Geplante Zustellung",
-            "Benutzerdefiniertes KPI-Tracking"
-          ]
+          title: "Kampagnen-Performance-Tracker",
+          description: "Überwachen Sie KPIs in Echtzeit, erhalten Sie Benachrichtigungen bei Underperformance und visualisieren Sie Ergebnisse für Stakeholder."
+        },
+        {
+          title: "Team-Aufgabenmanager",
+          description: "Weisen Sie Aufgaben basierend auf Projektphasen zu, senden Sie Erinnerungen und verfolgen Sie Fortschritte ohne manuelle Check-ins."
+        },
+        {
+          title: "Kunden-Onboarding-Sequenz",
+          description: "Begrüßen Sie neue Kunden mit automatisierten E-Mails, Fragebögen und Terminvereinbarungen für einen reibungslosen Projektstart."
         }
       ]
     }
@@ -108,16 +78,27 @@ export default function MarketingAgenciesWorkflows({ locale }: MarketingAgencies
   const t = isGerman ? content.de : content.en;
 
   return (
-    <section className="py-24 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20">
+    <section className="relative py-24 sm:py-32 bg-black">
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      
+      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-sm font-light text-white/60 tracking-wider uppercase"
+          >
+            {t.eyebrow}
+          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl sm:text-5xl font-bold text-white mb-4"
+            transition={{ delay: 0.1 }}
+            className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight"
           >
             {t.title}
           </motion.h2>
@@ -125,40 +106,35 @@ export default function MarketingAgenciesWorkflows({ locale }: MarketingAgencies
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-slate-400"
+            transition={{ delay: 0.2 }}
+            className="mt-6 text-lg text-white/70 font-light leading-relaxed"
           >
             {t.subtitle}
           </motion.p>
         </div>
 
-        {/* Workflows Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Workflows List */}
+        <div className="grid md:grid-cols-2 gap-8">
           {t.workflows.map((workflow, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300"
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              className="flex gap-4"
             >
-              <h3 className="text-2xl font-bold text-white mb-3">
-                {workflow.title}
-              </h3>
-              <p className="text-slate-400 mb-6">
-                {workflow.description}
-              </p>
-              <ul className="space-y-3">
-                {workflow.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <div className="mt-1 h-5 w-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-3 w-3 text-blue-400" />
-                    </div>
-                    <span className="text-slate-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex-shrink-0 mt-1">
+                <CheckCircle className="h-5 w-5 text-white/60" />
+              </div>
+              <div>
+                <h3 className="text-base font-light text-white mb-2">
+                  {workflow.title}
+                </h3>
+                <p className="text-sm text-white/60 font-light leading-relaxed">
+                  {workflow.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

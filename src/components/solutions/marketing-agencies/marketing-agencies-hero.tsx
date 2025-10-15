@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ContactModal from "@/components/contact-modal";
 
@@ -15,14 +15,11 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
 
   const content = {
     en: {
-      badge: "For Marketing Agencies",
+      eyebrow: "For Marketing Agencies",
       title: "Scale Your Agency with",
       titleHighlight: "Intelligent Automation",
-      subtitle: "Automate repetitive tasks, manage leads effortlessly, and deliver exceptional results for your clients. Focus on strategy while AI handles the execution.",
-      cta: {
-        primary: "Get Started",
-        secondary: "View Workflows"
-      },
+      subtitle: "Automate repetitive tasks, manage leads effortlessly, and deliver exceptional results. Focus on strategy while AI handles execution.",
+      cta: "Get Started",
       stats: [
         { value: "70%", label: "Time Saved" },
         { value: "3x", label: "More Clients" },
@@ -30,14 +27,11 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
       ]
     },
     de: {
-      badge: "Für Marketing-Agenturen",
+      eyebrow: "Für Marketing-Agenturen",
       title: "Skalieren Sie Ihre Agentur mit",
       titleHighlight: "Intelligenter Automatisierung",
-      subtitle: "Automatisieren Sie wiederkehrende Aufgaben, verwalten Sie Leads mühelos und liefern Sie außergewöhnliche Ergebnisse für Ihre Kunden. Konzentrieren Sie sich auf Strategie, während KI die Umsetzung übernimmt.",
-      cta: {
-        primary: "Jetzt starten",
-        secondary: "Workflows ansehen"
-      },
+      subtitle: "Automatisieren Sie wiederkehrende Aufgaben, verwalten Sie Leads mühelos und liefern Sie außergewöhnliche Ergebnisse.",
+      cta: "Jetzt starten",
       stats: [
         { value: "70%", label: "Zeit gespart" },
         { value: "3x", label: "Mehr Kunden" },
@@ -50,81 +44,78 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-black">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20 py-32">
-          <div className="text-center">
-            {/* Badge */}
+        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32">
+          <div className="max-w-4xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8"
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="space-y-6"
             >
-              <Sparkles className="h-4 w-4" />
-              {t.badge}
-            </motion.div>
-
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6"
-            >
-              {t.title}
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                {t.titleHighlight}
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-slate-300 max-w-3xl mx-auto mb-12"
-            >
-              {t.subtitle}
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-            >
-              <button
-                onClick={() => setContactModalOpen(true)}
-                className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 flex items-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/25"
+              {/* Eyebrow */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
               >
-                {t.cta.primary}
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <a
-                href="/workflows"
-                className="px-8 py-4 bg-slate-800/80 backdrop-blur-sm text-white font-semibold rounded-xl hover:bg-slate-700 transition-all duration-300 border border-slate-700 hover:border-slate-600"
+                <span className="text-sm font-light text-white/60 tracking-wider uppercase">
+                  {t.eyebrow}
+                </span>
+              </motion.div>
+
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-tight"
               >
-                {t.cta.secondary}
-              </a>
+                {t.title}{" "}
+                <span className="block mt-2">{t.titleHighlight}</span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+                className="text-lg text-white/70 font-light max-w-2xl leading-relaxed"
+              >
+                {t.subtitle}
+              </motion.p>
+
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+                className="pt-4"
+              >
+                <button
+                  onClick={() => setContactModalOpen(true)}
+                  className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition-all"
+                >
+                  {t.cta}
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </motion.div>
             </motion.div>
 
             {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.7 }}
+              className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/10"
             >
               {t.stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl sm:text-4xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
+                <div key={index}>
+                  <div className="text-3xl sm:text-4xl font-light text-white">{stat.value}</div>
+                  <div className="text-sm font-light text-white/60 mt-1">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -132,9 +123,9 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
         </div>
       </section>
 
-      <ContactModal 
-        isOpen={contactModalOpen} 
-        onClose={() => setContactModalOpen(false)} 
+      <ContactModal
+        isOpen={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
       />
     </>
   );

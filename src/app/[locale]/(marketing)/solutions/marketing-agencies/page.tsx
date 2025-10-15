@@ -15,7 +15,7 @@ export default async function MarketingAgenciesPage({ params }: MarketingAgencie
   const { locale } = await params;
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-black">
       <LandingHeader />
       <main>
         <MarketingAgenciesHero locale={locale} />

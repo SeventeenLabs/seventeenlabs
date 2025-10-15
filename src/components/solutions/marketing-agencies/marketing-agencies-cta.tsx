@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ContactModal from "@/components/contact-modal";
+import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
 
 interface MarketingAgenciesCTAProps {
   locale: string;
@@ -15,20 +15,26 @@ export default function MarketingAgenciesCTA({ locale }: MarketingAgenciesCTAPro
 
   const content = {
     en: {
-      title: "Ready to Transform Your Agency?",
-      subtitle: "Join hundreds of marketing agencies already saving time and scaling their business with automation.",
-      cta: {
-        primary: "Start Free Trial",
-        secondary: "Schedule Demo"
-      }
+      title: "Ready to 10x your agency's output?",
+      subtitle: "Join marketing agencies already saving 20+ hours per week with automation.",
+      primaryCta: "Schedule a Demo",
+      secondaryCta: "Contact Us",
+      stats: [
+        { value: "70%", label: "Less time on admin" },
+        { value: "3x", label: "More clients handled" },
+        { value: "24/7", label: "Automation running" }
+      ]
     },
     de: {
-      title: "Bereit, Ihre Agentur zu transformieren?",
-      subtitle: "Schließen Sie sich Hunderten von Marketing-Agenturen an, die bereits Zeit sparen und ihr Geschäft mit Automatisierung skalieren.",
-      cta: {
-        primary: "Kostenlos testen",
-        secondary: "Demo vereinbaren"
-      }
+      title: "Bereit, die Leistung Ihrer Agentur zu verzehnfachen?",
+      subtitle: "Schließen Sie sich Marketing-Agenturen an, die bereits über 20 Stunden pro Woche durch Automatisierung sparen.",
+      primaryCta: "Demo vereinbaren",
+      secondaryCta: "Kontakt aufnehmen",
+      stats: [
+        { value: "70%", label: "Weniger Zeit für Admin" },
+        { value: "3x", label: "Mehr Kunden betreut" },
+        { value: "24/7", label: "Automatisierung läuft" }
+      ]
     }
   };
 
@@ -36,53 +42,78 @@ export default function MarketingAgenciesCTA({ locale }: MarketingAgenciesCTAPro
 
   return (
     <>
-      <section className="py-24 bg-gradient-to-br from-blue-600/10 via-slate-900/50 to-cyan-600/10">
-        <div className="max-w-4xl mx-auto px-6 sm:px-12 lg:px-16 xl:px-20 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl sm:text-5xl font-bold text-white mb-6"
-          >
-            {t.title}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-slate-300 mb-12"
-          >
-            {t.subtitle}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <a
-              href="/workflows"
-              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 flex items-center gap-2 hover:scale-105 shadow-lg shadow-blue-500/25"
+      <section className="relative py-24 sm:py-32 bg-black">
+        {/* Top divider */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        
+        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+          <div className="text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight"
             >
-              {t.cta.primary}
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <button
-              onClick={() => setContactModalOpen(true)}
-              className="px-8 py-4 bg-slate-800/80 backdrop-blur-sm text-white font-semibold rounded-xl hover:bg-slate-700 transition-all duration-300 border border-slate-700 hover:border-slate-600"
+              {t.title}
+            </motion.h2>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="mt-6 text-lg text-white/70 font-light leading-relaxed"
             >
-              {t.cta.secondary}
-            </button>
-          </motion.div>
+              {t.subtitle}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-10 flex flex-wrap justify-center gap-4"
+            >
+              <button
+                onClick={() => setContactModalOpen(true)}
+                className="group inline-flex items-center gap-2 px-8 py-3.5 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all shadow-lg shadow-white/20"
+              >
+                <Calendar className="h-4 w-4" />
+                {t.primaryCta}
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+              
+              <button
+                onClick={() => setContactModalOpen(true)}
+                className="group inline-flex items-center gap-2 px-8 py-3.5 text-sm font-light text-white border border-white/30 rounded-lg hover:border-white/60 transition-all"
+              >
+                <MessageCircle className="h-4 w-4" />
+                {t.secondaryCta}
+              </button>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/10"
+            >
+              {t.stats.map((stat, index) => (
+                <div key={index}>
+                  <div className="text-3xl sm:text-4xl font-light text-white">{stat.value}</div>
+                  <div className="text-sm font-light text-white/60 mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      <ContactModal 
-        isOpen={contactModalOpen} 
-        onClose={() => setContactModalOpen(false)} 
+      <ContactModal
+        isOpen={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
       />
     </>
   );
