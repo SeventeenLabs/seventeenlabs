@@ -25,11 +25,11 @@ export function AboutHero({ locale }: AboutHeroProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-black">
+    <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-slate-950 to-black" />
       
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-32">
+      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -53,7 +53,7 @@ export function AboutHero({ locale }: AboutHeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-white leading-[1.1] tracking-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-tight"
             >
               {t.title}{" "}
               <span className="block mt-2">{t.titleHighlight}</span>

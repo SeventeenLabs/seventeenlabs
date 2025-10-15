@@ -29,14 +29,14 @@ export function AboutCTA({ locale }: AboutCTAProps) {
 
   return (
     <>
-      <section className="bg-black py-24 border-t border-white/10">
+      <section className="bg-black py-16 sm:py-20 border-t border-white/10">
         <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
-          <div className="max-w-3xl">
+          <div className="max-w-2xl">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-light text-white"
+              className="text-3xl sm:text-4xl font-light text-white"
             >
               {t.title}
             </motion.h2>
@@ -45,7 +45,7 @@ export function AboutCTA({ locale }: AboutCTAProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="mt-6 text-lg text-white/70 font-light leading-relaxed"
+              className="mt-4 text-base text-white/70 font-light leading-relaxed"
             >
               {t.description}
             </motion.p>
@@ -54,7 +54,7 @@ export function AboutCTA({ locale }: AboutCTAProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="mt-8"
+              className="mt-6"
             >
               <button
                 onClick={() => setContactModalOpen(true)}

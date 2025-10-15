@@ -48,9 +48,9 @@ export function AboutMission({ locale }: AboutMissionProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="bg-black py-24 border-t border-white/10">
+    <section className="bg-black py-16 sm:py-20 border-t border-white/10">
       <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           {[t.mission, t.vision, t.approach].map((item, index) => (
             <motion.div
               key={index}
@@ -58,15 +58,15 @@ export function AboutMission({ locale }: AboutMissionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="space-y-4"
+              className="space-y-3"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 border border-white/10">
                   <item.icon className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-xl font-light text-white">{item.title}</h3>
+                <h3 className="text-lg font-light text-white">{item.title}</h3>
               </div>
-              <p className="text-white/60 font-light leading-relaxed">{item.description}</p>
+              <p className="text-white/60 font-light leading-relaxed text-sm">{item.description}</p>
             </motion.div>
           ))}
         </div>

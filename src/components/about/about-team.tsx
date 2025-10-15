@@ -26,9 +26,9 @@ export function AboutTeam({ locale }: AboutTeamProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="bg-black py-24 border-t border-white/10">
+    <section className="bg-black py-16 sm:py-20 border-t border-white/10">
       <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
-        <div className="max-w-3xl">
+        <div className="max-w-2xl">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export function AboutTeam({ locale }: AboutTeamProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-light text-white"
+            className="mt-3 text-3xl sm:text-4xl font-light text-white"
           >
             {t.title}
           </motion.h2>
@@ -51,7 +51,7 @@ export function AboutTeam({ locale }: AboutTeamProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-lg text-white/60 font-light leading-relaxed"
+            className="mt-4 text-base text-white/60 font-light leading-relaxed"
           >
             {t.description}
           </motion.p>
@@ -60,7 +60,7 @@ export function AboutTeam({ locale }: AboutTeamProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="mt-8"
+            className="mt-6"
           >
             <a
               href="mailto:careers@seventeenlabs.io"

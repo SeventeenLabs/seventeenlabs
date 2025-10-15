@@ -66,9 +66,9 @@ export function AboutValues({ locale }: AboutValuesProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="bg-black py-24">
+    <section className="bg-black py-16 sm:py-20 border-t border-white/10">
       <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
-        <div className="mb-16">
+        <div className="mb-12">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -82,13 +82,13 @@ export function AboutValues({ locale }: AboutValuesProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-light text-white"
+            className="mt-3 text-3xl sm:text-4xl font-light text-white"
           >
             {t.title}
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {t.values.map((value, index) => (
             <motion.div
               key={index}
@@ -96,12 +96,12 @@ export function AboutValues({ locale }: AboutValuesProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="space-y-4"
+              className="space-y-3"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/5 border border-white/10">
-                <value.icon className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 border border-white/10">
+                <value.icon className="h-5 w-5 text-white" />
               </div>
-              <h3 className="text-lg font-light text-white">{value.title}</h3>
+              <h3 className="text-base font-light text-white">{value.title}</h3>
               <p className="text-sm text-white/60 font-light leading-relaxed">{value.description}</p>
             </motion.div>
           ))}
