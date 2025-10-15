@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -7,6 +8,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
 import ContactModal from "./contact-modal";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 export default function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,10 +24,22 @@ export default function LandingHeader() {
   const { t } = useTranslations();
   const locale = useLocale();
 
-  const navigation = [
-    { name: t("common.whatWeDo"), href: `/${locale}#what-we-do` },
-    { name: t("common.products"), href: `/workflows` },
-    { name: t("common.services"), href: `/${locale}/agency` },
+  const solutionsItems = [
+    {
+      title: t("navigation.solutions.aiProducts.title"),
+      description: t("navigation.solutions.aiProducts.description"),
+      href: `/${locale}#ai-products`,
+    },
+    {
+      title: t("navigation.solutions.workflowAutomation.title"),
+      description: t("navigation.solutions.workflowAutomation.description"),
+      href: `/workflows`,
+    },
+    {
+      title: t("navigation.solutions.customDevelopment.title"),
+      description: t("navigation.solutions.customDevelopment.description"),
+      href: `/${locale}/agency`,
+    },
   ];
 
   return (
@@ -46,26 +68,54 @@ export default function LandingHeader() {
             <div className="hidden lg:block h-8 w-px bg-white/20" />
             
             {/* Desktop navigation */}
-            <div className="hidden lg:flex lg:gap-x-10">
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.4, 
-                    ease: "easeOut",
-                    delay: 0.1 + index * 0.05
-                  }}
-                >
-                  <Link
-                    href={item.href}
-                    className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200"
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
+            <div className="hidden lg:flex lg:items-center">
+              <NavigationMenu>
+                <NavigationMenuList className="space-x-6">
+                  {/* Solutions Dropdown */}
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
+                      {t("common.solutions")}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
+                        {solutionsItems.map((item) => (
+                          <ListItem
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  {/* Services Link */}
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link 
+                        href={`/${locale}/agency`}
+                        className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200 inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2"
+                      >
+                        {t("common.services")}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+
+                  {/* Products Link */}
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link 
+                        href="/workflows"
+                        className="text-sm font-medium leading-6 text-white/70 hover:text-white transition-colors duration-200 inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2"
+                      >
+                        {t("common.products")}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </div>
           </div>
           
@@ -134,16 +184,41 @@ export default function LandingHeader() {
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-white/20">
                   <div className="space-y-2 py-6">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
+                    {/* Solutions submenu */}
+                    <div className="px-3 py-2">
+                      <div className="text-sm font-semibold text-white/50 mb-2">
+                        {t("common.solutions")}
+                      </div>
+                      {solutionsItems.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
+                        </Link>
+                      ))}
+                    </div>
+                    
+                    {/* Services */}
+                    <Link
+                      href={`/${locale}/agency`}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {t("common.services")}
+                    </Link>
+
+                    {/* Products */}
+                    <Link
+                      href="/workflows"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-white/10 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {t("common.products")}
+                    </Link>
                   </div>
                   
                   <div className="py-6">
@@ -172,3 +247,30 @@ export default function LandingHeader() {
     </header>
   );
 }
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a"> & { title: string }
+>(({ className, title, children, href, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          href={href || "#"}
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none text-white">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

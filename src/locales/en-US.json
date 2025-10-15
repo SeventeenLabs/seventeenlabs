@@ -10,7 +10,26 @@
     "learnMore": "Learn More",
     "whatWeDo": "What We Do",
     "products": "Products",
-    "services": "Services"
+    "services": "Services",
+    "solutions": "Solutions"
+  },
+  "navigation": {
+    "solutions": {
+      "title": "Solutions",
+      "subtitle": "Complete solutions for your business needs",
+      "aiProducts": {
+        "title": "AI Products",
+        "description": "Custom AI applications and tools"
+      },
+      "workflowAutomation": {
+        "title": "Workflow Automation",
+        "description": "n8n workflows to streamline operations"
+      },
+      "customDevelopment": {
+        "title": "Custom Development",
+        "description": "Tailored solutions for unique needs"
+      }
+    }
   },
   "hero": {
     "title": "Smart Business Automation & AI Tools for Growth",

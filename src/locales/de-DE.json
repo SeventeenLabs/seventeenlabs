@@ -10,7 +10,26 @@
     "learnMore": "Mehr erfahren",
     "whatWeDo": "Unsere Leistungen",
     "products": "Produkte",
-    "services": "Services"
+    "services": "Services",
+    "solutions": "Lösungen"
+  },
+  "navigation": {
+    "solutions": {
+      "title": "Lösungen",
+      "subtitle": "Komplette Lösungen für Ihre geschäftlichen Anforderungen",
+      "aiProducts": {
+        "title": "KI-Produkte",
+        "description": "Maßgeschneiderte KI-Anwendungen und Tools"
+      },
+      "workflowAutomation": {
+        "title": "Workflow-Automatisierung",
+        "description": "n8n-Workflows zur Optimierung von Abläufen"
+      },
+      "customDevelopment": {
+        "title": "Individuelle Entwicklung",
+        "description": "Maßgeschneiderte Lösungen für einzigartige Anforderungen"
+      }
+    }
   },
   "hero": {
     "title": "KI-Automatisierung & Werkzeuge für Ihr Unternehmen",
