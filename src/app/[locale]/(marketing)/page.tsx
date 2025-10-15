@@ -109,7 +109,6 @@ export default function Home({ params }: HomePageProps) {
                 <WhatWeDo />
                 <WhatWeOffer />
                 <WhySeventeenLabs />
-                <DemoSection />
                 <NewsletterCta />
               </main>
               <SiteFooter />

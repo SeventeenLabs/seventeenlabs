@@ -24,9 +24,9 @@ export default function DemoSection() {
   ];
 
   return (
-    <section className="bg-slate-900 px-6 py-24 relative overflow-hidden">
+    <section className="bg-black px-6 py-24 relative overflow-hidden">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-transparent to-slate-700/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-transparent to-black"></div>
       <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,8 +52,8 @@ export default function DemoSection() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative aspect-video rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-transparent to-slate-700/20"></div>
+            <div className="relative aspect-video rounded-2xl bg-black border border-white/10 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-black via-transparent to-black"></div>
               
               {/* Mock Workflow Interface */}
               <div className="p-6 h-full flex flex-col justify-between">

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface AboutHeroProps {
   locale: string;
@@ -25,11 +26,21 @@ export function AboutHero({ locale }: AboutHeroProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-black">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
+    <section className="relative min-h-screen flex items-start overflow-hidden bg-black">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/Mountain Path Solitude.png"
+          alt="Mountain Path Solitude"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
       
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32">
+      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 pt-32 sm:pt-40 pb-24">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

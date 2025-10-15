@@ -13,10 +13,10 @@ export default function NewsletterCta() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
-    <section className="bg-slate-950 px-6 py-24 relative">
+    <section className="bg-black px-6 py-24 relative">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-b from-slate-700 to-transparent"></div>
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-t from-slate-700 to-transparent"></div>
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-b from-white/20 to-transparent"></div>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-t from-white/20 to-transparent"></div>
       
       <div className="mx-auto max-w-4xl relative z-10">
         <motion.div
@@ -26,10 +26,10 @@ export default function NewsletterCta() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl mb-6">
+          <h2 className="text-4xl font-light tracking-tight text-white md:text-5xl mb-6">
             {t("newsletter.title")}
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
+          <p className="text-xl text-white/70 font-light max-w-3xl mx-auto mb-12">
             {t("newsletter.subtitle")}
           </p>
 
@@ -39,19 +39,19 @@ export default function NewsletterCta() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-12 backdrop-blur"
+            className="rounded-2xl border border-white/10 bg-white/5 p-12 backdrop-blur"
           >
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-light text-white mb-4">
               {t("newsletter.cta.title")}
             </h3>
-            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-white/70 font-light mb-8 max-w-2xl mx-auto">
               {t("newsletter.cta.description")}
             </p>
             
             <Button 
               onClick={() => setContactModalOpen(true)}
               size="lg" 
-              className="bg-white text-slate-900 hover:bg-slate-100 font-semibold px-8 py-6 text-base group"
+              className="bg-white text-black hover:bg-white/90 font-medium px-8 py-6 text-base group"
             >
               {t("newsletter.cta.button")}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

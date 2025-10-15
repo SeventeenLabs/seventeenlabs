@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ContactModal from "@/components/contact-modal";
+import Image from "next/image";
 
 interface MarketingAgenciesHeroProps {
   locale: string;
@@ -44,17 +45,29 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
 
   return (
     <>
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-black">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
+        {/* Background Image */}
+        <div className="absolute inset-0 w-[110%] left-[8%]">
+          <Image
+            src="/Digital Forest Harmony.png"
+            alt="Digital Forest Harmony"
+            fill
+            className="object-cover object-right"
+            priority
+          />
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/50" />
+          {/* Left fade gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent w-1/2" />
+        </div>
         
-        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32">
-          <div className="max-w-4xl">
+        <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-24 sm:py-32 flex flex-col justify-between min-h-screen">
+          <div className="max-w-4xl mt-20">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="space-y-6"
+              className="space-y-8"
             >
               {/* Eyebrow */}
               <motion.div
@@ -104,22 +117,22 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
                 </button>
               </motion.div>
             </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.7 }}
-              className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/10"
-            >
-              {t.stats.map((stat, index) => (
-                <div key={index}>
-                  <div className="text-3xl sm:text-4xl font-light text-white">{stat.value}</div>
-                  <div className="text-sm font-light text-white/60 mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
           </div>
+
+          {/* Stats - at bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.7 }}
+            className="grid grid-cols-3 gap-8 max-w-4xl"
+          >
+            {t.stats.map((stat, index) => (
+              <div key={index}>
+                <div className="text-3xl sm:text-4xl font-light text-white">{stat.value}</div>
+                <div className="text-sm font-light text-white/60 mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 

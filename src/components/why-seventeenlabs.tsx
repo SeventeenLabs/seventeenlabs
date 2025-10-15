@@ -34,7 +34,9 @@ export default function WhySeventeenLabs() {
     },
   ];
   return (
-    <section className="bg-slate-800 px-6 py-24 text-slate-100 relative">
+    <section className="bg-black px-6 py-24 text-white relative">
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
       
       <div className="mx-auto max-w-6xl relative z-10">
         <motion.div
@@ -42,12 +44,12 @@ export default function WhySeventeenLabs() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+          <h2 className="text-4xl font-light tracking-tight text-white md:text-5xl">
             {t("whySeventeenLabs.title")}
           </h2>
-          <p className="mt-4 text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="mt-4 text-xl text-white/70 font-light max-w-3xl mx-auto">
             {t("whySeventeenLabs.subtitle")}
           </p>
         </motion.div>
@@ -65,19 +67,19 @@ export default function WhySeventeenLabs() {
                 viewport={{ once: true }}
                 className="group text-center"
               >
-                <div className="relative mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-slate-900 border border-slate-800 group-hover:border-slate-700 transition-colors">
-                  <Icon className="size-8 text-slate-300" aria-hidden />
+                <div className="relative mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-white/5 border border-white/10 group-hover:border-white/20 transition-colors">
+                  <Icon className="size-8 text-white" />
                 </div>
                 
-                <div className="mb-2 text-sm font-bold text-slate-400 uppercase tracking-wider">
+                <div className="mb-2 text-sm font-light text-white/60 uppercase tracking-wider">
                   {benefit.stat}
                 </div>
                 
-                <h3 className="mb-3 text-xl font-bold text-white">
+                <h3 className="mb-3 text-xl font-light text-white">
                   {benefit.title}
                 </h3>
                 
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-white/70 font-light leading-relaxed">
                   {benefit.description}
                 </p>
               </motion.div>
