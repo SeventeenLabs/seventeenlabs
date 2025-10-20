@@ -47,15 +47,15 @@ export function Dialog({ isOpen, onClose, children }: DialogProps) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-2xl h-full bg-slate-100 rounded-2xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl h-full bg-transparent rounded-2xl shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 rounded-lg hover:bg-slate-200 transition-colors z-10"
+                className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/10 transition-colors z-10"
                 aria-label="Close dialog"
               >
-                <X className="w-6 h-6 text-slate-700" />
+                <X className="w-6 h-6 text-white" />
               </button>
               <div className="h-full overflow-y-auto">
                 {children}

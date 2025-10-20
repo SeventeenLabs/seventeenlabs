@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import ContactModal from "@/components/contact-modal";
+import RoadmapModal from "@/components/roadmap-modal";
 import Image from "next/image";
 
 interface MarketingAgenciesHeroProps {
@@ -11,7 +11,7 @@ interface MarketingAgenciesHeroProps {
 }
 
 export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroProps) {
-  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [roadmapModalOpen, setRoadmapModalOpen] = useState(false);
   const isGerman = locale === 'de';
 
   const content = {
@@ -20,7 +20,7 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
       title: "Scale Your Agency with",
       titleHighlight: "Intelligent Automation",
       subtitle: "Automate repetitive tasks, manage leads effortlessly, and deliver exceptional results. Focus on strategy while AI handles execution.",
-      cta: "Get Started",
+      cta: "Generate My Free Roadmap",
       stats: [
         { value: "70%", label: "Time Saved" },
         { value: "3x", label: "More Clients" },
@@ -32,7 +32,7 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
       title: "Skalieren Sie Ihre Agentur mit",
       titleHighlight: "Intelligenter Automatisierung",
       subtitle: "Automatisieren Sie wiederkehrende Aufgaben, verwalten Sie Leads mühelos und liefern Sie außergewöhnliche Ergebnisse.",
-      cta: "Jetzt starten",
+      cta: "Kostenlose Roadmap erstellen",
       stats: [
         { value: "70%", label: "Zeit gespart" },
         { value: "3x", label: "Mehr Kunden" },
@@ -109,7 +109,7 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
                 className="pt-4"
               >
                 <button
-                  onClick={() => setContactModalOpen(true)}
+                  onClick={() => setRoadmapModalOpen(true)}
                   className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition-all"
                 >
                   {t.cta}
@@ -136,9 +136,9 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
         </div>
       </section>
 
-      <ContactModal
-        isOpen={contactModalOpen}
-        onClose={() => setContactModalOpen(false)}
+      <RoadmapModal
+        isOpen={roadmapModalOpen}
+        onClose={() => setRoadmapModalOpen(false)}
       />
     </>
   );

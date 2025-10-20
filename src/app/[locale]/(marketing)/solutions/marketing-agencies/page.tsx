@@ -1,6 +1,7 @@
 import LandingHeader from "@/components/landing-header";
 import SiteFooter from "@/components/site-footer";
 import MarketingAgenciesHero from "@/components/solutions/marketing-agencies/marketing-agencies-hero";
+import MarketingAgenciesRoadmapPreview from "@/components/solutions/marketing-agencies/marketing-agencies-roadmap-preview";
 import MarketingAgenciesProblems from "@/components/solutions/marketing-agencies/marketing-agencies-problems";
 import MarketingAgenciesSolutions from "@/components/solutions/marketing-agencies/marketing-agencies-solutions";
 import MarketingAgenciesFeatures from "@/components/solutions/marketing-agencies/marketing-agencies-features";
@@ -23,6 +24,7 @@ export default async function MarketingAgenciesPage({ params }: MarketingAgencie
         <MarketingAgenciesHero locale={locale} />
         <MarketingAgenciesProblems locale={locale} />
         <MarketingAgenciesSolutions locale={locale} />
+        <MarketingAgenciesRoadmapPreview locale={locale} />
         <MarketingAgenciesPrebuiltWorkflows locale={locale} />
         <MarketingAgenciesFeatures locale={locale} />
         <MarketingAgenciesCTA locale={locale} />
