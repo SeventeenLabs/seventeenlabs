@@ -115,10 +115,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose}>
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col bg-zinc-950">
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
+          <h2 className="text-2xl font-bold text-white mb-6">
             {t("contactModal.title")}
           </h2>
           
@@ -126,7 +126,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {/* Name and Email Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="name" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.name.label")}
                 </label>
                 <input
@@ -137,12 +137,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   onChange={handleInputChange}
                   placeholder={t("contactModal.fields.name.placeholder")}
                   required
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="email" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.email.label")}
                 </label>
                 <input
@@ -153,14 +153,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   onChange={handleInputChange}
                   placeholder={t("contactModal.fields.email.placeholder")}
                   required
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
                 />
               </div>
             </div>
 
             {/* Role */}
             <div>
-              <label htmlFor="role" className="block text-xs font-medium text-slate-900 mb-1">
+              <label htmlFor="role" className="block text-xs font-medium text-white/70 mb-1">
                 {t("contactModal.fields.role.label")}
               </label>
               <input
@@ -170,14 +170,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 value={formData.role}
                 onChange={handleInputChange}
                 placeholder={t("contactModal.fields.role.placeholder")}
-                className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors"
+                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
               />
             </div>
 
             {/* Company Name and Website Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="company" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="company" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.company.label")}
                 </label>
                 <input
@@ -187,12 +187,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={formData.company}
                   onChange={handleInputChange}
                   placeholder={t("contactModal.fields.company.placeholder")}
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
                 />
               </div>
               
               <div>
-                <label htmlFor="website" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="website" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.website.label")}
                 </label>
                 <input
@@ -202,7 +202,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   value={formData.website}
                   onChange={handleInputChange}
                   placeholder={t("contactModal.fields.website.placeholder")}
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             {/* Company Size and Revenue Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="companySize" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="companySize" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.companySize.label")}
                 </label>
                 <select
@@ -218,19 +218,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   name="companySize"
                   value={formData.companySize}
                   onChange={handleInputChange}
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-600 text-sm focus:border-slate-900 focus:outline-none transition-colors appearance-none cursor-pointer"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="">{t("contactModal.fields.companySize.placeholder")}</option>
-                  <option value="1-10">{t("contactModal.fields.companySize.options.1-10")}</option>
-                  <option value="11-50">{t("contactModal.fields.companySize.options.11-50")}</option>
-                  <option value="51-200">{t("contactModal.fields.companySize.options.51-200")}</option>
-                  <option value="201-500">{t("contactModal.fields.companySize.options.201-500")}</option>
-                  <option value="500+">{t("contactModal.fields.companySize.options.500+")}</option>
+                  <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.placeholder")}</option>
+                  <option value="1-10" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.1-10")}</option>
+                  <option value="11-50" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.11-50")}</option>
+                  <option value="51-200" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.51-200")}</option>
+                  <option value="201-500" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.201-500")}</option>
+                  <option value="500+" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.500+")}</option>
                 </select>
               </div>
               
               <div>
-                <label htmlFor="revenue" className="block text-xs font-medium text-slate-900 mb-1">
+                <label htmlFor="revenue" className="block text-xs font-medium text-white/70 mb-1">
                   {t("contactModal.fields.revenue.label")}
                 </label>
                 <select
@@ -238,21 +238,21 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                   name="revenue"
                   value={formData.revenue}
                   onChange={handleInputChange}
-                  className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-600 text-sm focus:border-slate-900 focus:outline-none transition-colors appearance-none cursor-pointer"
+                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="">{t("contactModal.fields.revenue.placeholder")}</option>
-                  <option value="0-100k">{t("contactModal.fields.revenue.options.0-100k")}</option>
-                  <option value="100k-500k">{t("contactModal.fields.revenue.options.100k-500k")}</option>
-                  <option value="500k-1m">{t("contactModal.fields.revenue.options.500k-1m")}</option>
-                  <option value="1m-5m">{t("contactModal.fields.revenue.options.1m-5m")}</option>
-                  <option value="5m+">{t("contactModal.fields.revenue.options.5m+")}</option>
+                  <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.placeholder")}</option>
+                  <option value="0-100k" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.0-100k")}</option>
+                  <option value="100k-500k" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.100k-500k")}</option>
+                  <option value="500k-1m" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.500k-1m")}</option>
+                  <option value="1m-5m" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.1m-5m")}</option>
+                  <option value="5m+" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.5m+")}</option>
                 </select>
               </div>
             </div>
 
             {/* Project Budget */}
             <div>
-              <label htmlFor="budget" className="block text-xs font-medium text-slate-900 mb-1">
+              <label htmlFor="budget" className="block text-xs font-medium text-white/70 mb-1">
                 {t("contactModal.fields.budget.label")}
               </label>
               <select
@@ -260,20 +260,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 name="budget"
                 value={formData.budget}
                 onChange={handleInputChange}
-                className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-600 text-sm focus:border-slate-900 focus:outline-none transition-colors appearance-none cursor-pointer"
+                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
               >
-                <option value="">{t("contactModal.fields.budget.placeholder")}</option>
-                <option value="0-5k">{t("contactModal.fields.budget.options.0-5k")}</option>
-                <option value="5k-10k">{t("contactModal.fields.budget.options.5k-10k")}</option>
-                <option value="10k-25k">{t("contactModal.fields.budget.options.10k-25k")}</option>
-                <option value="25k-50k">{t("contactModal.fields.budget.options.25k-50k")}</option>
-                <option value="50k+">{t("contactModal.fields.budget.options.50k+")}</option>
+                <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.placeholder")}</option>
+                <option value="0-5k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.0-5k")}</option>
+                <option value="5k-10k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.5k-10k")}</option>
+                <option value="10k-25k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.10k-25k")}</option>
+                <option value="25k-50k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.25k-50k")}</option>
+                <option value="50k+" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.50k+")}</option>
               </select>
             </div>
 
             {/* Services */}
             <div>
-              <label htmlFor="services" className="block text-xs font-medium text-slate-900 mb-1">
+              <label htmlFor="services" className="block text-xs font-medium text-white/70 mb-1">
                 {t("contactModal.fields.services.label")}
               </label>
               <select
@@ -281,20 +281,20 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 name="services"
                 value={formData.services}
                 onChange={handleInputChange}
-                className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-600 text-sm focus:border-slate-900 focus:outline-none transition-colors appearance-none cursor-pointer"
+                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
               >
-                <option value="">{t("contactModal.fields.services.placeholder")}</option>
-                <option value="workflows">{t("contactModal.fields.services.options.workflows")}</option>
-                <option value="apps">{t("contactModal.fields.services.options.apps")}</option>
-                <option value="consulting">{t("contactModal.fields.services.options.consulting")}</option>
-                <option value="integration">{t("contactModal.fields.services.options.integration")}</option>
-                <option value="other">{t("contactModal.fields.services.options.other")}</option>
+                <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.services.placeholder")}</option>
+                <option value="workflows" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.workflows")}</option>
+                <option value="apps" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.apps")}</option>
+                <option value="consulting" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.consulting")}</option>
+                <option value="integration" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.integration")}</option>
+                <option value="other" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.other")}</option>
               </select>
             </div>
 
             {/* Message */}
             <div>
-              <label htmlFor="message" className="block text-xs font-medium text-slate-900 mb-1">
+              <label htmlFor="message" className="block text-xs font-medium text-white/70 mb-1">
                 {t("contactModal.fields.message.label")}
               </label>
               <textarea
@@ -305,18 +305,18 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 onChange={handleInputChange}
                 placeholder={t("contactModal.fields.message.placeholder")}
                 required
-                className="w-full px-0 py-1.5 border-b border-slate-300 bg-transparent text-slate-900 text-sm placeholder-slate-400 focus:border-slate-900 focus:outline-none transition-colors resize-none"
+                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors resize-none"
               />
             </div>
 
             {/* Status Messages */}
             {submitStatus === 'success' && (
-              <div className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg p-3">
+              <div className="text-sm text-green-400 bg-green-950/30 border border-green-500/20 rounded-lg p-3">
                 ✓ Message sent successfully! We&apos;ll get back to you soon.
               </div>
             )}
             {submitStatus === 'error' && (
-              <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-3">
+              <div className="text-sm text-red-400 bg-red-950/30 border border-red-500/20 rounded-lg p-3">
                 ✗ Something went wrong. Please try again or email us directly.
               </div>
             )}
@@ -324,12 +324,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         </div>
 
         {/* Fixed Submit Button */}
-        <div className="border-t border-slate-300 p-6 bg-slate-100">
+        <div className="border-t border-white/10 p-6 bg-zinc-950">
           <button
             type="submit"
             form="contact-form"
             disabled={isSubmitting || !isFormValid}
-            className="w-full bg-slate-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-white text-black py-3 px-6 rounded-lg font-semibold hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">

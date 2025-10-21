@@ -101,7 +101,12 @@ export default function RoadmapModal({ isOpen, onClose }: RoadmapModalProps) {
     setSubmitError("");
 
     try {
-      const response = await fetch('https://n8n.srv1010269.hstgr.cloud/webhook-test/lead-magnet', {
+      const webhookUrl = process.env.NEXT_PUBLIC_ROADMAP_WEBHOOK_URL;
+      if (!webhookUrl) {
+        throw new Error('Webhook URL not configured');
+      }
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
