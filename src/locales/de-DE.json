@@ -387,5 +387,142 @@
       "apps": "Apps & Tools",
       "agency": "Agentur-Services"
     }
+  },
+  "audit": {
+    "hero": {
+      "eyebrow": "Agency Automation Blueprint",
+      "title": "15+ Stunden pro Woche sparen",
+      "titleSecond": "und 30% mehr Umsatz erzielen",
+      "subtitle": "Wir zeigen Agenturen, wie sie wiederkehrende Aufgaben eliminieren und skalieren können — ohne neue Mitarbeiter einzustellen. Erhalten Sie Ihren Blueprint mit 3 maßgeschneiderten Automatisierungen in 5-7 Tagen.",
+      "cta": "Blueprint jetzt sichern",
+      "included": {
+        "item1": "3 maßgeschneiderte Automatisierungen für Ihre Agentur",
+        "item2": "Geschätzte Zeitersparnis und Kostenreduktion",
+        "item3": "Konkrete Umsetzungs-Roadmap",
+        "item4": "100% individuelle Analyse — keine Standardlösungen"
+      }
+    },
+    "process": {
+      "eyebrow": "So funktioniert's",
+      "title": "Klarer Prozess. Keine Rätselraten.",
+      "steps": {
+        "step1": {
+          "title": "Analyse-Call buchen",
+          "description": "Vereinbaren Sie einen kostenlosen 45-minütigen Call, in dem wir gemeinsam Ihre aktuellen Workflows, Teamstruktur und größten Zeitfresser analysieren."
+        },
+        "step2": {
+          "title": "Wir entwickeln Ihren Blueprint",
+          "description": "Unser Team identifiziert die 3 wirkungsvollsten Automatisierungen für Ihre Agentur, schätzt Zeitersparnis und Kostenreduktion ein und entwickelt Ihre Umsetzungs-Roadmap."
+        },
+        "step3": {
+          "title": "Sie erhalten Ihren Aktionsplan",
+          "description": "Detaillierter Blueprint mit konkreten Automatisierungs-Empfehlungen, Zeitersparnis-Berechnung und exakten Umsetzungs-Schritten — geliefert in 5-7 Tagen."
+        }
+      }
+    },
+    "roi": {
+      "eyebrow": "Messbare Ergebnisse",
+      "title": "Konkrete Zahlen. Messbare Wirkung.",
+      "subtitle": "So viel können Agenturen durch Automatisierung typischerweise einsparen. Ihr Blueprint zeigt Ihnen die exakten Zahlen für Ihre Workflows.",
+      "quote": {
+        "text1": "Durch Automatisierung von Onboarding und Client-Reporting konnte einer unserer Kunden",
+        "text2": "über 20 Stunden pro Woche einsparen",
+        "text3": "und",
+        "text4": "manuelle Fehler um 70% reduzieren",
+        "text5": "— bereits im ersten Monat."
+      },
+      "table": {
+        "workflow": "Workflow",
+        "timeSaved": "Zeitersparnis/Woche",
+        "costSavings": "Kostenersparnis/Jahr"
+      }
+    },
+    "whoItsFor": {
+      "eyebrow": "Für wen?",
+      "title": "Entwickelt für wachsende Agenturen",
+      "audiences": {
+        "marketing": {
+          "title": "Marketing-Agenturen",
+          "description": "Automatisieren Sie Client-Reporting, Ad-Management, Content-Workflows und Lead-Tracking."
+        },
+        "creative": {
+          "title": "Kreativ-Agenturen",
+          "description": "Optimieren Sie Projektmanagement, Asset-Delivery, Client-Freigaben und Revisions-Workflows."
+        },
+        "growth": {
+          "title": "Wachsende Teams",
+          "description": "Skalieren ohne neue Mitarbeiter — automatisieren Sie Onboarding, Fulfillment und Operations."
+        },
+        "consultants": {
+          "title": "Berater & Freelancer",
+          "description": "Mehr abrechenbare Stunden durch Automatisierung von Admin, Terminplanung, Rechnungen und Follow-ups."
+        }
+      },
+      "bottomText": "Sie wissen bereits, dass KI helfen kann — aber nicht",
+      "bottomTextBold": "wo",
+      "bottomTextOr": "oder",
+      "bottomTextHow": "wie",
+      "bottomTextEnd": "genau? Dann ist das hier genau richtig für Sie."
+    },
+    "pricing": {
+      "eyebrow": "Investition",
+      "title": "Ein Preis. Maximaler Mehrwert.",
+      "cardTitle": "Agency Automation Blueprint",
+      "cardSubtitle": "Ihre individuelle Automatisierungs-Roadmap",
+      "earlyAdopter": "Early Adopter Preis",
+      "price": "$499",
+      "originalPrice": "$1.497",
+      "delivery": "Einmalige Zahlung. Lieferung in 5-7 Tagen.",
+      "limited": "Limitiert auf die ersten 10 Kunden. Preis steigt danach auf $997.",
+      "cta": "Blueprint jetzt sichern",
+      "features": {
+        "item1": "3 maßgeschneiderte Automatisierungen für Ihre Workflows",
+        "item2": "Geschätzte Zeitersparnis und Kostenreduktion pro Automatisierung",
+        "item3": "Konkrete Umsetzungs-Roadmap nach Priorität",
+        "item4": "Tool- und Plattform-Empfehlungen inkl. Setup-Anleitung",
+        "item5": "100% individuelle Analyse — keine Standard-Templates",
+        "item6": "Lieferung in 5-7 Tagen",
+        "item7": "Umsetzungs-Garantie: Kostenlose Überarbeitungen für 90 Tage"
+      }
+    },
+    "trust": {
+      "eyebrow": "Über uns",
+      "title": "Von Seventeen Labs — Experten für KI-Automatisierung",
+      "intro1": "Wir sind kein KI-Tool, sondern ein Team aus",
+      "intro1Bold": "Automatisierungs-Beratern und System-Designern",
+      "intro2": "das Agenturen dabei unterstützt, KI in ihre täglichen Workflows zu integrieren.",
+      "intro3": "Jeder Blueprint wird",
+      "intro3Bold": "individuell von einem Menschen analysiert und erstellt",
+      "intro4": "— basierend auf Ihren echten Geschäftsdaten und Ihrem Kontext.",
+      "indicators": {
+        "indicator1": "Individuelle Analyse durch Experten, keine automatisierten Reports",
+        "indicator2": "Fokussiert auf maßgeschneiderte Automatisierungslösungen",
+        "indicator3": "Echte Ergebnisse statt generische Templates"
+      },
+      "cardTitle": "Seventeen Labs",
+      "cardSubtitle": "Experten für KI-Automatisierung",
+      "cardQuote": "Wir helfen Agenturen, ihr volles Potenzial durch intelligente Automatisierung und KI-Integration zu entfalten.",
+      "stats": {
+        "stat1": {
+          "value": "100%",
+          "label": "Individuelle Analyse"
+        },
+        "stat2": {
+          "value": "5-7 Tage",
+          "label": "Lieferzeit"
+        }
+      }
+    },
+    "finalCta": {
+      "eyebrow": "Bereit durchzustarten?",
+      "title": "Schluss mit Rätselraten. Zeit zu automatisieren.",
+      "subtitle": "Holen Sie sich Ihren Agency Automation Blueprint und entdecken Sie die 3 wirkungsvollsten Automatisierungen, die Ihnen 15+ Stunden pro Woche sparen und 30% mehr Umsatz bringen.",
+      "cta": "Blueprint jetzt sichern",
+      "trust1": "Lieferung in 5-7 Tagen",
+      "trust2": "$499",
+      "trust2Strike": "$1.497",
+      "trust3": "Kostenlose Überarbeitungen für 90 Tage",
+      "limitedBadge": "Limitiert: Nur erste 10 Kunden"
+    }
   }
 }

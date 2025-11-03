@@ -387,5 +387,142 @@
       }
     },
     "submit": "Submit"
+  },
+  "audit": {
+    "hero": {
+      "eyebrow": "Agency Automation Blueprint",
+      "title": "Save 15+ Hours Per Week",
+      "titleSecond": "While Boosting Revenue by 30%",
+      "subtitle": "We help agencies eliminate repetitive tasks and scale operations — without hiring more people. Get 3 high-impact automation opportunities delivered in 5-7 days.",
+      "cta": "Get Your Blueprint",
+      "included": {
+        "item1": "3 high-impact automation opportunities",
+        "item2": "Estimated time savings and cost reduction",
+        "item3": "Step-by-step implementation roadmap",
+        "item4": "100% human analysis — no templates"
+      }
+    },
+    "process": {
+      "eyebrow": "How It Works",
+      "title": "A Clear Process — No Guesswork",
+      "steps": {
+        "step1": {
+          "title": "Book Your Analysis Call",
+          "description": "Schedule a free 45-minute call where we analyze your current workflows, team structure, and biggest time drains together."
+        },
+        "step2": {
+          "title": "We Build Your Custom Blueprint",
+          "description": "Our team identifies the 3 highest-impact automations for your agency, estimates time savings and cost reduction, and designs your implementation roadmap."
+        },
+        "step3": {
+          "title": "Receive Your Action Plan",
+          "description": "Get a detailed blueprint showing what to automate, how much time you'll save, and the exact steps to implement — delivered in 5-7 days."
+        }
+      }
+    },
+    "roi": {
+      "eyebrow": "Real Results",
+      "title": "Real Results. Measurable Impact.",
+      "subtitle": "Here's what automation typically unlocks for agencies. Your audit shows exact numbers for your specific workflows.",
+      "quote": {
+        "text1": "By automating their onboarding and client reporting, one of our clients",
+        "text2": "saved 20+ hours per week",
+        "text3": "and",
+        "text4": "reduced manual errors by 70%",
+        "text5": "— within the first month."
+      },
+      "table": {
+        "workflow": "Workflow",
+        "timeSaved": "Time Saved/Week",
+        "costSavings": "Cost Savings/Year"
+      }
+    },
+    "whoItsFor": {
+      "eyebrow": "Who It's For",
+      "title": "Built for Agencies Ready to Scale",
+      "audiences": {
+        "marketing": {
+          "title": "Marketing Agencies",
+          "description": "Automate client reporting, ad management, content workflows, and lead tracking."
+        },
+        "creative": {
+          "title": "Creative Agencies",
+          "description": "Streamline project management, asset delivery, client approvals, and revisions."
+        },
+        "growth": {
+          "title": "Growth-Stage Teams",
+          "description": "Scale without doubling headcount — automate onboarding, fulfillment, and operations."
+        },
+        "consultants": {
+          "title": "Consultants & Freelancers",
+          "description": "Reclaim billable hours by automating admin, scheduling, invoicing, and follow-ups."
+        }
+      },
+      "bottomText": "If you already know AI can help — but don't know",
+      "bottomTextBold": "where",
+      "bottomTextOr": "or",
+      "bottomTextHow": "how",
+      "bottomTextEnd": "— this is for you."
+    },
+    "pricing": {
+      "eyebrow": "Pricing",
+      "title": "One Price. Maximum Value.",
+      "cardTitle": "Agency Automation Blueprint",
+      "cardSubtitle": "Custom automation roadmap for your agency",
+      "earlyAdopter": "Early Adopter Pricing",
+      "price": "$499",
+      "originalPrice": "$1,497",
+      "delivery": "One-time payment. Delivered in 5-7 days.",
+      "limited": "Limited to first 10 clients. Price increases to $997 after.",
+      "cta": "Get Your Blueprint Now",
+      "features": {
+        "item1": "3 high-impact automation opportunities mapped to your workflows",
+        "item2": "Estimated time savings and cost reduction for each automation",
+        "item3": "Step-by-step implementation roadmap prioritized by impact",
+        "item4": "Tool & platform recommendations with setup guides",
+        "item5": "100% human analysis — no automated templates",
+        "item6": "5-7 day delivery",
+        "item7": "Implementation guarantee: Free revisions for 90 days after delivery"
+      }
+    },
+    "trust": {
+      "eyebrow": "About Us",
+      "title": "Built by Seventeen Labs — AI Automation Experts",
+      "intro1": "We're not an AI tool, but a team of",
+      "intro1Bold": "automation consultants and system designers",
+      "intro2": "helping agencies integrate AI into their daily workflows.",
+      "intro3": "Every blueprint is",
+      "intro3Bold": "personally analyzed and created by a human",
+      "intro4": "— based on your actual business data and context.",
+      "indicators": {
+        "indicator1": "Human-led analysis, not automated reports",
+        "indicator2": "Dedicated to delivering personalized automation solutions",
+        "indicator3": "Focused on real results, not generic templates"
+      },
+      "cardTitle": "Seventeen Labs",
+      "cardSubtitle": "AI Automation Experts",
+      "cardQuote": "We help agencies unlock their potential through intelligent automation and AI integration.",
+      "stats": {
+        "stat1": {
+          "value": "100%",
+          "label": "Human Analysis"
+        },
+        "stat2": {
+          "value": "5-7 Days",
+          "label": "Delivery"
+        }
+      }
+    },
+    "finalCta": {
+      "eyebrow": "Ready to get started?",
+      "title": "Stop guessing. Start automating.",
+      "subtitle": "Get your Agency Automation Blueprint and discover the 3 highest-impact automations that will save you 15+ hours per week while increasing revenue by 30%.",
+      "cta": "Get Your Blueprint",
+      "trust1": "5-7 day delivery",
+      "trust2": "$499",
+      "trust2Strike": "$1,497",
+      "trust3": "Free revisions for 90 days",
+      "limitedBadge": "Limited: First 10 clients only"
+    }
   }
 }
