@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
 
   return {
+    metadataBase: new URL(baseUrl),
     alternates: {
       canonical: isGerman ? `${baseUrl}/de` : baseUrl,
       languages: {
@@ -42,8 +43,44 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       },
     },
     openGraph: {
+      type: 'website',
       locale: isGerman ? 'de_DE' : 'en_US',
       url: isGerman ? `${baseUrl}/de` : baseUrl,
+      siteName: 'SeventeenLabs',
+      title: 'SeventeenLabs - AI Automation Agency | Custom Workflow Solutions',
+      description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.',
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: 'SeventeenLabs - AI Automation Agency',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'SeventeenLabs - AI Automation Agency',
+      description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization.',
+      images: [`${baseUrl}/opengraph-image`],
+      creator: '@seventeenlabs',
+      site: '@seventeenlabs',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/favicon.ico',
     },
   };
 }
@@ -59,6 +96,58 @@ export default async function LocaleLayout({
   const isGerman = validLocale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   
+  // Breadcrumb structured data
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: isGerman ? `${baseUrl}/de` : baseUrl,
+      },
+    ],
+  };
+
+  // Organization structured data
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
+    name: 'SeventeenLabs',
+    url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/logo-white.svg`,
+      width: 150,
+      height: 150,
+    },
+    sameAs: [
+      'https://twitter.com/seventeenlabs',
+      'https://linkedin.com/company/seventeenlabs',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'Customer Service',
+      availableLanguage: ['en', 'de'],
+    },
+  };
+
+  // Website structured data
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
+    url: baseUrl,
+    name: 'SeventeenLabs',
+    description: 'AI automation agency specializing in custom workflow automation',
+    publisher: {
+      '@id': `${baseUrl}/#organization`,
+    },
+    inLanguage: isGerman ? 'de-DE' : 'en-US',
+  };
+  
   return (
     <html lang={isGerman ? 'de' : 'en'} suppressHydrationWarning>
       <head>
@@ -66,6 +155,20 @@ export default async function LocaleLayout({
         <link rel="alternate" hrefLang="en" href={baseUrl} />
         <link rel="alternate" hrefLang="de" href={`${baseUrl}/de`} />
         <link rel="alternate" hrefLang="x-default" href={baseUrl} />
+        
+        {/* Structured Data - JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
       </head>
       <body
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}

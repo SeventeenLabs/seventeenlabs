@@ -12,9 +12,24 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/api/',
           '/_next/',
+          '/private/',
         ],
+        crawlDelay: 1,
+      },
+      // Specific rules for Google Bot - allow everything except admin
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/admin/', '/api/admin/', '/private/'],
+      },
+      // Specific rules for Bing Bot
+      {
+        userAgent: 'Bingbot',
+        allow: '/',
+        disallow: ['/admin/', '/api/admin/', '/private/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

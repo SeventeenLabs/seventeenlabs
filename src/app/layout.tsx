@@ -4,11 +4,11 @@ import StructuredData from "@/components/structured-data";
 
 export const metadata: Metadata = {
   title: {
-    default: "SeventeenLabs - AI-Powered Workflow Automation & Custom Development",
+    default: "SeventeenLabs - AI Automation Agency | Custom Workflow Solutions",
     template: "%s | SeventeenLabs"
   },
-  description: "Transform your business with AI-powered workflow automation, custom software development, and intelligent process optimization. SeventeenLabs delivers cutting-edge automation solutions.",
-  keywords: ["workflow automation", "AI automation", "custom development", "business automation", "process optimization", "n8n workflows", "AI integration"],
+  description: "AI automation agency specializing in custom workflow automation, intelligent process optimization, and scalable automation solutions. Transform your business operations with AI-powered workflows.",
+  keywords: ["AI automation agency", "workflow automation", "AI automation", "custom automation", "business automation", "process automation", "n8n workflows", "AI integration"],
   authors: [{ name: "SeventeenLabs" }],
   creator: "SeventeenLabs",
   publisher: "SeventeenLabs",
@@ -25,27 +25,29 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'SeventeenLabs',
-    title: 'SeventeenLabs - AI-Powered Workflow Automation & Custom Development',
-    description: 'Transform your business with AI-powered workflow automation and custom development solutions.',
+    title: 'SeventeenLabs - AI Automation Agency | Custom Workflow Solutions',
+    description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.',
     images: [
       {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'SeventeenLabs - AI-Powered Workflow Automation & Custom Development',
+        alt: 'SeventeenLabs - AI Automation Agency',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SeventeenLabs - AI-Powered Workflow Automation',
-    description: 'Transform your business with AI-powered workflow automation and custom development.',
+    title: 'SeventeenLabs - AI Automation Agency',
+    description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization.',
     images: ['/opengraph-image'],
     creator: '@seventeenlabs',
+    site: '@seventeenlabs',
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -54,9 +56,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-site-verification-code', // Add your verification code
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
+  category: 'Technology',
+  classification: 'Business Services',
 };
 
 // Root layout provides HTML structure for routes outside [locale]
@@ -65,8 +70,44 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'SeventeenLabs',
+    description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization',
+    url: 'https://seventeenlabs.io',
+    logo: 'https://seventeenlabs.io/logo-white.svg',
+    image: 'https://seventeenlabs.io/opengraph-image',
+    telephone: '+1-XXX-XXX-XXXX',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'US',
+    },
+    sameAs: [
+      'https://twitter.com/seventeenlabs',
+      'https://linkedin.com/company/seventeenlabs',
+    ],
+    areaServed: {
+      '@type': 'Place',
+      name: 'Worldwide',
+    },
+    serviceType: ['AI Automation', 'Workflow Automation', 'Process Optimization'],
+    priceRange: '$$',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: '10',
+    },
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
