@@ -1,14 +1,8 @@
-﻿import { ImageResponse } from 'next/og';
+import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
-export const alt = 'SeventeenLabs - AI-Powered Workflow Automation';
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const contentType = 'image/png';
+export const runtime = 'nodejs';
 
-export default async function Image() {
+export async function GET() {
   return new ImageResponse(
     (
       <div
@@ -19,7 +13,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, #0a0a1a, #1a1a3a, #2d1b4e)',
+          background: 'linear-gradient(135deg, #1a0a0a, #2d1010, #4a1a1a)',
           padding: '60px 80px',
         }}
       >
@@ -37,33 +31,36 @@ export default async function Image() {
         {/* Main Content */}
         <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '600px' }}>
           <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px' }}>
-            AI-Powered Automation
+            Agency Automation Blueprint
           </div>
           <div style={{ fontSize: '56px', fontWeight: 300, color: 'white', lineHeight: 1.1, marginBottom: '20px' }}>
-            Transform Your Business with Intelligent Workflows
+            Save 15+ Hours per Week
           </div>
           <div style={{ fontSize: '20px', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.5 }}>
-            Automate repetitive tasks and focus on what matters most
+            3 Custom Automations to Scale Your Agency
           </div>
         </div>
 
         {/* Stats */}
         <div style={{ display: 'flex', gap: '60px' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: '36px', color: 'white' }}>AI-First</div>
-            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Technology</div>
+            <div style={{ fontSize: '36px', color: 'white' }}>$499</div>
+            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Early Adopter</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: '36px', color: 'white' }}>Custom</div>
-            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Solutions</div>
+            <div style={{ fontSize: '36px', color: 'white' }}>5-7 Days</div>
+            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Delivery</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: '36px', color: 'white' }}>24/7</div>
-            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Support</div>
+            <div style={{ fontSize: '36px', color: 'white' }}>100%</div>
+            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>Human Analysis</div>
           </div>
         </div>
       </div>
     ),
-    { ...size }
+    {
+      width: 1200,
+      height: 630,
+    }
   );
 }
