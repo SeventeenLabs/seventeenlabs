@@ -16,20 +16,12 @@ export default async function Image() {
           height: '100%',
           width: '100%',
           display: 'flex',
-          position: 'relative',
-          background: 'linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 25%, #2d1b4e 50%, #1a1a3a 75%, #0a0a1a 100%)',
+          flexDirection: 'column',
+          background: 'linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #2d1b4e 100%)',
         }}
       >
-        {/* Surreal space-like gradient overlays */}
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 70% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 50%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.12) 0%, transparent 50%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 85% 60%, rgba(236, 72, 153, 0.1) 0%, transparent 40%)' }} />
-        
-        {/* Left fade gradient for text readability */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%)', width: '50%' }} />
-
         {/* Content */}
-        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', padding: '60px 80px', width: '100%', height: '100%', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', padding: '60px 80px', width: '100%', height: '100%', justifyContent: 'space-between' }}>
           {/* Logo - SVG "17" with text */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <svg width="40" height="40" viewBox="0 0 150 150" fill="none">
