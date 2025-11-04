@@ -149,54 +149,48 @@ export default async function LocaleLayout({
   };
   
   return (
-    <html lang={isGerman ? 'de' : 'en'} suppressHydrationWarning>
-      <head>
-        {/* Hreflang tags with absolute URLs for international SEO */}
-        <link rel="alternate" hrefLang="en" href={baseUrl} />
-        <link rel="alternate" hrefLang="de" href={`${baseUrl}/de`} />
-        <link rel="alternate" hrefLang="x-default" href={baseUrl} />
-        
-        {/* Structured Data - JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-      </head>
-      <body
-        className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
-        suppressHydrationWarning
-      >
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-GP1PFPXNHD"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-GP1PFPXNHD');
-          `}
-        </Script>
-        
-        {/* Structured Data */}
-        <StructuredData locale={validLocale} type="home" />
-        
-        <I18nProvider locale={validLocale}>
-          {children}
-        </I18nProvider>
-        <Analytics />
-      </body>
-    </html>
+    <>
+      {/* Hreflang tags with absolute URLs for international SEO */}
+      <link rel="alternate" hrefLang="en" href={baseUrl} />
+      <link rel="alternate" hrefLang="de" href={`${baseUrl}/de`} />
+      <link rel="alternate" hrefLang="x-default" href={baseUrl} />
+      
+      {/* Structured Data - JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      
+      {/* Google Analytics */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-GP1PFPXNHD"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-GP1PFPXNHD');
+        `}
+      </Script>
+      
+      {/* Structured Data */}
+      <StructuredData locale={validLocale} type="home" />
+      
+      <I18nProvider locale={validLocale}>
+        {children}
+      </I18nProvider>
+      <Analytics />
+    </>
   );
 }
 

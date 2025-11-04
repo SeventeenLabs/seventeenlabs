@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Clock } from "lucide-react";
+import BlueprintBookingModal from "./blueprint-booking-modal";
 
 interface AuditPricingProps {
   locale: string;
@@ -9,6 +11,8 @@ interface AuditPricingProps {
 }
 
 export default function AuditPricing({ locale, t }: AuditPricingProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleBookAudit = () => {
     // Track GA4 event with detailed information
     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -30,24 +34,10 @@ export default function AuditPricing({ locale, t }: AuditPricingProps) {
         viewport_width: window.innerWidth,
         scroll_depth: Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100),
       });
-      
-      // Also track as begin_checkout for conversion funnel
-      (window as any).gtag('event', 'begin_checkout', {
-        currency: 'USD',
-        value: 499,
-        items: [{
-          item_id: 'blueprint_early_adopter',
-          item_name: 'Agency Automation Blueprint',
-          price: 499,
-          quantity: 1,
-          item_category: 'Automation Services',
-          item_variant: 'Early Adopter'
-        }]
-      });
     }
     
-    // TODO: Integrate with your booking/payment system
-    console.log("Book audit clicked");
+    // Open the booking modal
+    setIsModalOpen(true);
   };
 
   const features = [
@@ -176,6 +166,13 @@ export default function AuditPricing({ locale, t }: AuditPricingProps) {
           </p>
         </motion.div>
       </div>
+
+      {/* Booking Modal */}
+      <BlueprintBookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        locale={locale}
+      />
     </section>
   );
 }
