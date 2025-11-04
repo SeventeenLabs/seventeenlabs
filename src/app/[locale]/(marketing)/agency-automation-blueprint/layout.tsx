@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${baseUrl}/agency-automation-blueprint`,
     languages: {
-      'en': `${baseUrl}/en/agency-automation-blueprint`,
+      'en': `${baseUrl}/agency-automation-blueprint`,
       'de': `${baseUrl}/de/agency-automation-blueprint`,
     },
   },
