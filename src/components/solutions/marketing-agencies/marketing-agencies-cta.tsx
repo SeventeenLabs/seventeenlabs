@@ -30,6 +30,26 @@ export default function MarketingAgenciesCTA({ locale }: MarketingAgenciesCTAPro
 
   const t = isGerman ? content.de : content.en;
 
+  const handleCTA = () => {
+    // Track GA4 event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click_cta', {
+        event_category: 'Marketing Agencies',
+        event_label: 'CTA - Schedule Free Strategy Call',
+        cta_location: 'final_cta_section',
+        cta_position: 'bottom',
+        cta_type: 'primary',
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+        user_language: locale,
+        page_title: document.title,
+        viewport_width: window.innerWidth,
+        scroll_depth: Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100),
+      });
+    }
+    setContactModalOpen(true);
+  };
+
   return (
     <>
     <section className="relative py-24 sm:py-32 bg-zinc-950">
@@ -73,7 +93,7 @@ export default function MarketingAgenciesCTA({ locale }: MarketingAgenciesCTAPro
           className="flex"
         >
           <button
-            onClick={() => setContactModalOpen(true)}
+            onClick={handleCTA}
             className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all shadow-lg shadow-white/20"
           >
             {t.primaryCta}

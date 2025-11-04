@@ -11,6 +11,22 @@ interface AuditHeroProps {
 
 export default function AuditHero({ locale, t }: AuditHeroProps) {
   const handleBookAudit = () => {
+    // Track GA4 event with detailed information
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click_cta', {
+        event_category: 'Blueprint',
+        event_label: 'Hero CTA - Get Your Blueprint',
+        cta_location: 'hero_section',
+        cta_position: 'top',
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+        user_language: locale,
+        page_title: document.title,
+        viewport_width: window.innerWidth,
+        scroll_depth: Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100),
+      });
+    }
+    
     // Scroll to pricing section
     const pricingSection = document.getElementById("audit-pricing");
     if (pricingSection) {

@@ -12,6 +12,26 @@ export default function LandingHero() {
   const locale = useLocale();
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
+  const handlePrimaryCTA = () => {
+    // Track GA4 event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click_cta', {
+        event_category: 'Homepage',
+        event_label: 'Hero Primary CTA - Start Your Project',
+        cta_location: 'hero_section',
+        cta_position: 'top',
+        cta_type: 'primary',
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+        user_language: locale,
+        page_title: document.title,
+        viewport_width: window.innerWidth,
+        scroll_depth: 0,
+      });
+    }
+    setContactModalOpen(true);
+  };
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-black">
       {/* Background grid or subtle gradient */}
@@ -79,13 +99,32 @@ export default function LandingHero() {
                   className="flex flex-wrap gap-4 pt-4"
                 >
                   <button
-                    onClick={() => setContactModalOpen(true)}
+                    onClick={handlePrimaryCTA}
                     className="group relative px-8 py-3.5 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all duration-300 shadow-lg shadow-white/20 cursor-pointer"
                   >
                     {t("hero.ctaPrimary")}
                   </button>
                   <Link
                     href={`/workflows`}
+                    onClick={() => {
+                      // Track GA4 event
+                      if (typeof window !== 'undefined' && (window as any).gtag) {
+                        (window as any).gtag('event', 'click_cta', {
+                          event_category: 'Homepage',
+                          event_label: 'Hero Secondary CTA - Explore Products',
+                          cta_location: 'hero_section',
+                          cta_position: 'top',
+                          cta_type: 'secondary',
+                          destination: '/workflows',
+                          page_path: window.location.pathname,
+                          page_location: window.location.href,
+                          user_language: locale,
+                          page_title: document.title,
+                          viewport_width: window.innerWidth,
+                          scroll_depth: 0,
+                        });
+                      }
+                    }}
                     className="group relative px-8 py-3.5 text-sm font-light text-white border border-white/30 rounded-lg hover:border-white/60 transition-all duration-300 overflow-hidden cursor-pointer"
                   >
                     <span className="relative z-10">{t("hero.ctaSecondary")}</span>

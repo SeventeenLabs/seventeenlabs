@@ -14,6 +14,26 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
   const [roadmapModalOpen, setRoadmapModalOpen] = useState(false);
   const isGerman = locale === 'de';
 
+  const handleCTA = () => {
+    // Track GA4 event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click_cta', {
+        event_category: 'Marketing Agencies',
+        event_label: 'Hero CTA - Generate My Free Roadmap',
+        cta_location: 'hero_section',
+        cta_position: 'top',
+        cta_type: 'primary',
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+        user_language: locale,
+        page_title: document.title,
+        viewport_width: window.innerWidth,
+        scroll_depth: 0,
+      });
+    }
+    setRoadmapModalOpen(true);
+  };
+
   const content = {
     en: {
       eyebrow: "For Marketing Agencies",
@@ -109,7 +129,7 @@ export default function MarketingAgenciesHero({ locale }: MarketingAgenciesHeroP
                 className="pt-4"
               >
                 <button
-                  onClick={() => setRoadmapModalOpen(true)}
+                  onClick={handleCTA}
                   className="group inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90 transition-all"
                 >
                   {t.cta}
