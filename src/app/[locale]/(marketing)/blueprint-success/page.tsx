@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle2, Mail, ArrowRight } from "lucide-react";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import LandingHeader from "@/components/landing-header";
 import SiteFooter from "@/components/site-footer";
 
-export default function BlueprintSuccessPage() {
+function BlueprintSuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
@@ -139,5 +139,17 @@ export default function BlueprintSuccessPage() {
 
       <SiteFooter />
     </div>
+  );
+}
+
+export default function BlueprintSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="text-white/60">Loading...</div>
+      </div>
+    }>
+      <BlueprintSuccessContent />
+    </Suspense>
   );
 }
