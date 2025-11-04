@@ -15,23 +15,23 @@ export function AboutValues({ locale }: AboutValuesProps) {
       values: [
         {
           icon: Heart,
-          title: 'Customer Success',
-          description: 'We measure our success by the results our customers achieve.',
+          title: 'Client-Centric',
+          description: 'Every solution is tailored to your specific business needs and goals.',
         },
         {
           icon: Users,
-          title: 'Accessibility',
-          description: 'Enterprise-level automation should not be limited to enterprise budgets.',
+          title: 'Hands-On Partnership',
+          description: 'We work alongside you, not just for you—from strategy to implementation.',
         },
         {
           icon: Zap,
-          title: 'Innovation',
-          description: 'We stay at the forefront of AI and automation technology.',
+          title: 'Results-Driven',
+          description: 'Focus on measurable outcomes and ROI at every stage of the journey.',
         },
         {
           icon: Shield,
           title: 'Transparency',
-          description: 'Clear pricing, honest timelines, and open communication.',
+          description: 'Clear pricing, honest timelines, and realistic expectations from day one.',
         },
       ],
     },
@@ -41,23 +41,23 @@ export function AboutValues({ locale }: AboutValuesProps) {
       values: [
         {
           icon: Heart,
-          title: 'Kundenerfolg',
-          description: 'Wir messen unseren Erfolg an den Ergebnissen unserer Kunden.',
+          title: 'Kundenzentriert',
+          description: 'Jede Lösung ist auf Ihre spezifischen Geschäftsanforderungen und -ziele zugeschnitten.',
         },
         {
           icon: Users,
-          title: 'Zugänglichkeit',
-          description: 'Enterprise-Level-Automatisierung sollte nicht auf Enterprise-Budgets beschränkt sein.',
+          title: 'Praktische Partnerschaft',
+          description: 'Wir arbeiten mit Ihnen zusammen, nicht nur für Sie—von der Strategie bis zur Umsetzung.',
         },
         {
           icon: Zap,
-          title: 'Innovation',
-          description: 'Wir bleiben an der Spitze der KI- und Automatisierungstechnologie.',
+          title: 'Ergebnisorientiert',
+          description: 'Fokus auf messbare Ergebnisse und ROI in jeder Phase der Reise.',
         },
         {
           icon: Shield,
           title: 'Transparenz',
-          description: 'Klare Preise, ehrliche Zeitpläne und offene Kommunikation.',
+          description: 'Klare Preise, ehrliche Zeitpläne und realistische Erwartungen von Anfang an.',
         },
       ],
     },
@@ -66,9 +66,9 @@ export function AboutValues({ locale }: AboutValuesProps) {
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <section className="bg-black py-16 sm:py-20 border-t border-white/10">
+    <section className="bg-black py-16 sm:py-20">
       <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
-        <div className="mb-12">
+        <div className="max-w-2xl mb-12">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

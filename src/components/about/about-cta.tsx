@@ -14,14 +14,14 @@ export function AboutCTA({ locale }: AboutCTAProps) {
 
   const content = {
     en: {
-      title: 'Ready to Transform Your Business?',
-      description: "Let's discuss how we can help you achieve your automation goals.",
-      cta: 'Get in Touch',
+      title: 'Ready to Start Your AI Journey?',
+      description: "Whether you need an AI audit, strategic guidance, or custom development—we're here to help you every step of the way.",
+      cta: 'Schedule Free Consultation',
     },
     de: {
-      title: 'Bereit, Ihr Unternehmen zu transformieren?',
-      description: 'Lassen Sie uns besprechen, wie wir Ihnen bei Ihren Automatisierungszielen helfen können.',
-      cta: 'Kontakt aufnehmen',
+      title: 'Bereit, Ihre KI-Reise zu beginnen?',
+      description: 'Ob Sie ein KI-Audit, strategische Beratung oder maßgeschneiderte Entwicklung benötigen—wir sind da, um Ihnen bei jedem Schritt zu helfen.',
+      cta: 'Kostenlose Beratung vereinbaren',
     },
   };
 
@@ -29,7 +29,7 @@ export function AboutCTA({ locale }: AboutCTAProps) {
 
   return (
     <>
-      <section className="bg-black py-16 sm:py-20 border-t border-white/10">
+      <section className="bg-black py-16 sm:py-20">
         <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
           <div className="max-w-2xl">
             <motion.h2

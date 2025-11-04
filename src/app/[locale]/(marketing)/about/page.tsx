@@ -1,9 +1,10 @@
-import { AboutHero } from '@/components/about/about-hero';
-import { AboutMission } from '@/components/about/about-mission';
-import { AboutTeam } from '@/components/about/about-team';
-import { AboutValues } from '@/components/about/about-values';
-import { AboutCTA } from '@/components/about/about-cta';
 import LandingHeader from '@/components/landing-header';
+import { AboutHero } from '@/components/about/about-hero';
+import { AboutValues } from '@/components/about/about-values';
+import { AboutApproach } from '@/components/about/about-approach';
+import { AboutMetrics } from '@/components/about/about-metrics';
+import { AboutTech } from '@/components/about/about-tech';
+import { AboutCTA } from '@/components/about/about-cta';
 import SiteFooter from '@/components/site-footer';
 
 interface PageProps {
@@ -18,9 +19,10 @@ export default async function AboutPage({ params }: PageProps) {
       <LandingHeader />
       <main className="min-h-screen">
         <AboutHero locale={locale} />
-        <AboutMission locale={locale} />
         <AboutValues locale={locale} />
-        <AboutTeam locale={locale} />
+        <AboutApproach locale={locale} />
+        <AboutMetrics locale={locale} />
+        <AboutTech locale={locale} />
         <AboutCTA locale={locale} />
       </main>
       <SiteFooter />

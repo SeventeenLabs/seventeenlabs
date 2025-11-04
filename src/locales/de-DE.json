@@ -35,17 +35,23 @@
     "title": "KI-Automatisierung & Werkzeuge für Ihr Unternehmen",
     "description": "Sofort einsetzbare Workflows, KI-Apps und Expertenberatung. Automatisieren Sie Prozesse und beschleunigen Sie Ihr Wachstum.",
     "eyebrow": "KI-Transformation für modernes Business",
-    "mainTitle": "Wir bauen Systeme, die",
-    "mainTitleSecond": "Ihr Business skalieren",
-    "ctaPrimary": "Projekt starten",
-    "ctaSecondary": "Produkte ansehen",
+    "mainTitle": "KI-Lösungen für Ihr Business",
+    "mainTitleSecond": "Audit, Beratung & Entwicklung",
+    "subheadline": "Wir helfen Unternehmen bei der KI-Implementierung durch strategische Audits, Expertenberatung und maßgeschneiderte Entwicklung.",
+    "pillars": {
+      "audit": "KI-Audits",
+      "consulting": "Strategische Beratung",
+      "building": "Individuelle Entwicklung"
+    },
+    "ctaPrimary": "Kostenlose Beratung anfragen",
+    "ctaSecondary": "Mehr über unsere Leistungen",
     "stats": {
-      "deployment": "20h",
-      "deploymentLabel": "gespart pro Woche",
-      "costReduction": "80%",
-      "costReductionLabel": "Kostenersparnis",
-      "automation": "24/7",
-      "automationLabel": "automatisierte Prozesse"
+      "deployment": "2-4 Wochen",
+      "deploymentLabel": "Projektstart",
+      "costReduction": "40%",
+      "costReductionLabel": "durchschn. Effizienzgewinn",
+      "automation": "100%",
+      "automationLabel": "Qualitätsanspruch"
     },
     "features": {
       "tools": "Sofort einsatzbereite KI-Tools & Apps",
@@ -82,19 +88,19 @@
     }
   },
   "whatWeDo": {
-    "title": "Was wir tun",
-    "subtitle": "Wir kombinieren KI-Innovation mit Automatisierungs-Expertise, um Lösungen zu liefern, die Geschäftsabläufe transformieren.",
-    "aiProducts": {
-      "title": "KI-Produkte",
-      "description": "Maßgeschneiderte KI-Anwendungen für Ihre spezifischen Geschäftsanforderungen, von Chatbots bis zu Datenanalyse-Plattformen."
+    "title": "So helfen wir bei der KI-Implementierung",
+    "subtitle": "Von der Strategie bis zur Umsetzung begleiten wir Sie durch jeden Schritt Ihrer KI-Transformation.",
+    "audit": {
+      "title": "KI-Audits",
+      "description": "Umfassende Analyse Ihrer Geschäftsprozesse zur Identifikation von KI-Potenzialen und Erstellung einer strategischen Roadmap."
     },
-    "automation": {
-      "title": "Workflow-Automatisierung",
-      "description": "Optimieren Sie Ihre Abläufe mit intelligenter Automatisierung, die Ihre Tools verbindet und repetitive Aufgaben eliminiert."
+    "consulting": {
+      "title": "Strategische Beratung",
+      "description": "Expertenbegleitung und praktische Unterstützung bei der Entwicklung und Umsetzung Ihrer KI-Strategie für erfolgreiche Implementierung."
     },
-    "custom": {
-      "title": "Custom Solutions",
-      "description": "End-to-End-Entwicklung und Implementierung, um Ihre individuelle Automatisierungsvision zum Leben zu erwecken."
+    "development": {
+      "title": "Individuelle Entwicklung",
+      "description": "Maßgeschneiderte KI-Lösungen speziell für Ihre Geschäftsanforderungen, von Automatisierungs-Workflows bis zu intelligenten Anwendungen."
     }
   },
   "whySeventeenLabs": {
@@ -523,6 +529,349 @@
       "trust2Strike": "$1.497",
       "trust3": "Kostenlose Überarbeitungen für 90 Tage",
       "limitedBadge": "Limitiert: Nur erste 10 Kunden"
+    }
+  },
+  "processTimeline": {
+    "title": "Ihre KI-Transformations-Reise",
+    "subtitle": "Ein bewährter Schritt-für-Schritt-Prozess für die erfolgreiche Implementierung von KI in Ihrem Unternehmen.",
+    "audit": {
+      "title": "Entdecken",
+      "description": "Analysieren Sie Ihre Prozesse und identifizieren Sie KI-Potenziale"
+    },
+    "consulting": {
+      "title": "Strategisieren",
+      "description": "Entwickeln Sie eine maßgeschneiderte KI-Roadmap für Ihre Ziele"
+    },
+    "development": {
+      "title": "Entwickeln",
+      "description": "Erstellen Sie individuelle KI-Lösungen für Ihre Anforderungen"
+    },
+    "launch": {
+      "title": "Skalieren",
+      "description": "Implementieren, optimieren und erweitern Sie Ihre KI-Fähigkeiten"
+    }
+  },
+  "finalCta": {
+    "badge": "Bereit zu starten?",
+    "title": "Gemeinsam Ihre KI-Zukunft gestalten",
+    "description": "Vereinbaren Sie ein kostenloses Beratungsgespräch, um Ihre geschäftlichen Herausforderungen zu besprechen und zu entdecken, wie KI Ihre Prozesse transformieren kann.",
+    "primaryCta": "Kostenlose Beratung vereinbaren",
+    "secondaryCta": "Unsere Services erkunden",
+    "stats": {
+      "response": "< 24h",
+      "responseLabel": "Antwortzeit",
+      "consultation": "Kostenlos",
+      "consultationLabel": "Erstberatung",
+      "commitment": "0",
+      "commitmentLabel": "Verpflichtung zum Start"
+    }
+  },
+  "services": {
+    "audit": {
+      "badge": "KI-Audit",
+      "title": "KI-Audits",
+      "description": "Umfassende Analyse Ihrer Geschäftsprozesse zur Identifikation von KI-Potenzialen und Erstellung einer strategischen Roadmap.",
+      "ctaButton": "Audit anfragen",
+      "benefits": {
+        "analysis": "Umfassende Analyse Ihrer aktuellen Prozesse und Systeme",
+        "opportunities": "Identifikation von KI-Möglichkeiten mit hoher Wirkung",
+        "roadmap": "Umsetzbare Roadmap mit klaren ROI-Prognosen"
+      },
+      "steps": {
+        "analysis": {
+          "title": "Prozessanalyse",
+          "description": "Tiefgehende Analyse Ihrer aktuellen Workflows, Tools und Herausforderungen, um zu verstehen, wo KI Mehrwert schaffen kann."
+        },
+        "opportunities": {
+          "title": "Potenzialidentifikation",
+          "description": "Identifizierung spezifischer KI-Anwendungsfälle, die auf Ihre Geschäftsziele zugeschnitten sind, und Bewertung ihrer potentiellen Auswirkungen."
+        },
+        "roadmap": {
+          "title": "Strategische Roadmap",
+          "description": "Erhalten Sie einen priorisierten Implementierungsplan mit Zeitplänen, benötigten Ressourcen und erwartetem ROI."
+        }
+      },
+      "hero": {
+        "badge": "KI-Audit",
+        "title": "Entdecken Sie Ihr KI-Potenzial",
+        "description": "Erhalten Sie eine umfassende Analyse Ihrer Geschäftsprozesse und identifizieren Sie die besten Möglichkeiten für die KI-Integration. Unser Experten-Audit zeigt, wo KI den größten Mehrwert schaffen kann.",
+        "primaryCta": "Kostenloses Audit anfragen",
+        "secondaryCta": "Mehr erfahren"
+      },
+      "whatIs": {
+        "title": "Was ist ein KI-Audit?",
+        "description": "Unser KI-Audit ist eine gründliche Bewertung Ihrer aktuellen Abläufe und identifiziert spezifische Bereiche, in denen künstliche Intelligenz die Effizienz verbessern, Kosten senken und neue Möglichkeiten erschließen kann.",
+        "features": {
+          "analysis": {
+            "title": "Prozessanalyse",
+            "description": "Wir analysieren Ihre aktuellen Workflows, um Engpässe, sich wiederholende Aufgaben und Automatisierungspotenziale zu identifizieren."
+          },
+          "recommendations": {
+            "title": "KI-Empfehlungen",
+            "description": "Erhalten Sie maßgeschneiderte Empfehlungen für KI-Lösungen, die Ihren Geschäftszielen und Ihrem Budget entsprechen."
+          },
+          "roadmap": {
+            "title": "Implementierungs-Roadmap",
+            "description": "Erhalten Sie eine klare, umsetzbare Roadmap mit Prioritäten, Zeitplänen und erwartetem ROI für jede KI-Initiative."
+          }
+        }
+      },
+      "process": {
+        "title": "Unser Audit-Prozess",
+        "description": "Ein strukturierter Ansatz zum Verständnis Ihres Unternehmens und zur Aufdeckung von KI-Möglichkeiten in nur 2-3 Wochen.",
+        "steps": {
+          "kickoff": {
+            "title": "Kick-off Meeting",
+            "description": "Wir beginnen mit einer tiefgehenden Sitzung, um Ihr Unternehmen, Ihre Herausforderungen und Ziele zu verstehen.",
+            "duration": "1-2 Stunden"
+          },
+          "analysis": {
+            "title": "Prozessanalyse",
+            "description": "Unser Team überprüft Ihre Workflows, Daten und Systeme, um KI-Möglichkeiten zu identifizieren.",
+            "duration": "1-2 Wochen"
+          },
+          "workshop": {
+            "title": "Strategie-Workshop",
+            "description": "Wir präsentieren unsere Ergebnisse und entwickeln gemeinsam mit Ihrem Team die Implementierungsstrategie.",
+            "duration": "Halber Tag"
+          },
+          "delivery": {
+            "title": "Finale Ergebnisse",
+            "description": "Erhalten Sie einen umfassenden Bericht mit Empfehlungen, Roadmap und ROI-Prognosen.",
+            "duration": "1 Woche"
+          }
+        }
+      },
+      "deliverables": {
+        "title": "Was Sie erhalten",
+        "description": "Umfassende Dokumentation und strategische Anleitung, um Ihre KI-Transformationsreise zu beginnen.",
+        "items": {
+          "report": {
+            "title": "Detaillierter Audit-Bericht",
+            "description": "Eine umfassende Analyse Ihres aktuellen Zustands, der KI-Möglichkeiten und spezifischer Anwendungsfälle, geordnet nach Auswirkung und Aufwand."
+          },
+          "roadmap": {
+            "title": "Implementierungs-Roadmap",
+            "description": "Ein phasierter Implementierungsplan mit klaren Meilensteinen, Ressourcenanforderungen und Zeitplänen für jede Initiative."
+          },
+          "quickWins": {
+            "title": "Quick Win Möglichkeiten",
+            "description": "Sofort umsetzbare Verbesserungen, die schnell implementiert werden können, um Mehrwert zu demonstrieren."
+          },
+          "roi": {
+            "title": "ROI-Prognosen",
+            "description": "Datenbasierte Projektionen zu erwarteten Kosten, Einsparungen und geschäftlichen Auswirkungen für jede Empfehlung."
+          }
+        }
+      },
+      "cta": {
+        "title": "Bereit, Ihr KI-Potenzial zu entdecken?",
+        "description": "Vereinbaren Sie eine kostenlose Beratung, um zu besprechen, wie ein KI-Audit Ihr Unternehmen transformieren kann. Keine Verpflichtungen, nur Erkenntnisse.",
+        "primaryButton": "Kostenlose Beratung vereinbaren",
+        "secondaryButton": "Beispielbericht herunterladen",
+        "guarantee": {
+          "title": "Unsere Garantie:",
+          "description": "Wenn wir nicht mindestens 3 wertvolle KI-Möglichkeiten in Ihrem Unternehmen identifizieren, ist das Audit kostenlos."
+        }
+      }
+    },
+    "consulting": {
+      "badge": "Strategische Beratung",
+      "title": "Strategische Beratung",
+      "description": "Expertenbegleitung und praktische Unterstützung bei der Entwicklung und Umsetzung Ihrer KI-Strategie für erfolgreiche Implementierung.",
+      "ctaButton": "Beratung buchen",
+      "benefits": {
+        "strategy": "Strategische KI-Roadmap abgestimmt auf Ihre Geschäftsziele",
+        "guidance": "Expertenbegleitung durch Implementierungsherausforderungen",
+        "optimization": "Kontinuierliche Optimierung für maximalen ROI"
+      },
+      "areas": {
+        "strategy": {
+          "title": "KI-Strategieentwicklung",
+          "description": "Arbeiten Sie mit Experten zusammen, um Ihre KI-Vision zu definieren, realistische Ziele zu setzen und einen umsetzbaren Implementierungsplan zu erstellen."
+        },
+        "implementation": {
+          "title": "Implementierungsunterstützung",
+          "description": "Praktische Begleitung durch jede Phase Ihrer KI-Reise, vom Proof of Concept bis zum vollständigen Rollout."
+        },
+        "optimization": {
+          "title": "Kontinuierliche Optimierung",
+          "description": "Laufende Unterstützung zur Verfeinerung Ihrer KI-Lösungen, Messung der Performance und Maximierung des Geschäftswerts."
+        }
+      },
+      "hero": {
+        "badge": "Strategische Beratung",
+        "title": "Transformieren Sie Ihr Unternehmen mit KI-Strategie",
+        "description": "Arbeiten Sie mit uns zusammen, um eine umfassende KI-Strategie zu entwickeln und umzusetzen. Von der Vision bis zur Implementierung begleiten wir Sie bei jedem Schritt Ihrer KI-Transformation.",
+        "primaryCta": "Strategie starten",
+        "secondaryCta": "Fallstudien ansehen"
+      },
+      "approach": {
+        "title": "Unser Beratungsansatz",
+        "description": "Wir kombinieren strategisches Denken mit praktischer Implementierungsunterstützung, um sicherzustellen, dass Ihre KI-Initiativen echten Geschäftswert liefern.",
+        "items": {
+          "strategy": {
+            "title": "Strategieentwicklung",
+            "description": "Entwickeln Sie eine klare, umsetzbare KI-Strategie, die auf Ihre Geschäftsziele und Wettbewerbssituation abgestimmt ist."
+          },
+          "implementation": {
+            "title": "Implementierungsunterstützung",
+            "description": "Praktische Anleitung zur Umsetzung Ihrer KI-Initiativen, von Pilotprojekten bis zur vollständigen Implementierung."
+          },
+          "training": {
+            "title": "Team-Befähigung",
+            "description": "Befähigen Sie Ihr Team mit dem Wissen und den Fähigkeiten, KI effektiv in ihrer täglichen Arbeit einzusetzen."
+          },
+          "optimization": {
+            "title": "Kontinuierliche Optimierung",
+            "description": "Laufende Überwachung und Verfeinerung, um sicherzustellen, dass Ihre KI-Lösungen weiterhin maximalen Wert liefern."
+          }
+        }
+      },
+      "services": {
+        "title": "Beratungsleistungen",
+        "description": "Maßgeschneiderte Beratungsprojekte, die darauf ausgelegt sind, Ihre KI-Einführung zu beschleunigen und geschäftliche Auswirkungen zu maximieren.",
+        "items": {
+          "aiStrategy": {
+            "title": "KI-Strategie & Roadmap",
+            "description": "Entwickeln Sie eine umfassende KI-Strategie mit klaren Prioritäten, Implementierungs-Roadmap und Governance-Rahmen.",
+            "features": {
+              "assessment": "Ist-Zustand-Bewertung",
+              "roadmap": "3-Jahres KI-Roadmap",
+              "governance": "KI-Governance-Rahmen"
+            }
+          },
+          "processOptimization": {
+            "title": "Prozessoptimierung",
+            "description": "Neugestaltung und Automatisierung von Geschäftsprozessen zur Maximierung der Effizienz und Reduzierung operativer Kosten.",
+            "features": {
+              "analysis": "Prozess-Mapping & Analyse",
+              "automation": "Identifikation von Automatisierungsmöglichkeiten",
+              "monitoring": "Einrichtung von Performance-Monitoring"
+            }
+          },
+          "integration": {
+            "title": "Technologie-Integration",
+            "description": "Nahtlose Integration von KI-Tools und -Plattformen in Ihren bestehenden Technologie-Stack.",
+            "features": {
+              "evaluation": "Technologie-Bewertung",
+              "implementation": "Integrationsplanung & -umsetzung",
+              "support": "Change Management Unterstützung"
+            }
+          }
+        }
+      },
+      "cta": {
+        "title": "Lassen Sie uns gemeinsam Ihre KI-Strategie entwickeln",
+        "description": "Buchen Sie eine Strategiesitzung mit unseren Experten, um Ihre KI-Ziele zu besprechen und wie wir Ihnen helfen können, diese zu erreichen.",
+        "primaryButton": "Strategiesitzung buchen",
+        "secondaryButton": "KI-Strategie-Leitfaden herunterladen"
+      }
+    },
+    "development": {
+      "badge": "Individuelle Entwicklung",
+      "title": "Individuelle Entwicklung",
+      "description": "Maßgeschneiderte KI-Lösungen speziell für Ihre Geschäftsanforderungen, von Automatisierungs-Workflows bis zu intelligenten Anwendungen.",
+      "ctaButton": "Projekt starten",
+      "benefits": {
+        "custom": "Maßgeschneiderte KI-Lösungen für Ihre spezifischen Anforderungen",
+        "scalable": "Skalierbare Architektur für nachhaltiges Wachstum",
+        "integration": "Nahtlose Integration in bestehende Systeme"
+      },
+      "types": {
+        "automation": {
+          "title": "Workflow-Automatisierung",
+          "description": "Maßgeschneiderte Automatisierungslösungen, die Ihre Tools verbinden, manuelle Arbeit eliminieren und Abläufe optimieren."
+        },
+        "aiApps": {
+          "title": "KI-Anwendungen",
+          "description": "Intelligente, KI-gestützte Anwendungen, von Chatbots und virtuellen Assistenten bis zu Predictive Analytics Plattformen."
+        },
+        "integration": {
+          "title": "Systemintegration",
+          "description": "Nahtlose Integration von KI-Funktionen in Ihre bestehenden Systeme und Workflows für maximale Effizienz."
+        }
+      },
+      "hero": {
+        "badge": "Individuelle Entwicklung",
+        "title": "Maßgeschneiderte KI-Lösungen entwickeln",
+        "description": "Von individuellen KI-Anwendungen bis zu intelligenter Automatisierung entwickeln wir Lösungen, die genau auf Ihre einzigartigen Geschäftsanforderungen und Workflows zugeschnitten sind.",
+        "primaryCta": "Projekt starten",
+        "secondaryCta": "Portfolio ansehen"
+      },
+      "capabilities": {
+        "title": "Entwicklungsfähigkeiten",
+        "description": "Wir entwickeln maßgeschneiderte KI-gestützte Lösungen, die sich nahtlos in Ihre bestehenden Systeme und Workflows integrieren.",
+        "items": {
+          "aiIntegration": {
+            "title": "KI-Integration",
+            "description": "Verbinden Sie leistungsstarke KI-Modelle wie GPT-4 und Claude mit Ihren Anwendungen über benutzerdefinierte APIs und Workflows."
+          },
+          "automation": {
+            "title": "Intelligente Automatisierung",
+            "description": "Erstellen Sie anspruchsvolle Automatisierungs-Workflows, die komplexe Geschäftslogik und Entscheidungsfindung handhaben."
+          },
+          "webApps": {
+            "title": "Webanwendungen",
+            "description": "Erstellen Sie moderne, responsive Webanwendungen mit KI-Unterstützung zur Verbesserung von Benutzererfahrung und Produktivität."
+          },
+          "dataProcessing": {
+            "title": "Datenverarbeitung",
+            "description": "Entwickeln Sie maßgeschneiderte Datenpipelines und Verarbeitungssysteme, um Erkenntnisse aus Ihren Geschäftsdaten zu extrahieren."
+          }
+        }
+      },
+      "techStack": {
+        "title": "Technologie-Stack",
+        "description": "Wir verwenden moderne, bewährte Technologien, um skalierbare, wartbare Lösungen zu entwickeln.",
+        "categories": {
+          "ai": {
+            "title": "KI & ML"
+          },
+          "automation": {
+            "title": "Automatisierung"
+          },
+          "web": {
+            "title": "Web-Entwicklung"
+          },
+          "data": {
+            "title": "Daten & Backend"
+          }
+        }
+      },
+      "process": {
+        "title": "Entwicklungsprozess",
+        "description": "Ein agiler, kollaborativer Ansatz, der schnell Mehrwert liefert und gleichzeitig Flexibilität für Änderungen bewahrt.",
+        "steps": {
+          "discovery": {
+            "title": "Discovery & Planung",
+            "description": "Wir verstehen Ihre Anforderungen tiefgehend und erstellen detaillierte Spezifikationen und Projektpläne."
+          },
+          "development": {
+            "title": "Agile Entwicklung",
+            "description": "Entwicklung in 2-Wochen-Sprints mit regelmäßigen Demos und Feedback-Schleifen für optimale Ausrichtung."
+          },
+          "deployment": {
+            "title": "Bereitstellung & Launch",
+            "description": "Nahtlose Bereitstellung in der Produktionsumgebung mit umfassenden Tests und Monitoring-Setup."
+          },
+          "support": {
+            "title": "Laufender Support",
+            "description": "Kontinuierliche Wartung, Updates und Optimierung für langfristigen Erfolg."
+          }
+        }
+      },
+      "cta": {
+        "title": "Bereit, Ihre Lösung zu entwickeln?",
+        "description": "Lassen Sie uns Ihre Projektanforderungen besprechen und wie wir Ihre Vision mit maßgeschneiderter KI-Entwicklung zum Leben erwecken können.",
+        "primaryButton": "Projekt starten",
+        "secondaryButton": "Angebot anfordern",
+        "stats": {
+          "mvp": "MVP-Lieferung",
+          "custom": "Individueller Code",
+          "support": "Support"
+        }
+      }
     }
   }
 }

@@ -35,17 +35,23 @@
     "title": "Smart Business Automation & AI Tools for Growth",
     "description": "From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.",
     "eyebrow": "AI Transformation for modern business",
-    "mainTitle": "We build systems that",
-    "mainTitleSecond": "scale your business",
-    "ctaPrimary": "Start Your Project",
-    "ctaSecondary": "Explore Products",
+    "mainTitle": "AI Solutions for Your Business",
+    "mainTitleSecond": "Audit, Consulting & Development",
+    "subheadline": "We help companies implement AI through strategic audits, expert consulting, and custom development solutions.",
+    "pillars": {
+      "audit": "AI Audits",
+      "consulting": "Strategic Consulting",
+      "building": "Custom Development"
+    },
+    "ctaPrimary": "Schedule Free Consultation",
+    "ctaSecondary": "Learn About Our Services",
     "stats": {
-      "deployment": "20h",
-      "deploymentLabel": "saved per week",
-      "costReduction": "80%",
-      "costReductionLabel": "cost reduction",
-      "automation": "24/7",
-      "automationLabel": "automated operations"
+      "deployment": "2-4 weeks",
+      "deploymentLabel": "project kickoff",
+      "costReduction": "40%",
+      "costReductionLabel": "avg. efficiency gain",
+      "automation": "100%",
+      "automationLabel": "commitment to quality"
     },
     "features": {
       "tools": "Ready-to-use AI tools & apps",
@@ -82,19 +88,19 @@
     }
   },
   "whatWeDo": {
-    "title": "What We Do",
-    "subtitle": "We combine AI innovation with automation expertise to deliver solutions that transform how businesses operate.",
-    "aiProducts": {
-      "title": "AI Products",
-      "description": "Custom-built AI applications tailored to your specific business needs, from chatbots to data analytics platforms."
+    "title": "How We Help You Implement AI",
+    "subtitle": "From strategy to execution, we guide you through every step of your AI transformation journey.",
+    "audit": {
+      "title": "AI Audits",
+      "description": "Comprehensive analysis of your business processes to identify AI opportunities and create a strategic roadmap for implementation."
     },
-    "automation": {
-      "title": "Workflow Automation",
-      "description": "Streamline your operations with intelligent automation that connects your tools and eliminates repetitive tasks."
+    "consulting": {
+      "title": "Strategic Consulting",
+      "description": "Expert guidance and hands-on support to develop and execute your AI strategy, ensuring successful adoption across your organization."
     },
-    "custom": {
-      "title": "Custom Solutions",
-      "description": "End-to-end development and implementation services to bring your unique automation vision to life."
+    "development": {
+      "title": "Custom Development",
+      "description": "Tailored AI solutions built specifically for your business needs, from automation workflows to intelligent applications."
     }
   },
   "whySeventeenLabs": {
@@ -523,6 +529,349 @@
       "trust2Strike": "$1,497",
       "trust3": "Free revisions for 90 days",
       "limitedBadge": "Limited: First 10 clients only"
+    }
+  },
+  "processTimeline": {
+    "title": "Your AI Transformation Journey",
+    "subtitle": "A proven step-by-step process to successfully implement AI in your business.",
+    "audit": {
+      "title": "Discover",
+      "description": "Analyze your processes and identify AI opportunities"
+    },
+    "consulting": {
+      "title": "Strategize",
+      "description": "Develop a tailored AI roadmap for your goals"
+    },
+    "development": {
+      "title": "Build",
+      "description": "Create custom AI solutions that fit your needs"
+    },
+    "launch": {
+      "title": "Scale",
+      "description": "Deploy, optimize, and grow your AI capabilities"
+    }
+  },
+  "finalCta": {
+    "badge": "Ready to get started?",
+    "title": "Let's Build Your AI Future Together",
+    "description": "Schedule a free consultation to discuss your business challenges and discover how AI can transform your operations.",
+    "primaryCta": "Schedule Free Consultation",
+    "secondaryCta": "Explore Our Services",
+    "stats": {
+      "response": "< 24h",
+      "responseLabel": "response time",
+      "consultation": "Free",
+      "consultationLabel": "initial consultation",
+      "commitment": "0",
+      "commitmentLabel": "obligation to start"
+    }
+  },
+  "services": {
+    "audit": {
+      "badge": "AI Audit",
+      "title": "AI Audits",
+      "description": "Comprehensive analysis of your business processes to identify AI opportunities and create a strategic roadmap for implementation.",
+      "ctaButton": "Request an Audit",
+      "benefits": {
+        "analysis": "Comprehensive analysis of your current processes and systems",
+        "opportunities": "Identification of high-impact AI opportunities",
+        "roadmap": "Actionable roadmap with clear ROI projections"
+      },
+      "steps": {
+        "analysis": {
+          "title": "Process Analysis",
+          "description": "Deep dive into your current workflows, tools, and pain points to understand where AI can add value."
+        },
+        "opportunities": {
+          "title": "Opportunity Identification",
+          "description": "Identify specific AI use cases tailored to your business goals and evaluate their potential impact."
+        },
+        "roadmap": {
+          "title": "Strategic Roadmap",
+          "description": "Receive a prioritized implementation plan with timelines, resources needed, and expected ROI."
+        }
+      },
+      "hero": {
+        "badge": "AI Audit",
+        "title": "Discover Your AI Potential",
+        "description": "Get a comprehensive analysis of your business processes and identify the best opportunities for AI integration. Our expert audit reveals where AI can drive the most value.",
+        "primaryCta": "Schedule Free Audit",
+        "secondaryCta": "Learn More"
+      },
+      "whatIs": {
+        "title": "What is an AI Audit?",
+        "description": "Our AI Audit is a thorough evaluation of your current operations, identifying specific areas where artificial intelligence can improve efficiency, reduce costs, and unlock new capabilities.",
+        "features": {
+          "analysis": {
+            "title": "Process Analysis",
+            "description": "We analyze your current workflows to identify bottlenecks, repetitive tasks, and opportunities for automation."
+          },
+          "recommendations": {
+            "title": "AI Recommendations",
+            "description": "Receive tailored recommendations for AI solutions that align with your business goals and budget."
+          },
+          "roadmap": {
+            "title": "Implementation Roadmap",
+            "description": "Get a clear, actionable roadmap with priorities, timelines, and expected ROI for each AI initiative."
+          }
+        }
+      },
+      "process": {
+        "title": "Our Audit Process",
+        "description": "A structured approach to understanding your business and uncovering AI opportunities in just 2-3 weeks.",
+        "steps": {
+          "kickoff": {
+            "title": "Kickoff Meeting",
+            "description": "We start with a deep-dive session to understand your business, challenges, and goals.",
+            "duration": "1-2 hours"
+          },
+          "analysis": {
+            "title": "Process Analysis",
+            "description": "Our team reviews your workflows, data, and systems to identify AI opportunities.",
+            "duration": "1-2 weeks"
+          },
+          "workshop": {
+            "title": "Strategy Workshop",
+            "description": "We present our findings and co-create the implementation strategy with your team.",
+            "duration": "Half day"
+          },
+          "delivery": {
+            "title": "Final Deliverables",
+            "description": "Receive a comprehensive report with recommendations, roadmap, and ROI projections.",
+            "duration": "1 week"
+          }
+        }
+      },
+      "deliverables": {
+        "title": "What You'll Receive",
+        "description": "Comprehensive documentation and strategic guidance to begin your AI transformation journey.",
+        "items": {
+          "report": {
+            "title": "Detailed Audit Report",
+            "description": "A comprehensive analysis of your current state, AI opportunities, and specific use cases ranked by impact and effort."
+          },
+          "roadmap": {
+            "title": "Implementation Roadmap",
+            "description": "A phased implementation plan with clear milestones, resource requirements, and timelines for each initiative."
+          },
+          "quickWins": {
+            "title": "Quick Win Opportunities",
+            "description": "Immediately actionable improvements that can be implemented quickly to demonstrate value."
+          },
+          "roi": {
+            "title": "ROI Projections",
+            "description": "Data-driven projections showing expected costs, savings, and business impact for each recommendation."
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to Discover Your AI Potential?",
+        "description": "Schedule a free consultation to discuss how an AI audit can transform your business. No obligations, just insights.",
+        "primaryButton": "Schedule Free Consultation",
+        "secondaryButton": "Download Sample Report",
+        "guarantee": {
+          "title": "Our Guarantee:",
+          "description": "If we don't identify at least 3 valuable AI opportunities in your business, the audit is free."
+        }
+      }
+    },
+    "consulting": {
+      "badge": "Strategic Consulting",
+      "title": "Strategic Consulting",
+      "description": "Expert guidance and hands-on support to develop and execute your AI strategy, ensuring successful adoption across your organization.",
+      "ctaButton": "Book a Consultation",
+      "benefits": {
+        "strategy": "Strategic AI roadmap aligned with your business goals",
+        "guidance": "Expert guidance through implementation challenges",
+        "optimization": "Continuous optimization for maximum ROI"
+      },
+      "areas": {
+        "strategy": {
+          "title": "AI Strategy Development",
+          "description": "Work with experts to define your AI vision, set realistic goals, and create an actionable implementation plan."
+        },
+        "implementation": {
+          "title": "Implementation Support",
+          "description": "Hands-on guidance through every phase of your AI journey, from proof of concept to full deployment."
+        },
+        "optimization": {
+          "title": "Continuous Optimization",
+          "description": "Ongoing support to refine your AI solutions, measure performance, and maximize business value."
+        }
+      },
+      "hero": {
+        "badge": "Strategic Consulting",
+        "title": "Transform Your Business with AI Strategy",
+        "description": "Partner with us to develop and execute a comprehensive AI strategy. From vision to implementation, we guide you through every step of your AI transformation.",
+        "primaryCta": "Start Your Strategy",
+        "secondaryCta": "View Case Studies"
+      },
+      "approach": {
+        "title": "Our Consulting Approach",
+        "description": "We combine strategic thinking with hands-on implementation support to ensure your AI initiatives deliver real business value.",
+        "items": {
+          "strategy": {
+            "title": "Strategy Development",
+            "description": "Create a clear, actionable AI strategy aligned with your business objectives and competitive landscape."
+          },
+          "implementation": {
+            "title": "Implementation Support",
+            "description": "Hands-on guidance to execute your AI initiatives, from pilot projects to full-scale deployment."
+          },
+          "training": {
+            "title": "Team Enablement",
+            "description": "Empower your team with the knowledge and skills to leverage AI effectively in their daily work."
+          },
+          "optimization": {
+            "title": "Continuous Optimization",
+            "description": "Ongoing monitoring and refinement to ensure your AI solutions continue to deliver maximum value."
+          }
+        }
+      },
+      "services": {
+        "title": "Consulting Services",
+        "description": "Tailored consulting engagements designed to accelerate your AI adoption and maximize business impact.",
+        "items": {
+          "aiStrategy": {
+            "title": "AI Strategy & Roadmap",
+            "description": "Develop a comprehensive AI strategy with clear priorities, implementation roadmap, and governance framework.",
+            "features": {
+              "assessment": "Current state assessment",
+              "roadmap": "3-year AI roadmap",
+              "governance": "AI governance framework"
+            }
+          },
+          "processOptimization": {
+            "title": "Process Optimization",
+            "description": "Redesign and automate business processes to maximize efficiency and reduce operational costs.",
+            "features": {
+              "analysis": "Process mapping & analysis",
+              "automation": "Automation opportunity identification",
+              "monitoring": "Performance monitoring setup"
+            }
+          },
+          "integration": {
+            "title": "Technology Integration",
+            "description": "Seamlessly integrate AI tools and platforms into your existing technology stack.",
+            "features": {
+              "evaluation": "Technology evaluation",
+              "implementation": "Integration planning & execution",
+              "support": "Change management support"
+            }
+          }
+        }
+      },
+      "cta": {
+        "title": "Let's Build Your AI Strategy Together",
+        "description": "Book a strategy session with our experts to discuss your AI goals and how we can help you achieve them.",
+        "primaryButton": "Book Strategy Session",
+        "secondaryButton": "Download AI Strategy Guide"
+      }
+    },
+    "development": {
+      "badge": "Custom Development",
+      "title": "Custom Development",
+      "description": "Tailored AI solutions built specifically for your business needs, from automation workflows to intelligent applications.",
+      "ctaButton": "Start Your Project",
+      "benefits": {
+        "custom": "Custom AI solutions tailored to your specific needs",
+        "scalable": "Scalable architecture built for growth",
+        "integration": "Seamless integration with existing systems"
+      },
+      "types": {
+        "automation": {
+          "title": "Workflow Automation",
+          "description": "Custom automation solutions that connect your tools, eliminate manual work, and streamline operations."
+        },
+        "aiApps": {
+          "title": "AI Applications",
+          "description": "Intelligent applications powered by AI, from chatbots and virtual assistants to predictive analytics platforms."
+        },
+        "integration": {
+          "title": "System Integration",
+          "description": "Seamless integration of AI capabilities into your existing systems and workflows for maximum efficiency."
+        }
+      },
+      "hero": {
+        "badge": "Custom Development",
+        "title": "Build Tailored AI Solutions",
+        "description": "From custom AI applications to intelligent automation, we develop solutions precisely matched to your unique business requirements and workflows.",
+        "primaryCta": "Start Your Project",
+        "secondaryCta": "View Portfolio"
+      },
+      "capabilities": {
+        "title": "Development Capabilities",
+        "description": "We build custom AI-powered solutions that integrate seamlessly with your existing systems and workflows.",
+        "items": {
+          "aiIntegration": {
+            "title": "AI Integration",
+            "description": "Connect powerful AI models like GPT-4 and Claude to your applications with custom APIs and workflows."
+          },
+          "automation": {
+            "title": "Intelligent Automation",
+            "description": "Build sophisticated automation workflows that handle complex business logic and decision-making."
+          },
+          "webApps": {
+            "title": "Web Applications",
+            "description": "Create modern, responsive web applications powered by AI to enhance user experience and productivity."
+          },
+          "dataProcessing": {
+            "title": "Data Processing",
+            "description": "Develop custom data pipelines and processing systems to extract insights from your business data."
+          }
+        }
+      },
+      "techStack": {
+        "title": "Technology Stack",
+        "description": "We use modern, proven technologies to build scalable, maintainable solutions.",
+        "categories": {
+          "ai": {
+            "title": "AI & ML"
+          },
+          "automation": {
+            "title": "Automation"
+          },
+          "web": {
+            "title": "Web Development"
+          },
+          "data": {
+            "title": "Data & Backend"
+          }
+        }
+      },
+      "process": {
+        "title": "Development Process",
+        "description": "An agile, collaborative approach that delivers value quickly while maintaining flexibility for changes.",
+        "steps": {
+          "discovery": {
+            "title": "Discovery & Planning",
+            "description": "We deeply understand your requirements and create detailed specifications and project plans."
+          },
+          "development": {
+            "title": "Agile Development",
+            "description": "Build in 2-week sprints with regular demos and feedback loops to ensure alignment."
+          },
+          "deployment": {
+            "title": "Deployment & Launch",
+            "description": "Seamless deployment to production with comprehensive testing and monitoring setup."
+          },
+          "support": {
+            "title": "Ongoing Support",
+            "description": "Continuous maintenance, updates, and optimization to ensure long-term success."
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to Build Your Solution?",
+        "description": "Let's discuss your project requirements and how we can bring your vision to life with custom AI development.",
+        "primaryButton": "Start Your Project",
+        "secondaryButton": "Request Proposal",
+        "stats": {
+          "mvp": "MVP Delivery",
+          "custom": "Custom Code",
+          "support": "Support"
+        }
+      }
     }
   }
 }

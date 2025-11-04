@@ -26,14 +26,14 @@ export default function LandingHeader() {
   const { t } = useTranslations();
   const locale = useLocale();
 
-  // Solutions - What problems we solve (industry-specific)
-  const solutionsItems = [
+  // Industries - What problems we solve (industry-specific)
+  const industriesItems = [
     {
       title: locale === 'de' ? "Marketing-Agenturen" : "Marketing Agencies",
       description: locale === 'de' 
         ? "Lead-Management, Social Media Automatisierung & Client Reporting"
         : "Lead management, social media automation & client reporting",
-      href: getLocalizedPath(locale, '/solutions/marketing-agencies'),
+      href: getLocalizedPath(locale, '/industries/marketing-agencies'),
     },
     // Add more industry solutions here later
   ];
@@ -55,18 +55,25 @@ export default function LandingHeader() {
   // Services - Custom development
   const servicesItems = [
     {
-      title: locale === 'de' ? "Software-Entwicklung" : "Software Development",
+      title: locale === 'de' ? "AI Audit" : "AI Audit",
       description: locale === 'de' 
-        ? "Maßgeschneiderte Apps, Integrationen und APIs für Ihr Unternehmen"
-        : "Custom apps, integrations, and APIs tailored to your business",
-      href: getLocalizedPath(locale, '/agency'),
+        ? "Potenzialanalyse für AI-Integration in Ihrem Unternehmen"
+        : "Potential analysis for AI integration in your business",
+      href: getLocalizedPath(locale, '/services/ai-audit'),
     },
     {
-      title: locale === 'de' ? "Automatisierungs-Beratung" : "Automation Consulting",
+      title: locale === 'de' ? "Strategische Beratung" : "Strategic Consulting",
       description: locale === 'de'
-        ? "Strategieberatung, Workflow-Design und Implementierung"
-        : "Strategy consulting, workflow design, and implementation",
-      href: getLocalizedPath(locale, '/services/automation-consulting'),
+        ? "Maßgeschneiderte AI-Strategie und Implementierungsplanung"
+        : "Custom AI strategy and implementation planning",
+      href: getLocalizedPath(locale, '/services/ai-consulting'),
+    },
+    {
+      title: locale === 'de' ? "Individuelle Entwicklung" : "Custom Development",
+      description: locale === 'de'
+        ? "Maßgeschneiderte AI-Lösungen und Automatisierungen"
+        : "Custom AI solutions and automations tailored to your needs",
+      href: getLocalizedPath(locale, '/services/ai-development'),
     },
   ];
 
@@ -99,26 +106,6 @@ export default function LandingHeader() {
             <div className="hidden lg:flex lg:items-center">
               <NavigationMenu>
                 <NavigationMenuList className="space-x-6">
-                  {/* Solutions Dropdown - Industry-specific */}
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
-                      {t("common.solutions")}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
-                        {solutionsItems.map((item) => (
-                          <ListItem
-                            key={item.title}
-                            title={item.title}
-                            href={item.href}
-                          >
-                            {item.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
                   {/* Services Dropdown - Custom work */}
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
@@ -147,6 +134,26 @@ export default function LandingHeader() {
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
                         {productsItems.map((item) => (
+                          <ListItem
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  {/* Industries Dropdown - Industry-specific */}
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
+                      {locale === 'de' ? 'Branchen' : 'Industries'}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
+                        {industriesItems.map((item) => (
                           <ListItem
                             key={item.title}
                             title={item.title}
@@ -239,24 +246,6 @@ export default function LandingHeader() {
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-white/20">
                   <div className="space-y-2 py-6">
-                    {/* Solutions - Industry-specific */}
-                    <div className="px-3 py-2">
-                      <div className="text-sm font-semibold text-white/50 mb-2">
-                        {t("common.solutions")}
-                      </div>
-                      {solutionsItems.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          <div className="font-medium">{item.title}</div>
-                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
-                        </Link>
-                      ))}
-                    </div>
-
                     {/* Services */}
                     <div className="px-3 py-2">
                       <div className="text-sm font-semibold text-white/50 mb-2">
@@ -281,6 +270,24 @@ export default function LandingHeader() {
                         {t("common.products")}
                       </div>
                       {productsItems.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
+                        </Link>
+                      ))}
+                    </div>
+
+                    {/* Industries - Industry-specific */}
+                    <div className="px-3 py-2">
+                      <div className="text-sm font-semibold text-white/50 mb-2">
+                        {locale === 'de' ? 'Branchen' : 'Industries'}
+                      </div>
+                      {industriesItems.map((item) => (
                         <Link
                           key={item.title}
                           href={item.href}

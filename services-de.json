@@ -1,0 +1,64 @@
+{
+  "services": {
+    "audit": {
+      "badge": "KI-Audit",
+      "title": "KI-Audits",
+      "description": "Umfassende Analyse Ihrer Geschäftsprozesse zur Identifikation von KI-Potenzialen und Erstellung einer strategischen Roadmap.",
+      "cta": "Audit anfragen",
+      "steps": {
+        "analysis": {
+          "title": "Prozessanalyse",
+          "description": "Tiefgehende Analyse Ihrer aktuellen Workflows, Tools und Herausforderungen, um zu verstehen, wo KI Mehrwert schaffen kann."
+        },
+        "opportunities": {
+          "title": "Potenzialidentifikation",
+          "description": "Identifizierung spezifischer KI-Anwendungsfälle, die auf Ihre Geschäftsziele zugeschnitten sind, und Bewertung ihrer potentiellen Auswirkungen."
+        },
+        "roadmap": {
+          "title": "Strategische Roadmap",
+          "description": "Erhalten Sie einen priorisierten Implementierungsplan mit Zeitplänen, benötigten Ressourcen und erwartetem ROI."
+        }
+      }
+    },
+    "consulting": {
+      "badge": "Strategische Beratung",
+      "title": "Strategische Beratung",
+      "description": "Expertenbegleitung und praktische Unterstützung bei der Entwicklung und Umsetzung Ihrer KI-Strategie für erfolgreiche Implementierung.",
+      "cta": "Beratung buchen",
+      "areas": {
+        "strategy": {
+          "title": "KI-Strategieentwicklung",
+          "description": "Arbeiten Sie mit Experten zusammen, um Ihre KI-Vision zu definieren, realistische Ziele zu setzen und einen umsetzbaren Implementierungsplan zu erstellen."
+        },
+        "implementation": {
+          "title": "Implementierungsunterstützung",
+          "description": "Praktische Begleitung durch jede Phase Ihrer KI-Reise, vom Proof of Concept bis zum vollständigen Rollout."
+        },
+        "optimization": {
+          "title": "Kontinuierliche Optimierung",
+          "description": "Laufende Unterstützung zur Verfeinerung Ihrer KI-Lösungen, Messung der Performance und Maximierung des Geschäftswerts."
+        }
+      }
+    },
+    "development": {
+      "badge": "Individuelle Entwicklung",
+      "title": "Individuelle Entwicklung",
+      "description": "Maßgeschneiderte KI-Lösungen speziell für Ihre Geschäftsanforderungen, von Automatisierungs-Workflows bis zu intelligenten Anwendungen.",
+      "cta": "Projekt starten",
+      "types": {
+        "automation": {
+          "title": "Workflow-Automatisierung",
+          "description": "Maßgeschneiderte Automatisierungslösungen, die Ihre Tools verbinden, manuelle Arbeit eliminieren und Abläufe optimieren."
+        },
+        "aiApps": {
+          "title": "KI-Anwendungen",
+          "description": "Intelligente, KI-gestützte Anwendungen, von Chatbots und virtuellen Assistenten bis zu Predictive Analytics Plattformen."
+        },
+        "integration": {
+          "title": "Systemintegration",
+          "description": "Nahtlose Integration von KI-Funktionen in Ihre bestehenden Systeme und Workflows für maximale Effizienz."
+        }
+      }
+    }
+  }
+}

@@ -13,34 +13,34 @@ export function AboutMission({ locale }: AboutMissionProps) {
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Empower businesses to scale efficiently through intelligent automation and AI-powered solutions.',
+        description: 'Guide businesses through their complete AI journey—from discovering opportunities to implementing and scaling intelligent solutions.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'A world where every business, regardless of size, can leverage enterprise-level automation to compete and thrive.',
+        description: 'Make AI transformation accessible to every business through a clear, proven process: Audit, Strategy, Build, Scale.',
       },
       approach: {
         icon: Rocket,
         title: 'Approach',
-        description: 'Combine ready-to-use products with expert services to deliver maximum value with minimal complexity.',
+        description: 'Combine deep industry expertise with hands-on execution to deliver measurable results at every stage of your AI journey.',
       },
     },
     de: {
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Unternehmen durch intelligente Automatisierung und KI-gestützte Lösungen effizient skalieren.',
+        description: 'Unternehmen durch ihre komplette KI-Reise begleiten—von der Entdeckung von Möglichkeiten bis zur Implementierung und Skalierung intelligenter Lösungen.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'Eine Welt, in der jedes Unternehmen, unabhängig von der Größe, Enterprise-Level-Automatisierung nutzen kann.',
+        description: 'KI-Transformation für jedes Unternehmen zugänglich machen durch einen klaren, bewährten Prozess: Audit, Strategie, Entwicklung, Skalierung.',
       },
       approach: {
         icon: Rocket,
         title: 'Ansatz',
-        description: 'Kombination von gebrauchsfertigen Produkten mit Expertendienstleistungen für maximalen Mehrwert.',
+        description: 'Tiefe Branchenexpertise mit praktischer Umsetzung kombinieren, um messbare Ergebnisse in jeder Phase Ihrer KI-Reise zu liefern.',
       },
     },
   };
