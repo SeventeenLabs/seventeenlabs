@@ -24,6 +24,27 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         : 'AI-powered workflow automation specifically for marketing agencies',
       url: isGerman ? `${baseUrl}/de/solutions/marketing-agencies` : `${baseUrl}/solutions/marketing-agencies`,
       type: 'website',
+      siteName: 'SeventeenLabs',
+      locale: isGerman ? 'de_DE' : 'en_US',
+      images: [
+        {
+          url: `${baseUrl}/marketing-agencies/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: 'Marketing Agency Automation Solutions | Seventeen Labs',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: isGerman 
+        ? 'Workflow-Automatisierung für Marketing-Agenturen | SeventeenLabs'
+        : 'Workflow Automation for Marketing Agencies | SeventeenLabs',
+      description: isGerman
+        ? 'KI-gestützte Workflow-Automatisierung speziell für Marketing-Agenturen'
+        : 'AI-powered workflow automation specifically for marketing agencies',
+      images: [`${baseUrl}/marketing-agencies/opengraph-image`],
+      creator: '@seventeenlabs',
     },
     alternates: {
       canonical: isGerman ? `${baseUrl}/de/solutions/marketing-agencies` : `${baseUrl}/solutions/marketing-agencies`,

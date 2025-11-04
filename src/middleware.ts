@@ -43,7 +43,10 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/robots.txt') ||
     pathname.startsWith('/sitemap.xml') ||
     pathname.startsWith('/workflows') ||
-    pathname.startsWith('/(apps)')
+    pathname.startsWith('/(apps)') ||
+    pathname.startsWith('/agency-automation-blueprint') ||
+    pathname.startsWith('/marketing-agencies') ||
+    pathname.startsWith('/opengraph-image')
   ) {
     return NextResponse.next();
   }

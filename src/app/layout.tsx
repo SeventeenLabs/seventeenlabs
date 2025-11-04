@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     description: 'Transform your business with AI-powered workflow automation and custom development solutions.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'SeventeenLabs - Workflow Automation Platform',
+        alt: 'SeventeenLabs - AI-Powered Workflow Automation & Custom Development',
       },
     ],
   },
@@ -40,7 +40,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'SeventeenLabs - AI-Powered Workflow Automation',
     description: 'Transform your business with AI-powered workflow automation and custom development.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
+    creator: '@seventeenlabs',
   },
   robots: {
     index: true,
@@ -64,5 +65,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }

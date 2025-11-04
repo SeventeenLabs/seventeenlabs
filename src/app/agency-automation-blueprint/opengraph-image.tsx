@@ -1,7 +1,7 @@
 ﻿import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'SeventeenLabs - AI-Powered Workflow Automation';
+export const alt = 'Agency Automation Blueprint - Save 15+ Hours/Week | Seventeen Labs';
 export const size = {
   width: 1200,
   height: 630,
@@ -17,13 +17,13 @@ export default async function Image() {
           width: '100%',
           display: 'flex',
           position: 'relative',
-          background: 'linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 25%, #2d1b4e 50%, #1a1a3a 75%, #0a0a1a 100%)',
+          background: 'linear-gradient(135deg, #1a0a0a 0%, #2d1010 25%, #4a1a1a 50%, #2d1010 75%, #1a0a0a 100%)',
         }}
       >
-        {/* Surreal space-like gradient overlays */}
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 70% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 50%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.12) 0%, transparent 50%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 85% 60%, rgba(236, 72, 153, 0.1) 0%, transparent 40%)' }} />
+        {/* Fiery abstract gradient overlays - red/orange theme */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 70% 30%, rgba(239, 68, 68, 0.25) 0%, transparent 50%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 70%, rgba(251, 146, 60, 0.2) 0%, transparent 50%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 85% 60%, rgba(220, 38, 38, 0.15) 0%, transparent 40%)' }} />
         
         {/* Left fade gradient for text readability */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%)', width: '50%' }} />
@@ -44,29 +44,29 @@ export default async function Image() {
           {/* Main Content */}
           <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '600px' }}>
             <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px', fontWeight: 300 }}>
-              AI-Powered Automation
+              Agency Automation Blueprint
             </div>
             <div style={{ fontSize: 56, fontWeight: 300, color: '#ffffff', lineHeight: 1.1, marginBottom: '20px' }}>
-              Transform Your Business with Intelligent Workflows
+              Save 15+ Hours per Week
             </div>
             <div style={{ fontSize: 20, fontWeight: 300, color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.5 }}>
-              Automate repetitive tasks and focus on what matters most
+              3 Custom Automations to Scale Your Agency
             </div>
           </div>
 
           {/* Stats */}
           <div style={{ display: 'flex', gap: '60px' }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>AI-First</div>
-              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Technology</div>
+              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>$499</div>
+              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Early Adopter</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>Custom</div>
-              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Solutions</div>
+              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>5-7 Days</div>
+              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Delivery</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>24/7</div>
-              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Support</div>
+              <div style={{ fontSize: 36, fontWeight: 300, color: '#ffffff' }}>100%</div>
+              <div style={{ fontSize: 14, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 300 }}>Human Analysis</div>
             </div>
           </div>
         </div>
