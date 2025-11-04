@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle2, Calendar, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle2, Mail, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import LandingHeader from "@/components/landing-header";
 import SiteFooter from "@/components/site-footer";
 
 export default function BlueprintSuccessPage() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
-  const [loading, setLoading] = useState(true);
-  const [sessionData, setSessionData] = useState<any>(null);
 
   useEffect(() => {
     if (sessionId) {
@@ -29,17 +28,6 @@ export default function BlueprintSuccessPage() {
           }]
         });
       }
-
-      // Fetch session details (optional)
-      fetch(`/api/checkout-session?session_id=${sessionId}`)
-        .then(res => res.json())
-        .then(data => {
-          setSessionData(data);
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    } else {
-      setLoading(false);
     }
   }, [sessionId]);
 
@@ -132,13 +120,13 @@ export default function BlueprintSuccessPage() {
                 <Mail className="h-4 w-4" />
                 <span>Email Us</span>
               </a>
-              <a
+              <Link
                 href="/"
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white px-8 py-4 rounded-sm font-light hover:bg-white/5 transition-all"
               >
                 <span>Back to Home</span>
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
             {/* Additional Info */}
