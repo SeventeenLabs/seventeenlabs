@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: isGerman 
       ? 'Agentur für KI-Automatisierung & Softwareentwicklung'
-      : 'AI Automation & Custom Development Agency',
+      : 'AI Automation & Development Agency',
     description: isGerman
       ? 'Maßgeschneiderte Softwareentwicklung, KI-Integration und Workflow-Automatisierung. Transformieren Sie Ihr Unternehmen mit intelligenten Automatisierungslösungen von SeventeenLabs.'
       : 'Custom software development, AI integration, and workflow automation services. Transform your business with intelligent automation solutions from SeventeenLabs.',

@@ -123,7 +123,7 @@ export default function SiteFooter() {
             </h3>
             <nav className="space-y-3">
               <Link
-                href={getLocalizedPath(locale, '/workflows')}
+                href={getLocalizedPath(locale, '/workflows', { skipLocale: true })}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.workflows}
@@ -140,7 +140,7 @@ export default function SiteFooter() {
             </h3>
             <nav className="space-y-3">
               <Link
-                href={getLocalizedPath(locale, '/marketing-agencies')}
+                href={getLocalizedPath(locale, '/industries/marketing-agencies')}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.marketingAgencies}

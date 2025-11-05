@@ -1,14 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "@/lib/i18n/context";
+import { useLocale, useTranslations } from "@/lib/i18n/context";
 import { SearchCheck, FileSearch, Target, CheckCircle2, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ContactModal from "@/components/contact-modal";
 import Link from "next/link";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 
 export default function AiAuditService() {
   const { t } = useTranslations();
+  const locale = useLocale();
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const auditSteps = [
@@ -82,10 +84,10 @@ export default function AiAuditService() {
                 {t("services.audit.ctaButton")}
               </button>
               <Link
-                href="/services/ai-audit"
+                href={getLocalizedPath(locale, "/services/ai-audit")}
                 className="group relative px-8 py-3.5 text-sm font-medium text-blue-300 border border-blue-500/20 rounded-lg hover:bg-blue-500/10 transition-all duration-300 inline-flex items-center gap-2"
               >
-                {t("common.learnMore")}
+                {t("services.audit.learnMoreLink")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

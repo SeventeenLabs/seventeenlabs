@@ -22,9 +22,9 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
       ? 'Führende Plattform für KI-gestützte Workflow-Automatisierung und maßgeschneiderte Softwareentwicklung'
       : 'Leading platform for AI-powered workflow automation and custom software development',
     sameAs: [
-      // Add your social media links here
-      // 'https://twitter.com/seventeenlabs',
-      // 'https://linkedin.com/company/seventeenlabs',
+      'https://twitter.com/seventeenlabs',
+      'https://www.linkedin.com/company/seventeenlabs-io',
+      'https://www.youtube.com/@seventeenlabs',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

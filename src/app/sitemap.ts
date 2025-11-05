@@ -8,27 +8,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Priority: 1.0 = most important, 0.0 = least important
   // Higher priority pages are crawled more frequently by search engines
   const marketingPages = [
-    // Homepage - highest priority, updated daily
     { path: '', priority: 1.0, changeFreq: 'daily' as const },
-    
-    // Core landing pages - high priority
     { path: '/agency', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/marketing-agencies', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/agency-automation-blueprint', priority: 0.9, changeFreq: 'weekly' as const },
-    
-    // Solutions pages - medium-high priority
-    { path: '/solutions/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
-    
-    // Service pages - medium priority
-    { path: '/services/automation-consulting', priority: 0.8, changeFreq: 'weekly' as const },
-    { path: '/services/automation/ai-workflow-automation', priority: 0.8, changeFreq: 'weekly' as const },
-    { path: '/services/automation/custom-development', priority: 0.8, changeFreq: 'weekly' as const },
-    
-    // Apps and tools - medium priority
-    { path: '/apps', priority: 0.8, changeFreq: 'weekly' as const },
-    
-    // About page - lower priority, changes infrequently
-    { path: '/about', priority: 0.7, changeFreq: 'monthly' as const },
+    { path: '/apps', priority: 0.85, changeFreq: 'weekly' as const },
+    { path: '/about', priority: 0.75, changeFreq: 'monthly' as const },
+    { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
+    { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/services/ai-development', priority: 0.8, changeFreq: 'weekly' as const },
   ];
 
   // Generate sitemap entries for all locale combinations
@@ -64,20 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  // Add workflow app pages (lower priority, dynamic content)
+  // Add workflow app page (single language)
   sitemapEntries.push({
     url: `${baseUrl}/workflows`,
     lastModified: currentDate,
-    changeFrequency: 'daily',
-    priority: 0.7,
-  });
-
-  // Add admin app page (lower priority)
-  sitemapEntries.push({
-    url: `${baseUrl}/admin`,
-    lastModified: currentDate,
     changeFrequency: 'weekly',
-    priority: 0.5,
+    priority: 0.6,
   });
 
   return sitemapEntries;

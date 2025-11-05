@@ -1,14 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "@/lib/i18n/context";
+import { useLocale, useTranslations } from "@/lib/i18n/context";
 import { Code2, Workflow, Bot, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import ContactModal from "@/components/contact-modal";
 import Link from "next/link";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 
 export default function DevelopmentService() {
   const { t } = useTranslations();
+  const locale = useLocale();
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const developmentTypes = [
@@ -81,11 +83,11 @@ export default function DevelopmentService() {
               >
                 {t("services.development.ctaButton")}
               </button>
-              <Link
-                href="/services/ai-development"
-                className="group relative px-8 py-3.5 text-sm font-medium text-emerald-300 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/10 transition-all duration-300 inline-flex items-center gap-2"
-              >
-                {t("common.learnMore")}
+                <Link
+                  href={getLocalizedPath(locale, "/services/ai-development")}
+                  className="group relative px-8 py-3.5 text-sm font-medium text-emerald-300 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/10 transition-all duration-300 inline-flex items-center gap-2"
+                >
+                  {t("services.development.learnMoreLink")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

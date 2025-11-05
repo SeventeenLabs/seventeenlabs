@@ -17,7 +17,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "SeventeenLabs - AI Automation Agency | Custom Workflow Solutions",
+    default: "SeventeenLabs | AI Automation Agency",
     template: "%s | SeventeenLabs"
   },
   description: "AI automation agency specializing in custom workflow automation, intelligent process optimization, and scalable automation solutions. Transform your business operations with AI-powered workflows.",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'SeventeenLabs',
-    title: 'SeventeenLabs - AI Automation Agency | Custom Workflow Solutions',
+  title: 'SeventeenLabs | AI Automation Agency',
     description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.',
     images: [
       {

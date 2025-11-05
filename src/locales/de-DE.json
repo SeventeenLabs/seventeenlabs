@@ -571,7 +571,8 @@
       "badge": "KI-Audit",
       "title": "KI-Audits",
       "description": "Umfassende Analyse Ihrer Geschäftsprozesse zur Identifikation von KI-Potenzialen und Erstellung einer strategischen Roadmap.",
-      "ctaButton": "Audit anfragen",
+  "ctaButton": "Audit anfragen",
+  "learnMoreLink": "Details zum KI-Audit ansehen",
       "benefits": {
         "analysis": "Umfassende Analyse Ihrer aktuellen Prozesse und Systeme",
         "opportunities": "Identifikation von KI-Möglichkeiten mit hoher Wirkung",
@@ -679,7 +680,8 @@
       "badge": "Strategische Beratung",
       "title": "Strategische Beratung",
       "description": "Expertenbegleitung und praktische Unterstützung bei der Entwicklung und Umsetzung Ihrer KI-Strategie für erfolgreiche Implementierung.",
-      "ctaButton": "Beratung buchen",
+  "ctaButton": "Beratung buchen",
+  "learnMoreLink": "So unterstützen wir Sie mit KI-Beratung",
       "benefits": {
         "strategy": "Strategische KI-Roadmap abgestimmt auf Ihre Geschäftsziele",
         "guidance": "Expertenbegleitung durch Implementierungsherausforderungen",
@@ -772,7 +774,8 @@
       "badge": "Individuelle Entwicklung",
       "title": "Individuelle Entwicklung",
       "description": "Maßgeschneiderte KI-Lösungen speziell für Ihre Geschäftsanforderungen, von Automatisierungs-Workflows bis zu intelligenten Anwendungen.",
-      "ctaButton": "Projekt starten",
+  "ctaButton": "Projekt starten",
+  "learnMoreLink": "Unsere individuellen KI-Entwicklungen entdecken",
       "benefits": {
         "custom": "Maßgeschneiderte KI-Lösungen für Ihre spezifischen Anforderungen",
         "scalable": "Skalierbare Architektur für nachhaltiges Wachstum",

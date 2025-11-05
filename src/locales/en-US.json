@@ -571,7 +571,8 @@
       "badge": "AI Audit",
       "title": "AI Audits",
       "description": "Comprehensive analysis of your business processes to identify AI opportunities and create a strategic roadmap for implementation.",
-      "ctaButton": "Request an Audit",
+  "ctaButton": "Request an Audit",
+  "learnMoreLink": "Explore the AI audit service details",
       "benefits": {
         "analysis": "Comprehensive analysis of your current processes and systems",
         "opportunities": "Identification of high-impact AI opportunities",
@@ -679,7 +680,8 @@
       "badge": "Strategic Consulting",
       "title": "Strategic Consulting",
       "description": "Expert guidance and hands-on support to develop and execute your AI strategy, ensuring successful adoption across your organization.",
-      "ctaButton": "Book a Consultation",
+  "ctaButton": "Book a Consultation",
+  "learnMoreLink": "See how our AI consulting engagements work",
       "benefits": {
         "strategy": "Strategic AI roadmap aligned with your business goals",
         "guidance": "Expert guidance through implementation challenges",
@@ -772,7 +774,8 @@
       "badge": "Custom Development",
       "title": "Custom Development",
       "description": "Tailored AI solutions built specifically for your business needs, from automation workflows to intelligent applications.",
-      "ctaButton": "Start Your Project",
+  "ctaButton": "Start Your Project",
+  "learnMoreLink": "Review our custom AI development capabilities",
       "benefits": {
         "custom": "Custom AI solutions tailored to your specific needs",
         "scalable": "Scalable architecture built for growth",

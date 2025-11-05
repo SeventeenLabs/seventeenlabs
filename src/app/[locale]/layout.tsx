@@ -32,23 +32,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const validLocale = getLocaleFromString(locale);
   const isGerman = validLocale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const title = isGerman
+    ? 'SeventeenLabs | KI-Automatisierungsagentur'
+    : 'SeventeenLabs | AI Automation Agency';
+  const description = isGerman
+    ? 'KI-Automatisierungsagentur für maßgeschneiderte Workflow-Automatisierung und intelligente Prozessoptimierung. Transformieren Sie Ihr Unternehmen mit KI-gestützten Lösungen.'
+    : 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.';
 
   return {
     metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: isGerman ? `${baseUrl}/de` : baseUrl,
-      languages: {
-        'en': baseUrl,
-        'de': `${baseUrl}/de`,
-      },
-    },
+    title,
+    description,
     openGraph: {
       type: 'website',
       locale: isGerman ? 'de_DE' : 'en_US',
       url: isGerman ? `${baseUrl}/de` : baseUrl,
       siteName: 'SeventeenLabs',
-      title: 'SeventeenLabs - AI Automation Agency | Custom Workflow Solutions',
-      description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.',
+      title,
+      description,
       images: [
         {
           url: `${baseUrl}/opengraph-image`,
@@ -60,8 +61,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'SeventeenLabs - AI Automation Agency',
-      description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization.',
+      title,
+      description,
       images: [`${baseUrl}/opengraph-image`],
       creator: '@seventeenlabs',
       site: '@seventeenlabs',
@@ -151,10 +152,6 @@ export default async function LocaleLayout({
   return (
     <>
       {/* Hreflang tags with absolute URLs for international SEO */}
-      <link rel="alternate" hrefLang="en" href={baseUrl} />
-      <link rel="alternate" hrefLang="de" href={`${baseUrl}/de`} />
-      <link rel="alternate" hrefLang="x-default" href={baseUrl} />
-      
       {/* Structured Data - JSON-LD */}
       <script
         type="application/ld+json"

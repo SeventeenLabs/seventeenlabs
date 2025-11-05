@@ -43,7 +43,7 @@ export default function LandingHeader() {
     {
       title: t("navigation.solutions.workflowAutomation.title"),
       description: t("navigation.solutions.workflowAutomation.description"),
-      href: `/workflows`,
+      href: getLocalizedPath(locale, '/workflows', { skipLocale: true }),
     },
     {
       title: t("navigation.solutions.aiProducts.title"),

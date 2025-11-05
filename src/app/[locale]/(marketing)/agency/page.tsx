@@ -1,20 +1,5 @@
-"use client";
-
-import { use, useState } from "react";
 import type { Metadata } from "next";
-import { Code2, Workflow, Brain, Lightbulb, CheckCircle2, TrendingUp, Users, Clock, Target } from "lucide-react";
-import LandingHeader from "@/components/landing-header";
-import SiteFooter from "@/components/site-footer";
-import ContactModal from "@/components/contact-modal";
-import AgencyHero from "@/components/agency/agency-hero";
-import AgencyServices from "@/components/agency/agency-services";
-import AgencyProcess from "@/components/agency/agency-process";
-import AgencyResults from "@/components/agency/agency-results";
-import AgencyTeam from "@/components/agency/agency-team";
-import AgencyCTA from "@/components/agency/agency-cta";
-
-// Note: For client components, metadata should be in layout.tsx
-// Consider creating a server component wrapper if needed
+import AgencyPageClient from "./AgencyPageClient";
 
 interface AgencyPageProps {
   params: Promise<{
@@ -22,66 +7,72 @@ interface AgencyPageProps {
   }>;
 }
 
-export default function AgencyPage({ params }: AgencyPageProps) {
-  const { locale } = use(params);
-  const [contactModalOpen, setContactModalOpen] = useState(false);
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 
-  const services = [
-    { key: "customDev", icon: Code2, color: "from-blue-500 to-cyan-500" },
-    { key: "automation", icon: Workflow, color: "from-purple-500 to-pink-500" },
-    { key: "aiIntegration", icon: Brain, color: "from-green-500 to-emerald-500" },
-    { key: "consulting", icon: Lightbulb, color: "from-orange-500 to-red-500" }
-  ];
+export async function generateMetadata({ params }: AgencyPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const isGerman = locale === "de";
+  const pagePath = isGerman ? "/de/agency" : "/agency";
 
-  const processSteps = [
-    { key: "discovery", icon: Target, number: "01" },
-    { key: "planning", icon: Lightbulb, number: "02" },
-    { key: "implementation", icon: Code2, number: "03" },
-    { key: "support", icon: TrendingUp, number: "04" }
-  ];
+  const title = isGerman
+    ? "KI-Automatisierungs- & Entwicklungsagentur"
+    : "AI Automation & Development Agency";
 
-  const stats = [
-    { key: "timeSaved", icon: Clock },
-    { key: "projects", icon: CheckCircle2 },
-    { key: "satisfaction", icon: Users },
-    { key: "roi", icon: TrendingUp }
-  ];
+  const description = isGerman
+    ? "SeventeenLabs plant, entwickelt und betreibt maßgeschneiderte KI- und Automatisierungslösungen für Agenturen und schnell wachsende Teams."
+    : "SeventeenLabs plans, builds, and runs bespoke AI automation solutions for agencies and fast-scaling teams.";
 
-  return (
-    <div className="bg-slate-950">
-      <LandingHeader />
-      
-      <AgencyHero 
-        onContactClick={() => setContactModalOpen(true)} 
-        locale={locale} 
-      />
-      
-      <AgencyServices 
-        services={services} 
-        locale={locale} 
-      />
-      
-      <AgencyProcess 
-        steps={processSteps} 
-      />
-      
-      <AgencyResults 
-        stats={stats} 
-      />
-      
-      <AgencyTeam 
-        locale={locale} 
-      />
-      
-      <AgencyCTA 
-        onContactClick={() => setContactModalOpen(true)} 
-      />
+  return {
+    title,
+    description,
+    keywords: isGerman
+      ? [
+          "KI Automatisierungsagentur",
+          "Workflow Automatisierung",
+          "Individuelle Softwareentwicklung",
+          "n8n Agentur",
+          "AI Beratung",
+        ]
+      : [
+          "AI automation agency",
+          "workflow automation",
+          "custom software development",
+          "n8n agency",
+          "AI consulting",
+        ],
+    alternates: {
+      canonical: `${baseUrl}${pagePath}`,
+      languages: {
+        en: `${baseUrl}/agency`,
+        de: `${baseUrl}/de/agency`,
+      },
+    },
+    openGraph: {
+      title: `${title} | SeventeenLabs`,
+      description,
+      url: `${baseUrl}${pagePath}`,
+      type: "website",
+      siteName: "SeventeenLabs",
+      locale: isGerman ? "de_DE" : "en_US",
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "SeventeenLabs Agency",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | SeventeenLabs`,
+      description,
+      images: [`${baseUrl}/opengraph-image`],
+    },
+  };
+}
 
-      <SiteFooter />
-      <ContactModal 
-        isOpen={contactModalOpen} 
-        onClose={() => setContactModalOpen(false)} 
-      />
-    </div>
-  );
+export default async function AgencyPage({ params }: AgencyPageProps) {
+  const { locale } = await params;
+  return <AgencyPageClient locale={locale} />;
 }

@@ -1,7 +1,4 @@
-"use client";
-
-import { use } from "react";
-import Script from "next/script";
+import type { Metadata } from "next";
 import LandingHeader from "@/components/landing-header";
 import SiteFooter from "@/components/site-footer";
 import AuditHero from "@/components/audit/audit-hero";
@@ -24,14 +21,87 @@ const translations: Record<string, any> = {
 };
 
 interface AuditPageProps {
-  params: Promise<{
+  params: {
     locale: string;
-  }>;
+  };
+}
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
+
+export async function generateMetadata({ params }: AuditPageProps): Promise<Metadata> {
+  const { locale } = params;
+  const isGerman = locale === "de";
+  const pagePath = isGerman ? "/de/agency-automation-blueprint" : "/agency-automation-blueprint";
+
+  const title = isGerman
+    ? "Agency Automation Blueprint | Individuelle KI-Chancen" 
+    : "Agency Automation Blueprint | Custom AI Opportunities";
+
+  const description = isGerman
+    ? "Erhalten Sie drei individuelle KI- und Automatisierungschancen für Ihre Agentur. Identifizieren Sie Zeitsparer, Umsatzhebel und konkrete Umsetzungsschritte."
+    : "Get three custom AI and automation opportunities for your agency with implementation steps, ROI models, and workflow diagrams.";
+
+  return {
+    title,
+    description,
+    keywords: isGerman
+      ? [
+          "Agency Automation Blueprint",
+          "KI Blueprint",
+          "Agentur Automatisierung",
+          "Workflow Analyse",
+          "KI Beratung",
+        ]
+      : [
+          "agency automation blueprint",
+          "AI opportunity assessment",
+          "workflow analysis",
+          "automation audit",
+          "AI consulting",
+        ],
+    alternates: {
+      canonical: `${baseUrl}${pagePath}`,
+      languages: {
+        en: `${baseUrl}/agency-automation-blueprint`,
+        de: `${baseUrl}/de/agency-automation-blueprint`,
+      },
+    },
+    openGraph: {
+      title: `${title} | SeventeenLabs`,
+      description,
+      url: `${baseUrl}${pagePath}`,
+      type: "website",
+      siteName: "SeventeenLabs",
+      locale: isGerman ? "de_DE" : "en_US",
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "SeventeenLabs Agency Automation Blueprint",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | SeventeenLabs`,
+      description,
+      images: [`${baseUrl}/opengraph-image`],
+    },
+  };
 }
 
 export default function AuditPage({ params }: AuditPageProps) {
-  const { locale } = use(params);
+  const { locale } = params;
   const t = translations[locale] || translations["en"];
+  const localizedUrl = locale === "de"
+    ? `${baseUrl}/de/agency-automation-blueprint`
+    : `${baseUrl}/agency-automation-blueprint`;
+  const priceValidUntil = (() => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 12);
+    return date.toISOString().split("T")[0];
+  })();
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -44,14 +114,15 @@ export default function AuditPage({ params }: AuditPageProps) {
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://seventeenlabs.io/agency-automation-blueprint",
+      "url": localizedUrl,
       "priceCurrency": "USD",
       "price": "499",
-      "priceValidUntil": "2025-12-31",
+      "priceValidUntil": priceValidUntil,
       "availability": "https://schema.org/LimitedAvailability",
       "seller": {
         "@type": "Organization",
-        "name": "Seventeen Labs"
+        "name": "SeventeenLabs",
+        "url": baseUrl,
       }
     },
     "aggregateRating": {
@@ -64,23 +135,23 @@ export default function AuditPage({ params }: AuditPageProps) {
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Seventeen Labs",
-    "url": "https://seventeenlabs.io",
-    "logo": "https://seventeenlabs.io/logo.png",
+    "name": "SeventeenLabs",
+    "url": baseUrl,
+    "logo": `${baseUrl}/logo-white.svg`,
     "sameAs": [
-      "https://twitter.com/seventeenlabs"
+      "https://twitter.com/seventeenlabs",
+      "https://www.linkedin.com/company/seventeenlabs-io",
+      "https://www.youtube.com/@seventeenlabs"
     ]
   };
 
   return (
     <>
-      <Script
-        id="structured-data-product"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Script
-        id="structured-data-org"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
       />

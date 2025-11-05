@@ -1,33 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "@/lib/i18n/context";
+import { useLocale, useTranslations } from "@/lib/i18n/context";
 import { SearchCheck, MessageSquare, Code2 } from "lucide-react";
 import Link from "next/link";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 
 export default function WhatWeDo() {
   const { t } = useTranslations();
+  const locale = useLocale();
 
   const services = [
     {
       icon: SearchCheck,
       title: t("whatWeDo.audit.title"),
       description: t("whatWeDo.audit.description"),
-      href: "/services/ai-audit",
+  href: getLocalizedPath(locale, "/services/ai-audit"),
       color: "blue",
     },
     {
       icon: MessageSquare,
       title: t("whatWeDo.consulting.title"),
       description: t("whatWeDo.consulting.description"),
-      href: "/services/ai-consulting",
+  href: getLocalizedPath(locale, "/services/ai-consulting"),
       color: "orange",
     },
     {
       icon: Code2,
       title: t("whatWeDo.development.title"),
       description: t("whatWeDo.development.description"),
-      href: "/services/ai-development",
+  href: getLocalizedPath(locale, "/services/ai-development"),
       color: "emerald",
     },
   ];

@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: MarketingAgenciesPageProps): 
   const { locale } = await params;
   const isGerman = locale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const pageUrl = isGerman ? `${baseUrl}/de/marketing-agencies` : `${baseUrl}/marketing-agencies`;
+  const pagePath = isGerman ? '/de/industries/marketing-agencies' : '/industries/marketing-agencies';
+  const pageUrl = `${baseUrl}${pagePath}`;
 
   return {
     title: isGerman 
@@ -28,21 +29,28 @@ export async function generateMetadata({ params }: MarketingAgenciesPageProps): 
     description: isGerman
       ? "Automatisieren Sie Ihre Marketing-Agentur mit AI. Sparen Sie 70% Zeit, gewinnen Sie 3x mehr Kunden. Maßgeschneiderte Workflow-Automatisierung für moderne Agenturen."
       : "Automate your marketing agency with AI. Save 70% time, gain 3x more clients. Custom workflow automation solutions for modern agencies.",
-    keywords: [
-      "marketing agency automation",
-      "AI for marketing agencies",
-      "agency workflow automation",
-      "marketing automation tools",
-      "agency productivity",
-      "client management automation",
-      "social media automation",
-      "lead generation automation",
-    ],
+    keywords: isGerman
+      ? [
+          "Marketing Agentur Automatisierung",
+          "KI für Agenturen",
+          "Workflow Automatisierung",
+          "Kampagnen Automatisierung",
+          "Lead Management Automation",
+          "Reporting Automatisierung",
+        ]
+      : [
+          "marketing agency automation",
+          "AI for marketing agencies",
+          "agency workflow automation",
+          "campaign automation",
+          "lead management automation",
+          "client reporting automation",
+        ],
     alternates: {
       canonical: pageUrl,
       languages: {
-        'en': `${baseUrl}/marketing-agencies`,
-        'de': `${baseUrl}/de/marketing-agencies`,
+        en: `${baseUrl}/industries/marketing-agencies`,
+        de: `${baseUrl}/de/industries/marketing-agencies`,
       },
     },
     openGraph: {
@@ -73,6 +81,9 @@ export async function generateMetadata({ params }: MarketingAgenciesPageProps): 
 export default async function MarketingAgenciesPage({ params }: MarketingAgenciesPageProps) {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const pageUrl = locale === 'de'
+    ? `${baseUrl}/de/industries/marketing-agencies`
+    : `${baseUrl}/industries/marketing-agencies`;
 
   // Structured data for SEO
   const serviceJsonLd = {
@@ -87,6 +98,7 @@ export default async function MarketingAgenciesPage({ params }: MarketingAgencie
     description: 'AI-powered workflow automation solutions specifically designed for marketing agencies',
     serviceType: 'Marketing Automation',
     areaServed: 'Worldwide',
+    url: pageUrl,
     offers: {
       '@type': 'Offer',
       description: 'Custom marketing agency automation solutions',
