@@ -41,6 +41,13 @@ export default function LandingHeader() {
   // Products - Ready-to-use tools
   const productsItems = [
     {
+      title: locale === 'de' ? 'Kostenlose AI Audits' : 'Free AI Audits',
+      description: locale === 'de' 
+        ? 'Kostenlose Workflow-Analyse für Marketing-Agenturen'
+        : 'Free workflow analysis for marketing agencies',
+      href: getLocalizedPath(locale, '/products/ai-workflow-audit'),
+    },
+    {
       title: t("navigation.solutions.workflowAutomation.title"),
       description: t("navigation.solutions.workflowAutomation.description"),
       href: getLocalizedPath(locale, '/workflows', { skipLocale: true }),

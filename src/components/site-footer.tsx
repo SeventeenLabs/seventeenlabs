@@ -123,6 +123,12 @@ export default function SiteFooter() {
             </h3>
             <nav className="space-y-3">
               <Link
+                href={getLocalizedPath(locale, '/products/ai-workflow-audit')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {locale === 'de' ? 'Kostenlose AI Audits' : 'Free AI Audits'}
+              </Link>
+              <Link
                 href={getLocalizedPath(locale, '/workflows', { skipLocale: true })}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >

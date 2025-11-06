@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/agency-automation-blueprint', priority: 0.9, changeFreq: 'weekly' as const },
     { path: '/apps', priority: 0.85, changeFreq: 'weekly' as const },
     { path: '/about', priority: 0.75, changeFreq: 'monthly' as const },
+    { path: '/products/ai-workflow-audit', priority: 0.9, changeFreq: 'daily' as const },
     { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
     { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' as const },
