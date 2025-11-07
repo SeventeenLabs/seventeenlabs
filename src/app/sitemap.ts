@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
+import { getAllPosts } from '@/lib/notion-blog';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const currentDate = new Date();
   
@@ -59,6 +60,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: currentDate,
     changeFrequency: 'weekly',
     priority: 0.6,
+  });
+
+  // Add blog section
+  sitemapEntries.push({
+    url: `${baseUrl}/blog`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  // Add blog posts
+  const blogPosts = await getAllPosts();
+  blogPosts.forEach((post) => {
+    sitemapEntries.push({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.published_at || post.created_at),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    });
   });
 
   return sitemapEntries;

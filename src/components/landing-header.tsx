@@ -182,6 +182,16 @@ export default function LandingHeader() {
                       {locale === 'de' ? 'Über uns' : 'About'}
                     </Link>
                   </NavigationMenuItem>
+
+                  {/* Blog Link - No dropdown */}
+                  <NavigationMenuItem>
+                    <Link
+                      href="/blog"
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                    >
+                      Blog
+                    </Link>
+                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
@@ -308,14 +318,21 @@ export default function LandingHeader() {
                     </div>
                   </div>
                   
-                  {/* About Link */}
-                  <div className="py-6 border-y border-white/20">
+                  {/* About and Blog Links */}
+                  <div className="py-6 border-y border-white/20 space-y-2">
                     <Link
                       href={getLocalizedPath(locale, '/about')}
                       className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {locale === 'de' ? 'Über uns' : 'About'}
+                    </Link>
+                    <Link
+                      href="/blog"
+                      className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Blog
                     </Link>
                   </div>
                   
