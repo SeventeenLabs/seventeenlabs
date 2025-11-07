@@ -19,8 +19,8 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <article className="pt-32 pb-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article className="pt-8 pb-12">
+        <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
           <nav className="mb-8">
             <ol className="flex items-center space-x-2 text-sm text-gray-600">
@@ -97,7 +97,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
         {/* Featured Image */}
         {post.featured_image && (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
+          <div className="max-w-4xl mx-auto my-12">
             <div className="relative h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg">
               <Image
                 src={post.featured_image}
@@ -111,7 +111,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         )}
 
         {/* Content */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="max-w-4xl mx-auto mt-12">
           <div className="notion-content prose prose-lg max-w-none
             prose-headings:font-semibold prose-headings:text-gray-900 prose-headings:tracking-tight prose-headings:scroll-mt-24
             prose-h1:text-2xl md:prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-4 prose-h1:font-bold prose-h1:leading-tight
@@ -289,20 +289,72 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Implement AI Automation?
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can help you transform your business with AI automation.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center bg-white text-gray-900 hover:bg-gray-100 rounded-lg px-8 h-12 text-base font-semibold transition-all"
-          >
-            Get in Touch
-          </Link>
+      <section className="relative bg-black py-24 lg:py-32">
+        <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight mb-6">
+                Ready to Transform Your Business with AI?
+              </h2>
+              
+              <p className="text-lg text-white/60 font-light leading-relaxed mb-12 max-w-2xl mx-auto">
+                From strategy to implementation—we help you harness the power of AI automation to streamline operations and accelerate growth.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/services/ai-audit"
+                  className="group relative px-8 py-4 text-base font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all duration-300 shadow-lg shadow-white/20 inline-flex items-center gap-2 justify-center"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Start with Free AI Audit
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+                
+                <Link
+                  href="/contact"
+                  className="group relative px-8 py-4 text-base font-medium text-white border border-white/20 rounded-lg hover:bg-white/5 transition-all duration-300 inline-flex items-center gap-2 justify-center"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  Schedule Consultation
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Trust indicators */}
+              <div className="mt-12 pt-8 border-t border-white/10">
+                <p className="text-sm text-white/40 mb-4">Trusted by forward-thinking businesses</p>
+                <div className="flex justify-center items-center gap-8 text-white/30">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="text-xs">Free Consultation</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-xs">No Long-term Commitment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-xs">Expert Guidance</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
