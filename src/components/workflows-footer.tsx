@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Zap, Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import WorkflowsLogo from "../../public/SeventeenLabsWorkflowsLogo.svg";
 

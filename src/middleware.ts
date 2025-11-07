@@ -1,8 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-const locales = ['en', 'de'];
-const defaultLocale = 'en';
-
 function getLocaleFromPathname(pathname: string): string {
   // Check if path starts with /de/ or is exactly /de
   if (pathname.startsWith('/de/') || pathname === '/de') {
@@ -10,25 +7,6 @@ function getLocaleFromPathname(pathname: string): string {
   }
   // Everything else is English (default)
   return 'en';
-}
-
-function detectLocaleFromRequest(request: NextRequest): string {
-  // Check for explicit locale cookie first
-  const localeCookie = request.cookies.get('preferred-locale')?.value;
-  if (localeCookie && locales.includes(localeCookie as any)) {
-    return localeCookie;
-  }
-
-  // Get locale from Accept-Language header as fallback
-  const acceptLanguage = request.headers.get('accept-language');
-  if (acceptLanguage) {
-    // Simple locale detection - check for German first
-    if (acceptLanguage.includes('de')) {
-      return 'de';
-    }
-  }
-
-  return defaultLocale;
 }
 
 export function middleware(request: NextRequest) {

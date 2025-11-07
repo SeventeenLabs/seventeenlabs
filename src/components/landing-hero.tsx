@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useState } from "react";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
 import Prism from "./ui/prism";

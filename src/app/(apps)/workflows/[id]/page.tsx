@@ -96,7 +96,7 @@ export default function WorkflowDetailPage() {
         }
       }, 500); // Wait 500ms before processing
     }
-  }, [searchParams]); // Only depend on searchParams, not on the functions
+  }, [searchParams, workflowId, userEmail, setUserEmail, confirmPurchase, refreshPurchases, verifyPurchase]);
 
   const handlePurchaseClick = () => {
     setShowPurchaseModal(true);

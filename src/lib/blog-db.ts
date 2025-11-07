@@ -26,7 +26,7 @@ export interface BlogPost {
   updated_at: string;
 }
 
-export interface BlogPostMetadata extends Omit<BlogPost, 'content'> {}
+export type BlogPostMetadata = Omit<BlogPost, 'content'>;
 
 export interface CreateBlogPostData {
   title: string;

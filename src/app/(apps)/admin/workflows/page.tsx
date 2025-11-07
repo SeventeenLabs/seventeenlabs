@@ -54,13 +54,6 @@ interface WorkflowData {
   n8nJsonUrl?: string;
 }
 
-interface WorkflowStats {
-  total: number;
-  active: number;
-  inactive: number;
-  categories: Array<{category: string; count: number}>;
-}
-
 export default function AdminWorkflowsPage() {
   const router = useRouter();
   

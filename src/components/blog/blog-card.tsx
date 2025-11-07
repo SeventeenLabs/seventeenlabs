@@ -2,7 +2,6 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { BlogPostMetadata } from '@/lib/notion-blog';
-import { Badge } from '@/components/ui/badge';
 
 interface BlogCardProps {
   post: BlogPostMetadata;

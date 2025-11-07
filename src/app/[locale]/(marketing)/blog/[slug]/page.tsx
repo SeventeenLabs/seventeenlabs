@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getRelatedPosts } from '@/lib/notion-blog';
+import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/notion-blog';
 import { BlogPostClient } from './BlogPostClient';
 
 interface BlogPostPageProps {
@@ -41,6 +41,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export const revalidate = 3600; // Revalidate every hour
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  
+  // Generate paths for both locales
+  const paths = [];
+  for (const post of posts) {
+    paths.push({ slug: post.slug, locale: 'en' });
+    paths.push({ slug: post.slug, locale: 'de' });
+  }
+  
+  return paths;
+}
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;

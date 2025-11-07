@@ -1,5 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
+import { unstable_cache } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 // Types matching your current blog system
 export interface BlogPost {
@@ -107,8 +109,8 @@ async function getPageContent(pageId: string): Promise<string> {
   }
 }
 
-// Get all published posts
-export async function getAllPosts(): Promise<BlogPostMetadata[]> {
+// Get all published posts (cached)
+async function _getAllPosts(): Promise<BlogPostMetadata[]> {
   const filter = {
     property: 'Status',
     select: {
@@ -127,8 +129,17 @@ export async function getAllPosts(): Promise<BlogPostMetadata[]> {
   return response.results.map((page: any) => extractPageProperties(page));
 }
 
-// Get single post by slug with content
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+export const getAllPosts = unstable_cache(
+  _getAllPosts,
+  ['notion-blog-all-posts'],
+  {
+    revalidate: 3600, // Cache for 1 hour
+    tags: ['blog-posts']
+  }
+);
+
+// Get single post by slug with content (cached)
+async function _getPostBySlug(slug: string): Promise<BlogPost | null> {
   const filter = {
     and: [
       {
@@ -164,8 +175,17 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   };
 }
 
-// Get featured posts
-export async function getFeaturedPosts(limit: number = 3): Promise<BlogPostMetadata[]> {
+export const getPostBySlug = unstable_cache(
+  _getPostBySlug,
+  ['notion-blog-post-by-slug'],
+  {
+    revalidate: 3600, // Cache for 1 hour
+    tags: ['blog-posts']
+  }
+);
+
+// Get featured posts (cached)
+async function _getFeaturedPosts(limit: number = 3): Promise<BlogPostMetadata[]> {
   const filter = {
     and: [
       {
@@ -193,6 +213,15 @@ export async function getFeaturedPosts(limit: number = 3): Promise<BlogPostMetad
   const response = await queryDatabase(filter, sorts);
   return response.results.slice(0, limit).map((page: any) => extractPageProperties(page));
 }
+
+export const getFeaturedPosts = unstable_cache(
+  _getFeaturedPosts,
+  ['notion-blog-featured-posts'],
+  {
+    revalidate: 3600, // Cache for 1 hour
+    tags: ['blog-posts']
+  }
+);
 
 // Get posts by category
 export async function getPostsByCategory(category: string): Promise<BlogPostMetadata[]> {
@@ -287,8 +316,8 @@ export async function searchPosts(query: string): Promise<BlogPostMetadata[]> {
   return response.results.map((page: any) => extractPageProperties(page));
 }
 
-// Get related posts (by category)
-export async function getRelatedPosts(currentSlug: string, limit: number = 3): Promise<BlogPostMetadata[]> {
+// Get related posts (by category) - cached
+async function _getRelatedPosts(currentSlug: string, limit: number = 3): Promise<BlogPostMetadata[]> {
   // First get the current post to find its category
   const currentFilter = {
     property: 'Slug',
@@ -330,6 +359,15 @@ export async function getRelatedPosts(currentSlug: string, limit: number = 3): P
   return response.results.slice(0, limit).map((page: any) => extractPageProperties(page));
 }
 
+export const getRelatedPosts = unstable_cache(
+  _getRelatedPosts,
+  ['notion-blog-related-posts'],
+  {
+    revalidate: 3600, // Cache for 1 hour
+    tags: ['blog-posts']
+  }
+);
+
 // Get all categories (simplified - you'll need to maintain this manually or fetch from database properties)
 export async function getAllCategories(): Promise<string[]> {
   // For now, return common categories. 
@@ -342,4 +380,9 @@ export async function getAllTags(): Promise<string[]> {
   // For now, return common tags.
   // In a full implementation, you'd fetch this from the database schema
   return ['AI', 'automation', 'workflow', 'n8n', 'productivity', 'business transformation', 'no-code', 'integration'];
+}
+
+// Revalidate all blog data caches
+export async function revalidateBlogCache(): Promise<void> {
+  revalidateTag('blog-posts');
 }

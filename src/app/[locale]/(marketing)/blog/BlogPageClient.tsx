@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';
@@ -30,7 +31,7 @@ export function BlogPageClient({ allPosts, featuredPost, categories }: BlogPageC
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <a 
+              <Link 
                 href="/" 
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
               >
@@ -38,7 +39,7 @@ export function BlogPageClient({ allPosts, featuredPost, categories }: BlogPageC
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 <span className="text-sm font-medium">Back to Home</span>
-              </a>
+              </Link>
             </div>
             
             <div className="flex items-center gap-2">

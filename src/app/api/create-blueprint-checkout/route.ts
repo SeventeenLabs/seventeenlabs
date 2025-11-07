@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
       currentTools,
       addStrategySession,
       locale,
-      totalPrice,
     } = body;
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
