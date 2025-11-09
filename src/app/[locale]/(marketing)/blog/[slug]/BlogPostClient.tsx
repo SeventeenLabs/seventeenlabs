@@ -63,29 +63,29 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
     .sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0))
     .slice(0, 3);
 
-  // Extract headings for TOC
-  const generateTOC = () => {
-    if (!post.content || typeof post.content !== 'string') {
-      setTocItems([]);
-      return;
-    }
-
-    const headingRegex = /^(#{1,6})\s+(.+)$/gm;
-    const toc: TocItem[] = [];
-    let match;
-
-    while ((match = headingRegex.exec(post.content)) !== null) {
-      const level = match[1]?.length || 1;
-      const title = match[2]?.trim() || 'Untitled';
-      const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `heading-${toc.length}`;
-      
-      toc.push({ id, title, level });
-    }
-
-    setTocItems(toc);
-  };
-
   useEffect(() => {
+    // Extract headings for TOC
+    const generateTOC = () => {
+      if (!post.content || typeof post.content !== 'string') {
+        setTocItems([]);
+        return;
+      }
+
+      const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+      const toc: TocItem[] = [];
+      let match;
+
+      while ((match = headingRegex.exec(post.content)) !== null) {
+        const level = match[1]?.length || 1;
+        const title = match[2]?.trim() || 'Untitled';
+        const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `heading-${toc.length}`;
+        
+        toc.push({ id, title, level });
+      }
+
+      setTocItems(toc);
+    };
+    
     generateTOC();
   }, [post.content]);
 
@@ -484,7 +484,8 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                           );
                         },
                         li: ({ children, node, ...props }) => {
-                          const isOrderedList = node?.parent?.tagName === 'ol';
+                          // Type assertion to access parent property
+                          const isOrderedList = (node as any)?.parent?.tagName === 'ol';
                           
                           if (isOrderedList) {
                             return (
@@ -556,9 +557,10 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                         },
 
                         // Code
-                        code: ({ children, inline, className, ...props }) => {
+                        code: ({ children, className, ...props }: any) => {
                           const match = /language-(\w+)/.exec(className || '');
                           const language = match ? match[1] : '';
+                          const inline = props.inline;
                           
                           if (inline) {
                             return (
@@ -575,7 +577,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                                   {language.toUpperCase()}
                                 </div>
                               )}
-                              <pre className={`bg-gray-50 border text-gray-800 p-6 overflow-x-auto text-sm font-mono ${language ? 'rounded-t-none rounded-b-lg' : 'rounded-lg'}`} {...props}>
+                              <pre className={`bg-gray-50 border text-gray-800 p-6 overflow-x-auto text-sm font-mono ${language ? 'rounded-t-none rounded-b-lg' : 'rounded-lg'}`}>
                                 <code>{children}</code>
                               </pre>
                             </div>
@@ -583,7 +585,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                         },
 
                         // Images with captions and different layouts
-                        img: ({ src, alt, title, ...props }) => {
+                        img: ({ src, alt, title }) => {
                           const isSmall = title?.includes('small');
                           const isLeft = title?.includes('left');
                           const isRight = title?.includes('right');
@@ -592,14 +594,17 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                                                isLeft ? 'float-left mr-6 mb-4 max-w-sm' :
                                                isRight ? 'float-right ml-6 mb-4 max-w-sm' : '';
                           
+                          if (!src || typeof src !== 'string') return null;
+                          
                           return (
                             <div className={`my-10 ${containerClass}`}>
-                              <img 
+                              <Image 
                                 src={src} 
                                 alt={alt || ''} 
                                 title={title}
+                                width={800}
+                                height={400}
                                 className="w-full h-auto rounded-lg shadow-sm"
-                                {...props}
                               />
                               {alt && (
                                 <p className="text-center text-sm text-gray-500 mt-3 italic">
@@ -761,6 +766,111 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
             </aside>
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="bg-gray-50 border-t border-gray-200 mt-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-12">
+              {/* Main Footer Content */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                {/* Company Info */}
+                <div className="md:col-span-2">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                      S
+                    </div>
+                    <span className="text-xl font-semibold text-gray-900">SeventeenLabs</span>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+                    {locale === 'de' 
+                      ? 'Wir automatisieren Geschäftsprozesse mit KI-gestützten Lösungen für Agenturen und Unternehmen.'
+                      : 'We automate business processes with AI-driven solutions for agencies and enterprises.'}
+                  </p>
+                </div>
+
+                {/* Quick Links */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-4">
+                    {locale === 'de' ? 'Links' : 'Quick Links'}
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <a href={locale === 'de' ? '/de/blog' : '/blog'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                        Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a href={locale === 'de' ? '/de/about' : '/about'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                        {locale === 'de' ? 'Über uns' : 'About'}
+                      </a>
+                    </li>
+                    <li>
+                      <a href={locale === 'de' ? '/de/services' : '/services'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                        {locale === 'de' ? 'Services' : 'Services'}
+                      </a>
+                    </li>
+                    <li>
+                      <a href={locale === 'de' ? '/de/contact' : '/contact'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                        {locale === 'de' ? 'Kontakt' : 'Contact'}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Contact Info */}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-4">
+                    {locale === 'de' ? 'Kontakt' : 'Contact'}
+                  </h4>
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      <a href="mailto:hello@seventeenlabs.io" className="hover:text-gray-900 transition-colors">
+                        hello@seventeenlabs.io
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 9c1.657 0 3-4.03 3-9s-1.343-9 3-9m-9 9a9 9 0 019-9" />
+                      </svg>
+                      <span>seventeenlabs.io</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Footer */}
+              <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div className="text-sm text-gray-500">
+                  © {new Date().getFullYear()} SeventeenLabs. {locale === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}
+                </div>
+                
+                <div className="flex items-center gap-6 text-sm text-gray-500">
+                  <a href={locale === 'de' ? '/de/privacy' : '/privacy'} className="hover:text-gray-700 transition-colors">
+                    {locale === 'de' ? 'Datenschutz' : 'Privacy'}
+                  </a>
+                  <a href={locale === 'de' ? '/de/terms' : '/terms'} className="hover:text-gray-700 transition-colors">
+                    {locale === 'de' ? 'Impressum' : 'Terms'}
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <a href="https://twitter.com/seventeenlabs" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </a>
+                    <a href="https://linkedin.com/company/seventeenlabs" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );

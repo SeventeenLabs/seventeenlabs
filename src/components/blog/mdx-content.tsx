@@ -80,6 +80,7 @@ const components = {
     </ul>
   ),
   ol: ({ children, ...props }: React.HTMLProps<HTMLOListElement>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { type, ...restProps } = props;
     return (
       <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300" {...restProps}>
@@ -161,7 +162,7 @@ const components = {
   ),
 
   // Images
-  img: ({ src, alt, width, height, ...props }: React.HTMLProps<HTMLImageElement>) => {
+  img: ({ src, alt, width, height }: React.HTMLProps<HTMLImageElement>) => {
     if (!src) return null;
     
     return (

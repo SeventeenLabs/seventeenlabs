@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Globe } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
 import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';

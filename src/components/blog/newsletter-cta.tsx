@@ -1,8 +1,6 @@
 import Link from 'next/link';
 
-interface NewsletterCTAProps {}
-
-export function NewsletterCTA({}: NewsletterCTAProps) {
+export function NewsletterCTA() {
   return (
     <div className="mt-12 p-8 bg-gray-50 rounded-xl border border-gray-200">
       <div className="max-w-md mx-auto text-center">
