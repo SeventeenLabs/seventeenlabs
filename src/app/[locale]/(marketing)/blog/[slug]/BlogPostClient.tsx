@@ -128,7 +128,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                 alt="SeventeenLabs"
                 width={180}
                 height={42}
-                className="w-[27px] sm:w-[30px] md:w-[33px] lg:w-[37px] h-auto transition-transform duration-300 ease-out group-hover:scale-105"
+                className="w-[100px] sm:w-[120px] md:w-[140px] lg:w-[160px] h-auto transition-transform duration-300 ease-out group-hover:scale-105"
               />
             </Link>
             
