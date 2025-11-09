@@ -34,38 +34,76 @@ export async function POST(request: NextRequest) {
     }
     console.log('🔔 Notion webhook received:', JSON.stringify(payload, null, 2));
 
-    // Check if this is a database page update
-    if (payload.type === 'page' && payload.action === 'updated') {
-      const page = payload.page;
+    // Check if this is any page-related update
+    if (payload.type === 'page.properties_updated' || 
+        payload.type === 'page.content_updated' || 
+        payload.type === 'page.created') {
+      const pageId = payload.entity?.id;
+      const parentDatabaseId = payload.data?.parent?.id;
       
       // Check if this is from our blog database
       const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID;
-      if (page.parent?.database_id === blogDatabaseId) {
-        console.log('📝 Blog post updated in Notion:', page.id);
+      console.log('🔍 Comparing database IDs:');
+      console.log('  Webhook parent DB:', parentDatabaseId);
+      console.log('  Blog database ID:', blogDatabaseId);
+      
+      if (parentDatabaseId === blogDatabaseId) {
+        console.log('📝 Blog post updated in Notion:', pageId);
         
-        // Check if status was changed to published
-        const status = page.properties?.Status?.select?.name?.toLowerCase();
-        console.log('📊 Post status:', status);
-        
-        if (status === 'published') {
-          console.log('✅ Post published, revalidating blog cache...');
-          
-          // Revalidate blog cache
-          revalidateTag('blog-posts');
-          
-          console.log('🔄 Blog cache revalidated successfully');
-          
-          return NextResponse.json({ 
-            message: 'Blog cache revalidated for published post',
-            postId: page.id,
-            timestamp: new Date().toISOString()
+        // Since we can't get the status from the webhook payload directly,
+        // we need to fetch the page details to check if it's published
+        try {
+          const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+            headers: {
+              'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+              'Content-Type': 'application/json',
+              'Notion-Version': '2022-06-28',
+            },
           });
-        } else {
-          console.log('ℹ️ Post updated but not published, skipping cache revalidation');
+          
+          if (response.ok) {
+            const pageData = await response.json();
+            const status = pageData.properties?.Status?.select?.name?.toLowerCase();
+            console.log('📊 Post status:', status);
+            
+            if (status === 'published') {
+              console.log('✅ Post published, revalidating blog cache...');
+              
+              // Revalidate blog cache
+              revalidateTag('blog-posts');
+              
+              console.log('🔄 Blog cache revalidated successfully');
+              
+              return NextResponse.json({ 
+                message: 'Blog cache revalidated for published post',
+                postId: pageId,
+                status: status,
+                timestamp: new Date().toISOString()
+              });
+            } else {
+              console.log('ℹ️ Post updated but not published, skipping cache revalidation');
+              return NextResponse.json({ 
+                message: 'Post updated but not published',
+                status: status,
+                postId: pageId
+              });
+            }
+          } else {
+            console.error('❌ Failed to fetch page details:', response.statusText);
+            // Revalidate anyway in case of API issues
+            revalidateTag('blog-posts');
+            return NextResponse.json({ 
+              message: 'Page updated, revalidated cache as fallback',
+              postId: pageId
+            });
+          }
+        } catch (error) {
+          console.error('❌ Error fetching page details:', error);
+          // Revalidate anyway in case of API issues
+          revalidateTag('blog-posts');
           return NextResponse.json({ 
-            message: 'Post updated but not published',
-            status: status,
-            postId: page.id
+            message: 'Page updated, revalidated cache as fallback',
+            postId: pageId
           });
         }
       } else {
@@ -75,8 +113,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Handle other webhook types
-    console.log('ℹ️ Webhook type not handled:', payload.type, payload.action);
-    return NextResponse.json({ message: 'Webhook received but not processed' });
+    console.log('ℹ️ Webhook type not handled:', payload.type);
+    return NextResponse.json({ 
+      message: 'Webhook received but not processed',
+      type: payload.type,
+      timestamp: new Date().toISOString()
+    });
 
   } catch (error) {
     console.error('❌ Error processing Notion webhook:', error);
