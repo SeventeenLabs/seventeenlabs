@@ -18,6 +18,20 @@ export async function POST(request: NextRequest) {
 
     // Parse the webhook payload
     const payload = await request.json();
+    
+    // Handle webhook verification (this happens when setting up the webhook)
+    if (payload.type === 'url_verification') {
+      console.log('🔍 Webhook verification request received');
+      const challenge = payload.challenge;
+      
+      if (challenge) {
+        console.log('✅ Responding to webhook verification challenge');
+        return NextResponse.json({ challenge });
+      } else {
+        console.error('❌ No challenge found in verification request');
+        return NextResponse.json({ error: 'No challenge provided' }, { status: 400 });
+      }
+    }
     console.log('🔔 Notion webhook received:', JSON.stringify(payload, null, 2));
 
     // Check if this is a database page update
