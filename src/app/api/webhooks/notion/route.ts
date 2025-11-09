@@ -37,21 +37,64 @@ export async function POST(request: NextRequest) {
     // Check if this is any page-related update
     if (payload.type === 'page.properties_updated' || 
         payload.type === 'page.content_updated' || 
-        payload.type === 'page.created') {
+        payload.type === 'page.created' ||
+        payload.type === 'page.deleted' ||
+        payload.type === 'page.moved' ||
+        payload.type === 'page.locked' ||
+        payload.type === 'page.unlocked') {
       const pageId = payload.entity?.id;
       const parentDatabaseId = payload.data?.parent?.id;
       
       // Check if this is from our blog database
       const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID;
+      
+      // Normalize database IDs (remove hyphens for comparison)
+      const normalizeId = (id: string | undefined) => id?.replace(/-/g, '') || '';
+      const normalizedParentId = normalizeId(parentDatabaseId);
+      const normalizedBlogId = normalizeId(blogDatabaseId);
+      
       console.log('🔍 Comparing database IDs:');
       console.log('  Webhook parent DB:', parentDatabaseId);
+      console.log('  Normalized parent:', normalizedParentId, 'Length:', normalizedParentId?.length);
       console.log('  Blog database ID:', blogDatabaseId);
+      console.log('  Normalized blog ID:', normalizedBlogId, 'Length:', normalizedBlogId?.length);
+      console.log('  Match result:', normalizedParentId === normalizedBlogId);
       
-      if (parentDatabaseId === blogDatabaseId) {
+      // Character by character comparison for debugging
+      if (normalizedParentId && normalizedBlogId && normalizedParentId !== normalizedBlogId) {
+        console.log('🔬 Character comparison:');
+        const maxLen = Math.max(normalizedParentId.length, normalizedBlogId.length);
+        for (let i = 0; i < maxLen; i++) {
+          const p = normalizedParentId[i] || 'undefined';
+          const b = normalizedBlogId[i] || 'undefined';
+          if (p !== b) {
+            console.log(`  Position ${i}: parent="${p}" blog="${b}" ❌`);
+          }
+        }
+      }
+      
+      // Log updated properties if available
+      if (payload.data?.updated_properties) {
+        console.log('🔄 Updated properties:', payload.data.updated_properties);
+      }
+      
+      if (normalizedParentId === normalizedBlogId) {
         console.log('📝 Blog post updated in Notion:', pageId);
+        console.log('🎯 Event type:', payload.type);
         
-        // Since we can't get the status from the webhook payload directly,
-        // we need to fetch the page details to check if it's published
+        // Handle page deletion - always revalidate since we can't check status
+        if (payload.type === 'page.deleted') {
+          console.log('🗑️ Blog post deleted, revalidating cache...');
+          revalidateTag('blog-posts');
+          
+          return NextResponse.json({ 
+            message: 'Blog cache revalidated for deleted post',
+            postId: pageId,
+            timestamp: new Date().toISOString()
+          });
+        }
+        
+        // For other events, we need to fetch the page details to check if it's published
         try {
           const response = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
             headers: {
@@ -81,11 +124,15 @@ export async function POST(request: NextRequest) {
                 timestamp: new Date().toISOString()
               });
             } else {
-              console.log('ℹ️ Post updated but not published, skipping cache revalidation');
+              console.log('ℹ️ Post updated but not published, revalidating anyway for safety');
+              // Revalidate anyway since blog content might have changed
+              revalidateTag('blog-posts');
+              
               return NextResponse.json({ 
-                message: 'Post updated but not published',
+                message: 'Post updated, cache revalidated as precaution',
                 status: status,
-                postId: pageId
+                postId: pageId,
+                timestamp: new Date().toISOString()
               });
             }
           } else {
