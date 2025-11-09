@@ -1,11 +1,12 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { BlogPost, BlogPostMetadata } from '@/lib/notion-blog';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ReadingProgressBar } from '@/components/blog/reading-progress-bar';
 import { TextSelectionPopup } from '@/components/blog/text-selection-popup';
 import { FloatingShareSidebar } from '@/components/blog/floating-share-sidebar';
@@ -93,42 +94,58 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
   useEffect(() => {
     let ticking = false;
     let scrollTimeout: NodeJS.Timeout;
+    let contentElement: HTMLElement | null = null;
+    let contentTop: number = 0;
+    let contentHeight: number = 0;
+    
+    // Cache DOM elements and measurements
+    const initializeElements = () => {
+      contentElement = document.querySelector('.notion-content') as HTMLElement;
+      if (contentElement) {
+        contentTop = contentElement.getBoundingClientRect().top + window.pageYOffset;
+        contentHeight = contentElement.offsetHeight;
+      }
+    };
     
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
           const scrollTop = window.scrollY;
           
-          // Show progress bar when scrolling
+          // Throttle state updates
+          const currentTime = Date.now();
+          
+          // Show progress bar when scrolling (less frequent updates)
           setIsScrolling(true);
           
           // Clear existing timeout and set new one
           clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             setIsScrolling(false);
-          }, 1500);
+          }, 1000); // Reduced timeout
           
-          // Show title when scrolled past the hero section (roughly 400px)
-          setShowTitle(scrollTop > 400);
+          // Show title when scrolled past the hero section (less frequent updates)
+          const shouldShowTitle = scrollTop > 400;
+          setShowTitle(prev => prev !== shouldShowTitle ? shouldShowTitle : prev);
           
-          // Calculate reading progress
-          const contentElement = document.querySelector('.notion-content') as HTMLElement;
-          if (contentElement) {
-            const contentTop = contentElement.getBoundingClientRect().top + window.pageYOffset;
-            const contentHeight = contentElement.offsetHeight;
+          // Calculate reading progress (use cached values)
+          if (contentElement && contentHeight > 0) {
             const windowHeight = window.innerHeight;
-            
             const progressStart = contentTop;
             const progressEnd = contentTop + contentHeight - windowHeight;
             
+            let progress: number;
             if (scrollTop < progressStart) {
-              setReadingProgress(0);
+              progress = 0;
             } else if (scrollTop > progressEnd) {
-              setReadingProgress(100);
+              progress = 100;
             } else {
-              const progress = ((scrollTop - progressStart) / (progressEnd - progressStart)) * 100;
-              setReadingProgress(Math.max(0, Math.min(100, progress)));
+              progress = ((scrollTop - progressStart) / (progressEnd - progressStart)) * 100;
+              progress = Math.max(0, Math.min(100, progress));
             }
+            
+            // Only update if progress changed significantly (reduce re-renders)
+            setReadingProgress(prev => Math.abs(prev - progress) > 1 ? progress : prev);
           }
           
           ticking = false;
@@ -137,12 +154,20 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
         ticking = true;
       }
     };
+    
+    // Initialize on mount and resize
+    initializeElements();
+    const handleResize = () => {
+      initializeElements();
+    };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
     handleScroll(); // Initial calculation
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, []);
@@ -241,7 +266,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
   }));
 
   return (
-    <>
+    <div style={{ isolation: 'isolate' }}>
       {/* Reading Progress Bar */}
       <ReadingProgressBar progress={readingProgress} isVisible={isScrolling || readingProgress > 0} />
 
@@ -362,9 +387,10 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
               <div className="pt-4 pb-8">
                 <ArticleContent>
                   <div className="notion-content max-w-none">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
+                    {useMemo(() => (
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
                         // Headings with proper hierarchy and IDs for TOC
                         h1: ({ children, ...props }) => {
                           const id = children?.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -415,8 +441,29 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                           );
                         },
 
-                        // Text elements
+                        // Text elements  
                         p: ({ children, ...props }) => {
+                          // Check if paragraph contains only images
+                          const childrenArray = React.Children.toArray(children);
+                          const hasOnlyImages = childrenArray.length > 0 && childrenArray.every(child => {
+                            if (React.isValidElement(child)) {
+                              return child.type === 'img' || 
+                                     ((child.props as any)?.src) ||
+                                     (typeof child.type === 'function' && (child.type as any).name === 'Image');
+                            }
+                            return false;
+                          });
+
+                          // If paragraph contains only images, render as div to avoid invalid HTML
+                          if (hasOnlyImages) {
+                            return (
+                              <div className="mb-6" {...props}>
+                                {children}
+                              </div>
+                            );
+                          }
+
+                          // Regular paragraph
                           return (
                             <p className="mb-6 text-gray-700 leading-relaxed text-lg" {...props}>
                               {children}
@@ -598,13 +645,13 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                           
                           return (
                             <div className={`my-10 ${containerClass}`}>
-                              <Image 
+                              {/* Use regular img tag to avoid Next.js Image flickering */}
+                              <img 
                                 src={src} 
                                 alt={alt || ''} 
                                 title={title}
-                                width={800}
-                                height={400}
                                 className="w-full h-auto rounded-lg shadow-sm"
+                                loading="lazy"
                               />
                               {alt && (
                                 <p className="text-center text-sm text-gray-500 mt-3 italic">
@@ -737,6 +784,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                     >
                       {post.content}
                     </ReactMarkdown>
+                    ), [post.content])}
                   </div>
                 </ArticleContent>
               </div>
@@ -759,8 +807,8 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
             </main>
 
             {/* Table of Contents - Desktop Sidebar */}
-            <aside className="hidden xl:block w-64 shrink-0">
-              <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+            <aside className="hidden xl:block w-80 shrink-0">
+              <div className="sticky top-24">
                 <TableOfContents items={tocItems} />
               </div>
             </aside>
@@ -872,6 +920,6 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
           </div>
         </footer>
       </div>
-    </>
+    </div>
   );
 }
