@@ -5,7 +5,7 @@ import { headers } from 'next/headers';
 export async function POST(request: NextRequest) {
   try {
     // Get the webhook signature from headers
-    const headersList = headers();
+    const headersList = await headers();
     const signature = headersList.get('notion-webhook-signature');
     const timestamp = headersList.get('notion-webhook-timestamp');
     
