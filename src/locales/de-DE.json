@@ -876,5 +876,22 @@
         }
       }
     }
+  },
+  "blog": {
+    "title": "KI-Automatisierung für Unternehmen: Expertenleitfäden & Fallstudien",
+    "subtitle": "Lernen Sie, wie Sie KI-Automatisierung in Ihrem Unternehmen mit bewährten Strategien, realen Fallstudien und Schritt-für-Schritt-Anleitungen von SeventeenLabs-Experten implementieren.",
+    "categories": {
+      "all": "Alle"
+    },
+    "cta": {
+      "title": "Bereit, Ihr Unternehmen zu transformieren?",
+      "subtitle": "Lassen Sie uns besprechen, wie KI-Automatisierung Ihnen helfen kann, Ihre Ziele zu erreichen und Ihre Abläufe zu optimieren.",
+      "primaryButton": "Gespräch vereinbaren",
+      "secondaryButton": "Mehr erfahren"
+    },
+    "noArticles": {
+      "title": "Keine Artikel gefunden",
+      "subtitle": "Versuchen Sie eine andere Kategorie auszuwählen."
+    }
   }
 }

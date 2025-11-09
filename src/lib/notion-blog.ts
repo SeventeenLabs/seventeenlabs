@@ -38,9 +38,23 @@ const DATABASE_ID = process.env.NOTION_BLOG_DATABASE_ID!;
 
 // Helper function to extract properties from Notion page
 function extractPageProperties(page: any): BlogPostMetadata {
+  console.log('🔧 Extracting properties from page:', page.id);
+  const availableProps = Object.keys(page.properties);
+  console.log('🔧 Available property names:', availableProps);
+  
+  // Check for Featured Image property variations
+  const featuredImageVariations = availableProps.filter(prop => 
+    prop.toLowerCase().includes('featured') || 
+    prop.toLowerCase().includes('image') ||
+    prop.toLowerCase().includes('cover')
+  );
+  console.log('🖼️ Potential image property names found:', featuredImageVariations);
+  
+  console.log('🔧 Page properties:', JSON.stringify(page.properties, null, 2));
+  
   const properties = page.properties;
   
-  return {
+  const extracted = {
     id: page.id,
     slug: properties.Slug?.rich_text?.[0]?.text?.content || 
           properties.Title?.title?.[0]?.text?.content?.toLowerCase().replace(/\s+/g, '-') || '',
@@ -49,9 +63,116 @@ function extractPageProperties(page: any): BlogPostMetadata {
     author_name: properties.Author?.people?.[0]?.name || 'SeventeenLabs',
     category: properties.Category?.select?.name || 'General',
     tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
-    featured_image: properties['Featured Image']?.files?.[0]?.file?.url || 
-                   properties['Featured Image']?.files?.[0]?.external?.url,
-    image_alt: properties['Image Alt']?.rich_text?.[0]?.text?.content,
+    featured_image: (() => {
+      // Try multiple possible property names
+      const possibleNames = ['Thumbnail', 'Featured Image', 'Image', 'Cover'];
+      let featuredImageProp = null;
+      let propertyName = '';
+      
+      for (const name of possibleNames) {
+        if (properties[name]) {
+          featuredImageProp = properties[name];
+          propertyName = name;
+          break;
+        }
+      }
+      
+      if (!featuredImageProp) {
+        console.log('❌ No image property found. Tried:', possibleNames);
+        console.log('📝 Available properties:', Object.keys(properties));
+        return undefined;
+      }
+      
+      console.log('✅ Found image property:', propertyName);
+      
+      console.log('🖼️ Featured Image property:', JSON.stringify(featuredImageProp, null, 2));
+      console.log('🔍 Property type:', featuredImageProp.type);
+      
+      // Handle Files & Media property type
+      if (featuredImageProp.type === 'files') {
+        const files = featuredImageProp.files || [];
+        console.log('📁 Files count:', files.length);
+        
+        if (files.length === 0) {
+          console.log('❌ No files in Featured Image property');
+          return undefined;
+        }
+        
+        const file = files[0];
+        console.log('📄 File data:', JSON.stringify(file, null, 2));
+        
+        // Check for external URL first (pasted URLs)
+        if (file.external?.url) {
+          console.log('✅ Found external URL:', file.external.url);
+          // If it's a Notion/AWS URL, proxy it to avoid timeouts
+          if (file.external.url.includes('amazonaws.com') || file.external.url.includes('notion.so')) {
+            const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(file.external.url)}`;
+            console.log('🔄 Using image proxy:', proxyUrl);
+            return proxyUrl;
+          }
+          return file.external.url;
+        }
+        
+        // Check for uploaded file URL
+        if (file.file?.url) {
+          console.log('✅ Found uploaded file URL:', file.file.url);
+          // If it's a Notion/AWS URL, proxy it to avoid timeouts
+          if (file.file.url.includes('amazonaws.com') || file.file.url.includes('notion.so')) {
+            const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(file.file.url)}`;
+            console.log('🔄 Using image proxy:', proxyUrl);
+            return proxyUrl;
+          }
+          return file.file.url;
+        }
+        
+        console.log('❌ No valid URL in file object');
+        return undefined;
+      }
+      
+      // Handle URL property type
+      if (featuredImageProp.type === 'url') {
+        console.log('� URL property value:', featuredImageProp.url);
+        return featuredImageProp.url || undefined;
+      }
+      
+      // Handle Rich Text property type (fallback)
+      if (featuredImageProp.type === 'rich_text') {
+        const richText = featuredImageProp.rich_text || [];
+        console.log('📝 Rich text blocks:', richText.length);
+        
+        for (const block of richText) {
+          const content = block?.text?.content;
+          if (content && (content.startsWith('http://') || content.startsWith('https://'))) {
+            console.log('✅ Found URL in rich text:', content);
+            // If it's a Notion/AWS URL, proxy it to avoid timeouts
+            if (content.includes('amazonaws.com') || content.includes('notion.so')) {
+              const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(content)}`;
+              console.log('🔄 Using image proxy for rich text:', proxyUrl);
+              return proxyUrl;
+            }
+            return content;
+          }
+        }
+        
+        console.log('❌ No URLs found in rich text blocks');
+        return undefined;
+      }
+      
+      console.log('❌ Unsupported property type:', featuredImageProp.type);
+      return undefined;
+    })(),
+    image_alt: (() => {
+      const possibleAltNames = ['Image Alt', 'image_alt', 'ImageAlt', 'Alt Text', 'Alt'];
+      for (const name of possibleAltNames) {
+        const altProp = properties[name]?.rich_text?.[0]?.text?.content;
+        if (altProp) {
+          console.log('🏷️ Found image alt with property:', name, '=', altProp);
+          return altProp;
+        }
+      }
+      console.log('🏷️ No image alt found with any of these names:', possibleAltNames);
+      return undefined;
+    })(),
     featured: properties.Featured?.checkbox || false,
     status: (properties.Status?.select?.name?.toLowerCase() as 'draft' | 'published' | 'archived') || 'draft',
     published_at: properties['Published Date']?.date?.start || page.created_time,
@@ -62,6 +183,10 @@ function extractPageProperties(page: any): BlogPostMetadata {
     meta_title: properties['Meta Title']?.rich_text?.[0]?.text?.content,
     meta_description: properties['Meta Description']?.rich_text?.[0]?.text?.content,
   };
+  
+  console.log('🔧 Extracted properties result:', JSON.stringify(extracted, null, 2));
+  
+  return extracted;
 }
 
 // Calculate reading time from markdown content
@@ -73,7 +198,37 @@ function calculateReadingTime(content: string): number {
 
 // Simple fetch wrapper for Notion API
 async function queryDatabase(filter?: any, sorts?: any) {
+  console.log('🚀 Querying Notion database:', DATABASE_ID);
+  console.log('🔍 Filter:', JSON.stringify(filter, null, 2));
+  console.log('📊 Sorts:', JSON.stringify(sorts, null, 2));
+  
+  // First, let's check the database schema to see available properties
   try {
+    const databaseInfo = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.NOTION_TOKEN}`,
+        'Content-Type': 'application/json',
+        'Notion-Version': '2022-06-28',
+      },
+    });
+    
+    if (databaseInfo.ok) {
+      const dbSchema = await databaseInfo.json();
+      console.log('🗂️ Database schema properties:', JSON.stringify(dbSchema.properties, null, 2));
+    }
+  } catch (error) {
+    console.log('⚠️ Could not fetch database schema:', error);
+  }
+  
+  try {
+    const requestBody = {
+      filter,
+      sorts,
+    };
+    
+    console.log('📤 Request body:', JSON.stringify(requestBody, null, 2));
+    
     const response = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID}/query`, {
       method: 'POST',
       headers: {
@@ -81,19 +236,23 @@ async function queryDatabase(filter?: any, sorts?: any) {
         'Content-Type': 'application/json',
         'Notion-Version': '2022-06-28',
       },
-      body: JSON.stringify({
-        filter,
-        sorts,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
+    console.log('📥 Response status:', response.status, response.statusText);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Notion API error response:', errorText);
       throw new Error(`Notion API error: ${response.status} ${response.statusText}`);
     }
 
-    return await response.json();
+    const jsonResponse = await response.json();
+    console.log('✅ Successful Notion API response:', JSON.stringify(jsonResponse, null, 2));
+    
+    return jsonResponse;
   } catch (error) {
-    console.error('Error querying Notion database:', error);
+    console.error('❌ Error querying Notion database:', error);
     return { results: [] };
   }
 }
@@ -111,6 +270,8 @@ async function getPageContent(pageId: string): Promise<string> {
 
 // Get all published posts (cached)
 async function _getAllPosts(): Promise<BlogPostMetadata[]> {
+  console.log('🔍 Fetching all published posts from Notion...');
+  
   const filter = {
     property: 'Status',
     select: {
@@ -126,7 +287,13 @@ async function _getAllPosts(): Promise<BlogPostMetadata[]> {
   ];
 
   const response = await queryDatabase(filter, sorts);
-  return response.results.map((page: any) => extractPageProperties(page));
+  console.log(`📊 Found ${response.results.length} published posts`);
+  console.log('📝 Raw Notion response:', JSON.stringify(response, null, 2));
+  
+  const posts = response.results.map((page: any) => extractPageProperties(page));
+  console.log('✅ Processed posts:', JSON.stringify(posts, null, 2));
+  
+  return posts;
 }
 
 export const getAllPosts = unstable_cache(
@@ -140,6 +307,8 @@ export const getAllPosts = unstable_cache(
 
 // Get single post by slug with content (cached)
 async function _getPostBySlug(slug: string): Promise<BlogPost | null> {
+  console.log(`🔍 Fetching post by slug: "${slug}"`);
+  
   const filter = {
     and: [
       {
@@ -158,21 +327,36 @@ async function _getPostBySlug(slug: string): Promise<BlogPost | null> {
   };
 
   const response = await queryDatabase(filter);
+  console.log(`📊 Found ${response.results.length} posts matching slug "${slug}"`);
+  console.log('📝 Raw Notion response for slug query:', JSON.stringify(response, null, 2));
   
   if (response.results.length === 0) {
+    console.log(`❌ No post found with slug: "${slug}"`);
     return null;
   }
 
   const page = response.results[0];
+  console.log('📄 Processing page:', JSON.stringify(page, null, 2));
+  
   const metadata = extractPageProperties(page);
+  console.log('📋 Extracted metadata:', JSON.stringify(metadata, null, 2));
+  
   const content = await getPageContent(page.id);
+  console.log('📖 Content length:', content.length, 'characters');
+  console.log('📖 Content preview:', content.substring(0, 200) + '...');
+  
   const reading_time = calculateReadingTime(content);
+  console.log('⏱️ Calculated reading time:', reading_time, 'minutes');
 
-  return {
+  const finalPost = {
     ...metadata,
     content,
     reading_time,
   };
+  
+  console.log('✅ Final processed post:', JSON.stringify(finalPost, null, 2));
+  
+  return finalPost;
 }
 
 export const getPostBySlug = unstable_cache(

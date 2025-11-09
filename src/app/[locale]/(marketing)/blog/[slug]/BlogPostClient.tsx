@@ -11,78 +11,216 @@ import remarkGfm from 'remark-gfm';
 interface BlogPostClientProps {
   post: BlogPost;
   relatedPosts: BlogPostMetadata[];
+  locale: 'en' | 'de';
 }
 
-export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
+export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientProps) {
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const blogPath = locale === 'de' ? '/de/blog' : '/blog';
+  const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
+  
+  // Structured Data for SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        '@id': `${postUrl}#article`,
+        headline: post.title,
+        description: post.description,
+        image: {
+          '@type': 'ImageObject',
+          url: post.featured_image ? 
+            (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image) :
+            `${baseUrl}/images/blog/default-og.png`,
+          width: 1200,
+          height: 630,
+        },
+        author: {
+          '@type': 'Person',
+          name: post.author_name,
+          url: `${baseUrl}/about`,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'SeventeenLabs',
+          url: baseUrl,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${baseUrl}/logo_dark.png`,
+          },
+        },
+        datePublished: post.published_at,
+        dateModified: post.updated_at,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': postUrl,
+        },
+        articleSection: post.category,
+        keywords: post.tags?.join(', '),
+        wordCount: Math.ceil(post.content.length / 5), // Rough word count
+        timeRequired: `PT${post.reading_time}M`,
+        inLanguage: locale === 'de' ? 'de-DE' : 'en-US',
+      },
+      {
+        '@type': 'WebPage',
+        '@id': postUrl,
+        url: postUrl,
+        name: post.title,
+        description: post.description,
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': `${baseUrl}#website`,
+          name: 'SeventeenLabs',
+          url: baseUrl,
+        },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: post.featured_image ? 
+            (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image) :
+            `${baseUrl}/images/blog/default-og.png`,
+        },
+        datePublished: post.published_at,
+        dateModified: post.updated_at,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${postUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: baseUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Blog',
+            item: `${baseUrl}${blogPath}`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: post.title,
+            item: postUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      {/* Navigation Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <div className="w-full px-6 sm:px-8 lg:px-12 py-4">
+          <div className="flex items-center justify-between">
+            <Link href={locale === 'de' ? '/de' : '/'} className="group flex items-center gap-3" aria-label="Go to SeventeenLabs homepage">
+              <Image
+                src="/logo_dark.png"
+                alt="SeventeenLabs"
+                width={180}
+                height={42}
+                className="w-[27px] sm:w-[30px] md:w-[33px] lg:w-[37px] h-auto transition-transform duration-300 ease-out group-hover:scale-105"
+              />
+            </Link>
+            
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Back to Blog Link - Hidden on very small screens */}
+              <Link 
+                href={locale === 'de' ? '/de/blog' : '/blog'} 
+                className="hidden sm:flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                aria-label="Return to blog listing page"
+              >
+                <span className="text-sm font-medium">← Back to Blog</span>
+              </Link>
+              
+              {/* Language Switcher */}
+              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className={`px-2 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all ${
+                    locale === 'en' 
+                      ? 'bg-white text-gray-900 shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                  aria-label="View this article in English"
+                >
+                  EN
+                </Link>
+                <Link
+                  href={`/de/blog/${post.slug}`}
+                  className={`px-2 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all ${
+                    locale === 'de' 
+                      ? 'bg-white text-gray-900 shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                  aria-label="View this article in German"
+                >
+                  DE
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <article className="pt-8 pb-12">
-        <div className="max-w-4xl mx-auto">
-          {/* Breadcrumb */}
-          <nav className="mb-8">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li>
-                <Link href="/" className="hover:text-blue-600 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link href="/blog" className="hover:text-blue-600 transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>/</li>
-              <li className="text-gray-900 font-medium">{post.title}</li>
-            </ol>
-          </nav>
+      <article className="pt-24 pb-12">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
 
           {/* Category Badge */}
-          <div className="mb-6">
+          <div className="mb-4">
             <span className="inline-flex items-center text-sm font-semibold text-gray-900 bg-gray-100 px-4 py-2 rounded-lg">
               {post.category}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
             {post.title}
           </h1>
 
           {/* Description */}
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
             {post.description}
           </p>
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 pb-8 border-b border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-white font-semibold">
-                {post.author_name.charAt(0).toUpperCase()}
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-gray-900">
-                  {post.author_name}
+          <div className="space-y-4 pb-6 border-b border-gray-200">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-white font-semibold">
+                  {post.author_name.charAt(0).toUpperCase()}
                 </div>
-                <div className="text-sm text-gray-600">{formattedDate}</div>
+                <div>
+                  <div className="text-sm font-semibold text-gray-900">
+                    {post.author_name}
+                  </div>
+                  <div className="text-sm text-gray-600">{formattedDate}</div>
+                </div>
               </div>
+
+              {post.reading_time && (
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{post.reading_time} min read</span>
+                </div>
+              )}
             </div>
 
-            {post.reading_time && (
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>{post.reading_time} min read</span>
-              </div>
-            )}
-
             {post.tags && post.tags.length > 0 && (
-              <div className="flex items-center gap-2">
-                {post.tags.slice(0, 3).map((tag) => (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.slice(0, 5).map((tag) => (
                   <span
                     key={tag}
                     className="text-xs text-gray-600 bg-gray-100 px-3 py-1 rounded-full"
@@ -95,23 +233,8 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
           </div>
         </div>
 
-        {/* Featured Image */}
-        {post.featured_image && (
-          <div className="max-w-4xl mx-auto my-12">
-            <div className="relative h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg">
-              <Image
-                src={post.featured_image}
-                alt={post.image_alt || post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-        )}
-
         {/* Content */}
-        <div className="max-w-4xl mx-auto mt-12">
+        <div className="max-w-4xl mx-auto mt-12 px-6 sm:px-8 lg:px-12">
           <div className="notion-content prose prose-lg max-w-none
             prose-headings:font-semibold prose-headings:text-gray-900 prose-headings:tracking-tight prose-headings:scroll-mt-24
             prose-h1:text-2xl md:prose-h1:text-3xl prose-h1:mt-8 prose-h1:mb-4 prose-h1:font-bold prose-h1:leading-tight
@@ -119,7 +242,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
             prose-h3:text-lg md:prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-2 prose-h3:font-medium prose-h3:leading-tight
             prose-h4:text-base md:prose-h4:text-lg prose-h4:mt-5 prose-h4:mb-2 prose-h4:font-medium
             prose-p:text-gray-800 prose-p:leading-7 prose-p:mb-3 prose-p:text-base prose-p:font-normal
-            prose-a:text-blue-600 prose-a:underline prose-a:decoration-blue-200 prose-a:underline-offset-2 hover:prose-a:decoration-blue-400
+            prose-a:text-blue-600 prose-a:font-medium prose-a:underline prose-a:decoration-blue-300 prose-a:underline-offset-2 hover:prose-a:text-blue-700 hover:prose-a:decoration-blue-500 prose-a:transition-colors
             prose-strong:text-gray-900 prose-strong:font-semibold
             prose-em:text-gray-700 prose-em:italic
             prose-code:text-red-600 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
@@ -166,6 +289,16 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                     {children}
                   </p>
                 ),
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 font-medium underline decoration-blue-300 underline-offset-2 hover:text-blue-700 hover:decoration-blue-500 transition-colors duration-200"
+                  >
+                    {children}
+                  </a>
+                ),
                 blockquote: ({ children }) => (
                   <div className="border-l-3 border-gray-300 pl-4 py-3 my-4 bg-gray-50/50 rounded-r-md">
                     <div className="text-gray-700 font-normal">
@@ -189,34 +322,33 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                   );
                 },
                 ul: ({ children }) => (
-                  <ul className="my-3 pl-6 space-y-1">
+                  <ul className="my-3 pl-6 space-y-1 list-disc [&>li]:list-item">
                     {children}
                   </ul>
                 ),
                 ol: ({ children }) => (
-                  <ol className="my-3 pl-6 space-y-1 list-decimal">
+                  <ol className="my-3 pl-6 space-y-1 list-decimal [&>li]:list-item">
                     {children}
                   </ol>
                 ),
                 li: ({ children }) => (
-                  <li className="text-gray-800 leading-6 pl-1 relative">
-                    <span className="absolute -left-5 top-0 text-gray-500">•</span>
+                  <li className="text-gray-800 leading-6 pl-1">
                     {children}
                   </li>
                 ),
                 img: ({ src, alt }) => (
-                  <div className="my-8">
+                  <>
                     <img 
                       src={src} 
                       alt={alt} 
-                      className="rounded-lg shadow-sm w-full"
+                      className="rounded-lg shadow-sm w-full my-8 block"
                     />
                     {alt && (
-                      <p className="text-sm text-gray-500 text-center mt-2 italic">
+                      <span className="text-sm text-gray-500 text-center mt-2 italic block">
                         {alt}
-                      </p>
+                      </span>
                     )}
-                  </div>
+                  </>
                 ),
                 table: ({ children }) => (
                   <div className="my-6 overflow-x-auto">
@@ -254,7 +386,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                 {post.tags.map((tag) => (
                   <Link
                     key={tag}
-                    href={`/blog?tag=${encodeURIComponent(tag)}`}
+                    href={`${locale === 'de' ? '/de/blog' : '/blog'}?tag=${encodeURIComponent(tag)}`}
                     className="text-sm text-gray-600 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition-colors"
                   >
                     #{tag}
@@ -268,7 +400,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
+        <section className="py-16 px-6 sm:px-8 lg:px-12 bg-gray-50/50">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
@@ -281,7 +413,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
-                <BlogCard key={relatedPost.id} post={relatedPost} />
+                <BlogCard key={relatedPost.id} post={relatedPost} locale={locale} />
               ))}
             </div>
           </div>
@@ -290,7 +422,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
       {/* CTA Section */}
       <section className="relative bg-black py-24 lg:py-32">
-        <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+        <div className="w-full px-6 sm:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto">
             <div className="text-center">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight mb-6">

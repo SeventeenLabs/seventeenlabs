@@ -7,12 +7,19 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/blog/',
+          '/de/blog/',
+          '/sitemap.xml',
+        ],
         disallow: [
           '/admin/',
           '/api/',
           '/_next/',
           '/private/',
+          '/api/debug-notion/',
+          '/api/image-proxy/',
         ],
         crawlDelay: 1,
       },

@@ -2,34 +2,54 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { BlogPostMetadata } from '@/lib/notion-blog';
+import { useState } from 'react';
 
 interface FeaturedPostProps {
   post: BlogPostMetadata;
+  locale?: 'en' | 'de';
 }
 
-export function FeaturedPost({ post }: FeaturedPostProps) {
+export function FeaturedPost({ post, locale = 'en' }: FeaturedPostProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
 
+  const blogPath = locale === 'de' ? '/de/blog' : '/blog';
+
   return (
-    <Link href={`/blog/${post.slug}`} className="group block">
-      <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group-hover:-translate-y-1">
+    <Link href={`${blogPath}/${post.slug}`} className="group block" aria-label={`Read featured article: ${post.title}`}>
+      <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group-hover:-translate-y-1" itemScope itemType="https://schema.org/BlogPosting">
         <div className="lg:flex">
           {/* Image Section */}
           <div className="relative h-80 lg:h-auto lg:w-1/2 overflow-hidden">
-            {post.featured_image ? (
+            {/* Always show fallback first */}
+            <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 flex items-center justify-center p-8">
+              <div className="text-center max-w-sm">
+                <h2 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-4">
+                  {post.title}
+                </h2>
+                <div className="w-16 h-1 bg-white/40 mx-auto mb-4 rounded-full"></div>
+                <p className="text-white/80 text-sm mb-3 line-clamp-2">
+                  {post.description}
+                </p>
+                <span className="text-white/60 text-xs uppercase tracking-wide font-semibold">
+                  {post.category}
+                </span>
+              </div>
+            </div>
+            
+            {/* Show image only after successful load */}
+            {post.featured_image && (
               <Image
                 src={post.featured_image}
                 alt={post.image_alt || post.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className={`object-cover group-hover:scale-105 transition-all duration-500 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
                 priority
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageLoaded(false)}
               />
-            ) : (
-              <div className="w-full h-full bg-gray-900 flex items-center justify-center">
-                <span className="text-white text-7xl font-light">
-                  {post.title.charAt(0).toUpperCase()}
-                </span>
-              </div>
             )}
             
             {/* Featured Badge */}
@@ -53,12 +73,12 @@ export function FeaturedPost({ post }: FeaturedPostProps) {
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight" itemProp="headline">
               {post.title}
             </h2>
 
             {/* Description */}
-            <p className="text-gray-600 leading-relaxed mb-6">
+            <p className="text-gray-600 leading-relaxed mb-6" itemProp="description">
               {post.description}
             </p>
 
@@ -69,14 +89,16 @@ export function FeaturedPost({ post }: FeaturedPostProps) {
                   {post.author_name.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-gray-900">
-                    {post.author_name}
+                  <span className="text-sm font-semibold text-gray-900" itemProp="author" itemScope itemType="https://schema.org/Person">
+                    <span itemProp="name">{post.author_name}</span>
                   </span>
-                  <time className="text-sm text-gray-500">{formattedDate}</time>
+                  <time className="text-sm text-gray-500" itemProp="datePublished" dateTime={new Date(post.published_at || post.created_at).toISOString()}>
+                    {formattedDate}
+                  </time>
                 </div>
               </div>
               
-              {post.reading_time && (
+              {post.reading_time > 0 && (
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

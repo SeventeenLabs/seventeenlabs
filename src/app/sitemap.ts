@@ -62,22 +62,65 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   });
 
-  // Add blog section
+  // Add blog sections for both languages
   sitemapEntries.push({
     url: `${baseUrl}/blog`,
     lastModified: currentDate,
     changeFrequency: 'daily',
-    priority: 0.8,
+    priority: 0.9,
+    alternates: {
+      languages: {
+        'en': `${baseUrl}/blog`,
+        'de': `${baseUrl}/de/blog`,
+      },
+    },
   });
 
-  // Add blog posts
+  sitemapEntries.push({
+    url: `${baseUrl}/de/blog`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.9,
+    alternates: {
+      languages: {
+        'en': `${baseUrl}/blog`,
+        'de': `${baseUrl}/de/blog`,
+      },
+    },
+  });
+
+  // Add blog posts for both languages
   const blogPosts = await getAllPosts();
   blogPosts.forEach((post) => {
+    const postLastModified = new Date(post.updated_at || post.published_at || post.created_at);
+    const postPriority = post.featured ? 0.8 : 0.7; // Featured posts get higher priority
+
+    // English blog post
     sitemapEntries.push({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.published_at || post.created_at),
-      changeFrequency: 'monthly',
-      priority: 0.6,
+      lastModified: postLastModified,
+      changeFrequency: 'weekly',
+      priority: postPriority,
+      alternates: {
+        languages: {
+          'en': `${baseUrl}/blog/${post.slug}`,
+          'de': `${baseUrl}/de/blog/${post.slug}`,
+        },
+      },
+    });
+
+    // German blog post
+    sitemapEntries.push({
+      url: `${baseUrl}/de/blog/${post.slug}`,
+      lastModified: postLastModified,
+      changeFrequency: 'weekly',
+      priority: postPriority,
+      alternates: {
+        languages: {
+          'en': `${baseUrl}/blog/${post.slug}`,
+          'de': `${baseUrl}/de/blog/${post.slug}`,
+        },
+      },
     });
   });
 

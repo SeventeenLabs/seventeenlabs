@@ -876,5 +876,22 @@
         }
       }
     }
+  },
+  "blog": {
+    "title": "AI Automation for Business: Expert Guides & Case Studies",
+    "subtitle": "Learn how to implement AI automation in your business with proven strategies, real-world case studies, and step-by-step guides from SeventeenLabs experts.",
+    "categories": {
+      "all": "All"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business?",
+      "subtitle": "Let's discuss how AI automation can help you achieve your goals and streamline your operations.",
+      "primaryButton": "Schedule a Call",
+      "secondaryButton": "Learn More"
+    },
+    "noArticles": {
+      "title": "No articles found",
+      "subtitle": "Try selecting a different category."
+    }
   }
 }

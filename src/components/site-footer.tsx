@@ -22,6 +22,7 @@ export default function SiteFooter() {
       agencyBlueprint: 'Agency Automation Blueprint',
       company: 'Company',
       about: 'About',
+      blog: 'Blog',
       contact: 'Contact',
       tagline: 'Transform your business with AI audits, strategic consulting, and custom development solutions',
       copyright: 'SeventeenLabs. All rights reserved.',
@@ -38,6 +39,7 @@ export default function SiteFooter() {
       agencyBlueprint: 'Agentur-Automatisierungs-Blueprint',
       company: 'Unternehmen',
       about: 'Über uns',
+      blog: 'Blog',
       contact: 'Kontakt',
       tagline: 'Transformieren Sie Ihr Unternehmen mit KI-Audits, strategischer Beratung und maßgeschneiderten Entwicklungslösungen',
       copyright: 'SeventeenLabs. Alle Rechte vorbehalten.',
@@ -165,6 +167,12 @@ export default function SiteFooter() {
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.about}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/blog')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.blog}
               </Link>
               <a
                 href="mailto:hello@seventeenlabs.io"
