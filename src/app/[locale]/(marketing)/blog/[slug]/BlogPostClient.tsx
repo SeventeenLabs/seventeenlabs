@@ -37,32 +37,13 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
   const [selectedText, setSelectedText] = useState('');
   const [selectionRect, setSelectionRect] = useState<DOMRect | null>(null);
   const [showTitle, setShowTitle] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const blogPath = locale === 'de' ? '/de/blog' : '/blog';
   const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
 
-  // Enhanced related posts algorithm
-  const enhancedRelatedPosts = relatedPosts
-    .map(relatedPost => {
-      let score = 0;
-      
-      // Same category gets higher score
-      if (relatedPost.category && post.category && relatedPost.category === post.category) {
-        score += 3;
-      }
-      
-      // Common tags increase score
-      if (post.tags && relatedPost.tags && Array.isArray(post.tags) && Array.isArray(relatedPost.tags)) {
-        const commonTags = post.tags.filter(tag => relatedPost.tags?.includes(tag));
-        score += commonTags.length * 2;
-      }
-      
-      return { ...relatedPost, relevanceScore: score };
-    })
-    .sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0))
-    .slice(0, 3);
 
   useEffect(() => {
     // Extract headings for TOC
@@ -254,6 +235,25 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
     relatedPosts: locale === 'de' ? 'Ähnliche Artikel' : 'Related Posts',
     readMore: locale === 'de' ? 'Mehr lesen' : 'Read more'
   };
+
+  // Enhanced related posts algorithm (kept near usage for clarity)
+  const enhancedRelatedPosts = relatedPosts
+    .map(relatedPost => {
+      let score = 0;
+
+      if (relatedPost.category && post.category && relatedPost.category === post.category) {
+        score += 3;
+      }
+
+      if (post.tags && relatedPost.tags && Array.isArray(post.tags) && Array.isArray(relatedPost.tags)) {
+        const commonTags = post.tags.filter(tag => relatedPost.tags?.includes(tag));
+        score += commonTags.length * 2;
+      }
+
+      return { ...relatedPost, relevanceScore: score };
+    })
+    .sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0))
+    .slice(0, 3);
 
   // Transform posts for RelatedPosts component
   const transformedPosts = enhancedRelatedPosts.map(relatedPost => ({

@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: 'article',
       locale: 'en_US',
       url: canonicalUrl,
-      publishedTime: post.published_time,
+      publishedTime: post.published_at,
       images: post.featured_image
         ? [
             {

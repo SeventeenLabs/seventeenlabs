@@ -29,6 +29,40 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     ? (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image)
     : `${baseUrl}/images/blog/default-og.png`;
 
+  const canonicalUrl = `${baseUrl}${blogPath}/${post.slug}`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    headline: post.meta_title || post.title,
+    description: post.meta_description || post.description,
+    image: [imageUrl],
+    author: {
+      '@type': 'Person',
+      name: post.author_name,
+      url: `${baseUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SeventeenLabs',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo-white.svg`,
+      },
+    },
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    inLanguage: validLocale === 'de' ? 'de-DE' : 'en-US',
+    url: canonicalUrl,
+    keywords: post.tags,
+    articleSection: post.category,
+  };
+
   return {
     metadataBase: new URL(baseUrl),
     title: post.meta_title || `${post.title} | SeventeenLabs Blog`,
@@ -51,7 +85,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       },
     },
     alternates: {
-      canonical: `${baseUrl}${blogPath}/${post.slug}`,
+      canonical: canonicalUrl,
       languages: {
         'en': `${baseUrl}/blog/${post.slug}`,
         'de': `${baseUrl}/de/blog/${post.slug}`,
@@ -62,7 +96,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.meta_description || post.description,
       type: 'article',
       locale: validLocale === 'de' ? 'de_DE' : 'en_US',
-      url: `${baseUrl}${blogPath}/${post.slug}`,
+      url: canonicalUrl,
       siteName: 'SeventeenLabs',
       publishedTime: post.published_at,
       modifiedTime: post.updated_at,
@@ -88,11 +122,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       }],
     },
     other: {
-      'article:author': post.author_name,
-      'article:published_time': post.published_at,
-      'article:modified_time': post.updated_at,
-      'article:section': post.category,
-      'article:tag': post.tags?.join(','),
+      ...{
+        'article:author': post.author_name,
+        'article:published_time': post.published_at,
+        'article:modified_time': post.updated_at,
+        'article:section': post.category,
+        'article:tag': post.tags?.join(','),
+      },
+      'script:type:application/ld+json': JSON.stringify(articleJsonLd),
     },
   };
 }

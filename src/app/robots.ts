@@ -9,7 +9,9 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: [
           '/',
+          '/blog',
           '/blog/',
+          '/de/blog',
           '/de/blog/',
           '/sitemap.xml',
         ],
@@ -18,8 +20,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/_next/',
           '/private/',
-          '/api/debug-notion/',
-          '/api/image-proxy/',
         ],
         crawlDelay: 1,
       },
@@ -27,13 +27,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/admin/', '/api/admin/', '/private/'],
+        disallow: ['/admin/', '/api/', '/private/'],
       },
       // Specific rules for Bing Bot
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/admin/', '/api/admin/', '/private/'],
+        disallow: ['/admin/', '/api/', '/private/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

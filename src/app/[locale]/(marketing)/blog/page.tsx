@@ -29,6 +29,25 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 
   const blogUrl = isGerman ? `${baseUrl}/de/blog` : `${baseUrl}/blog`;
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: isGerman ? `${baseUrl}/de` : baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: blogUrl,
+      },
+    ],
+  };
+
   return {
     metadataBase: new URL(baseUrl),
     title,
@@ -81,6 +100,9 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
         url: `${baseUrl}/images/blog/blog-og.png`,
         alt: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
       }],
+    },
+    other: {
+      'script:type:application/ld+json': JSON.stringify(breadcrumbJsonLd),
     },
   };
 }

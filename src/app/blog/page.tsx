@@ -2,10 +2,8 @@ import { Metadata } from 'next';
 import { getAllPosts, getFeaturedPosts, getAllCategories } from '@/lib/notion-blog';
 import { BlogPageClient } from '../[locale]/(marketing)/blog/BlogPageClient';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io'),
   title: 'Blog | SeventeenLabs - AI Automation for Business',
   description:
     'Explore expert guides and case studies for AI automation in business. Learn proven strategies for workflow optimization and business transformation.',
@@ -42,6 +40,9 @@ export const metadata: Metadata = {
       'Explore expert guides and case studies for AI automation in business. Learn proven strategies for workflow optimization and business transformation.',
     creator: '@seventeenlabs',
     site: '@seventeenlabs',
+  },
+  other: {
+    'link:alternate:rss': '/blog/feed.xml',
   },
 };
 
