@@ -1,4 +1,20 @@
 import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default function WorkflowsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
+}
+import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import WorkflowsHeader from "@/components/workflows-header";
 import WorkflowsFooter from "@/components/workflows-footer";

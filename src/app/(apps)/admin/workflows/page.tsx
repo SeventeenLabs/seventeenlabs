@@ -1,6 +1,4 @@
 "use client";
-
-import type { Metadata } from "next";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
@@ -22,13 +20,6 @@ import {
   X,
   Download
 } from "lucide-react";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 interface WorkflowData {
   id: number;

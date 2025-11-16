@@ -1,6 +1,4 @@
 "use client";
-
-import type { Metadata } from "next";
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
@@ -11,13 +9,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import MermaidPreview from "@/components/mermaid-preview";
 import { ArrowLeft, Save, Eye, EyeOff, Upload, Loader2, Sparkles, FileText } from "lucide-react";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 interface WorkflowData {
   id?: number;

@@ -1,6 +1,4 @@
 "use client";
-
-import type { Metadata } from "next";
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,13 +19,6 @@ import {
   AlertCircle
 } from "lucide-react";
 import Link from "next/link";
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 interface DashboardStats {
   totalWorkflows: number;
