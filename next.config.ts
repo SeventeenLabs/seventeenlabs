@@ -47,6 +47,22 @@ const nextConfig: NextConfig = {
   // Trailing slashes for consistent URLs
   trailingSlash: false,
 
+  // Redirect deprecated /en routes to root / for canonical English
+  async redirects() {
+    return [
+      {
+        source: '/en',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/en/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers for SEO and security
   async headers() {
     return [

@@ -110,7 +110,7 @@ export default function AgencyHero({ onContactClick, locale }: AgencyHeroProps) 
             </button>
             
             <a
-              href={getLocalizedPath(locale as Locale, '/apps')}
+              href={getLocalizedPath(locale as Locale, '/workflows')}
               className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2 border border-white/30 hover:border-white/50 hover:scale-105"
             >
               {t("agency.hero.cta.secondary")}

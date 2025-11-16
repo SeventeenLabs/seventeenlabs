@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
           product_data: {
             name: 'Agency Automation Blueprint',
             description: '3 high-impact automation opportunities custom-built for your agency',
-            images: [`${baseUrl}/agency-automation-blueprint/opengraph-image`],
+            images: [`${baseUrl}/opengraph-image`],
             metadata: {
               type: 'blueprint',
             },
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
         product_type: 'blueprint',
       },
       success_url: `${baseUrl}/${locale === 'de' ? 'de/' : ''}blueprint-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/${locale === 'de' ? 'de/' : ''}agency-automation-blueprint?canceled=true`,
+      cancel_url: `${baseUrl}/${locale === 'de' ? 'de/' : ''}services/ai-consulting?canceled=true`,
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       phone_number_collection: {

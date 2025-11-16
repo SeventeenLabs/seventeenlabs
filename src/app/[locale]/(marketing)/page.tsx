@@ -12,7 +12,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 export async function generateMetadata({ params }: HomePageMetadataProps): Promise<Metadata> {
   const { locale } = await params;
   const isGerman = locale === "de";
-  const pagePath = isGerman ? "/de" : "/en";
+  const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
     ? "KI-Automatisierungsagentur für moderne Unternehmen"
@@ -45,9 +45,9 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
     alternates: {
       canonical: `${baseUrl}${pagePath}`,
       languages: {
-        en: `${baseUrl}/en`,
+        en: `${baseUrl}/`,
         de: `${baseUrl}/de`,
-        "x-default": `${baseUrl}/en`,
+        "x-default": `${baseUrl}/`,
       },
     },
     openGraph: {

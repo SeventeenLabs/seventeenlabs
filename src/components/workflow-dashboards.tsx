@@ -235,7 +235,7 @@ export default function WorkflowTransformation() {
               size="lg" 
               className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white border-0"
             >
-              <Link href="/agency">
+              <Link href="/industries/marketing-agencies">
                 <Wrench className="w-4 h-4 mr-2" />
                 Get Started Today
               </Link>
@@ -246,7 +246,7 @@ export default function WorkflowTransformation() {
               size="lg" 
               className="border-slate-600 text-slate-300 hover:bg-slate-800"
             >
-              <Link href="/apps">
+              <Link href="/workflows">
                 <Sparkles className="w-4 h-4 mr-2" />
                 See Examples
               </Link>

@@ -13,6 +13,13 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const pathname = request.nextUrl.pathname;
   
+  // Redirect any explicit /en or /en/* paths to canonical English URLs without /en
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname === '/en' ? '/' : pathname.replace(/^\/en/, '') || '/';
+    return NextResponse.redirect(url, 308);
+  }
+  
   // Don't rewrite API routes, static files, or Next.js internal routes
   if (
     pathname.startsWith('/api/') ||
@@ -63,7 +70,7 @@ export function middleware(request: NextRequest) {
 
   // Rewrite URLs to include locale in the Next.js routing
   // /de/* stays as /de/*
-  // /* gets rewritten to /en/* internally
+  // /* gets rewritten to /en/* internally (internal locale segment only)
   if (locale === 'en' && !pathname.startsWith('/en')) {
     const url = request.nextUrl.clone();
     url.pathname = `/en${pathname}`;

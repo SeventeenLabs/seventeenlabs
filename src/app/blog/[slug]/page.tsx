@@ -20,25 +20,55 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const canonicalUrl = `${baseUrl}/blog/${post.slug}`;
+
   return {
     metadataBase: new URL(baseUrl),
     title: post.meta_title || `${post.title} | SeventeenLabs Blog`,
     description: post.meta_description || post.description,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: canonicalUrl,
+        de: `${baseUrl}/de/blog/${post.slug}`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
       locale: 'en_US',
-      url: `${baseUrl}/blog/${post.slug}`,
-      publishedTime: post.published_at,
-      images: post.featured_image ? [
-        {
-          url: post.featured_image,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ] : undefined,
+      url: canonicalUrl,
+      publishedTime: post.published_time,
+      images: post.featured_image
+        ? [
+            {
+              url: post.featured_image,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.meta_title || post.title,
+      description: post.meta_description || post.description,
+      images: post.featured_image ? [post.featured_image] : undefined,
+      creator: '@seventeenlabs',
+      site: '@seventeenlabs',
     },
   };
 }

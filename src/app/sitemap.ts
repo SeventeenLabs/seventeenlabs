@@ -10,11 +10,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Higher priority pages are crawled more frequently by search engines
   const marketingPages = [
     { path: '', priority: 1.0, changeFreq: 'daily' as const },
-    { path: '/agency', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/agency-automation-blueprint', priority: 0.9, changeFreq: 'weekly' as const },
-    { path: '/apps', priority: 0.85, changeFreq: 'weekly' as const },
+    // Deprecated agency blueprint route removed; main offer is consulting
     { path: '/about', priority: 0.75, changeFreq: 'monthly' as const },
-    { path: '/products/ai-workflow-audit', priority: 0.9, changeFreq: 'daily' as const },
+    // Main product currently promoted
+    { path: '/products/reportflow-engine', priority: 0.9, changeFreq: 'daily' as const },
     { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
     { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' as const },

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { ArrowLeft, Clock, Users, Star, Download, ShoppingCart, Code, CheckCircle, Lock, Loader2, AlertCircle } from "lucide-react";
@@ -11,6 +12,13 @@ import { useWorkflow } from "@/hooks/useWorkflows";
 import MermaidDiagram from "@/components/mermaid-diagram";
 import PurchaseModal from "@/components/purchase-modal";
 import { usePurchase } from "@/contexts/purchase-context";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function WorkflowDetailPage() {
   const params = useParams();

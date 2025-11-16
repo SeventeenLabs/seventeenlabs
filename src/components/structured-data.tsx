@@ -71,7 +71,7 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'SeventeenLabs Agency',
-    url: `${baseUrl}${getLocalizedPath(locale as Locale, '/agency')}`,
+    url: `${baseUrl}${getLocalizedPath(locale as Locale, '/industries/marketing-agencies')}`,
     description: isGerman
       ? 'Maßgeschneiderte Softwareentwicklung, KI-Integration und Workflow-Automatisierung'
       : 'Custom software development, AI integration, and workflow automation services',

@@ -1,10 +1,18 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Check, X, RefreshCw, Loader2, AlertCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface SyncResult {
   workflowId: number;

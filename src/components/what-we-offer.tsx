@@ -22,7 +22,7 @@ export default function WhatWeOffer() {
     {
       title: t("whatWeOffer.aiTools.title"),
       description: t("whatWeOffer.aiTools.description"),
-      href: getLocalizedPath(locale, '/apps'),
+      href: getLocalizedPath(locale, '/workflows'),
       external: false,
       icon: AppWindow,
       key: "aiTools"
@@ -30,7 +30,7 @@ export default function WhatWeOffer() {
     {
       title: t("whatWeOffer.agency.title"),
       description: t("whatWeOffer.agency.description"),
-      href: getLocalizedPath(locale, '/agency'),
+      href: getLocalizedPath(locale, '/industries/marketing-agencies'),
       external: false,
       icon: Handshake,
       key: "agency"

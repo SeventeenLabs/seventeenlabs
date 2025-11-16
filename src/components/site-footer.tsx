@@ -18,8 +18,7 @@ export default function SiteFooter() {
       industries: 'Industries',
       marketingAgencies: 'Marketing Agencies',
       products: 'Products',
-      workflows: 'Workflows',
-      agencyBlueprint: 'Agency Automation Blueprint',
+      workflows: 'Workflows Library',
       company: 'Company',
       about: 'About',
       blog: 'Blog',
@@ -35,8 +34,7 @@ export default function SiteFooter() {
       industries: 'Branchen',
       marketingAgencies: 'Marketing-Agenturen',
       products: 'Produkte',
-      workflows: 'Workflows',
-      agencyBlueprint: 'Agentur-Automatisierungs-Blueprint',
+      workflows: 'Workflows-Bibliothek',
       company: 'Unternehmen',
       about: 'Über uns',
       blog: 'Blog',
@@ -125,22 +123,16 @@ export default function SiteFooter() {
             </h3>
             <nav className="space-y-3">
               <Link
-                href={getLocalizedPath(locale, '/products/ai-workflow-audit')}
+                href={getLocalizedPath(locale, '/products/reportflow-engine')}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
-                {locale === 'de' ? 'Kostenlose AI Audits' : 'Free AI Audits'}
+                {locale === 'de' ? 'ReportFlow Engine™' : 'ReportFlow Engine™'}
               </Link>
               <Link
                 href={getLocalizedPath(locale, '/workflows', { skipLocale: true })}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.workflows}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/agency-automation-blueprint')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.agencyBlueprint}
               </Link>
             </nav>
             <h3 className="text-sm font-light text-white/40 uppercase tracking-wider mb-4 mt-6">
