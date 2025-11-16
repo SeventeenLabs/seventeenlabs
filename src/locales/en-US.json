@@ -893,5 +893,197 @@
       "title": "No articles found",
       "subtitle": "Try selecting a different category."
     }
+  },
+  "reportFlowEngine": {
+    "hero": {
+      "eyebrow": "ReportFlow Engine™",
+      "title": "Save <strong>23+ Hours Monthly</strong> With Automated Client Reporting",
+      "description": "Stop wasting your team's time on manual reports. We build a complete automated reporting system that pulls data, generates AI insights, and delivers professional reports — freeing 23+ hours monthly for revenue work.",
+      "primaryCta": "Schedule Free Strategy Call",
+      "secondaryCta": "View Pricing",
+      "ctaSubtext": "Free 30-minute consultation · No pressure · See if it's right for your agency",
+      "stats": {
+        "hoursSaved": "23+ Hours",
+        "hoursSavedDesc": "Saved every month",
+        "netProfit": "$1,803",
+        "netProfitDesc": "Net monthly profit",
+        "guarantee": "Guaranteed",
+        "guaranteeDesc": "Results or money back"
+      }
+    },
+    "problem": {
+      "eyebrow": "The Problem",
+      "title": "The Client Reporting <strong>Time Drain</strong>",
+      "description": "Your team wastes 10-40 hours monthly pulling data, creating reports, and updating clients. This operational bottleneck costs thousands in lost productivity and puts client satisfaction at risk.",
+      "points": [
+        {
+          "title": "It's Universal",
+          "description": "Every agency—ads, SEO, content—must create weekly updates and monthly reports. It's a universal requirement."
+        },
+        {
+          "title": "It's a Time Black Hole",
+          "description": "Account managers waste 10-40 hours per month pulling numbers, comparing data, and summarizing results for clients."
+        },
+        {
+          "title": "The ROI is Instant",
+          "description": "Automating this one task saves time, increases profit, and improves client satisfaction by delivering faster, consistent updates."
+        }
+      ]
+    },
+    "solution": {
+      "eyebrow": "The Solution",
+      "title": "What The System Includes",
+      "items": [
+        {
+          "title": "Automated Data Collection",
+          "description": "We use Make/Zapier to pull data from Meta Ads, Google Ads, GA4, etc., into a centralized Google Sheet or Airtable."
+        },
+        {
+          "title": "Live Client Dashboards",
+          "description": "A clean Looker Studio dashboard that auto-refreshes daily, with client-specific views and trend charts."
+        },
+        {
+          "title": "AI-Powered Summaries",
+          "description": "ChatGPT summarizes performance, highlighting wins, issues, and recommendations week-over-week."
+        },
+        {
+          "title": "Automated Delivery",
+          "description": "A summary email or Slack message is sent every Monday at 9 AM with the AI summary and a link to the live dashboard."
+        }
+      ]
+    },
+    "outcome": {
+      "eyebrow": "The Outcome",
+      "title": "Turn Your Biggest Expense Into Your <strong>Greatest Asset</strong>",
+      "items": [
+        {
+          "title": "Increased Client Happiness",
+          "description": "Clients feel informed and valued with consistent, professional updates, which reduces churn."
+        },
+        {
+          "title": "Higher Profit Margins",
+          "description": "Freeing your team from manual reporting allows them to focus on high-value, revenue-generating work."
+        },
+        {
+          "title": "Opens Door to New Revenue",
+          "description": "Automating reporting is the gateway to offering more high-value automation services to your clients."
+        }
+      ]
+    },
+    "pricing": {
+      "eyebrow": "Investment",
+      "title": "Simple, Transparent <strong>Pricing</strong>",
+      "setup": {
+        "title": "Setup & Implementation",
+        "price": "$2,997",
+        "features": [
+          "Integration with your existing platforms and data sources",
+          "Pre-built professional dashboard customized with your branding",
+          "AI summary engine setup with ChatGPT for automated insights",
+          "Automated delivery system via email and Slack",
+          "Complete team training and handoff documentation"
+        ]
+      },
+      "monthly": {
+        "title": "Monthly Partnership",
+        "price": "$497",
+        "priceUnit": "/mo",
+        "features": [
+          "System monitoring and performance optimization",
+          "New platform integrations as your stack evolves",
+          "AI prompt refinements and report template updates",
+          "Priority support with 24-hour response time",
+          "Monthly strategy calls to improve automation workflows"
+        ]
+      },
+      "value": {
+        "title": "The Return",
+        "items": [
+          {
+            "label": "Hours Saved Monthly",
+            "value": "23+"
+          },
+          {
+            "label": "Value of Time Saved (at $100/hr)",
+            "value": "$2,300+"
+          },
+          {
+            "label": "Your Monthly Investment",
+            "value": "$497"
+          },
+          {
+            "label": "Your Net Monthly Profit",
+            "value": "$1,803+"
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to Eliminate Manual Reporting?",
+        "description": "Schedule a free 30-minute strategy call to discuss your agency's reporting needs and see if ReportFlow Engine™ is the right fit.",
+        "button": "Schedule Free Strategy Call"
+      }
+    },
+    "guarantee": {
+      "eyebrow": "Our Guarantee",
+      "title": "We Stand Behind <strong>Our Results</strong>",
+      "description": "This isn't just another automation tool. It's a partnership where we guarantee measurable results or you get your money back.",
+      "timeGuarantee": {
+        "title": "Time Savings Guarantee",
+        "description": "Save at least 23 hours per month on client reporting by month 3, or receive $75 refund per missing hour.",
+        "subtext": "No questions asked. No fine print. If the system doesn't deliver the promised time savings, we make it right."
+      },
+      "math": {
+        "title": "The Math",
+        "items": [
+          "Setup investment: $2,997 (recovers in ~13 saved hours)",
+          "Monthly cost: $497 (less than 5 hours of your time)",
+          "Time saved: 23+ hours (worth $2,300+ at $100/hr)",
+          "Net monthly profit: $1,803+ ($21,600+ annually)"
+        ]
+      }
+    },
+    "faq": {
+      "eyebrow": "Common Questions",
+      "title": "Frequently Asked <strong>Questions</strong>",
+      "items": [
+        {
+          "question": "How long does setup take?",
+          "answer": "Setup typically takes 7-10 business days. We'll work with you to integrate your platforms, customize the dashboard with your branding, configure the AI summaries, and train your team on the system."
+        },
+        {
+          "question": "What platforms do you integrate with?",
+          "answer": "We integrate with all major advertising and analytics platforms including Meta Ads, Google Ads, LinkedIn Ads, GA4, and more. If you use a specific platform, we can typically integrate it into your reporting system."
+        },
+        {
+          "question": "What if I don't save 23+ hours per month?",
+          "answer": "If you're not saving at least 23 hours per month by month 3, we'll refund you $75 for every hour short of that guarantee. We're confident in the system and stand behind the results."
+        },
+        {
+          "question": "Do I need technical skills to use this?",
+          "answer": "No technical skills required. We handle all the setup and configuration. Your team just needs to understand how to read the reports and use the dashboard, which we train you on during onboarding."
+        },
+        {
+          "question": "What happens after the setup period?",
+          "answer": "After setup, your system runs automatically. Our monthly partnership includes ongoing monitoring, optimization, new platform integrations, priority support, and monthly strategy calls to ensure you're getting maximum value."
+        }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "Ready to Get Started?",
+      "title": "Stop Wasting <strong>23+ Hours Monthly</strong> on Manual Reports",
+      "description": "Transform your agency's biggest operational expense into a competitive advantage. Get professional, automated client reporting that saves time, reduces churn, and frees your team for revenue-generating work.",
+      "button": "Schedule Free Strategy Call",
+      "buttonSubtext": "30-minute call · No pressure · Free consultation",
+      "benefits": {
+        "title": "What You Get:",
+        "items": [
+          "$2,997 setup + $497/month partnership",
+          "23+ hours saved monthly (guaranteed by month 3)",
+          "$1,803 net monthly savings after all costs",
+          "Professional automated reporting system"
+        ]
+      },
+      "contact": "Questions? Email us at <a href=\"mailto:hello@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">hello@seventeenlabs.io</a> or schedule a call to discuss your specific reporting needs."
+    }
   }
 }

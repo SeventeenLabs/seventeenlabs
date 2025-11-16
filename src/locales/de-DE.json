@@ -893,5 +893,197 @@
       "title": "Keine Artikel gefunden",
       "subtitle": "Versuchen Sie eine andere Kategorie auszuwählen."
     }
+  },
+  "reportFlowEngine": {
+    "hero": {
+      "eyebrow": "ReportFlow Engine™",
+      "title": "Sparen Sie <strong>23+ Stunden monatlich</strong> mit automatisierten Client-Berichten",
+      "description": "Verschwenden Sie keine Zeit mehr mit manuellen Berichten. Wir erstellen ein komplettes automatisiertes Reporting-System, das Daten sammelt, KI-Insights generiert und professionelle Berichte liefert – und so 23+ Stunden monatlich für umsatzgenerierende Arbeit freigibt.",
+      "primaryCta": "Kostenlose Strategieberatung",
+      "secondaryCta": "Preise anzeigen",
+      "ctaSubtext": "Kostenlose 30-Minuten-Beratung · Kein Druck · Schauen Sie, ob es für Ihre Agentur geeignet ist",
+      "stats": {
+        "hoursSaved": "23+ Stunden",
+        "hoursSavedDesc": "Jeden Monat gespart",
+        "netProfit": "1.803€",
+        "netProfitDesc": "Netto-Monatsgewinn",
+        "guarantee": "Garantiert",
+        "guaranteeDesc": "Ergebnisse oder Geld zurück"
+      }
+    },
+    "problem": {
+      "eyebrow": "Das Problem",
+      "title": "Der Client-Reporting <strong>Zeitfresser</strong>",
+      "description": "Ihr Team verschwendet 10-40 Stunden monatlich damit, Daten zu sammeln, Berichte zu erstellen und Kunden zu informieren. Dieser operative Engpass kostet Tausende von verloren gegangener Produktivität und gefährdet die Kundenzufriedenheit.",
+      "points": [
+        {
+          "title": "Es ist universal",
+          "description": "Jede Agentur—Anzeigen, SEO, Content—muss wöchentliche Updates und monatliche Berichte erstellen. Es ist eine universelle Anforderung."
+        },
+        {
+          "title": "Es ist ein Zeitloch",
+          "description": "Account Manager verschwenden 10-40 Stunden pro Monat damit, Zahlen zu sammeln, Daten zu vergleichen und Ergebnisse für Kunden zusammenzufassen."
+        },
+        {
+          "title": "Der ROI ist sofort",
+          "description": "Die Automatisierung dieser einen Aufgabe spart Zeit, erhöht den Gewinn und verbessert die Kundenzufriedenheit durch schnellere, konsistente Updates."
+        }
+      ]
+    },
+    "solution": {
+      "eyebrow": "Die Lösung",
+      "title": "Was das System beinhaltet",
+      "items": [
+        {
+          "title": "Automatisierte Datensammlung",
+          "description": "Wir verwenden Make/Zapier, um Daten aus Meta Ads, Google Ads, GA4 usw. in eine zentrale Google-Tabelle oder Airtable zu sammeln."
+        },
+        {
+          "title": "Live-Client-Dashboards",
+          "description": "Ein sauberes Looker Studio Dashboard, das sich täglich automatisch aktualisiert, mit kundenspezifischen Ansichten und Trend-Charts."
+        },
+        {
+          "title": "KI-gestützte Zusammenfassungen",
+          "description": "ChatGPT fasst die Performance zusammen und hebt Erfolge, Probleme und Empfehlungen Woche für Woche hervor."
+        },
+        {
+          "title": "Automatisierte Zustellung",
+          "description": "Eine Zusammenfassungs-E-Mail oder Slack-Nachricht wird jeden Montag um 9 Uhr mit der KI-Zusammenfassung und einem Link zum Live-Dashboard gesendet."
+        }
+      ]
+    },
+    "outcome": {
+      "eyebrow": "Das Ergebnis",
+      "title": "Verwandeln Sie Ihre größten Kosten in Ihr <strong>wertvollstes Asset</strong>",
+      "items": [
+        {
+          "title": "Erhöhte Kundenzufriedenheit",
+          "description": "Kunden fühlen sich informiert und wertgeschätzt durch konsistente, professionelle Updates, was die Abwanderung reduziert."
+        },
+        {
+          "title": "Höhere Gewinnmargen",
+          "description": "Die Befreiung Ihres Teams von manuellen Berichten ermöglicht es ihnen, sich auf wertschöpfende, umsatzgenerierende Arbeit zu konzentrieren."
+        },
+        {
+          "title": "Öffnet Türen zu neuen Einnahmen",
+          "description": "Die Automatisierung von Berichten ist das Tor zur Bereitstellung weiterer wertschöpfender Automatisierungsservices für Ihre Kunden."
+        }
+      ]
+    },
+    "pricing": {
+      "eyebrow": "Investition",
+      "title": "Einfache, transparente <strong>Preisgestaltung</strong>",
+      "setup": {
+        "title": "Setup & Implementierung",
+        "price": "2.997€",
+        "features": [
+          "Integration mit Ihren bestehenden Plattformen und Datenquellen",
+          "Vorgefertigtes professionelles Dashboard mit Ihrem Branding",
+          "KI-Summary-Engine-Setup mit ChatGPT für automatisierte Insights",
+          "Automatisiertes Zustellungssystem per E-Mail und Slack",
+          "Komplette Teamschulung und Übergabedokumentation"
+        ]
+      },
+      "monthly": {
+        "title": "Monatliche Partnerschaft",
+        "price": "497€",
+        "priceUnit": "/Monat",
+        "features": [
+          "Systemüberwachung und Performance-Optimierung",
+          "Neue Plattformintegrationen bei Entwicklung Ihres Stacks",
+          "KI-Prompt-Verfeinerungen und Report-Template-Updates",
+          "Priority-Support mit 24-Stunden-Reaktionszeit",
+          "Monatliche Strategiegespräche zur Verbesserung der Automatisierungs-Workflows"
+        ]
+      },
+      "value": {
+        "title": "Die Rendite",
+        "items": [
+          {
+            "label": "Gesparte Stunden monatlich",
+            "value": "23+"
+          },
+          {
+            "label": "Wert der gesparten Zeit (bei 100€/Std.)",
+            "value": "2.300€+"
+          },
+          {
+            "label": "Ihre monatliche Investition",
+            "value": "497€"
+          },
+          {
+            "label": "Ihr Netto-Monatsgewinn",
+            "value": "1.803€+"
+          }
+        ]
+      },
+      "cta": {
+        "title": "Bereit, manuelles Reporting zu eliminieren?",
+        "description": "Vereinbaren Sie ein kostenloses 30-minütiges Strategiegespräch, um die Reporting-Bedürfnisse Ihrer Agentur zu besprechen und zu sehen, ob ReportFlow Engine™ die richtige Lösung ist.",
+        "button": "Kostenlose Strategieberatung"
+      }
+    },
+    "guarantee": {
+      "eyebrow": "Unsere Garantie",
+      "title": "Wir stehen hinter <strong>unseren Ergebnissen</strong>",
+      "description": "Das ist nicht nur ein weiteres Automatisierungstool. Es ist eine Partnerschaft, bei der wir messbare Ergebnisse garantieren oder Sie bekommen Ihr Geld zurück.",
+      "timeGuarantee": {
+        "title": "Zeiteinsparungsgarantie",
+        "description": "Sparen Sie bis Monat 3 mindestens 23 Stunden pro Monat beim Client-Reporting oder erhalten Sie 75€ Rückerstattung pro fehlende Stunde.",
+        "subtext": "Keine Fragen gestellt. Kein Kleingedrucktes. Wenn das System die versprochenen Zeiteinsparungen nicht liefert, machen wir es richtig."
+      },
+      "math": {
+        "title": "Die Rechnung",
+        "items": [
+          "Setup-Investition: 2.997€ (amortisiert sich in ~13 gesparten Stunden)",
+          "Monatliche Kosten: 497€ (weniger als 5 Stunden Ihrer Zeit)",
+          "Gesparte Zeit: 23+ Stunden (Wert von 2.300€+ bei 100€/Std.)",
+          "Netto-Monatsgewinn: 1.803€+ (3.600€+ jährlich)"
+        ]
+      }
+    },
+    "faq": {
+      "eyebrow": "Häufige Fragen",
+      "title": "Häufig gestellte <strong>Fragen</strong>",
+      "items": [
+        {
+          "question": "Wie lange dauert das Setup?",
+          "answer": "Das Setup dauert normalerweise 7-10 Werktage. Wir arbeiten mit Ihnen zusammen, um Ihre Plattformen zu integrieren, das Dashboard mit Ihrem Branding anzupassen, die KI-Zusammenfassungen zu konfigurieren und Ihr Team im System zu schulen."
+        },
+        {
+          "question": "Mit welchen Plattformen integrieren Sie?",
+          "answer": "Wir integrieren mit allen wichtigen Werbe- und Analytics-Plattformen einschließlich Meta Ads, Google Ads, LinkedIn Ads, GA4 und mehr. Wenn Sie eine spezielle Plattform verwenden, können wir sie normalerweise in Ihr Reporting-System integrieren."
+        },
+        {
+          "question": "Was ist, wenn ich keine 23+ Stunden pro Monat spare?",
+          "answer": "Wenn Sie bis Monat 3 nicht mindestens 23 Stunden pro Monat sparen, erstatten wir Ihnen 75€ für jede fehlende Stunde. Wir sind von dem System überzeugt und stehen hinter den Ergebnissen."
+        },
+        {
+          "question": "Brauche ich technische Kenntnisse?",
+          "answer": "Keine technischen Kenntnisse erforderlich. Wir übernehmen das komplette Setup und die Konfiguration. Ihr Team muss nur verstehen, wie die Berichte gelesen und das Dashboard verwendet wird, was wir während des Onboardings schulen."
+        },
+        {
+          "question": "Was passiert nach der Setup-Phase?",
+          "answer": "Nach dem Setup läuft Ihr System automatisch. Unsere monatliche Partnerschaft umfasst laufende Überwachung, Optimierung, neue Plattformintegrationen, Priority-Support und monatliche Strategiegespräche, um sicherzustellen, dass Sie maximalen Wert erhalten."
+        }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "Bereit loszulegen?",
+      "title": "Stoppen Sie die Verschwendung von <strong>23+ Stunden monatlich</strong> für manuelle Berichte",
+      "description": "Verwandeln Sie die größte operative Belastung Ihrer Agentur in einen Wettbewerbsvorteil. Erhalten Sie professionelle, automatisierte Client-Berichte, die Zeit sparen, Abwanderung reduzieren und Ihr Team für umsatzgenerierende Arbeit freigeben.",
+      "button": "Kostenlose Strategieberatung",
+      "buttonSubtext": "30-Minuten-Gespräch · Kein Druck · Kostenlose Beratung",
+      "benefits": {
+        "title": "Was Sie erhalten:",
+        "items": [
+          "2.997€ Setup + 497€/Monat Partnerschaft",
+          "23+ gesparte Stunden monatlich (garantiert bis Monat 3)",
+          "1.803€ Netto-Monatseinsparungen nach allen Kosten",
+          "Professionelles automatisiertes Reporting-System"
+        ]
+      },
+      "contact": "Fragen? Schreiben Sie uns an <a href=\"mailto:hello@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">hello@seventeenlabs.io</a> oder vereinbaren Sie einen Termin, um Ihre spezifischen Reporting-Bedürfnisse zu besprechen."
+    }
   }
 }

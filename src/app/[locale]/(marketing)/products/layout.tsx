@@ -1,7 +1,25 @@
-export default function ProductsLayout({
-  children,
-}: {
+import LandingHeader from "@/components/landing-header";
+import SiteFooter from "@/components/site-footer";
+import { I18nProvider } from "@/lib/i18n/context";
+
+interface LayoutProps {
   children: React.ReactNode;
-}) {
-  return <>{children}</>;
+  params: Promise<{ locale: string }>;
+}
+
+export default async function ProductsLayout({
+  children,
+  params,
+}: LayoutProps) {
+  const { locale } = await params;
+
+  return (
+    <I18nProvider locale={locale as any}>
+      <div className="min-h-screen bg-black">
+        <LandingHeader />
+        {children}
+        <SiteFooter />
+      </div>
+    </I18nProvider>
+  );
 }
