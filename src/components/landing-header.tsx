@@ -41,21 +41,11 @@ export default function LandingHeader() {
   // Products - Ready-to-use tools
   const productsItems = [
     {
-      title: locale === 'de' ? 'Kostenlose AI Audits' : 'Free AI Audits',
+      title: locale === 'de' ? 'ReportFlow Engine™' : 'ReportFlow Engine™',
       description: locale === 'de' 
-        ? 'Kostenlose Workflow-Analyse für Marketing-Agenturen'
-        : 'Free workflow analysis for marketing agencies',
-      href: getLocalizedPath(locale, '/products/ai-workflow-audit'),
-    },
-    {
-      title: t("navigation.solutions.workflowAutomation.title"),
-      description: t("navigation.solutions.workflowAutomation.description"),
-      href: getLocalizedPath(locale, '/workflows', { skipLocale: true }),
-    },
-    {
-      title: t("navigation.solutions.aiProducts.title"),
-      description: t("navigation.solutions.aiProducts.description"),
-      href: `${getLocalizedPath(locale)}#ai-products`,
+        ? '23+ Stunden monatlich sparen mit automatisierten Client-Berichten'
+        : 'Save 23+ hours monthly with automated client reporting',
+      href: getLocalizedPath(locale, '/products/reportflow-engine'),
     },
   ];
 
