@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AIAppointmentEngineHero from "@/components/products/ai-appointment-engine/ai-appointment-engine-hero";
 import ProblemSection from "@/components/products/ai-appointment-engine/problem-section";
 import SolutionSection from "@/components/products/ai-appointment-engine/solution-section";
+import MidCtaSection from "@/components/products/ai-appointment-engine/mid-cta-section";
 import OutcomeSection from "@/components/products/ai-appointment-engine/outcome-section";
 import GuaranteeSection from "@/components/products/ai-appointment-engine/guarantee-section";
 import PricingSection from "@/components/products/ai-appointment-engine/pricing-section";
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const description = isGerman
     ? "Automatisieren Sie Ihre Client-Berichte mit ReportFlow Engine™. Sparen Sie 23+ Stunden monatlich mit KI-gestützten Dashboards, automatisierter Datensammlung und professionellen Reports."
-    : "Automate your client reporting with ReportFlow Engine™. Save 23+ hours monthly with AI-powered dashboards, automated data collection, and professional reports. $2,997 setup + $497/month.";
+    : "Automate your client reporting with ReportFlow Engine™. Save 23+ hours monthly with AI-powered dashboards, automated data collection, and professional reports.";
 
   return {
     title,
@@ -101,13 +102,6 @@ export default async function ReportFlowEnginePage({ params }: PageProps) {
     serviceType: isGerman ? "Marketing Automatisierung" : "Marketing Automation",
     areaServed: "Worldwide",
     url: pageUrl,
-    offers: {
-      "@type": "Offer",
-      url: pageUrl,
-      availability: "https://schema.org/InStock",
-      price: "2997",
-      priceCurrency: "USD",
-    },
   };
 
   return (
@@ -120,8 +114,8 @@ export default async function ReportFlowEnginePage({ params }: PageProps) {
         <AIAppointmentEngineHero />
         <ProblemSection />
         <SolutionSection />
+        <MidCtaSection />
         <OutcomeSection />
-        <PricingSection />
         <GuaranteeSection />
         <FAQSection />
         <AIAppointmentEngineCta />

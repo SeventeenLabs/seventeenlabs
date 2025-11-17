@@ -12,9 +12,12 @@ export default function OutcomeSection() {
   const outcomeItems = translations.reportFlowEngine?.outcome?.items || [];
 
   const iconMap: { [key: number]: any } = {
-    0: Smile,
-    1: TrendingUp,
-    2: DollarSign,
+    0: TrendingUp,  // Save 23+ Hours
+    1: Smile,       // Client Happiness
+    2: DollarSign,  // Higher Profit
+    3: TrendingUp,  // Scale Without Headcount
+    4: Smile,       // Professional Brand
+    5: DollarSign,  // New Revenue
   };
 
   return (

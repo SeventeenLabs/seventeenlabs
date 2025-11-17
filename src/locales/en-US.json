@@ -898,35 +898,39 @@
     "hero": {
       "eyebrow": "ReportFlow Engine™",
       "title": "Save <strong>23+ Hours Monthly</strong> With Automated Client Reporting",
-      "description": "Stop wasting your team's time on manual reports. We build a complete automated reporting system that pulls data, generates AI insights, and delivers professional reports — freeing 23+ hours monthly for revenue work.",
+      "description": "We help marketing agencies save 23+ hours per month on client reporting while increasing customer satisfaction rates by 35% through our intelligent ReportFlow Engine.",
       "primaryCta": "Schedule Free Strategy Call",
       "secondaryCta": "View Pricing",
-      "ctaSubtext": "Free 30-minute consultation · No pressure · See if it's right for your agency",
+      "ctaSubtext": "30-minute call · No commitment required",
       "stats": {
         "hoursSaved": "23+ Hours",
         "hoursSavedDesc": "Saved every month",
-        "netProfit": "$1,803",
-        "netProfitDesc": "Net monthly profit",
+        "netProfit": "35% Higher",
+        "netProfitDesc": "Client satisfaction",
         "guarantee": "Guaranteed",
-        "guaranteeDesc": "Results or money back"
+        "guaranteeDesc": "23+ hours or refund"
       }
     },
     "problem": {
       "eyebrow": "The Problem",
-      "title": "The Client Reporting <strong>Time Drain</strong>",
-      "description": "Your team wastes 10-40 hours monthly pulling data, creating reports, and updating clients. This operational bottleneck costs thousands in lost productivity and puts client satisfaction at risk.",
+      "title": "Client Reporting Is <strong>Draining Your Agency</strong>",
+      "description": "Your team wastes 23+ hours monthly pulling data, creating reports, and updating clients. This operational bottleneck costs thousands in lost productivity and puts client satisfaction at risk.",
       "points": [
         {
-          "title": "It's Universal",
-          "description": "Every agency—ads, SEO, content—must create weekly updates and monthly reports. It's a universal requirement."
+          "title": "Your Team Is Stuck in Spreadsheets",
+          "description": "Account managers spend hours every week logging into different platforms, copying numbers, and manually building reports instead of doing strategic work."
         },
         {
-          "title": "It's a Time Black Hole",
-          "description": "Account managers waste 10-40 hours per month pulling numbers, comparing data, and summarizing results for clients."
+          "title": "Clients Feel Left in the Dark",
+          "description": "Inconsistent or delayed reports make clients question your value. They want transparency and regular updates without having to ask for them."
         },
         {
-          "title": "The ROI is Instant",
-          "description": "Automating this one task saves time, increases profit, and improves client satisfaction by delivering faster, consistent updates."
+          "title": "You Cannot Scale",
+          "description": "Every new client means more hours of manual reporting. You are forced to choose between hiring more people or limiting growth."
+        },
+        {
+          "title": "Errors Damage Trust",
+          "description": "Manual data entry leads to mistakes in reports. One wrong number can erode client confidence and put accounts at risk."
         }
       ]
     },
@@ -936,37 +940,68 @@
       "items": [
         {
           "title": "Automated Data Collection",
-          "description": "We use Make/Zapier to pull data from Meta Ads, Google Ads, GA4, etc., into a centralized Google Sheet or Airtable."
+          "description": "We pull data from virtually any source your business uses into a centralized database, fully automated and always up to date."
         },
         {
           "title": "Live Client Dashboards",
-          "description": "A clean Looker Studio dashboard that auto-refreshes daily, with client-specific views and trend charts."
+          "description": "A custom-built, beautiful dashboard that auto-refreshes in real-time, with client-specific views and trend visualizations."
         },
         {
           "title": "AI-Powered Summaries",
-          "description": "ChatGPT summarizes performance, highlighting wins, issues, and recommendations week-over-week."
+          "description": "Intelligent analysis automatically summarizes performance, highlighting wins, issues, and actionable recommendations week over week."
         },
         {
           "title": "Automated Delivery",
-          "description": "A summary email or Slack message is sent every Monday at 9 AM with the AI summary and a link to the live dashboard."
+          "description": "Reports and summaries are automatically sent to your clients on your preferred schedule via email, Slack, or other channels."
+        },
+        {
+          "title": "Multi-Client Management",
+          "description": "Manage reports for all your clients from a single system, with individual branding and customization for each account."
+        },
+        {
+          "title": "Performance Alerts",
+          "description": "Get instant notifications when metrics hit critical thresholds, so you can act before clients notice problems."
+        },
+        {
+          "title": "White-Label Ready",
+          "description": "Present everything under your agency brand with custom logos, colors, and domain. Clients see your professional touch."
         }
       ]
+    },
+    "midCta": {
+      "title": "This System Can Work <span class='text-blue-400'>for Your Agency</span>",
+      "description": "Every marketing agency has unique data sources and reporting needs. Let's discuss your specific workflow and show you how we'll customize ReportFlow Engine to fit perfectly.",
+      "primaryButton": "Book Free Consultation",
+      "secondaryButton": "Learn More",
+      "subtext": "No commitment required · 30-minute call"
     },
     "outcome": {
       "eyebrow": "The Outcome",
       "title": "Turn Your Biggest Expense Into Your <strong>Greatest Asset</strong>",
       "items": [
         {
+          "title": "Save 23+ Hours Every Month",
+          "description": "Eliminate the manual work of pulling data, creating reports, and updating clients. Your team gets time back for strategic work."
+        },
+        {
           "title": "Increased Client Happiness",
-          "description": "Clients feel informed and valued with consistent, professional updates, which reduces churn."
+          "description": "Clients feel informed and valued with consistent, professional updates, which reduces churn and increases satisfaction by up to 35%."
         },
         {
           "title": "Higher Profit Margins",
-          "description": "Freeing your team from manual reporting allows them to focus on high-value, revenue-generating work."
+          "description": "Freeing your team from manual reporting allows them to focus on high value, revenue generating work that grows your agency."
+        },
+        {
+          "title": "Scale Without Adding Headcount",
+          "description": "Handle more clients without hiring more account managers. The system scales effortlessly as your agency grows."
+        },
+        {
+          "title": "Professional Brand Image",
+          "description": "Consistent, polished reports delivered on time position your agency as modern and reliable in the eyes of clients."
         },
         {
           "title": "Opens Door to New Revenue",
-          "description": "Automating reporting is the gateway to offering more high-value automation services to your clients."
+          "description": "Automating reporting is the gateway to offering more high value automation services to your clients."
         }
       ]
     },
@@ -1026,19 +1061,19 @@
     "guarantee": {
       "eyebrow": "Our Guarantee",
       "title": "We Stand Behind <strong>Our Results</strong>",
-      "description": "This isn't just another automation tool. It's a partnership where we guarantee measurable results or you get your money back.",
+      "description": "This isn't just another automation tool. It's a partnership where we guarantee measurable results.",
       "timeGuarantee": {
         "title": "Time Savings Guarantee",
-        "description": "Save at least 23 hours per month on client reporting by month 3, or receive $75 refund per missing hour.",
-        "subtext": "No questions asked. No fine print. If the system doesn't deliver the promised time savings, we make it right."
+        "description": "Save at least 23 hours per month on client reporting within the first 3 months of implementation.",
+        "subtext": "We're confident in our system and committed to delivering real, measurable time savings for your agency."
       },
       "math": {
-        "title": "The Math",
+        "title": "The Impact",
         "items": [
-          "Setup investment: $2,997 (recovers in ~13 saved hours)",
-          "Monthly cost: $497 (less than 5 hours of your time)",
-          "Time saved: 23+ hours (worth $2,300+ at $100/hr)",
-          "Net monthly profit: $1,803+ ($21,600+ annually)"
+          "Time saved: 23+ hours monthly freed for strategic work",
+          "Value created: Equivalent to hiring a part time employee",
+          "Client satisfaction: 35% increase in satisfaction scores",
+          "Scalability: Handle more clients without adding headcount"
         ]
       }
     },
@@ -1047,43 +1082,47 @@
       "title": "Frequently Asked <strong>Questions</strong>",
       "items": [
         {
-          "question": "How long does setup take?",
-          "answer": "Setup typically takes 7-10 business days. We'll work with you to integrate your platforms, customize the dashboard with your branding, configure the AI summaries, and train your team on the system."
+          "question": "What exactly does ReportFlow Engine automate?",
+          "answer": "It automatically collects data from your marketing platforms, generates AI powered performance summaries, creates visual dashboards, and delivers reports to your clients on schedule. Everything that takes your team hours every week happens automatically."
         },
         {
-          "question": "What platforms do you integrate with?",
-          "answer": "We integrate with all major advertising and analytics platforms including Meta Ads, Google Ads, LinkedIn Ads, GA4, and more. If you use a specific platform, we can typically integrate it into your reporting system."
+          "question": "How quickly can I start saving time?",
+          "answer": "Implementation takes 3 to 5 business days. Once live, you immediately stop spending hours on manual data collection and report creation. Most agencies see the full 23+ hours saved within the first month."
         },
         {
-          "question": "What if I don't save 23+ hours per month?",
-          "answer": "If you're not saving at least 23 hours per month by month 3, we'll refund you $75 for every hour short of that guarantee. We're confident in the system and stand behind the results."
+          "question": "Which marketing platforms can you connect?",
+          "answer": "We can connect virtually any platform your agency uses. Advertising platforms, analytics tools, social media, CRM systems, email marketing tools. If it has data you need to report on, we can pull it in automatically."
         },
         {
-          "question": "Do I need technical skills to use this?",
-          "answer": "No technical skills required. We handle all the setup and configuration. Your team just needs to understand how to read the reports and use the dashboard, which we train you on during onboarding."
+          "question": "What reports will I receive?",
+          "answer": "You get automated dashboards showing all your marketing performance data in one place. The system generates AI powered summaries of what is working and what needs attention. You can access real time dashboards anytime or receive scheduled report summaries via email."
         },
         {
-          "question": "What happens after the setup period?",
-          "answer": "After setup, your system runs automatically. Our monthly partnership includes ongoing monitoring, optimization, new platform integrations, priority support, and monthly strategy calls to ensure you're getting maximum value."
+          "question": "Do I need to change how I work with clients?",
+          "answer": "No. The system works behind the scenes. Your client communication stays the same, but you spend zero time building reports. You focus on strategy and optimization while automation handles the reporting."
+        },
+        {
+          "question": "What happens if I need to add new data sources?",
+          "answer": "We handle it. As your agency adds new tools or platforms, we integrate them into your reporting system. This is included in the ongoing support, no additional setup process needed."
         }
       ]
     },
     "finalCta": {
-      "eyebrow": "Ready to Get Started?",
-      "title": "Stop Wasting <strong>23+ Hours Monthly</strong> on Manual Reports",
-      "description": "Transform your agency's biggest operational expense into a competitive advantage. Get professional, automated client reporting that saves time, reduces churn, and frees your team for revenue-generating work.",
-      "button": "Schedule Free Strategy Call",
-      "buttonSubtext": "30-minute call · No pressure · Free consultation",
+      "eyebrow": "Start Saving Time Today",
+      "title": "Ready to Reclaim <strong>23+ Hours</strong> Every Month?",
+      "description": "Stop drowning in spreadsheets and manual data collection. Let us build your automated reporting system so you can focus on growing your agency.",
+      "button": "Book Your Free Consultation",
+      "buttonSubtext": "30-minute call to see if ReportFlow Engine is right for you",
       "benefits": {
-        "title": "What You Get:",
+        "title": "What happens on the call:",
         "items": [
-          "$2,997 setup + $497/month partnership",
-          "23+ hours saved monthly (guaranteed by month 3)",
-          "$1,803 net monthly savings after all costs",
-          "Professional automated reporting system"
+          "We review your current reporting workflow",
+          "Show you exactly what ReportFlow Engine can automate",
+          "Answer your questions about implementation",
+          "Discuss timeline and next steps (if it's a fit)"
         ]
       },
-      "contact": "Questions? Email us at <a href=\"mailto:hello@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">hello@seventeenlabs.io</a> or schedule a call to discuss your specific reporting needs."
+      "contact": "Have questions first? Email us at <a href=\"mailto:chris@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">chris@seventeenlabs.io</a>"
     }
   }
 }

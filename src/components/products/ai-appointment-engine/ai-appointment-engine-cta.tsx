@@ -30,13 +30,13 @@ export default function AIAppointmentEngineCta() {
           </p>
           
           <div className="mb-8 sm:mb-10">
-            <a href="https://calendly.com/chris-seventeenlabs/30min" target="_blank" rel="noopener noreferrer" className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300 flex items-center justify-center gap-3">
+            <a href="https://calendly.com/chris-seventeenlabs/30min" target="_blank" rel="noopener noreferrer" className="group inline-flex px-8 sm:px-10 py-4 sm:py-5 text-sm sm:text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300 items-center justify-center gap-3">
               {t('reportFlowEngine.finalCta.button')}
               <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </a>
-            <p className="text-sm text-white/60 font-light mt-3 sm:mt-4 text-center sm:text-left">
+            <p className="text-sm text-white/60 font-light mt-3 sm:mt-4">
               {t('reportFlowEngine.finalCta.buttonSubtext')}
             </p>
           </div>

@@ -2,9 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from '@/lib/i18n/context';
+import { useSearchParams } from 'next/navigation';
+import { useMemo, Suspense } from 'react';
 
-export default function AIAppointmentEngineHero() {
+function HeroContent() {
   const { t } = useTranslations();
+  const searchParams = useSearchParams();
+  
+  const targetCustomer = useMemo(() => {
+    return searchParams.get('customer') || 'marketing agencies';
+  }, [searchParams]);
+
+  const description = useMemo(() => {
+    return t('reportFlowEngine.hero.description').replace('marketing agencies', targetCustomer);
+  }, [t, targetCustomer]);
+
   return (
     <section className="relative min-h-screen flex flex-col bg-zinc-950 overflow-hidden">
       {/* Glowing Background Elements */}
@@ -46,7 +58,7 @@ export default function AIAppointmentEngineHero() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="text-base sm:text-lg lg:text-xl text-white/70 font-light leading-relaxed mb-8 sm:mb-10 max-w-3xl"
             >
-              {t('reportFlowEngine.hero.description')}
+              {description}
             </motion.p>
 
             <motion.div
@@ -54,18 +66,12 @@ export default function AIAppointmentEngineHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
             >
-              <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <a href="https://calendly.com/chris-seventeenlabs/30min" target="_blank" rel="noopener noreferrer" className="group px-10 py-5 text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300 shadow-lg shadow-blue-500/25 flex items-center gap-3">
+              <div className="mb-4">
+                <a href="https://calendly.com/chris-seventeenlabs/30min" target="_blank" rel="noopener noreferrer" className="inline-flex group px-10 py-5 text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300 shadow-lg shadow-blue-500/25 items-center gap-3">
                   {t('reportFlowEngine.hero.primaryCta')}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                </a>
-                <a 
-                  href="#pricing"
-                  className="group px-10 py-5 text-base font-light text-white border border-white/30 rounded-lg hover:border-white/60 hover:bg-white/5 transition-all duration-300 flex items-center justify-center"
-                >
-                  {t('reportFlowEngine.hero.secondaryCta')}
                 </a>
               </div>
               <p className="text-white/60 font-light text-sm">
@@ -122,5 +128,25 @@ export default function AIAppointmentEngineHero() {
         </div>
       </motion.div>
     </section>
+  );
+}
+
+export default function AIAppointmentEngineHero() {
+  return (
+    <Suspense fallback={
+      <section className="relative min-h-screen flex flex-col bg-zinc-950 overflow-hidden">
+        <div className="flex-1 flex items-center relative z-10">
+          <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-20 py-20 sm:py-28 lg:py-32 max-w-4xl">
+            <div className="animate-pulse">
+              <div className="h-4 bg-white/10 rounded w-32 mb-6"></div>
+              <div className="h-12 bg-white/10 rounded w-3/4 mb-4"></div>
+              <div className="h-6 bg-white/10 rounded w-full mb-8"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    }>
+      <HeroContent />
+    </Suspense>
   );
 }
