@@ -18,37 +18,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/services/ai-development', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/privacy', priority: 0.4, changeFreq: 'yearly' as const },
+    { path: '/terms', priority: 0.4, changeFreq: 'yearly' as const },
   ];
 
   // Generate sitemap entries for all locale combinations
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
   marketingPages.forEach(({ path, priority, changeFreq }) => {
+    const englishUrl = `${baseUrl}${path}`;
+    const germanUrl = `${baseUrl}/de${path}`;
+    const alternateLanguages = {
+      'en': englishUrl,
+      'de': germanUrl,
+      'x-default': englishUrl,
+    };
+
     // English pages (root)
     sitemapEntries.push({
-      url: `${baseUrl}${path}`,
+      url: englishUrl,
       lastModified: currentDate,
       changeFrequency: changeFreq,
       priority: priority,
       alternates: {
-        languages: {
-          'en': `${baseUrl}${path}`,
-          'de': `${baseUrl}/de${path}`,
-        },
+        languages: alternateLanguages,
       },
     });
     
     // German pages (/de/)
     sitemapEntries.push({
-      url: `${baseUrl}/de${path}`,
+      url: germanUrl,
       lastModified: currentDate,
       changeFrequency: changeFreq,
       priority: priority,
       alternates: {
-        languages: {
-          'en': `${baseUrl}${path}`,
-          'de': `${baseUrl}/de${path}`,
-        },
+        languages: alternateLanguages,
       },
     });
   });
@@ -71,6 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       languages: {
         'en': `${baseUrl}/blog`,
         'de': `${baseUrl}/de/blog`,
+        'x-default': `${baseUrl}/blog`,
       },
     },
   });
@@ -84,6 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       languages: {
         'en': `${baseUrl}/blog`,
         'de': `${baseUrl}/de/blog`,
+        'x-default': `${baseUrl}/blog`,
       },
     },
   });
@@ -94,31 +100,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const postLastModified = new Date(post.updated_at || post.published_at || post.created_at);
     const postPriority = post.featured ? 0.8 : 0.7; // Featured posts get higher priority
 
+    const englishPostUrl = `${baseUrl}/blog/${post.slug}`;
+    const germanPostUrl = `${baseUrl}/de/blog/${post.slug}`;
+    const postAlternates = {
+      'en': englishPostUrl,
+      'de': germanPostUrl,
+      'x-default': englishPostUrl,
+    };
+
     // English blog post
     sitemapEntries.push({
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: englishPostUrl,
       lastModified: postLastModified,
       changeFrequency: 'weekly',
       priority: postPriority,
       alternates: {
-        languages: {
-          'en': `${baseUrl}/blog/${post.slug}`,
-          'de': `${baseUrl}/de/blog/${post.slug}`,
-        },
+        languages: postAlternates,
       },
     });
 
     // German blog post
     sitemapEntries.push({
-      url: `${baseUrl}/de/blog/${post.slug}`,
+      url: germanPostUrl,
       lastModified: postLastModified,
       changeFrequency: 'weekly',
       priority: postPriority,
       alternates: {
-        languages: {
-          'en': `${baseUrl}/blog/${post.slug}`,
-          'de': `${baseUrl}/de/blog/${post.slug}`,
-        },
+        languages: postAlternates,
       },
     });
   });

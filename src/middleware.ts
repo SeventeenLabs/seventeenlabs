@@ -12,6 +12,9 @@ function getLocaleFromPathname(pathname: string): string {
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const pathname = request.nextUrl.pathname;
+  const requestHeaders = new Headers(request.headers);
+  const locale = getLocaleFromPathname(pathname);
+  requestHeaders.set('x-path-locale', locale);
   
   // Redirect any explicit /en or /en/* paths to canonical English URLs without /en
   if (pathname === '/en' || pathname.startsWith('/en/')) {
@@ -31,11 +34,13 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/(apps)') ||
     pathname.startsWith('/opengraph-image')
   ) {
-    return NextResponse.next();
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
-  const locale = getLocaleFromPathname(pathname);
-  
   // Handle workflows subdomain
   if (hostname === "workflows.seventeenlabs.io" || 
       hostname === "workflows.localhost:3000" || 
@@ -49,7 +54,11 @@ export function middleware(request: NextRequest) {
     } else {
       url.pathname = `/workflows${pathname}`;
     }
-    return NextResponse.rewrite(url);
+    return NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
   
   // Handle agency subdomain
@@ -65,7 +74,11 @@ export function middleware(request: NextRequest) {
     } else {
       url.pathname = `/agency${pathname}`;
     }
-    return NextResponse.rewrite(url);
+    return NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   // Rewrite URLs to include locale in the Next.js routing
@@ -74,10 +87,18 @@ export function middleware(request: NextRequest) {
   if (locale === 'en' && !pathname.startsWith('/en')) {
     const url = request.nextUrl.clone();
     url.pathname = `/en${pathname}`;
-    return NextResponse.rewrite(url);
+    return NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
   
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {

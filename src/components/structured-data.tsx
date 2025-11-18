@@ -29,6 +29,8 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
+      telephone: '+1-415-429-6000',
+      areaServed: 'Worldwide',
       availableLanguage: ['en', 'de'],
     },
   };

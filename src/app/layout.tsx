@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
     languages: {
       'en': '/',
       'de': '/de',
+      'x-default': '/',
     },
   },
   openGraph: {
@@ -77,11 +79,23 @@ export const metadata: Metadata = {
 };
 
 // Root layout provides HTML structure for routes outside [locale]
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const hintedLocale = headersList.get('x-path-locale');
+  let htmlLang = 'en';
+  if (hintedLocale === 'de') {
+    htmlLang = 'de';
+  } else if (hintedLocale === 'en') {
+    htmlLang = 'en';
+  } else {
+    const pathname = headersList.get('next-url') || '/';
+    const firstSegment = pathname.split('/')[1];
+    htmlLang = firstSegment === 'de' ? 'de' : 'en';
+  }
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
@@ -113,7 +127,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

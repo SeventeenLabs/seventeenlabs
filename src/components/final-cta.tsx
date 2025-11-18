@@ -11,7 +11,7 @@ export default function FinalCta() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
-    <section className="relative bg-black py-24 lg:py-32">
+    <section id="contact" className="relative bg-black py-24 lg:py-32">
       <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

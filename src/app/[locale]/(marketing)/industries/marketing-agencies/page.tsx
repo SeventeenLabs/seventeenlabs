@@ -51,6 +51,7 @@ export async function generateMetadata({ params }: MarketingAgenciesPageProps): 
       languages: {
         en: `${baseUrl}/industries/marketing-agencies`,
         de: `${baseUrl}/de/industries/marketing-agencies`,
+        'x-default': `${baseUrl}/industries/marketing-agencies`,
       },
     },
     openGraph: {

@@ -127,6 +127,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       languages: {
         en: `${baseUrl}/services/ai-consulting/${location}`,
         de: `${baseUrl}/de/services/ai-consulting/${location}`,
+        'x-default': `${baseUrl}/services/ai-consulting/${location}`,
       },
     },
     openGraph: {

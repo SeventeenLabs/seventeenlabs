@@ -50,6 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       languages: {
         en: `${baseUrl}/about`,
         de: `${baseUrl}/de/about`,
+        "x-default": `${baseUrl}/about`,
       },
     },
     openGraph: {

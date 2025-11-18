@@ -103,10 +103,10 @@ export default function WorkflowsFooter() {
             © 2025 SeventeenLabs. All rights reserved.
           </p>
           <div className="flex space-x-6 text-xs text-muted-foreground">
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
             </Link>
           </div>

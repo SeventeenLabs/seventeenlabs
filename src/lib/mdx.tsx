@@ -57,9 +57,14 @@ const mdxComponents = {
   
   // Headings
   h1: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 mt-8 leading-tight" {...props}>
+    <h2
+      role="heading"
+      aria-level={2}
+      className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 mt-8 leading-tight"
+      {...props}
+    >
       {children}
-    </h1>
+    </h2>
   ),
   h2: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-4 mt-8 leading-tight" {...props}>

@@ -53,6 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       languages: {
         en: `${baseUrl}/products/reportflow-engine`,
         de: `${baseUrl}/de/products/reportflow-engine`,
+        'x-default': `${baseUrl}/products/reportflow-engine`,
       },
     },
     openGraph: {

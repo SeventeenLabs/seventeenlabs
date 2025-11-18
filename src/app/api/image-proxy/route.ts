@@ -8,12 +8,24 @@ export async function GET(request: NextRequest) {
     return new NextResponse('Missing URL parameter', { status: 400 });
   }
 
+  let parsedUrl: URL;
   try {
-    // Fetch the image from the original URL
-    const response = await fetch(imageUrl, {
+    parsedUrl = new URL(imageUrl);
+  } catch (_) {
+    return new NextResponse('Invalid URL parameter', { status: 400 });
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+  try {
+
+    // Fetch the image from the original URL with a timeout guard
+    const response = await fetch(parsedUrl.toString(), {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; NextJS Image Proxy)',
       },
+      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -32,6 +44,11 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Image proxy error:', error);
-    return new NextResponse('Failed to fetch image', { status: 500 });
+    if ((error as Error).name === 'AbortError') {
+      return new NextResponse('Upstream image timed out', { status: 504 });
+    }
+    return new NextResponse('Failed to fetch image', { status: 502 });
+  } finally {
+    clearTimeout(timeoutId);
   }
 }

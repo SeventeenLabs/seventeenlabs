@@ -74,6 +74,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
       languages: {
         'en': `${baseUrl}/blog`,
         'de': `${baseUrl}/de/blog`,
+          'x-default': `${baseUrl}/blog`,
       },
     },
     openGraph: {
