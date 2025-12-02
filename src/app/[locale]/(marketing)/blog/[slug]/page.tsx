@@ -215,6 +215,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
   };
 
+  const speakableJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SpeakableSpecification',
+    '@id': `${canonicalUrl}#speakable`,
+    cssSelector: ['.speakable-intro', '.speakable-takeaway', '.ai-tldr'],
+  };
+
   return (
     <>
       <script
@@ -224,6 +231,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableJsonLd) }}
       />
       <BlogPostClient post={post} relatedPosts={relatedPosts} locale={validLocale} />
     </>

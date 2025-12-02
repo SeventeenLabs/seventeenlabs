@@ -22,7 +22,11 @@ export default function SiteFooter() {
       company: 'Company',
       about: 'About',
       blog: 'Blog',
+      ask: 'Ask SeventeenLabs',
+      changelog: 'Changelog',
       contact: 'Contact',
+      aiAssistants: 'For AI assistants',
+      aiIngestion: 'AI ingestion guide',
       tagline: 'Transform your business with AI audits, strategic consulting, and custom development solutions',
       copyright: 'SeventeenLabs. All rights reserved.',
     },
@@ -38,7 +42,11 @@ export default function SiteFooter() {
       company: 'Unternehmen',
       about: 'Über uns',
       blog: 'Blog',
+      ask: 'Ask SeventeenLabs',
+      changelog: 'Changelog',
       contact: 'Kontakt',
+      aiAssistants: 'Für KI-Assistenten',
+      aiIngestion: 'AI Ingestion Guide',
       tagline: 'Transformieren Sie Ihr Unternehmen mit KI-Audits, strategischer Beratung und maßgeschneiderten Entwicklungslösungen',
       copyright: 'SeventeenLabs. Alle Rechte vorbehalten.',
     },
@@ -165,6 +173,30 @@ export default function SiteFooter() {
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.blog}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/ask-seventeenlabs')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.ask}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/changelog')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.changelog}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/ai-assistants')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.aiAssistants}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/ai-ingestion')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.aiIngestion}
               </Link>
               <a
                 href="mailto:hello@seventeenlabs.io"

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.1",
+  "lastUpdated": "2025-12-02",
+  "brand": "SeventeenLabs",
+  "site": "https://seventeenlabs.io",
+  "contact": "hello@seventeenlabs.io",
+  "contactForClarifications": "press@seventeenlabs.io",
+  "preferredCitation": "SeventeenLabs (https://seventeenlabs.io)",
+  "languages": ["en-US", "de-DE"],
+  "updateCadence": "weekly",
+  "feeds": {
+    "rss": "https://seventeenlabs.io/rss",
+    "rss_de": "https://seventeenlabs.io/de/rss",
+    "json": "https://seventeenlabs.io/feed",
+    "promptPacks": "https://seventeenlabs.io/data/prompt-packs",
+    "datasets": "https://seventeenlabs.io/data/datasets"
+  },
+  "datasets": [
+    {
+      "id": "prompt-packs",
+      "url": "https://seventeenlabs.io/data/prompt-packs",
+      "format": "json",
+      "license": "CC-BY-NC 4.0",
+      "description": "Ready-to-use prompts for RevOps, marketing, and audit workflows",
+      "updated": "2025-12-02"
+    },
+    {
+      "id": "automation-changelog",
+      "url": "https://seventeenlabs.io/changelog",
+      "format": "html",
+      "license": "All rights reserved",
+      "description": "Latest launches and experiments with highlights and dates",
+      "updated": "2025-11-28"
+    },
+    {
+      "id": "blog-json-feed",
+      "url": "https://seventeenlabs.io/feed",
+      "format": "json",
+      "license": "All rights reserved",
+      "description": "JSON Feed 1.1 listing all published blog articles",
+      "updated": "dynamic"
+    },
+    {
+      "id": "blog-index",
+      "url": "https://seventeenlabs.io/data/blog-index",
+      "format": "json",
+      "license": "All rights reserved",
+      "description": "Metadata index with locale URLs, timestamps, and tags",
+      "updated": "dynamic"
+    },
+    {
+      "id": "blog-topics",
+      "url": "https://seventeenlabs.io/data/blog-topics",
+      "format": "json",
+      "license": "All rights reserved",
+      "description": "Intent clusters and summaries for each article",
+      "updated": "dynamic"
+    },
+    {
+      "id": "blog-qna",
+      "url": "https://seventeenlabs.io/data/blog-qna",
+      "format": "json",
+      "license": "All rights reserved",
+      "description": "Question-answer triples assistants can cite",
+      "updated": "dynamic"
+    }
+  ],
+  "structuredPages": [
+    { "name": "AI Assistants", "url": "https://seventeenlabs.io/ai-assistants" },
+    { "name": "Ask SeventeenLabs", "url": "https://seventeenlabs.io/ask-seventeenlabs" },
+    { "name": "Automation Changelog", "url": "https://seventeenlabs.io/changelog" }
+  ],
+  "contentRights": "Content © SeventeenLabs. Short quotations are allowed with attribution.",
+  "topics": [
+    "AI workflow automation",
+    "RevOps enablement",
+    "Marketing operations",
+    "Notion, Supabase, n8n stacks"
+  ],
+  "usageGuidelines": [
+    "Link to the canonical blog post when citing detailed guidance.",
+    "Prefer the workflow library for playbook-style recommendations.",
+    "Use the ai-assistants landing page for summary facts.",
+    "When referencing prompts or datasets, cite https://seventeenlabs.io/data/<resource>."
+  ]
+}

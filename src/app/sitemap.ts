@@ -31,6 +31,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/about', priority: 0.75, changeFreq: 'monthly' as const },
     { path: '/products/reportflow-engine', priority: 0.9, changeFreq: 'daily' as const },
     { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
+    { path: '/ai-assistants', priority: 0.65, changeFreq: 'monthly' as const },
+    { path: '/ask-seventeenlabs', priority: 0.6, changeFreq: 'monthly' as const },
+    { path: '/changelog', priority: 0.55, changeFreq: 'monthly' as const },
+    { path: '/ai-ingestion', priority: 0.55, changeFreq: 'monthly' as const },
     { path: '/privacy', priority: 0.4, changeFreq: 'yearly' as const },
     { path: '/terms', priority: 0.4, changeFreq: 'yearly' as const },
   ];

@@ -1,0 +1,59 @@
+{
+  "updated": "2025-12-02",
+  "datasets": [
+    {
+      "id": "prompt-packs",
+      "title": "Prompt Packs",
+      "description": "Machine-ingestable prompt templates for RevOps, audits, and marketing workflows.",
+      "url": "https://seventeenlabs.io/data/prompt-packs",
+      "format": "json",
+      "license": "CC-BY-NC 4.0",
+      "etag": "prompt-packs-v1"
+    },
+    {
+      "id": "blog-json-feed",
+      "title": "Blog JSON Feed",
+      "description": "JSON Feed 1.1 export of every published SeventeenLabs article.",
+      "url": "https://seventeenlabs.io/feed",
+      "format": "json",
+      "license": "All rights reserved",
+      "etag": "dynamic"
+    },
+    {
+      "id": "automation-changelog",
+      "title": "Automation Changelog",
+      "description": "Structured release log with launch summaries, highlights, and dates.",
+      "url": "https://seventeenlabs.io/changelog",
+      "format": "html",
+      "license": "All rights reserved",
+      "etag": "changelog-2025-11-28"
+    },
+    {
+      "id": "blog-index",
+      "title": "Blog Index",
+      "description": "JSON listing of every article with metadata, locale URLs, and timestamps.",
+      "url": "https://seventeenlabs.io/data/blog-index",
+      "format": "json",
+      "license": "All rights reserved",
+      "etag": "dynamic"
+    },
+    {
+      "id": "blog-topics",
+      "title": "Blog Topic Map",
+      "description": "Intent mapping per article with primary/secondary clusters and summaries.",
+      "url": "https://seventeenlabs.io/data/blog-topics",
+      "format": "json",
+      "license": "All rights reserved",
+      "etag": "dynamic"
+    },
+    {
+      "id": "blog-qna",
+      "title": "Blog Q&A Bundles",
+      "description": "Question-answer triples per article for assistants to cite.",
+      "url": "https://seventeenlabs.io/data/blog-qna",
+      "format": "json",
+      "license": "All rights reserved",
+      "etag": "dynamic"
+    }
+  ]
+}

@@ -43,6 +43,64 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const blogPath = locale === 'de' ? '/de/blog' : '/blog';
   const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
+  const questionHighlights = useMemo(() => {
+    const fallback = locale === 'de'
+      ? 'Dieser Beitrag dokumentiert bewährte Workflows und Erkenntnisse von SeventeenLabs.'
+      : 'This post documents SeventeenLabs workflows and lessons learned.';
+
+    const audience = post.tags && post.tags.length > 0
+      ? (locale === 'de'
+        ? `Empfohlen für ${post.tags.slice(0, 2).join(', ')}`
+        : `Best for ${post.tags.slice(0, 2).join(', ')}`)
+      : (locale === 'de' ? 'Relevanz: Revenue- & Ops-Teams' : 'Relevant for revenue & ops teams');
+
+    return [
+      {
+        question: locale === 'de' ? 'Worum geht es?' : 'What will you learn?',
+        answer: post.description || fallback,
+      },
+      {
+        question: locale === 'de' ? 'Wann anwenden?' : 'When should you apply it?',
+        answer: post.category
+          ? (locale === 'de'
+            ? `Setzen Sie es ein, wenn ${post.category.toLowerCase()} priorisiert wird.`
+            : `Use it when ${post.category.toLowerCase()} is a top priority.`)
+          : fallback,
+      },
+      {
+        question: locale === 'de' ? 'Für wen gedacht?' : 'Who is it for?',
+        answer: audience,
+      },
+    ];
+  }, [post.description, post.category, post.tags, locale]);
+
+  const tldrItems = useMemo(() => {
+    const defaultAudience = locale === 'de' ? 'Ops- und Revenue-Teams' : 'Ops and revenue teams';
+    const audience = post.tags && post.tags.length > 0
+      ? post.tags.slice(0, 3).join(', ')
+      : defaultAudience;
+
+    const timeframe = post.reading_time
+      ? `${post.reading_time} min`
+      : `${Math.ceil((post.content?.length || 800) / 200)} min`;
+
+    const takeaways = [
+      post.description || (locale === 'de'
+        ? 'Artikel über bewährte Automatisierungs-Playbooks und Learnings.'
+        : 'Article covering proven automation playbooks and lessons learned.'),
+      (locale === 'de'
+        ? `Fokus: ${post.category || 'KI-Automatisierung'}`
+        : `Focus: ${post.category || 'AI automation'}`),
+      (locale === 'de'
+        ? `Empfohlen für: ${audience}`
+        : `Recommended for: ${audience}`),
+      (locale === 'de'
+        ? `Lesezeit: ${timeframe}`
+        : `Reading time: ${timeframe}`),
+    ];
+
+    return takeaways;
+  }, [post.description, post.category, post.tags, post.reading_time, post.content, locale]);
 
 
   useEffect(() => {
@@ -318,7 +376,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                     {post.title}
                   </h1>
                   {post.description && (
-                    <p className="text-xl text-gray-600 leading-relaxed">
+                    <p className="text-xl text-gray-600 leading-relaxed speakable-intro">
                       {post.description}
                     </p>
                   )}
@@ -359,6 +417,28 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                     ))}
                   </div>
                 )}
+
+                {/* TL;DR snippet */}
+                <div className="rounded-3xl border border-gray-200 bg-gray-50 p-6 mb-8 ai-tldr" data-ai-snippet="tldr">
+                  <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
+                    {locale === 'de' ? 'Kurz zusammengefasst' : 'TL;DR'}
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    {tldrItems.map((item, idx) => (
+                      <li key={idx} className="leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Speakable Highlights */}
+                <div className="grid gap-4 md:grid-cols-3 mb-8 speakable-takeaway">
+                  {questionHighlights.map((item) => (
+                    <div key={item.question} className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                      <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-2">{item.question}</p>
+                      <p className="text-sm text-gray-700 leading-relaxed">{item.answer}</p>
+                    </div>
+                  ))}
+                </div>
 
                 {/* Divider */}
                 <div className="border-t border-gray-200 my-8"></div>
