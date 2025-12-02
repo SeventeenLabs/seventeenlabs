@@ -26,9 +26,9 @@ export function BlogCard({ post, locale = 'en' }: BlogCardProps) {
 
   return (
     <Link href={`${blogPath}/${post.slug}`} className="group block" aria-label={`Read article: ${post.title}`}>
-      <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full group-hover:-translate-y-1" itemScope itemType="https://schema.org/BlogPosting">
+      <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full min-h-[520px] flex flex-col group-hover:-translate-y-1" itemScope itemType="https://schema.org/BlogPosting">
         {/* Image */}
-        <div className="relative h-48 w-full overflow-hidden">
+        <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
           {/* Always show fallback first */}
           <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center p-6">
             <div className="text-center">

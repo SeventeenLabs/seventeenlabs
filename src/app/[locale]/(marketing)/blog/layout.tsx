@@ -1,14 +1,15 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 
-export default function BlogLayout({ 
+export default async function BlogLayout({ 
   children,
   params 
 }: { 
   children: ReactNode;
-  params?: { locale?: string };
+  params: Promise<{ locale?: string }>;
 }) {
-  const locale = params?.locale || 'en';
+  const resolvedParams = await params;
+  const locale = resolvedParams?.locale || 'en';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const rssUrl = locale === 'de' ? `${baseUrl}/de/rss` : `${baseUrl}/rss`;
   
