@@ -30,7 +30,10 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 0.2,
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: hostname,
+    sitemap: [
+      `${baseUrl}/sitemap.xml`,
+      `${baseUrl}/rss`,
+      `${baseUrl}/de/rss`,
+    ],
   };
 }

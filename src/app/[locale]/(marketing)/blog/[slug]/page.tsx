@@ -31,38 +31,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   const canonicalUrl = `${baseUrl}${blogPath}/${post.slug}`;
 
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
-    },
-    headline: post.meta_title || post.title,
-    description: post.meta_description || post.description,
-    image: [imageUrl],
-    author: {
-      '@type': 'Person',
-      name: post.author_name,
-      url: `${baseUrl}/about`,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'SeventeenLabs',
-      url: baseUrl,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${baseUrl}/logo-white.svg`,
-      },
-    },
-    datePublished: post.published_at,
-    dateModified: post.updated_at || post.published_at,
-    inLanguage: validLocale === 'de' ? 'de-DE' : 'en-US',
-    url: canonicalUrl,
-    keywords: post.tags,
-    articleSection: post.category,
-  };
-
   return {
     metadataBase: new URL(baseUrl),
     title: post.meta_title || `${post.title} | SeventeenLabs Blog`,
@@ -167,6 +135,32 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ? (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image)
     : `${baseUrl}/images/blog/default-og.png`;
 
+  // Enhanced structured data for blog posts
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: validLocale === 'de' ? `${baseUrl}/de` : baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${baseUrl}${blogPath}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -176,8 +170,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       '@id': canonicalUrl,
     },
     headline: post.meta_title || post.title,
+    alternativeHeadline: post.title !== (post.meta_title || post.title) ? post.title : undefined,
     description: post.meta_description || post.description,
-    image: [imageUrl],
+    image: {
+      '@type': 'ImageObject',
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+      alt: post.image_alt || post.title,
+    },
     author: {
       '@type': 'Person',
       name: post.author_name,
@@ -191,19 +192,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       logo: {
         '@type': 'ImageObject',
         url: `${baseUrl}/logo-white.svg`,
+        width: 400,
+        height: 100,
       },
     },
     datePublished: post.published_at,
     dateModified: post.updated_at || post.published_at,
     inLanguage: validLocale === 'de' ? 'de-DE' : 'en-US',
     url: canonicalUrl,
-    keywords: post.tags,
+    keywords: post.tags?.join(', '),
     articleSection: post.category,
     wordCount: post.content?.split(/\s+/).length || 0,
+    timeRequired: `PT${post.reading_time || Math.ceil((post.content?.split(/\s+/).length || 500) / 200)}M`,
+    about: {
+      '@type': 'Thing',
+      name: post.category || 'AI Automation',
+    },
+    isPartOf: {
+      '@type': 'Blog',
+      '@id': `${baseUrl}${blogPath}#blog`,
+      name: validLocale === 'de' ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
+    },
   };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

@@ -30,6 +30,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/robots.txt') ||
     pathname.startsWith('/sitemap.xml') ||
+    pathname.startsWith('/rss') ||
+    pathname.startsWith('/feed') ||
     pathname.startsWith('/workflows') ||
     pathname.startsWith('/(apps)') ||
     pathname.startsWith('/opengraph-image') ||

@@ -102,9 +102,6 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
         alt: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
       }],
     },
-    other: {
-      'script:type:application/ld+json': JSON.stringify(breadcrumbJsonLd),
-    },
   };
 }
 
@@ -113,6 +110,9 @@ export const revalidate = 3600; // Revalidate every hour
 export default async function BlogPage({ params }: BlogPageProps) {
   const { locale } = await params;
   const validLocale = getLocaleFromString(locale);
+  const isGerman = validLocale === 'de';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const blogUrl = isGerman ? `${baseUrl}/de/blog` : `${baseUrl}/blog`;
   
   const [allPosts, featuredPosts, categories] = await Promise.all([
     getAllPosts(),
@@ -120,12 +120,81 @@ export default async function BlogPage({ params }: BlogPageProps) {
     getAllCategories(),
   ]);
 
+  // Enhanced structured data for blog listing
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: isGerman ? `${baseUrl}/de` : baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: blogUrl,
+      },
+    ],
+  };
+
+  const blogJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': `${blogUrl}#blog`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': blogUrl,
+    },
+    name: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
+    description: isGerman
+      ? 'Entdecken Sie Expertenleitfäden und Fallstudien zur KI-Automatisierung für Unternehmen.'
+      : 'Explore expert guides and case studies for AI automation in business.',
+    url: blogUrl,
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'SeventeenLabs',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo-white.svg`,
+      },
+    },
+    inLanguage: isGerman ? 'de-DE' : 'en-US',
+    blogPost: allPosts.slice(0, 10).map(post => ({
+      '@type': 'BlogPosting',
+      '@id': `${blogUrl}/${post.slug}#article`,
+      headline: post.title,
+      description: post.description,
+      url: `${blogUrl}/${post.slug}`,
+      datePublished: post.published_at,
+      dateModified: post.updated_at || post.published_at,
+      author: {
+        '@type': 'Person',
+        name: post.author_name,
+      },
+    })),
+  };
+
   return (
-    <BlogPageClient 
-      allPosts={allPosts}
-      featuredPost={featuredPosts[0] || null}
-      categories={categories}
-      locale={validLocale}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <BlogPageClient 
+        allPosts={allPosts}
+        featuredPost={featuredPosts[0] || null}
+        categories={categories}
+        locale={validLocale}
+      />
+    </>
   );
 }

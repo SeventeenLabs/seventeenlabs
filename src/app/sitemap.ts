@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/lib/notion-blog';
+import { getAllPosts, getAllCategories } from '@/lib/notion-blog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
@@ -153,8 +153,67 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   });
 
+  // Add RSS feeds and JSON feed
+  sitemapEntries.push({
+    url: `${baseUrl}/rss`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  sitemapEntries.push({
+    url: `${baseUrl}/de/rss`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  sitemapEntries.push({
+    url: `${baseUrl}/feed`,
+    lastModified: currentDate,
+    changeFrequency: 'daily',
+    priority: 0.7,
+  });
+
   // Add blog posts (assuming most content is English-only for now)
   const blogPosts = await getAllPosts();
+  
+  // Get unique categories for category pages
+  const categories = [...new Set(blogPosts.map(post => post.category).filter(Boolean))];
+  
+  // Add category pages
+  categories.forEach((category) => {
+    const encodedCategory = encodeURIComponent(category);
+    
+    sitemapEntries.push({
+      url: `${baseUrl}/blog/category/${encodedCategory}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/category/${encodedCategory}`,
+          de: `${baseUrl}/de/blog/category/${encodedCategory}`,
+          'x-default': `${baseUrl}/blog/category/${encodedCategory}`,
+        },
+      },
+    });
+
+    sitemapEntries.push({
+      url: `${baseUrl}/de/blog/category/${encodedCategory}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/blog/category/${encodedCategory}`,
+          de: `${baseUrl}/de/blog/category/${encodedCategory}`,
+          'x-default': `${baseUrl}/blog/category/${encodedCategory}`,
+        },
+      },
+    });
+  });
+
   blogPosts.forEach((post) => {
     const postLastModified = new Date(post.updated_at || post.published_at || post.created_at);
     const postPriority = post.featured ? 0.8 : 0.7;

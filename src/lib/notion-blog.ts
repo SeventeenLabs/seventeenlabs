@@ -29,12 +29,14 @@ export interface BlogPost {
 export type BlogPostMetadata = Omit<BlogPost, 'content'>;
 
 // Initialize Notion client
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+const NOTION_TOKEN = process.env.NOTION_TOKEN;
+const DATABASE_ID = process.env.NOTION_BLOG_DATABASE_ID;
 
-const n2m = new NotionToMarkdown({ notionClient: notion });
-const DATABASE_ID = process.env.NOTION_BLOG_DATABASE_ID!;
+const notion = NOTION_TOKEN ? new Client({
+  auth: NOTION_TOKEN,
+}) : null;
+
+const n2m = notion ? new NotionToMarkdown({ notionClient: notion }) : null;
 
 // Helper function to extract properties from Notion page
 function extractPageProperties(page: any): BlogPostMetadata {
@@ -198,6 +200,11 @@ function calculateReadingTime(content: string): number {
 
 // Simple fetch wrapper for Notion API
 async function queryDatabase(filter?: any, sorts?: any) {
+  if (!DATABASE_ID || !NOTION_TOKEN) {
+    console.log('⚠️ Notion database ID or token not configured');
+    return { results: [] };
+  }
+  
   console.log('🚀 Querying Notion database:', DATABASE_ID);
   console.log('🔍 Filter:', JSON.stringify(filter, null, 2));
   console.log('📊 Sorts:', JSON.stringify(sorts, null, 2));
@@ -259,6 +266,11 @@ async function queryDatabase(filter?: any, sorts?: any) {
 
 // Get page content
 async function getPageContent(pageId: string): Promise<string> {
+  if (!n2m) {
+    console.log('⚠️ Notion markdown converter not configured');
+    return '';
+  }
+  
   try {
     const mdBlocks = await n2m.pageToMarkdown(pageId);
     return n2m.toMarkdownString(mdBlocks).parent;
@@ -270,30 +282,40 @@ async function getPageContent(pageId: string): Promise<string> {
 
 // Get all published posts (cached)
 async function _getAllPosts(): Promise<BlogPostMetadata[]> {
+  if (!notion || !DATABASE_ID) {
+    console.log('⚠️ Notion not configured - returning empty posts array');
+    return [];
+  }
+  
   console.log('🔍 Fetching all published posts from Notion...');
   
-  const filter = {
-    property: 'Status',
-    select: {
-      equals: 'Published'
-    }
-  };
+  try {
+    const filter = {
+      property: 'Status',
+      select: {
+        equals: 'Published'
+      }
+    };
 
-  const sorts = [
-    {
-      property: 'Published Date',
-      direction: 'descending'
-    }
-  ];
+    const sorts = [
+      {
+        property: 'Published Date',
+        direction: 'descending'
+      }
+    ];
 
-  const response = await queryDatabase(filter, sorts);
-  console.log(`📊 Found ${response.results.length} published posts`);
-  console.log('📝 Raw Notion response:', JSON.stringify(response, null, 2));
-  
-  const posts = response.results.map((page: any) => extractPageProperties(page));
-  console.log('✅ Processed posts:', JSON.stringify(posts, null, 2));
-  
-  return posts;
+    const response = await queryDatabase(filter, sorts);
+    console.log(`📊 Found ${response.results.length} published posts`);
+    console.log('📝 Raw Notion response:', JSON.stringify(response, null, 2));
+    
+    const posts = response.results.map((page: any) => extractPageProperties(page));
+    console.log('✅ Processed posts:', JSON.stringify(posts, null, 2));
+    
+    return posts;
+  } catch (error) {
+    console.error('❌ Error fetching posts from Notion:', error);
+    return [];
+  }
 }
 
 export const getAllPosts = unstable_cache(
@@ -307,56 +329,66 @@ export const getAllPosts = unstable_cache(
 
 // Get single post by slug with content (cached)
 async function _getPostBySlug(slug: string): Promise<BlogPost | null> {
+  if (!notion || !DATABASE_ID) {
+    console.log('⚠️ Notion not configured - cannot fetch post by slug');
+    return null;
+  }
+  
   console.log(`🔍 Fetching post by slug: "${slug}"`);
   
-  const filter = {
-    and: [
-      {
-        property: 'Slug',
-        rich_text: {
-          equals: slug
+  try {
+    const filter = {
+      and: [
+        {
+          property: 'Slug',
+          rich_text: {
+            equals: slug
+          }
+        },
+        {
+          property: 'Status',
+          select: {
+            equals: 'Published'
+          }
         }
-      },
-      {
-        property: 'Status',
-        select: {
-          equals: 'Published'
-        }
-      }
-    ]
-  };
+      ]
+    };
 
-  const response = await queryDatabase(filter);
-  console.log(`📊 Found ${response.results.length} posts matching slug "${slug}"`);
-  console.log('📝 Raw Notion response for slug query:', JSON.stringify(response, null, 2));
+    const response = await queryDatabase(filter);
+    console.log(`📊 Found ${response.results.length} posts matching slug "${slug}"`);
+    console.log('📝 Raw Notion response for slug query:', JSON.stringify(response, null, 2));
   
   if (response.results.length === 0) {
     console.log(`❌ No post found with slug: "${slug}"`);
     return null;
   }
 
-  const page = response.results[0];
-  console.log('📄 Processing page:', JSON.stringify(page, null, 2));
-  
-  const metadata = extractPageProperties(page);
-  console.log('📋 Extracted metadata:', JSON.stringify(metadata, null, 2));
-  
-  const content = await getPageContent(page.id);
-  console.log('📖 Content length:', content.length, 'characters');
-  console.log('📖 Content preview:', content.substring(0, 200) + '...');
-  
-  const reading_time = calculateReadingTime(content);
-  console.log('⏱️ Calculated reading time:', reading_time, 'minutes');
+    const page = response.results[0];
+    console.log('📄 Processing page:', JSON.stringify(page, null, 2));
+    
+    const metadata = extractPageProperties(page);
+    console.log('📋 Extracted metadata:', JSON.stringify(metadata, null, 2));
+    
+    const content = await getPageContent(page.id);
+    console.log('📖 Content length:', content.length, 'characters');
+    console.log('📖 Content preview:', content.substring(0, 200) + '...');
+    
+    const reading_time = calculateReadingTime(content);
+    console.log('⏱️ Calculated reading time:', reading_time, 'minutes');
 
-  const finalPost = {
-    ...metadata,
-    content,
-    reading_time,
-  };
-  
-  console.log('✅ Final processed post:', JSON.stringify(finalPost, null, 2));
-  
-  return finalPost;
+    const finalPost = {
+      ...metadata,
+      content,
+      reading_time,
+    };
+    
+    console.log('✅ Final processed post:', JSON.stringify(finalPost, null, 2));
+    
+    return finalPost;
+  } catch (error) {
+    console.error(`❌ Error fetching post with slug "${slug}":`, error);
+    return null;
+  }
 }
 
 export const getPostBySlug = unstable_cache(
