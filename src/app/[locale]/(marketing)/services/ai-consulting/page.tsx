@@ -108,11 +108,62 @@ export default async function AiConsultingPage({ params }: PageProps) {
     },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What does AI consulting include?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our AI consulting includes strategic AI roadmap development, implementation support, team enablement and training, technology evaluation and selection, and continuous optimization to ensure maximum ROI.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do you develop an AI strategy?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We start with understanding your business objectives, assess current capabilities, identify high-impact opportunities, prioritize initiatives by ROI and feasibility, and create a phased implementation roadmap with clear milestones.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the typical engagement duration?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'AI consulting engagements typically range from 3-12 months depending on scope. We offer both project-based consulting for specific initiatives and ongoing strategic advisory relationships.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you provide implementation support?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, we provide hands-on implementation support throughout your AI journey, from proof of concept development to full deployment, including team training and change management.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do you measure consulting success?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Success is measured through clear KPIs including implementation milestones achieved, ROI delivered, team capability improvement, and business process optimization metrics aligned with your strategic objectives.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <main className="min-h-screen">
         <ConsultingHero />

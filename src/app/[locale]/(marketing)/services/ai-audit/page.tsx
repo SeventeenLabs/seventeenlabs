@@ -108,11 +108,62 @@ export default async function AiAuditPage({ params }: PageProps) {
     },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is included in an AI audit?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our AI audit includes comprehensive process analysis, identification of automation opportunities, technology stack evaluation, ROI projections, and a prioritized implementation roadmap with clear timelines and resource requirements.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does an AI audit take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A typical AI audit takes 2-3 weeks from kickoff to final deliverables. This includes initial consultation, process analysis, strategy workshop, and comprehensive report delivery.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What will I receive after the audit?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You will receive a detailed audit report with specific AI opportunities, implementation roadmap with phases and milestones, quick-win recommendations, and ROI projections for each initiative.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you guarantee finding AI opportunities?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, we guarantee finding at least 3 valuable AI opportunities in your business. If we do not identify actionable opportunities that can deliver measurable value, the audit is free.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does an AI audit cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our comprehensive AI audit is $3,490 and includes all analysis, workshops, deliverables, and a 90-day implementation support guarantee.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <main className="min-h-screen">
         <AuditHero />

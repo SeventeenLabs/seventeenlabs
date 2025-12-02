@@ -112,11 +112,62 @@ export default async function AiDevelopmentPage({ params }: PageProps) {
     },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What types of AI solutions do you develop?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We develop custom AI applications, intelligent automation workflows, LLM integrations, data processing systems, and web applications powered by AI. All solutions are tailored to your specific business requirements.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What technologies do you use for development?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We use modern, proven technologies including Python, Node.js, React, Next.js for web development; OpenAI GPT, Claude, and custom models for AI; and platforms like n8n, Zapier, and custom APIs for automation.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does custom development take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Development timelines vary by project complexity. Simple automation workflows take 1-2 weeks, while custom AI applications typically require 4-12 weeks. We deliver MVPs quickly and iterate based on feedback.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you provide ongoing support after development?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, we provide comprehensive ongoing support including maintenance, updates, optimization, monitoring, and feature enhancements to ensure your solutions continue delivering value.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can you integrate with our existing systems?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Absolutely. We specialize in seamless integration with existing systems through APIs, webhooks, and custom connectors. Our solutions are designed to enhance your current workflows without disruption.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <main className="min-h-screen">
         <DevelopmentHero />
