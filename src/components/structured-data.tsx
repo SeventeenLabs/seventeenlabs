@@ -2,12 +2,18 @@ import Script from 'next/script';
 import { getLocalizedPath } from '@/lib/i18n/utils';
 import { Locale } from '@/lib/i18n/config';
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 interface StructuredDataProps {
   locale?: string;
   type?: 'home' | 'agency' | 'product';
+  faqItems?: FAQItem[];
 }
 
-export default function StructuredData({ locale = 'en', type = 'home' }: StructuredDataProps) {
+export default function StructuredData({ locale = 'en', type = 'home', faqItems }: StructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const isGerman = locale === 'de';
 
@@ -15,9 +21,15 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
     name: 'SeventeenLabs',
     url: baseUrl,
-    logo: `${baseUrl}/logo-white.svg`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/logo-white.svg`,
+      width: 200,
+      height: 60,
+    },
     description: isGerman
       ? 'Führende Plattform für KI-gestützte Workflow-Automatisierung und maßgeschneiderte Softwareentwicklung'
       : 'Leading platform for AI-powered workflow automation and custom software development',
@@ -29,9 +41,14 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
-      telephone: '+1-415-429-6000',
       areaServed: 'Worldwide',
       availableLanguage: ['en', 'de'],
+    },
+    foundingDate: '2023',
+    numberOfEmployees: {
+      '@type': 'QuantitativeValue',
+      minValue: 1,
+      maxValue: 10,
     },
   };
 
@@ -39,8 +56,13 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
     name: 'SeventeenLabs',
     url: baseUrl,
+    publisher: {
+      '@id': `${baseUrl}/#organization`,
+    },
+    inLanguage: isGerman ? 'de-DE' : 'en-US',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -116,6 +138,26 @@ export default function StructuredData({ locale = 'en', type = 'home' }: Structu
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(serviceSchema),
+          }}
+        />
+      )}
+      {faqItems && faqItems.length > 0 && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqItems.map((faq: FAQItem) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer,
+                },
+              })),
+            }),
           }}
         />
       )}

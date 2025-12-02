@@ -123,14 +123,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       }],
     },
     other: {
-      ...{
-        'article:author': post.author_name,
-        'article:published_time': post.published_at,
-        'article:modified_time': post.updated_at,
-        'article:section': post.category,
-        'article:tag': post.tags?.join(','),
-      },
-      'script:type:application/ld+json': JSON.stringify(articleJsonLd),
+      'article:author': post.author_name,
+      'article:published_time': post.published_at,
+      'article:modified_time': post.updated_at,
+      'article:section': post.category,
+      'article:tag': post.tags?.join(','),
     },
   };
 }
@@ -163,5 +160,55 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  return <BlogPostClient post={post} relatedPosts={relatedPosts} locale={validLocale} />;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const blogPath = validLocale === 'de' ? '/de/blog' : '/blog';
+  const canonicalUrl = `${baseUrl}${blogPath}/${post.slug}`;
+  const imageUrl = post.featured_image 
+    ? (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image)
+    : `${baseUrl}/images/blog/default-og.png`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${canonicalUrl}#article`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    headline: post.meta_title || post.title,
+    description: post.meta_description || post.description,
+    image: [imageUrl],
+    author: {
+      '@type': 'Person',
+      name: post.author_name,
+      url: `${baseUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${baseUrl}/#organization`,
+      name: 'SeventeenLabs',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/logo-white.svg`,
+      },
+    },
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    inLanguage: validLocale === 'de' ? 'de-DE' : 'en-US',
+    url: canonicalUrl,
+    keywords: post.tags,
+    articleSection: post.category,
+    wordCount: post.content?.split(/\s+/).length || 0,
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <BlogPostClient post={post} relatedPosts={relatedPosts} locale={validLocale} />
+    </>
+  );
 }

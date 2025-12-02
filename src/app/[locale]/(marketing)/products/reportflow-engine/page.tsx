@@ -105,11 +105,71 @@ export default async function ReportFlowEnginePage({ params }: PageProps) {
     url: pageUrl,
   };
 
+  // FAQ Schema using content from translations
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What exactly does ReportFlow Engine automate?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'It automatically collects data from your marketing platforms, generates AI powered performance summaries, creates visual dashboards, and delivers reports to your clients on schedule. Everything that takes your team hours every week happens automatically.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How quickly can I start saving time?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Implementation takes 3 to 5 business days. Once live, you immediately stop spending hours on manual data collection and report creation. Most agencies see the full 23+ hours saved within the first month.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Which marketing platforms can you connect?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We can connect virtually any platform your agency uses. Advertising platforms, analytics tools, social media, CRM systems, email marketing tools. If it has data you need to report on, we can pull it in automatically.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What reports will I receive?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You get automated dashboards showing all your marketing performance data in one place. The system generates AI powered summaries of what is working and what needs attention. You can access real time dashboards anytime or receive scheduled report summaries via email.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do I need to change how I work with clients?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. The system works behind the scenes. Your client communication stays the same, but you spend zero time building reports. You focus on strategy and optimization while automation handles the reporting.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens if I need to add new data sources?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We handle it. As your agency adds new tools or platforms, we integrate them into your reporting system. This is included in the ongoing support, no additional setup process needed.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <main className="min-h-screen">
         <AIAppointmentEngineHero />

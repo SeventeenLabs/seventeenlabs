@@ -25,35 +25,94 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate sitemap entries for all locale combinations
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
-  marketingPages.forEach(({ path, priority, changeFreq }) => {
+  // Pages that exist in both locales
+  const bilingualPages = [
+    { path: '', priority: 1.0, changeFreq: 'daily' as const },
+    { path: '/about', priority: 0.75, changeFreq: 'monthly' as const },
+    { path: '/products/reportflow-engine', priority: 0.9, changeFreq: 'daily' as const },
+    { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' as const },
+    { path: '/privacy', priority: 0.4, changeFreq: 'yearly' as const },
+    { path: '/terms', priority: 0.4, changeFreq: 'yearly' as const },
+  ];
+
+  // English-only pages (services might not have German translations)
+  const englishOnlyPages = [
+    { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/services/ai-development', priority: 0.8, changeFreq: 'weekly' as const },
+  ];
+
+  // Location-based service pages for local SEO
+  const locations = [
+    'new-york', 'san-francisco', 'london', 'berlin', 'toronto', 
+    'sydney', 'tokyo', 'singapore', 'amsterdam', 'paris'
+  ];
+  const services = ['ai-audit', 'ai-consulting', 'ai-development'];
+  
+  const locationPages: Array<{ path: string; priority: number; changeFreq: 'weekly' }> = [];
+  services.forEach(service => {
+    locations.forEach(location => {
+      locationPages.push({
+        path: `/services/${service}/${location}`,
+        priority: 0.7,
+        changeFreq: 'weekly' as const,
+      });
+    });
+  });
+
+  // Add bilingual pages with alternates
+  bilingualPages.forEach(({ path, priority, changeFreq }) => {
     const englishUrl = `${baseUrl}${path}`;
     const germanUrl = `${baseUrl}/de${path}`;
-    const alternateLanguages = {
-      'en': englishUrl,
-      'de': germanUrl,
-      'x-default': englishUrl,
-    };
-
-    // English pages (root)
+    
+    // English version
     sitemapEntries.push({
       url: englishUrl,
       lastModified: currentDate,
       changeFrequency: changeFreq,
       priority: priority,
       alternates: {
-        languages: alternateLanguages,
+        languages: {
+          'en': englishUrl,
+          'de': germanUrl,
+          'x-default': englishUrl,
+        },
       },
     });
     
-    // German pages (/de/)
+    // German version
     sitemapEntries.push({
       url: germanUrl,
       lastModified: currentDate,
       changeFrequency: changeFreq,
       priority: priority,
       alternates: {
-        languages: alternateLanguages,
+        languages: {
+          'en': englishUrl,
+          'de': germanUrl,
+          'x-default': englishUrl,
+        },
       },
+    });
+  });
+
+  // Add English-only pages without alternates
+  englishOnlyPages.forEach(({ path, priority, changeFreq }) => {
+    sitemapEntries.push({
+      url: `${baseUrl}${path}`,
+      lastModified: currentDate,
+      changeFrequency: changeFreq,
+      priority: priority,
+    });
+  });
+
+  // Add location-based service pages
+  locationPages.forEach(({ path, priority, changeFreq }) => {
+    sitemapEntries.push({
+      url: `${baseUrl}${path}`,
+      lastModified: currentDate,
+      changeFrequency: changeFreq,
+      priority: priority,
     });
   });
 
@@ -65,7 +124,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   });
 
-  // Add blog sections for both languages
+  // Add blog index pages
   sitemapEntries.push({
     url: `${baseUrl}/blog`,
     lastModified: currentDate,
@@ -94,40 +153,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   });
 
-  // Add blog posts for both languages
+  // Add blog posts (assuming most content is English-only for now)
   const blogPosts = await getAllPosts();
   blogPosts.forEach((post) => {
     const postLastModified = new Date(post.updated_at || post.published_at || post.created_at);
-    const postPriority = post.featured ? 0.8 : 0.7; // Featured posts get higher priority
-
+    const postPriority = post.featured ? 0.8 : 0.7;
+    
     const englishPostUrl = `${baseUrl}/blog/${post.slug}`;
-    const germanPostUrl = `${baseUrl}/de/blog/${post.slug}`;
-    const postAlternates = {
-      'en': englishPostUrl,
-      'de': germanPostUrl,
-      'x-default': englishPostUrl,
-    };
-
-    // English blog post
+    
+    // Only add English version unless we have confirmed German translations
+    // TODO: Check if post has German translation before adding /de/ version
     sitemapEntries.push({
       url: englishPostUrl,
       lastModified: postLastModified,
       changeFrequency: 'weekly',
       priority: postPriority,
-      alternates: {
-        languages: postAlternates,
-      },
-    });
-
-    // German blog post
-    sitemapEntries.push({
-      url: germanPostUrl,
-      lastModified: postLastModified,
-      changeFrequency: 'weekly',
-      priority: postPriority,
-      alternates: {
-        languages: postAlternates,
-      },
+      // Remove alternates until German translations are confirmed
     });
   });
 

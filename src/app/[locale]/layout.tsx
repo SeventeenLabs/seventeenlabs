@@ -98,61 +98,11 @@ export default async function LocaleLayout({
     ],
   };
 
-  // Organization structured data
-  const organizationJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': `${baseUrl}/#organization`,
-    name: 'SeventeenLabs',
-    url: baseUrl,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${baseUrl}/logo-white.svg`,
-      width: 150,
-      height: 150,
-    },
-    sameAs: [
-      'https://twitter.com/seventeenlabs',
-      'https://linkedin.com/company/seventeenlabs',
-    ],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'Customer Service',
-      telephone: '+1-415-429-6000',
-      areaServed: 'Worldwide',
-      availableLanguage: ['en', 'de'],
-    },
-  };
-
-  // Website structured data
-  const websiteJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${baseUrl}/#website`,
-    url: baseUrl,
-    name: 'SeventeenLabs',
-    description: 'AI automation agency specializing in custom workflow automation',
-    publisher: {
-      '@id': `${baseUrl}/#organization`,
-    },
-    inLanguage: isGerman ? 'de-DE' : 'en-US',
-  };
-  
   return (
     <>
-      {/* Hreflang tags with absolute URLs for international SEO */}
-      {/* Structured Data - JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       
       {/* Google Analytics */}

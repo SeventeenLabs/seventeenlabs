@@ -2,41 +2,35 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const hostname = new URL(baseUrl).hostname;
   
   return {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/blog',
-          '/blog/',
-          '/de/blog',
-          '/de/blog/',
-          '/sitemap.xml',
-        ],
         disallow: [
           '/admin/',
           '/api/',
           '/_next/',
           '/private/',
+          '/_vercel/',
+          '/.*',  // Hide dotfiles
         ],
-        crawlDelay: 1,
+        crawlDelay: 0.5, // Faster crawling for better indexing
       },
-      // Specific rules for Google Bot - allow everything except admin
+      // Allow faster crawling for major search engines
       {
         userAgent: 'Googlebot',
-        allow: '/',
         disallow: ['/admin/', '/api/', '/private/'],
+        crawlDelay: 0.1,
       },
-      // Specific rules for Bing Bot
       {
         userAgent: 'Bingbot',
-        allow: '/',
         disallow: ['/admin/', '/api/', '/private/'],
+        crawlDelay: 0.2,
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    host: hostname,
   };
 }
