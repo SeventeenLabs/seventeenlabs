@@ -34,24 +34,29 @@
   "hero": {
     "title": "KI-Automatisierung & Werkzeuge für Ihr Unternehmen",
     "description": "Sofort einsetzbare Workflows, KI-Apps und Expertenberatung. Automatisieren Sie Prozesse und beschleunigen Sie Ihr Wachstum.",
-    "eyebrow": "KI-Transformation für modernes Business",
-    "mainTitle": "KI-Lösungen für Ihr Business",
-    "mainTitleSecond": "Audit, Beratung & Entwicklung",
-    "subheadline": "Wir helfen Unternehmen bei der KI-Implementierung durch strategische Audits, Expertenberatung und maßgeschneiderte Entwicklung.",
-    "pillars": {
-      "audit": "KI-Audits",
-      "consulting": "Strategische Beratung",
-      "building": "Individuelle Entwicklung"
+    "eyebrow": "Live KI-Entwicklung",
+    "mainTitle": "Ihr neuer KI-Mitarbeiter arbeitet in 10 Sekunden",
+    "mainTitleSecond": "",
+    "subheadline": "Sagen Sie uns, was automatisiert werden soll. Erhalten Sie Ihre maßgeschneiderte Lösung sofort.",
+    "inputLabel": "Was soll ich für dich automatisieren?",
+    "inputPlaceholder": "Beschreiben Sie Ihre KI-Automatisierungsanforderungen - Audit, Beratung oder individuelle Entwicklung",
+    "buildButton": "Loslegen",
+    "ctaSupport": "Professionelle KI-Implementierung | Strategische Beratung | Maßgeschneiderte Lösungen",
+    "samplesLabel": "Inspiration holen",
+    "loadingMessage": "Baue deine persönliche KI... (8-12 Sekunden)",
+    "result": {
+      "placeholder": "Trage oben eine Aufgabe ein und ich zeige dir sofort das System dazu.",
+      "title": "So würde ich es automatisieren",
+      "ctaLabel": "Zeig mir das live",
+      "ctaHelper": "Ich gehe die Umsetzung in Echtzeit mit dir durch."
     },
-    "ctaPrimary": "Kostenlose Beratung anfragen",
-    "ctaSecondary": "Mehr über unsere Leistungen",
     "stats": {
-      "deployment": "2-4 Wochen",
-      "deploymentLabel": "Projektstart",
-      "costReduction": "40%",
-      "costReductionLabel": "durchschn. Effizienzgewinn",
-      "automation": "100%",
-      "automationLabel": "Qualitätsanspruch"
+      "deployment": "10 Sekunden",
+      "deploymentLabel": "Live-Prototyp",
+      "costReduction": "50+",
+      "costReductionLabel": "manuelle Workflows ersetzt",
+      "automation": "0 Bullshit",
+      "automationLabel": "reiner Operator-Fokus"
     },
     "features": {
       "tools": "Sofort einsatzbereite KI-Tools & Apps",

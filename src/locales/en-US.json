@@ -34,24 +34,29 @@
   "hero": {
     "title": "Smart Business Automation & AI Tools for Growth",
     "description": "From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.",
-    "eyebrow": "AI Transformation for modern business",
-    "mainTitle": "AI Solutions for Your Business",
-    "mainTitleSecond": "Audit, Consulting & Development",
-    "subheadline": "We help companies implement AI through strategic audits, expert consulting, and custom development solutions.",
-    "pillars": {
-      "audit": "AI Audits",
-      "consulting": "Strategic Consulting",
-      "building": "Custom Development"
+    "eyebrow": "Live AI Building",
+    "mainTitle": "Your new AI employee starts working in 10 seconds",
+    "mainTitleSecond": "",
+    "subheadline": "Tell us what you want automated. Get your custom solution instantly.",
+    "inputLabel": "What should I automate for you?",
+    "inputPlaceholder": "Describe your AI automation needs - audit, consulting, or custom development",
+    "buildButton": "Get Started",
+    "ctaSupport": "Professional AI implementation | Strategic consulting | Custom solutions",
+    "samplesLabel": "Steal an idea",
+    "loadingMessage": "Building your personal AI... (8-12 seconds)",
+    "result": {
+      "placeholder": "Drop any task above and I'll show you the exact system I'd build.",
+      "title": "Here is what I'd automate",
+      "ctaLabel": "Show me this live",
+      "ctaHelper": "I'll walk you through the build in real time."
     },
-    "ctaPrimary": "Schedule Free Consultation",
-    "ctaSecondary": "Learn About Our Services",
     "stats": {
-      "deployment": "2-4 weeks",
-      "deploymentLabel": "project kickoff",
-      "costReduction": "40%",
-      "costReductionLabel": "avg. efficiency gain",
-      "automation": "100%",
-      "automationLabel": "commitment to quality"
+      "deployment": "10 seconds",
+      "deploymentLabel": "live prototype",
+      "costReduction": "50+",
+      "costReductionLabel": "manual workflows replaced",
+      "automation": "0 fluff",
+      "automationLabel": "pure operator focus"
     },
     "features": {
       "tools": "Ready-to-use AI tools & apps",

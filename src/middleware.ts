@@ -32,7 +32,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/sitemap.xml') ||
     pathname.startsWith('/workflows') ||
     pathname.startsWith('/(apps)') ||
-    pathname.startsWith('/opengraph-image')
+    pathname.startsWith('/opengraph-image') ||
+    pathname.startsWith('/project/')
   ) {
     return NextResponse.next({
       request: {

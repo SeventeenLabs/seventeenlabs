@@ -7,9 +7,10 @@ import { useState, FormEvent, useEffect } from "react";
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  prefillMessage?: string;
 }
 
-export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export default function ContactModal({ isOpen, onClose, prefillMessage }: ContactModalProps) {
   const { t } = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -57,6 +58,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       setSubmitStatus('idle');
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && prefillMessage && formData.message.trim() === '') {
+      setFormData(prev => ({
+        ...prev,
+        message: prefillMessage,
+      }));
+    }
+  }, [isOpen, prefillMessage, formData.message]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
