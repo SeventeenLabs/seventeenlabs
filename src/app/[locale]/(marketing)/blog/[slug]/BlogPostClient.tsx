@@ -41,6 +41,8 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
   
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const homePath = locale === 'de' ? '/de' : '/';
+  const contactHref = `${homePath}#contact`;
   const blogPath = locale === 'de' ? '/de/blog' : '/blog';
   const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
   const questionHighlights = useMemo(() => {
@@ -923,7 +925,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                   </h4>
                   <ul className="space-y-2 text-sm">
                     <li>
-                      <a href={locale === 'de' ? '/de/blog' : '/blog'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                      <a href={blogPath} className="text-gray-600 hover:text-gray-900 transition-colors">
                         Blog
                       </a>
                     </li>
@@ -938,7 +940,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                       </a>
                     </li>
                     <li>
-                      <a href={locale === 'de' ? '/de/contact' : '/contact'} className="text-gray-600 hover:text-gray-900 transition-colors">
+                      <a href={contactHref} className="text-gray-600 hover:text-gray-900 transition-colors">
                         {locale === 'de' ? 'Kontakt' : 'Contact'}
                       </a>
                     </li>

@@ -22,8 +22,6 @@ export default function SiteFooter() {
       company: 'Company',
       about: 'About',
       blog: 'Blog',
-      ask: 'Ask SeventeenLabs',
-      changelog: 'Changelog',
       contact: 'Contact',
       aiAssistants: 'For AI assistants',
       aiIngestion: 'AI ingestion guide',
@@ -42,8 +40,6 @@ export default function SiteFooter() {
       company: 'Unternehmen',
       about: 'Über uns',
       blog: 'Blog',
-      ask: 'Ask SeventeenLabs',
-      changelog: 'Changelog',
       contact: 'Kontakt',
       aiAssistants: 'Für KI-Assistenten',
       aiIngestion: 'AI Ingestion Guide',
@@ -173,18 +169,6 @@ export default function SiteFooter() {
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.blog}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/ask-seventeenlabs')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.ask}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/changelog')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.changelog}
               </Link>
               <Link
                 href={getLocalizedPath(locale, '/ai-assistants')}

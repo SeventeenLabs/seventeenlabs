@@ -9,6 +9,10 @@ interface BlogHeaderProps {
 }
 
 export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
+  const homeHref = locale === 'de' ? '/de' : '/';
+  const blogHref = locale === 'de' ? '/de/blog' : '/blog';
+  const contactHref = `${homeHref}#contact`;
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       showTitle 
@@ -22,7 +26,7 @@ export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
           <div className="flex items-center gap-6 flex-1">
             {/* Mobile Back Button */}
             <Link 
-              href={locale === 'de' ? '/de/blog' : '/blog'} 
+              href={blogHref} 
               className="sm:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-all duration-200"
               aria-label="Back to blog"
             >
@@ -33,7 +37,7 @@ export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
 
             {/* Logo */}
             <Link 
-              href={locale === 'de' ? '/de' : '/'} 
+              href={homeHref} 
               className="group flex items-center" 
               aria-label="SeventeenLabs Homepage"
             >
@@ -75,7 +79,7 @@ export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
             {/* Desktop Navigation */}
             <nav className="hidden sm:flex items-center gap-2">
               <Link 
-                href={locale === 'de' ? '/de/blog' : '/blog'} 
+                href={blogHref} 
                 className="group flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
               >
                 <svg className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +89,7 @@ export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
               </Link>
               
               <Link 
-                href={locale === 'de' ? '/de/contact' : '/contact'} 
+                href={contactHref} 
                 className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-xl transition-all duration-200"
               >
                 <span>Contact</span>

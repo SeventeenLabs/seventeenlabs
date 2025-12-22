@@ -2,23 +2,17 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const hostname = new URL(baseUrl).hostname;
-  
+  const restrictedPaths = ['/admin/', '/api/', '/private/'];
+
   return {
     rules: [
       {
         userAgent: '*',
-        disallow: [
-          '/admin/',
-          '/api/',
-          '/_next/',
-          '/private/',
-          '/_vercel/',
-          '/.*',  // Hide dotfiles
-        ],
-        crawlDelay: 0.5, // Faster crawling for better indexing
+        allow: '/',
+        disallow: restrictedPaths,
+        crawlDelay: 0.5,
       },
-      // Allow faster crawling for major search engines
+      // Allow faster crawling for major search engines without blocking the site
       {
         userAgent: 'Googlebot',
         disallow: ['/admin/', '/api/', '/private/'],
