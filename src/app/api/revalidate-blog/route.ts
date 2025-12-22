@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    // Revalidate blog cache
-    revalidateTag('blog-posts');
+    // Revalidate blog cache with stale-while-revalidate semantics
+    revalidateTag('blog-posts', 'max');
     
     return NextResponse.json({ 
       message: 'Blog cache revalidated successfully',

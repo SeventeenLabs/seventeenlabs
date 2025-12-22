@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         // Handle page deletion - always revalidate since we can't check status
         if (payload.type === 'page.deleted') {
           console.log('🗑️ Blog post deleted, revalidating cache...');
-          revalidateTag('blog-posts');
+          revalidateTag('blog-posts', 'max');
           
           return NextResponse.json({ 
             message: 'Blog cache revalidated for deleted post',
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
               console.log('✅ Post published, revalidating blog cache...');
               
               // Revalidate blog cache
-              revalidateTag('blog-posts');
+              revalidateTag('blog-posts', 'max');
               
               console.log('🔄 Blog cache revalidated successfully');
               
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
             } else {
               console.log('ℹ️ Post updated but not published, revalidating anyway for safety');
               // Revalidate anyway since blog content might have changed
-              revalidateTag('blog-posts');
+              revalidateTag('blog-posts', 'max');
               
               return NextResponse.json({ 
                 message: 'Post updated, cache revalidated as precaution',
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
           } else {
             console.error('❌ Failed to fetch page details:', response.statusText);
             // Revalidate anyway in case of API issues
-            revalidateTag('blog-posts');
+            revalidateTag('blog-posts', 'max');
             return NextResponse.json({ 
               message: 'Page updated, revalidated cache as fallback',
               postId: pageId
@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
         } catch (error) {
           console.error('❌ Error fetching page details:', error);
           // Revalidate anyway in case of API issues
-          revalidateTag('blog-posts');
+          revalidateTag('blog-posts', 'max');
           return NextResponse.json({ 
             message: 'Page updated, revalidated cache as fallback',
             postId: pageId

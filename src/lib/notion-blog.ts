@@ -600,5 +600,5 @@ export async function getAllTags(): Promise<string[]> {
 
 // Revalidate all blog data caches
 export async function revalidateBlogCache(): Promise<void> {
-  revalidateTag('blog-posts');
+  revalidateTag('blog-posts', 'max');
 }
