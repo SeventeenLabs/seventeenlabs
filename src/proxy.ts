@@ -9,12 +9,20 @@ function getLocaleFromPathname(pathname: string): string {
   return 'en';
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const pathname = request.nextUrl.pathname;
   const requestHeaders = new Headers(request.headers);
   const locale = getLocaleFromPathname(pathname);
   requestHeaders.set('x-path-locale', locale);
+  
+  // Force all German blog URLs to the canonical English paths
+  if (pathname === '/de/blog' || pathname.startsWith('/de/blog/')) {
+    const url = request.nextUrl.clone();
+    const rewrittenPath = pathname.replace(/^\/de/, '') || '/blog';
+    url.pathname = rewrittenPath.startsWith('/') ? rewrittenPath : `/${rewrittenPath}`;
+    return NextResponse.redirect(url, 308);
+  }
   
   // Redirect any explicit /en or /en/* paths to canonical English URLs without /en
   if (pathname === '/en' || pathname.startsWith('/en/')) {
