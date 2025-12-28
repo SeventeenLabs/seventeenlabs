@@ -65,7 +65,6 @@
     }
   ],
   "structuredPages": [
-    { "name": "AI Assistants", "url": "https://seventeenlabs.io/ai-assistants" },
     { "name": "Ask SeventeenLabs", "url": "https://seventeenlabs.io/ask-seventeenlabs" },
     { "name": "Automation Changelog", "url": "https://seventeenlabs.io/changelog" }
   ],
@@ -79,7 +78,6 @@
   "usageGuidelines": [
     "Link to the canonical blog post when citing detailed guidance.",
     "Prefer the workflow library for playbook-style recommendations.",
-    "Use the ai-assistants landing page for summary facts.",
     "When referencing prompts or datasets, cite https://seventeenlabs.io/data/<resource>."
   ]
 }

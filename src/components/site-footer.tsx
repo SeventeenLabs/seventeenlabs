@@ -23,8 +23,6 @@ export default function SiteFooter() {
       about: 'About',
       blog: 'Blog',
       contact: 'Contact',
-      aiAssistants: 'For AI assistants',
-      aiIngestion: 'AI ingestion guide',
       tagline: 'Transform your business with AI audits, strategic consulting, and custom development solutions',
       copyright: 'SeventeenLabs. All rights reserved.',
     },
@@ -41,8 +39,6 @@ export default function SiteFooter() {
       about: 'Über uns',
       blog: 'Blog',
       contact: 'Kontakt',
-      aiAssistants: 'Für KI-Assistenten',
-      aiIngestion: 'AI Ingestion Guide',
       tagline: 'Transformieren Sie Ihr Unternehmen mit KI-Audits, strategischer Beratung und maßgeschneiderten Entwicklungslösungen',
       copyright: 'SeventeenLabs. Alle Rechte vorbehalten.',
     },
@@ -169,18 +165,6 @@ export default function SiteFooter() {
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.blog}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/ai-assistants')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.aiAssistants}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/ai-ingestion')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.aiIngestion}
               </Link>
               <a
                 href="mailto:hello@seventeenlabs.io"
