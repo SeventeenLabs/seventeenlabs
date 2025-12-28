@@ -25,11 +25,6 @@ const copy = {
             details: 'English articles, refreshed daily.',
           },
           {
-            label: 'RSS (DE)',
-            url: 'https://seventeenlabs.io/de/rss',
-            details: 'German mirror of the blog feed.',
-          },
-          {
             label: 'JSON Feed',
             url: 'https://seventeenlabs.io/feed',
             details: 'JSON Feed 1.1 with slug, tags, summary, and image metadata.',
@@ -58,7 +53,7 @@ const copy = {
           {
             label: 'Blog index feed',
             url: 'https://seventeenlabs.io/data/blog-index',
-            details: 'Locale-aware listing of every published post with metadata.',
+            details: 'Canonical listing of every published post with metadata.',
           },
           {
             label: 'Blog Q&A bundles',
@@ -116,11 +111,6 @@ const copy = {
             label: 'RSS (EN)',
             url: 'https://seventeenlabs.io/rss',
             details: 'Englische Artikel, täglich aktualisiert.',
-          },
-          {
-            label: 'RSS (DE)',
-            url: 'https://seventeenlabs.io/de/rss',
-            details: 'Deutscher Blog-Feed.',
           },
           {
             label: 'JSON Feed',

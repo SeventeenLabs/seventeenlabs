@@ -10,7 +10,6 @@
   "updateCadence": "weekly",
   "feeds": {
     "rss": "https://seventeenlabs.io/rss",
-    "rss_de": "https://seventeenlabs.io/de/rss",
     "json": "https://seventeenlabs.io/feed",
     "promptPacks": "https://seventeenlabs.io/data/prompt-packs",
     "datasets": "https://seventeenlabs.io/data/datasets"
@@ -45,7 +44,7 @@
       "url": "https://seventeenlabs.io/data/blog-index",
       "format": "json",
       "license": "All rights reserved",
-      "description": "Metadata index with locale URLs, timestamps, and tags",
+      "description": "Metadata index with canonical URLs, timestamps, and tags",
       "updated": "dynamic"
     },
     {

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,7 +57,7 @@ export default function AdminWorkflowsPage() {
   const router = useRouter();
   
   const [workflows, setWorkflows] = useState<WorkflowData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");
@@ -83,8 +83,7 @@ export default function AdminWorkflowsPage() {
   const difficulties = ["Beginner", "Intermediate", "Advanced"];
 
   // Load workflows
-  const loadWorkflows = async () => {
-    setIsLoading(true);
+  const loadWorkflows = useCallback(async () => {
     try {
       const response = await fetch('/api/workflows');
       const data = await response.json();
@@ -95,11 +94,10 @@ export default function AdminWorkflowsPage() {
       console.error('Failed to load workflows:', error);
       setMessage({ type: 'error', text: 'Failed to load workflows' });
     }
-    setIsLoading(false);
-  };
+  }, []);
 
   // Load stats
-  const loadStats = async () => {
+  const loadStats = useCallback(async () => {
     try {
       const response = await fetch('/api/workflows/stats');
       const data = await response.json();
@@ -110,7 +108,19 @@ export default function AdminWorkflowsPage() {
     } catch (error) {
       console.error('Failed to load stats:', error);
     }
-  };
+  }, []);
+
+  const refreshDashboard = useCallback(async () => {
+    setIsLoading(true);
+    await Promise.all([loadWorkflows(), loadStats()]);
+    setIsLoading(false);
+  }, [loadWorkflows, loadStats]);
+
+  const refreshRef = useRef(refreshDashboard);
+
+  useEffect(() => {
+    refreshRef.current = refreshDashboard;
+  }, [refreshDashboard]);
 
   // Handle edit
   const handleEdit = (workflow: WorkflowData) => {
@@ -130,8 +140,7 @@ export default function AdminWorkflowsPage() {
 
       if (data.success) {
         setMessage({ type: 'success', text: 'Workflow deleted successfully!' });
-        loadWorkflows();
-        loadStats();
+        await refreshDashboard();
       } else {
         setMessage({ type: 'error', text: 'Failed to delete workflow' });
       }
@@ -177,8 +186,15 @@ export default function AdminWorkflowsPage() {
     });
 
   useEffect(() => {
-    loadWorkflows();
-    loadStats();
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      void refreshRef.current();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   // Clear messages after 5 seconds
@@ -353,7 +369,7 @@ export default function AdminWorkflowsPage() {
                     {showFilters ? 'Hide Filters' : 'Show Filters'}
                   </Button>
                   
-                  <Button onClick={() => {loadWorkflows(); loadStats();}} variant="outline" size="sm">
+                  <Button onClick={() => void refreshDashboard()} variant="outline" size="sm">
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Refresh
                   </Button>

@@ -3,22 +3,26 @@ import React from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
+const ROW_COUNT = 150;
+const COL_COUNT = 100;
+const COLOR_PALETTE = [
+  "#f8fafc",
+  "#f1f5f9", 
+  "#e2e8f0",
+  "#cbd5e1",
+  "#f9fafb",
+  "#f3f4f6",
+  "#e5e7eb",
+  "#d1d5db",
+];
+
+const getHoverColor = (rowIndex: number, colIndex: number) => {
+  return COLOR_PALETTE[(rowIndex * 17 + colIndex * 13) % COLOR_PALETTE.length];
+};
+
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const rows = new Array(150).fill(1);
-  const cols = new Array(100).fill(1);
-  const colors = [
-    "#f8fafc",
-    "#f1f5f9", 
-    "#e2e8f0",
-    "#cbd5e1",
-    "#f9fafb",
-    "#f3f4f6",
-    "#e5e7eb",
-    "#d1d5db",
-  ];
-  const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+  const rows = new Array(ROW_COUNT).fill(1);
+  const cols = new Array(COL_COUNT).fill(1);
 
   return (
     <div
@@ -39,7 +43,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
           {cols.map((_, j) => (
             <motion.div
               whileHover={{
-                backgroundColor: `${getRandomColor()}`,
+                backgroundColor: getHoverColor(i, j),
                 transition: { duration: 0 },
               }}
               animate={{

@@ -6,26 +6,14 @@ import { useState } from 'react';
 
 interface BlogCardProps {
   post: BlogPostMetadata;
-  locale?: 'en' | 'de';
 }
 
-export function BlogCard({ post, locale = 'en' }: BlogCardProps) {
+export function BlogCard({ post }: BlogCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMM dd, yyyy');
 
-  const blogPath = locale === 'de' ? '/de/blog' : '/blog';
-
-  // Debug logging for featured image
-  console.log(`🎴 BlogCard for "${post.title}":`, {
-    id: post.id,
-    title: post.title,
-    featured_image: post.featured_image,
-    image_alt: post.image_alt,
-    hasImage: !!post.featured_image
-  });
-
   return (
-    <Link href={`${blogPath}/${post.slug}`} className="group block" aria-label={`Read article: ${post.title}`}>
+    <Link href={`/blog/${post.slug}`} className="group block" aria-label={`Read article: ${post.title}`}>
       <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full min-h-[520px] flex flex-col group-hover:-translate-y-1" itemScope itemType="https://schema.org/BlogPosting">
         {/* Image */}
         <div className="relative h-48 w-full overflow-hidden flex-shrink-0">

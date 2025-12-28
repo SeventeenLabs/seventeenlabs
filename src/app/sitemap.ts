@@ -69,41 +69,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
-  // Blog index pages (localized)
-  const blogAlternates = {
-    languages: {
-      en: `${baseUrl}/blog`,
-      de: `${baseUrl}/de/blog`,
-      'x-default': `${baseUrl}/blog`,
-    },
-  } as const;
-
+  // Blog index page (English only)
   pushEntry({
     url: `${baseUrl}/blog`,
     lastModified: currentDate,
     changeFrequency: 'daily',
     priority: 0.9,
-    alternates: blogAlternates,
-  });
-
-  pushEntry({
-    url: `${baseUrl}/de/blog`,
-    lastModified: currentDate,
-    changeFrequency: 'daily',
-    priority: 0.9,
-    alternates: blogAlternates,
   });
 
   // Feeds
   pushEntry({
     url: `${baseUrl}/rss`,
-    lastModified: currentDate,
-    changeFrequency: 'daily',
-    priority: 0.8,
-  });
-
-  pushEntry({
-    url: `${baseUrl}/de/rss`,
     lastModified: currentDate,
     changeFrequency: 'daily',
     priority: 0.8,
@@ -122,30 +98,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   categories.forEach((category) => {
     const encodedCategory = encodeURIComponent(category);
     const englishCategoryUrl = `${baseUrl}/blog/category/${encodedCategory}`;
-    const germanCategoryUrl = `${baseUrl}/de/blog/category/${encodedCategory}`;
-
-    const alternates = {
-      languages: {
-        en: englishCategoryUrl,
-        de: germanCategoryUrl,
-        'x-default': englishCategoryUrl,
-      },
-    } as const;
 
     pushEntry({
       url: englishCategoryUrl,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.6,
-      alternates,
-    });
-
-    pushEntry({
-      url: germanCategoryUrl,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-      alternates,
     });
   });
 

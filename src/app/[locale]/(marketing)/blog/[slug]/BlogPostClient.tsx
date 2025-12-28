@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { format } from 'date-fns';
 import { BlogPost, BlogPostMetadata } from '@/lib/notion-blog';
 import ReactMarkdown from 'react-markdown';
@@ -21,7 +22,6 @@ import { ArticleContent } from '@/components/blog/article-content';
 interface BlogPostClientProps {
   post: BlogPost;
   relatedPosts: BlogPostMetadata[];
-  locale: 'en' | 'de';
 }
 
 interface TocItem {
@@ -30,79 +30,69 @@ interface TocItem {
   level: number;
 }
 
-export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientProps) {
+export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
   const [readingProgress, setReadingProgress] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const [selectedText, setSelectedText] = useState('');
   const [selectionRect, setSelectionRect] = useState<DOMRect | null>(null);
   const [showTitle, setShowTitle] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  
+  const clearSelection = useCallback(() => {
+    setSelectedText('');
+    setSelectionRect(null);
+    const selection = window.getSelection();
+    if (selection) {
+      selection.removeAllRanges();
+    }
+  }, []);
+
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const homePath = locale === 'de' ? '/de' : '/';
+  const homePath = '/';
   const contactHref = `${homePath}#contact`;
-  const blogPath = locale === 'de' ? '/de/blog' : '/blog';
+  const blogPath = '/blog';
   const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
   const questionHighlights = useMemo(() => {
-    const fallback = locale === 'de'
-      ? 'Dieser Beitrag dokumentiert bewährte Workflows und Erkenntnisse von SeventeenLabs.'
-      : 'This post documents SeventeenLabs workflows and lessons learned.';
+    const fallback = 'This post documents SeventeenLabs workflows and lessons learned.';
 
     const audience = post.tags && post.tags.length > 0
-      ? (locale === 'de'
-        ? `Empfohlen für ${post.tags.slice(0, 2).join(', ')}`
-        : `Best for ${post.tags.slice(0, 2).join(', ')}`)
-      : (locale === 'de' ? 'Relevanz: Revenue- & Ops-Teams' : 'Relevant for revenue & ops teams');
+      ? `Best for ${post.tags.slice(0, 2).join(', ')}`
+      : 'Relevant for revenue & ops teams';
 
     return [
       {
-        question: locale === 'de' ? 'Worum geht es?' : 'What will you learn?',
+        question: 'What will you learn?',
         answer: post.description || fallback,
       },
       {
-        question: locale === 'de' ? 'Wann anwenden?' : 'When should you apply it?',
+        question: 'When should you apply it?',
         answer: post.category
-          ? (locale === 'de'
-            ? `Setzen Sie es ein, wenn ${post.category.toLowerCase()} priorisiert wird.`
-            : `Use it when ${post.category.toLowerCase()} is a top priority.`)
+          ? `Use it when ${post.category.toLowerCase()} is a top priority.`
           : fallback,
       },
       {
-        question: locale === 'de' ? 'Für wen gedacht?' : 'Who is it for?',
+        question: 'Who is it for?',
         answer: audience,
       },
     ];
-  }, [post.description, post.category, post.tags, locale]);
+  }, [post.category, post.description, post.tags]);
 
   const tldrItems = useMemo(() => {
-    const defaultAudience = locale === 'de' ? 'Ops- und Revenue-Teams' : 'Ops and revenue teams';
     const audience = post.tags && post.tags.length > 0
       ? post.tags.slice(0, 3).join(', ')
-      : defaultAudience;
+      : 'Ops and revenue teams';
 
     const timeframe = post.reading_time
       ? `${post.reading_time} min`
       : `${Math.ceil((post.content?.length || 800) / 200)} min`;
 
-    const takeaways = [
-      post.description || (locale === 'de'
-        ? 'Artikel über bewährte Automatisierungs-Playbooks und Learnings.'
-        : 'Article covering proven automation playbooks and lessons learned.'),
-      (locale === 'de'
-        ? `Fokus: ${post.category || 'KI-Automatisierung'}`
-        : `Focus: ${post.category || 'AI automation'}`),
-      (locale === 'de'
-        ? `Empfohlen für: ${audience}`
-        : `Recommended for: ${audience}`),
-      (locale === 'de'
-        ? `Lesezeit: ${timeframe}`
-        : `Reading time: ${timeframe}`),
+    return [
+      post.description || 'Article covering proven automation playbooks and lessons learned.',
+      `Focus: ${post.category || 'AI automation'}`,
+      `Recommended for: ${audience}`,
+      `Reading time: ${timeframe}`,
     ];
-
-    return takeaways;
-  }, [post.description, post.category, post.tags, post.reading_time, post.content, locale]);
+  }, [post.category, post.content, post.description, post.reading_time, post.tags]);
 
 
   useEffect(() => {
@@ -269,31 +259,20 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mousedown', handleClickAway);
     };
-  }, []);
-
-  const clearSelection = () => {
-    setSelectedText('');
-    setSelectionRect(null);
-    const selection = window.getSelection();
-    if (selection) {
-      selection.removeAllRanges();
-    }
-  };
+  }, [clearSelection]);
 
   // Translations
   const t = {
     newsletter: {
-      title: locale === 'de' ? 'Bleiben Sie auf dem Laufenden' : 'Stay Updated',
-      description: locale === 'de' 
-        ? 'Erhalten Sie die neuesten Insights zu Workflow-Automatisierung und AI-Technologien direkt in Ihr Postfach.'
-        : 'Get the latest insights on workflow automation and AI technologies delivered straight to your inbox.',
-      placeholder: locale === 'de' ? 'Ihre E-Mail-Adresse' : 'Your email address',
-      button: locale === 'de' ? 'Abonnieren' : 'Subscribe',
-      success: locale === 'de' ? 'Erfolgreich abonniert!' : 'Successfully subscribed!',
-      error: locale === 'de' ? 'Etwas ist schiefgelaufen. Versuchen Sie es erneut.' : 'Something went wrong. Please try again.'
+      title: 'Stay Updated',
+      description: 'Get the latest insights on workflow automation and AI technologies delivered straight to your inbox.',
+      placeholder: 'Your email address',
+      button: 'Subscribe',
+      success: 'Successfully subscribed!',
+      error: 'Something went wrong. Please try again.'
     },
-    relatedPosts: locale === 'de' ? 'Ähnliche Artikel' : 'Related Posts',
-    readMore: locale === 'de' ? 'Mehr lesen' : 'Read more'
+    relatedPosts: 'Related Posts',
+    readMore: 'Read more'
   };
 
   // Enhanced related posts algorithm (kept near usage for clarity)
@@ -345,7 +324,6 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
       {/* Blog Header */}
       <BlogHeader 
         post={post}
-        locale={locale}
         showTitle={showTitle}
       />
 
@@ -423,7 +401,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                 {/* TL;DR snippet */}
                 <div className="rounded-3xl border border-gray-200 bg-gray-50 p-6 mb-8 ai-tldr" data-ai-snippet="tldr">
                   <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
-                    {locale === 'de' ? 'Kurz zusammengefasst' : 'TL;DR'}
+                    TL;DR
                   </p>
                   <ul className="space-y-2 text-sm text-gray-700">
                     {tldrItems.map((item, idx) => (
@@ -724,16 +702,21 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                                                isRight ? 'float-right ml-6 mb-4 max-w-sm' : '';
                           
                           if (!src || typeof src !== 'string') return null;
+
+                          const width = isSmall ? 800 : 1200;
+                          const height = isSmall ? 600 : 675;
                           
                           return (
                             <div className={`my-10 ${containerClass}`}>
-                              {/* Use regular img tag to avoid Next.js Image flickering */}
-                              <img 
-                                src={src} 
-                                alt={alt || ''} 
+                              <Image 
+                                src={src}
+                                alt={alt || ''}
                                 title={title}
+                                width={width}
+                                height={height}
                                 className="w-full h-auto rounded-lg shadow-sm"
-                                loading="lazy"
+                                sizes="(max-width: 768px) 100vw, 768px"
+                                unoptimized
                               />
                               {alt && (
                                 <p className="text-center text-sm text-gray-500 mt-3 italic">
@@ -912,37 +895,35 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                     <span className="text-xl font-semibold text-gray-900">SeventeenLabs</span>
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed max-w-md">
-                    {locale === 'de' 
-                      ? 'Wir automatisieren Geschäftsprozesse mit KI-gestützten Lösungen für Agenturen und Unternehmen.'
-                      : 'We automate business processes with AI-driven solutions for agencies and enterprises.'}
+                    We automate business processes with AI-driven solutions for agencies and enterprises.
                   </p>
                 </div>
 
                 {/* Quick Links */}
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-4">
-                    {locale === 'de' ? 'Links' : 'Quick Links'}
+                    Quick Links
                   </h4>
                   <ul className="space-y-2 text-sm">
                     <li>
-                      <a href={blogPath} className="text-gray-600 hover:text-gray-900 transition-colors">
+                      <Link href={blogPath} className="text-gray-600 hover:text-gray-900 transition-colors">
                         Blog
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href={locale === 'de' ? '/de/about' : '/about'} className="text-gray-600 hover:text-gray-900 transition-colors">
-                        {locale === 'de' ? 'Über uns' : 'About'}
-                      </a>
+                      <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
+                        About
+                      </Link>
                     </li>
                     <li>
-                      <a href={locale === 'de' ? '/de/services' : '/services'} className="text-gray-600 hover:text-gray-900 transition-colors">
-                        {locale === 'de' ? 'Services' : 'Services'}
-                      </a>
+                      <Link href="/services" className="text-gray-600 hover:text-gray-900 transition-colors">
+                        Services
+                      </Link>
                     </li>
                     <li>
-                      <a href={contactHref} className="text-gray-600 hover:text-gray-900 transition-colors">
-                        {locale === 'de' ? 'Kontakt' : 'Contact'}
-                      </a>
+                      <Link href={contactHref} className="text-gray-600 hover:text-gray-900 transition-colors">
+                        Contact
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -950,7 +931,7 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
                 {/* Contact Info */}
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-4">
-                    {locale === 'de' ? 'Kontakt' : 'Contact'}
+                    Contact
                   </h4>
                   <div className="space-y-2 text-sm text-gray-600">
                     <div className="flex items-center gap-2">
@@ -974,16 +955,16 @@ export function BlogPostClient({ post, relatedPosts, locale }: BlogPostClientPro
               {/* Bottom Footer */}
               <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-sm text-gray-500">
-                  © {new Date().getFullYear()} SeventeenLabs. {locale === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}
+                  © {new Date().getFullYear()} SeventeenLabs. All rights reserved.
                 </div>
                 
                 <div className="flex items-center gap-6 text-sm text-gray-500">
-                  <a href={locale === 'de' ? '/de/privacy' : '/privacy'} className="hover:text-gray-700 transition-colors">
-                    {locale === 'de' ? 'Datenschutz' : 'Privacy'}
-                  </a>
-                  <a href={locale === 'de' ? '/de/terms' : '/terms'} className="hover:text-gray-700 transition-colors">
-                    {locale === 'de' ? 'Impressum' : 'Terms'}
-                  </a>
+                  <Link href="/privacy" className="hover:text-gray-700 transition-colors">
+                    Privacy
+                  </Link>
+                  <Link href="/terms" className="hover:text-gray-700 transition-colors">
+                    Terms
+                  </Link>
                   <div className="flex items-center gap-3">
                     <a href="https://twitter.com/seventeenlabs" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 transition-colors">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

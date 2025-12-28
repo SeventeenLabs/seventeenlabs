@@ -11,7 +11,7 @@ export default async function BlogLayout({
   const resolvedParams = await params;
   const locale = resolvedParams?.locale || 'en';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const rssUrl = locale === 'de' ? `${baseUrl}/de/rss` : `${baseUrl}/rss`;
+  const rssUrl = `${baseUrl}/rss`;
   
   return (
     <>

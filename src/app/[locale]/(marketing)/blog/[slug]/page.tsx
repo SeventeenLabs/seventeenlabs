@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getPostBySlug, getRelatedPosts, getAllPosts } from '@/lib/notion-blog';
 import { BlogPostClient } from './BlogPostClient';
-import { getLocaleFromString } from '@/lib/i18n/config';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -12,8 +11,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug, locale } = await params;
-  const validLocale = getLocaleFromString(locale);
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
 
@@ -23,13 +21,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
-  const blogPath = validLocale === 'de' ? '/de/blog' : '/blog';
-
   const imageUrl = post.featured_image 
     ? (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image)
     : `${baseUrl}/images/blog/default-og.png`;
 
-  const canonicalUrl = `${baseUrl}${blogPath}/${post.slug}`;
+  const canonicalUrl = `${baseUrl}/blog/${post.slug}`;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -54,17 +50,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        'en': `${baseUrl}/blog/${post.slug}`,
-        'de': `${baseUrl}/de/blog/${post.slug}`,
-        'x-default': `${baseUrl}/blog/${post.slug}`,
-      },
     },
     openGraph: {
       title: post.meta_title || post.title,
       description: post.meta_description || post.description,
       type: 'article',
-      locale: validLocale === 'de' ? 'de_DE' : 'en_US',
+      locale: 'en_US',
       url: canonicalUrl,
       siteName: 'SeventeenLabs',
       publishedTime: post.published_at,
@@ -104,20 +95,14 @@ export const revalidate = 3600; // Revalidate every hour
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  
-  // Generate paths for both locales
-  const paths = [];
-  for (const post of posts) {
-    paths.push({ slug: post.slug, locale: 'en' });
-    paths.push({ slug: post.slug, locale: 'de' });
-  }
-  
-  return paths;
+  return posts.map((post) => ({ slug: post.slug, locale: 'en' }));
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
-  const validLocale = getLocaleFromString(locale);
+  if (locale === 'de') {
+    redirect(`/blog/${slug}`);
+  }
   
   const [post, relatedPosts] = await Promise.all([
     getPostBySlug(slug),
@@ -129,7 +114,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const blogPath = validLocale === 'de' ? '/de/blog' : '/blog';
+  const blogPath = '/blog';
   const canonicalUrl = `${baseUrl}${blogPath}/${post.slug}`;
   const imageUrl = post.featured_image 
     ? (post.featured_image.startsWith('/') ? `${baseUrl}${post.featured_image}` : post.featured_image)
@@ -144,7 +129,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: validLocale === 'de' ? `${baseUrl}/de` : baseUrl,
+        item: baseUrl,
       },
       {
         '@type': 'ListItem',
@@ -198,7 +183,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
     datePublished: post.published_at,
     dateModified: post.updated_at || post.published_at,
-    inLanguage: validLocale === 'de' ? 'de-DE' : 'en-US',
+    inLanguage: 'en-US',
     url: canonicalUrl,
     keywords: post.tags?.join(', '),
     articleSection: post.category,
@@ -211,7 +196,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     isPartOf: {
       '@type': 'Blog',
       '@id': `${baseUrl}${blogPath}#blog`,
-      name: validLocale === 'de' ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
+      name: 'SeventeenLabs AI Automation Blog',
     },
   };
 
@@ -236,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableJsonLd) }}
       />
-      <BlogPostClient post={post} relatedPosts={relatedPosts} locale={validLocale} />
+      <BlogPostClient post={post} relatedPosts={relatedPosts} />
     </>
   );
 }

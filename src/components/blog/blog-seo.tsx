@@ -3,16 +3,14 @@ import { BlogPost, BlogPostMetadata } from '@/lib/notion-blog';
 interface BlogSEOProps {
   post?: BlogPost;
   posts?: BlogPostMetadata[];
-  locale: 'en' | 'de';
   type: 'blog-index' | 'blog-post' | 'category' | 'tag';
   category?: string;
   tag?: string;
 }
 
-export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOProps) {
+export function BlogSEO({ post, posts, type, category, tag }: BlogSEOProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const isGerman = locale === 'de';
-  const blogPath = isGerman ? '/de/blog' : '/blog';
+  const blogPath = '/blog';
   const blogUrl = `${baseUrl}${blogPath}`;
 
   // Blog index structured data
@@ -25,10 +23,8 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
         '@type': 'WebPage',
         '@id': blogUrl,
       },
-      name: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
-      description: isGerman
-        ? 'Expertenleitfäden und Fallstudien zur KI-Automatisierung für Unternehmen.'
-        : 'Expert guides and case studies for AI automation in business.',
+      name: 'SeventeenLabs AI Automation Blog',
+      description: 'Expert guides and case studies for AI automation in business.',
       url: blogUrl,
       publisher: {
         '@type': 'Organization',
@@ -40,7 +36,7 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
           url: `${baseUrl}/logo-white.svg`,
         },
       },
-      inLanguage: isGerman ? 'de-DE' : 'en-US',
+      inLanguage: 'en-US',
       blogPost: posts.slice(0, 10).map(blogPost => ({
         '@type': 'BlogPosting',
         '@id': `${blogUrl}/${blogPost.slug}#article`,
@@ -108,7 +104,7 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
       },
       datePublished: post.published_at,
       dateModified: post.updated_at || post.published_at,
-      inLanguage: isGerman ? 'de-DE' : 'en-US',
+      inLanguage: 'en-US',
       url: canonicalUrl,
       keywords: post.tags?.join(', '),
       articleSection: post.category,
@@ -121,7 +117,7 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
       isPartOf: {
         '@type': 'Blog',
         '@id': `${blogUrl}#blog`,
-        name: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
+        name: 'SeventeenLabs AI Automation Blog',
       },
     };
 
@@ -148,8 +144,8 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
         '@id': archiveUrl,
       },
       name: type === 'category' 
-        ? `${category} Posts - ${isGerman ? 'SeventeenLabs Blog' : 'SeventeenLabs Blog'}`
-        : `${tag} Posts - ${isGerman ? 'SeventeenLabs Blog' : 'SeventeenLabs Blog'}`,
+        ? `${category} Posts - SeventeenLabs Blog`
+        : `${tag} Posts - SeventeenLabs Blog`,
       description: type === 'category'
         ? `Browse all posts in the ${category} category.`
         : `Browse all posts tagged with ${tag}.`,
@@ -157,7 +153,7 @@ export function BlogSEO({ post, posts, locale, type, category, tag }: BlogSEOPro
       isPartOf: {
         '@type': 'Blog',
         '@id': `${blogUrl}#blog`,
-        name: isGerman ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
+        name: 'SeventeenLabs AI Automation Blog',
       },
       hasPart: posts.map(blogPost => ({
         '@type': 'BlogPosting',

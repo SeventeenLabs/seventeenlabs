@@ -38,7 +38,12 @@ const clearAuthSession = () => {
 };
 
 export default function AdminAuth({ children }: AdminAuthProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return checkAuthSession();
+  });
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -46,10 +51,16 @@ export default function AdminAuth({ children }: AdminAuthProps) {
   const [attemptCount, setAttemptCount] = useState(0);
 
   useEffect(() => {
-    // Check if already authenticated on component mount
-    const isAuth = checkAuthSession();
-    setIsAuthenticated(isAuth);
-    setLoading(false);
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setIsAuthenticated(checkAuthSession());
+      setLoading(false);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -197,10 +208,23 @@ export default function AdminAuth({ children }: AdminAuthProps) {
 
 // Hook for checking auth status in components
 export const useAdminAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return checkAuthSession();
+  });
 
   useEffect(() => {
-    setIsAuthenticated(checkAuthSession());
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setIsAuthenticated(checkAuthSession());
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return { isAuthenticated };

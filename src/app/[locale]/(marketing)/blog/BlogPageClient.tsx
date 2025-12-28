@@ -4,40 +4,43 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, Calendar, Filter, Sparkles } from 'lucide-react';
+import { ArrowRight, Calendar, Sparkles } from 'lucide-react';
 import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';
-import { Button } from '@/components/ui/button';
 import ContactModal from '@/components/contact-modal';
-import { useTranslations } from '@/lib/i18n/context';
-import { I18nProvider } from '@/lib/i18n/context';
-import { Locale } from '@/lib/i18n/config';
 
 interface BlogPageClientProps {
   allPosts: BlogPostMetadata[];
   featuredPost: BlogPostMetadata | null;
-  categories: string[];
-  locale: Locale;
   pageTitle?: string;
 }
 
-function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle }: BlogPageClientProps) {
-  const { t } = useTranslations();
+const blogCopy = {
+  title: 'SeventeenLabs AI Automation Blog',
+  subtitle: 'Field-tested playbooks, teardown notes, and technical guidance for operators automating revenue, marketing, and operations teams.',
+  noArticlesTitle: 'Fresh stories incoming',
+  noArticlesSubtitle: 'We are preparing new automation field notes. Check back soon or subscribe to the RSS feed for the latest drops.',
+  ctaTitle: 'Need an automation roadmap or build partner?',
+  ctaSubtitle: 'Share your priorities and we will map the workflows, tooling, and launch plan to hit them in weeks—not quarters.',
+  ctaPrimaryButton: 'Book a working session',
+  ctaSecondaryButton: 'Explore services',
+};
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+function BlogPageContent({ allPosts, featuredPost, pageTitle }: BlogPageClientProps) {
   const [contactModalOpen, setContactModalOpen] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const blogUrl = locale === 'de' ? `${baseUrl}/de/blog` : `${baseUrl}/blog`;
+  const blogUrl = `${baseUrl}/blog`;
 
-  const headerNavItems = useMemo(() => ([
-    { label: locale === 'de' ? 'Highlights' : 'Highlights', href: '#hero' },
-    { label: locale === 'de' ? 'Kategorien' : 'Categories', href: '#categories' },
-    { label: locale === 'de' ? 'Artikel' : 'Articles', href: '#articles' },
-    { label: locale === 'de' ? 'Kontakt' : 'Contact', href: '#cta' },
-  ]), [locale]);
+  const headerNavItems = useMemo(
+    () => ([
+      { label: 'Highlights', href: '#hero' },
+      { label: 'Articles', href: '#articles' },
+      { label: 'Contact', href: '#cta' },
+    ]),
+    [],
+  );
 
   // Structured Data for Blog Listing Page
   const structuredData = {
@@ -47,10 +50,8 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
         '@type': 'Blog',
         '@id': `${blogUrl}#blog`,
         url: blogUrl,
-        name: locale === 'de' ? 'SeventeenLabs KI-Automatisierung Blog' : 'SeventeenLabs AI Automation Blog',
-        description: locale === 'de' 
-          ? 'Expertenleitfäden und Fallstudien zur KI-Automatisierung für Unternehmen'
-          : 'Expert guides and case studies for AI automation in business',
+        name: 'SeventeenLabs AI Automation Blog',
+        description: 'Expert guides and case studies for AI automation in business',
         publisher: {
           '@type': 'Organization',
           '@id': `${baseUrl}#organization`,
@@ -61,11 +62,11 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
             url: `${baseUrl}/logo_dark.png`,
           },
         },
-        inLanguage: locale === 'de' ? 'de-DE' : 'en-US',
+        inLanguage: 'en-US',
         blogPost: allPosts.slice(0, 10).map(post => ({
           '@type': 'BlogPosting',
-          '@id': `${baseUrl}${locale === 'de' ? '/de' : ''}/blog/${post.slug}#article`,
-          url: `${baseUrl}${locale === 'de' ? '/de' : ''}/blog/${post.slug}`,
+          '@id': `${baseUrl}/blog/${post.slug}#article`,
+          url: `${baseUrl}/blog/${post.slug}`,
           headline: post.title,
           description: post.description,
           datePublished: post.published_at,
@@ -84,10 +85,8 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
         '@type': 'WebPage',
         '@id': blogUrl,
         url: blogUrl,
-        name: locale === 'de' ? 'Blog - SeventeenLabs' : 'Blog - SeventeenLabs',
-        description: locale === 'de' 
-          ? 'Entdecken Sie Expertenleitfäden zur KI-Automatisierung'
-          : 'Explore expert guides for AI automation',
+        name: 'Blog - SeventeenLabs',
+        description: 'Explore expert guides for AI automation',
         isPartOf: {
           '@type': 'WebSite',
           '@id': `${baseUrl}#website`,
@@ -116,12 +115,7 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
   };
 
   // Filter posts based on category
-  const filteredPosts = useMemo(() => {
-    return allPosts.filter(post => {
-      const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
-      return matchesCategory;
-    });
-  }, [allPosts, selectedCategory]);
+  const filteredPosts = allPosts;
 
   return (
     <div className="min-h-screen bg-white">
@@ -134,7 +128,7 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
       <header className="bg-transparent">
         <div className="w-full px-6 sm:px-8 lg:px-12 py-4">
           <div className="flex items-center justify-between">
-            <Link href={locale === 'de' ? '/de' : '/'} className="group flex items-center gap-4" aria-label="Go to SeventeenLabs homepage">
+            <Link href="/" className="group flex items-center gap-4" aria-label="Go to SeventeenLabs homepage">
               <Image
                 src="/logo_dark.png"
                 alt="SeventeenLabs"
@@ -148,48 +142,22 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
               </div>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600" aria-label={locale === 'de' ? 'Blog Navigation' : 'Blog navigation'}>
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600" aria-label="Blog navigation">
               {headerNavItems.map((item) => (
                 <Link key={item.href} href={item.href} className="hover:text-gray-900 transition-colors" prefetch={false}>
                   {item.label}
                 </Link>
               ))}
               <Link
-                href={locale === 'de' ? '/de/rss' : '/rss'}
+                href="/rss"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs uppercase tracking-[0.3em] text-gray-700 hover:border-gray-300"
-                aria-label={locale === 'de' ? 'RSS Feed öffnen' : 'Open RSS feed'}
+                aria-label="Open RSS feed"
               >
                 RSS
               </Link>
             </nav>
-            
-            {/* Language Switcher */}
-            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-              <Link
-                href="/blog"
-                className={`px-2 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all ${
-                  locale === 'en' 
-                    ? 'bg-white text-gray-900 shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-                aria-label="Switch to English blog"
-              >
-                EN
-              </Link>
-              <Link
-                href="/de/blog"
-                className={`px-2 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all ${
-                  locale === 'de' 
-                    ? 'bg-white text-gray-900 shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-                aria-label="Switch to German blog"
-              >
-                DE
-              </Link>
-            </div>
           </div>
         </div>
       </header>
@@ -209,13 +177,13 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full border border-gray-200 bg-white/70 text-sm text-gray-600">
                 <Sparkles className="w-4 h-4 text-gray-400" />
-                {locale === 'de' ? 'Wissen für moderne Teams' : 'Insights for modern teams'}
+                Insights for modern teams
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent mb-6 leading-tight">
-                {pageTitle || t('blog.title')}
+                {pageTitle || blogCopy.title}
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
-                {t('blog.subtitle')}
+                {blogCopy.subtitle}
               </p>
             </motion.div>
           </div>
@@ -223,86 +191,19 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
           {/* Featured Post */}
           {featuredPost && (
             <div id="featured" className="mt-16">
-              <FeaturedPost post={featuredPost} locale={locale} />
+              <FeaturedPost post={featuredPost} />
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section id="categories" className="py-16 px-6 sm:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-12 backdrop-blur-sm"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-gray-500 mb-2 flex items-center gap-2">
-                    <Filter className="w-4 h-4" />
-                    {locale === 'de' ? 'Kuratiert' : 'Curated'}
-                  </p>
-                  <h2 className="text-3xl font-semibold text-gray-900">
-                    {locale === 'de' ? 'Themen nach Relevanz' : 'Topics by relevance'}
-                  </h2>
-                  <p className="text-base text-gray-600 mt-2 max-w-2xl">
-                    {locale === 'de'
-                      ? 'Filtern Sie Beiträge nach Schwerpunkten und sehen Sie sofort, wie viele Inhalte verfügbar sind.'
-                      : 'Filter the library by focus areas and instantly see how many expert pieces are available.'}
-                  </p>
-                </div>
-                <div className="text-sm text-gray-500 text-center lg:text-right" aria-live="polite">
-                  {locale === 'de'
-                    ? `${filteredPosts.length} ${filteredPosts.length === 1 ? 'Artikel' : 'Artikel'} ausgewählt`
-                    : `Showing ${filteredPosts.length} ${filteredPosts.length === 1 ? 'article' : 'articles'}`}
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-3" role="tablist" aria-label={locale === 'de' ? 'Kategorien' : 'Categories'}>
-                <Button
-                  variant={selectedCategory === 'all' ? 'default' : 'outline'}
-                  onClick={() => {
-                    setSelectedCategory('all');
-                    setHasInteracted(true);
-                  }}
-                  className="rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105 shadow-sm"
-                  aria-pressed={selectedCategory === 'all'}
-                >
-                  {t('blog.allCategories')}
-                </Button>
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? 'default' : 'outline'}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setHasInteracted(true);
-                    }}
-                    className="rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105 shadow-sm"
-                    aria-pressed={selectedCategory === category}
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </div>
-              {!hasInteracted && (
-                <p className="text-xs text-gray-400 pt-2">
-                  {locale === 'de'
-                    ? 'Tipp: Wählen Sie eine Kategorie, um spezialisierte Playbooks zu entdecken.'
-                    : 'Tip: Pick a category to surface more specialized playbooks.'}
-                </p>
-              )}
-            </div>
-          </motion.div>
         </div>
       </section>
 
       {/* Blog Posts Grid */}
       <section id="articles" className="py-20 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-transparent to-gray-50/30">
         <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-10 text-sm text-gray-600" aria-live="polite">
+            <span className="uppercase tracking-[0.3em] text-gray-500">Library</span>
+            <span>{`Showing ${filteredPosts.length} ${filteredPosts.length === 1 ? 'article' : 'articles'}`}</span>
+          </div>
           <AnimatePresence mode="wait">
             {filteredPosts.length === 0 ? (
               <motion.div 
@@ -319,19 +220,13 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">{t('blog.noArticles.title')}</h3>
-                  <p className="text-gray-600 mb-8 text-lg leading-relaxed">{t('blog.noArticles.subtitle')}</p>
-                  <Button 
-                    onClick={() => setSelectedCategory('all')} 
-                    className="rounded-full px-8 py-3 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                  >
-                    {locale === 'de' ? 'Alle Artikel anzeigen' : 'View All Articles'}
-                  </Button>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-4">{blogCopy.noArticlesTitle}</h3>
+                  <p className="text-gray-600 mb-8 text-lg leading-relaxed">{blogCopy.noArticlesSubtitle}</p>
                 </div>
               </motion.div>
             ) : (
               <motion.div 
-                key={selectedCategory}
+                key="all-posts"
                 className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -352,7 +247,7 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
                     whileHover={{ y: -8 }}
                     className="h-full"
                   >
-                    <BlogCard post={post} locale={locale} />
+                    <BlogCard post={post} />
                   </motion.div>
                 ))}
               </motion.div>
@@ -376,13 +271,13 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/60 mb-6">
                 <span className="w-2 h-2 bg-white rounded-full" />
-                {locale === 'de' ? 'Nächster Schritt' : 'Next step'}
+                Next step
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-6xl font-semibold text-white tracking-tight mb-6 leading-tight">
-                {t('blog.cta.title')}
+                {blogCopy.ctaTitle}
               </h2>
               <p className="text-lg text-white/70 font-light leading-relaxed mb-10 max-w-2xl">
-                {t('blog.cta.subtitle')}
+                {blogCopy.ctaSubtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
@@ -390,35 +285,35 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
                   className="group relative px-8 py-4 text-base font-medium text-black bg-white rounded-xl hover:bg-white/90 transition-all duration-300 shadow-xl shadow-indigo-500/20 inline-flex items-center gap-2"
                 >
                   <Calendar className="w-5 h-5" />
-                  {t('blog.cta.primaryButton')}
+                  {blogCopy.ctaPrimaryButton}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <Link
-                  href={locale === 'de' ? '/de' : '/'}
+                  href="/"
                   className="group relative px-8 py-4 text-base font-medium text-white border border-white/20 rounded-xl hover:bg-white/5 transition-all duration-300 inline-flex items-center gap-2"
-                  aria-label={locale === 'de' ? 'Go to German homepage' : 'Go to English homepage'}
+                  aria-label="Go to homepage"
                 >
-                  {t('blog.cta.secondaryButton')}
+                  {blogCopy.ctaSecondaryButton}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-2xl text-white">
               <p className="text-sm uppercase tracking-[0.2em] text-white/60 mb-4">
-                {locale === 'de' ? 'Was Sie erhalten' : 'What you get'}
+                What you get
               </p>
               <ul className="space-y-4 text-base text-white/80">
                 <li className="flex gap-3">
                   <span className="mt-1 inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                  {locale === 'de' ? 'Handverlesene Automatisierungs-Playbooks für Ihren Anwendungsfall' : 'Handpicked automation playbooks tailored to your use case'}
+                  Handpicked automation playbooks tailored to your use case
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1 inline-flex h-2 w-2 rounded-full bg-sky-400" />
-                  {locale === 'de' ? 'Kurzfristige Roadmap mit klaren Ergebnissen' : 'Short-term roadmap with measurable outcomes'}
+                  Short-term roadmap with measurable outcomes
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1 inline-flex h-2 w-2 rounded-full bg-purple-400" />
-                  {locale === 'de' ? 'Erprobte Toolchain–Empfehlungen' : 'Toolchain recommendations proven in production'}
+                  Toolchain recommendations proven in production
                 </li>
               </ul>
             </div>
@@ -435,16 +330,12 @@ function BlogPageContent({ allPosts, featuredPost, categories, locale, pageTitle
   );
 }
 
-export function BlogPageClient({ allPosts, featuredPost, categories, locale, pageTitle }: BlogPageClientProps) {
+export function BlogPageClient({ allPosts, featuredPost, pageTitle }: BlogPageClientProps) {
   return (
-    <I18nProvider locale={locale}>
-      <BlogPageContent
-        allPosts={allPosts}
-        featuredPost={featuredPost}
-        categories={categories}
-        locale={locale}
-        pageTitle={pageTitle}
-      />
-    </I18nProvider>
+    <BlogPageContent
+      allPosts={allPosts}
+      featuredPost={featuredPost}
+      pageTitle={pageTitle}
+    />
   );
 }

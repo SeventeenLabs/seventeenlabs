@@ -6,17 +6,14 @@ import { useState } from 'react';
 
 interface FeaturedPostProps {
   post: BlogPostMetadata;
-  locale?: 'en' | 'de';
 }
 
-export function FeaturedPost({ post, locale = 'en' }: FeaturedPostProps) {
+export function FeaturedPost({ post }: FeaturedPostProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
 
-  const blogPath = locale === 'de' ? '/de/blog' : '/blog';
-
   return (
-    <Link href={`${blogPath}/${post.slug}`} className="group block" aria-label={`Read featured article: ${post.title}`}>
+    <Link href={`/blog/${post.slug}`} className="group block" aria-label={`Read featured article: ${post.title}`}>
       <article className="relative bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group-hover:-translate-y-1" itemScope itemType="https://schema.org/BlogPosting">
         <div className="lg:flex">
           {/* Image Section */}

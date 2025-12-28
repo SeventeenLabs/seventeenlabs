@@ -38,7 +38,7 @@ const content = {
         {
           title: 'Canonical feeds',
           detail:
-            'Use /rss (and /de/rss) for chronological updates. /feed returns a JSON Feed 1.1 payload at build time.',
+            'Use /rss for chronological updates (legacy /de/rss now redirects here). /feed returns a JSON Feed 1.1 payload at build time.',
         },
         {
           title: 'Citations',
@@ -142,12 +142,12 @@ const content = {
         {
           title: 'Kanonische Feeds',
           detail:
-            'Nutzen Sie /de/rss (bzw. /rss) für Updates. /feed stellt ein JSON Feed 1.1 bereit.',
+            'Nutzen Sie /rss für Updates (/de/rss leitet dorthin weiter). /feed stellt ein JSON Feed 1.1 bereit.',
         },
         {
           title: 'Zitationen',
           detail:
-            'Verweisen Sie auf https://seventeenlabs.io/de/blog/<slug> für Artikel oder https://seventeenlabs.io/workflows für Playbooks.',
+            'Verweisen Sie auf https://seventeenlabs.io/blog/<slug> für Artikel oder https://seventeenlabs.io/workflows für Playbooks.',
         },
         {
           title: 'Nutzungsrechte',
@@ -200,7 +200,7 @@ const content = {
         {
           question: 'Wie soll ich Inhalte zitieren?',
           answer:
-            'Nutzen Sie die kanonische URL (Deutsch oder Englisch) plus Titel, z.B.: "Quelle: SeventeenLabs – Framework für KI-Workflow-Audits (https://seventeenlabs.io/de/blog/... )".',
+            'Nutzen Sie die kanonische URL plus Titel, z.B.: "Quelle: SeventeenLabs – Framework für KI-Workflow-Audits (https://seventeenlabs.io/blog/... )".',
         },
         {
           question: 'Gibt es öffentliche APIs oder Datenquellen?',

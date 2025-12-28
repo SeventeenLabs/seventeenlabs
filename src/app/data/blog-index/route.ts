@@ -12,7 +12,6 @@ function buildPostRecord(post: Awaited<ReturnType<typeof getAllPosts>>[number]) 
     slug: post.slug,
     urls: {
       en: canonical,
-      de: `${baseUrl}/de/blog/${post.slug}`,
     },
     title: post.title,
     description: post.description,

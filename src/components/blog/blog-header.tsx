@@ -4,13 +4,12 @@ import { BlogPost } from '@/lib/notion-blog';
 
 interface BlogHeaderProps {
   post: BlogPost;
-  locale: 'en' | 'de';
   showTitle: boolean;
 }
 
-export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
-  const homeHref = locale === 'de' ? '/de' : '/';
-  const blogHref = locale === 'de' ? '/de/blog' : '/blog';
+export function BlogHeader({ post, showTitle }: BlogHeaderProps) {
+  const homeHref = '/';
+  const blogHref = '/blog';
   const contactHref = `${homeHref}#contact`;
 
   return (
@@ -99,31 +98,6 @@ export function BlogHeader({ post, locale, showTitle }: BlogHeaderProps) {
               </Link>
             </nav>
 
-            {/* Language Switcher */}
-            <div className="flex items-center gap-1 bg-gray-50 border border-gray-200 rounded-lg p-0.5">
-              <Link
-                href={`/blog/${post.slug}`}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
-                  locale === 'en' 
-                    ? 'bg-white text-gray-900 shadow-sm' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
-                }`}
-                aria-label="View article in English"
-              >
-                EN
-              </Link>
-              <Link
-                href={`/de/blog/${post.slug}`}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
-                  locale === 'de' 
-                    ? 'bg-white text-gray-900 shadow-sm' 
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
-                }`}
-                aria-label="View article in German"
-              >
-                DE
-              </Link>
-            </div>
           </div>
         </div>
       </div>

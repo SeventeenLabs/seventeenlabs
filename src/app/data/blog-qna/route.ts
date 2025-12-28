@@ -13,7 +13,6 @@ function buildQA(post: Awaited<ReturnType<typeof getAllPosts>>[number]) {
     url: `${baseUrl}/blog/${post.slug}`,
     localeUrls: {
       en: `${baseUrl}/blog/${post.slug}`,
-      de: `${baseUrl}/de/blog/${post.slug}`,
     },
     qna: [
       {
