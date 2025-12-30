@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,6 +8,7 @@ import { ArrowRight, Calendar, Sparkles } from 'lucide-react';
 import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';
+import { SubscribeModal } from '@/components/blog/subscribe-modal';
 import ContactModal from '@/components/contact-modal';
 
 interface BlogPageClientProps {
@@ -15,6 +16,8 @@ interface BlogPageClientProps {
   featuredPost: BlogPostMetadata | null;
   pageTitle?: string;
 }
+
+const SUBSCRIBE_MODAL_STORAGE_KEY = 'sl_blog_subscribe_prompt_v1';
 
 const blogCopy = {
   title: 'SeventeenLabs AI Automation Blog',
@@ -29,6 +32,7 @@ const blogCopy = {
 
 function BlogPageContent({ allPosts, featuredPost, pageTitle }: BlogPageClientProps) {
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [subscribeModalOpen, setSubscribeModalOpen] = useState(false);
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const blogUrl = `${baseUrl}/blog`;
@@ -116,6 +120,42 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle }: BlogPageClientPr
 
   // Filter posts based on category
   const filteredPosts = allPosts;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      const hasSeenPrompt = window.localStorage.getItem(SUBSCRIBE_MODAL_STORAGE_KEY);
+      if (!hasSeenPrompt) {
+        setSubscribeModalOpen(true);
+      }
+    } catch (error) {
+      console.warn('Subscribe modal localStorage unavailable', error);
+    }
+  }, []);
+
+  const markPromptState = (state: 'dismissed' | 'subscribed') => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    try {
+      window.localStorage.setItem(SUBSCRIBE_MODAL_STORAGE_KEY, state);
+    } catch (error) {
+      console.warn('Unable to persist subscribe modal preference', error);
+    }
+  };
+
+  const handleSubscribeModalClose = () => {
+    markPromptState('dismissed');
+    setSubscribeModalOpen(false);
+  };
+
+  const handleSubscribeSuccess = () => {
+    markPromptState('subscribed');
+    setSubscribeModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -324,6 +364,12 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle }: BlogPageClientPr
         <ContactModal
           isOpen={contactModalOpen}
           onClose={() => setContactModalOpen(false)}
+        />
+
+        <SubscribeModal
+          isOpen={subscribeModalOpen}
+          onClose={handleSubscribeModalClose}
+          onSubscribed={handleSubscribeSuccess}
         />
       </section>
     </div>
