@@ -598,6 +598,32 @@ export async function getAllTags(): Promise<string[]> {
   return tags.sort();
 }
 
+// Get all unique authors from actual posts
+export async function getAllAuthors(): Promise<string[]> {
+  const posts = await getAllPosts();
+  const authors = [...new Set(posts.map((post) => post.author_name).filter(Boolean))];
+  return authors.sort();
+}
+
+// Get posts by a specific author
+export async function getPostsByAuthor(authorName: string): Promise<BlogPostMetadata[]> {
+  const posts = await getAllPosts();
+  return posts.filter((post) => 
+    post.author_name.toLowerCase() === authorName.toLowerCase()
+  );
+}
+
+// Get author slug from name
+export function getAuthorSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+}
+
+// Get author name from slug
+export async function getAuthorBySlug(slug: string): Promise<string | null> {
+  const authors = await getAllAuthors();
+  return authors.find((author) => getAuthorSlug(author) === slug) || null;
+}
+
 // Revalidate all blog data caches
 export async function revalidateBlogCache(): Promise<void> {
   revalidateTag('blog-posts', 'max');

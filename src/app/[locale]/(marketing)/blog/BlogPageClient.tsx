@@ -9,6 +9,7 @@ import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';
 import { SubscribeModal } from '@/components/blog/subscribe-modal';
+import { BlogFooter } from '@/components/blog/blog-footer';
 import ContactModal from '@/components/contact-modal';
 
 interface BlogPageClientProps {
@@ -373,6 +374,9 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }:
           onSubscribed={handleSubscribeSuccess}
         />
       </section>
+
+      {/* Footer */}
+      <BlogFooter />
     </div>
   );
 }

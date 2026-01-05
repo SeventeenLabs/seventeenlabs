@@ -106,6 +106,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getAllPosts();
   const categories = [...new Set(blogPosts.map((post) => post.category).filter(Boolean))];
   const allTags = [...new Set(blogPosts.flatMap((post) => post.tags || []).filter(Boolean))];
+  const allAuthors = [...new Set(blogPosts.map((post) => post.author_name).filter(Boolean))];
 
   // Category pages
   categories.forEach((category) => {
@@ -130,6 +131,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.5,
+    });
+  });
+
+  // Author pages for E-E-A-T
+  allAuthors.forEach((author) => {
+    const authorSlug = author.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+    const authorUrl = `${baseUrl}/blog/author/${authorSlug}`;
+
+    pushEntry({
+      url: authorUrl,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.55,
     });
   });
 

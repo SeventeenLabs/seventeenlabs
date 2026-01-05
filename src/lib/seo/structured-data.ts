@@ -419,3 +419,272 @@ export function generateAggregateRatingSchema(
     },
   };
 }
+
+// Video Object Schema (for blog posts with embedded videos)
+export interface VideoSchemaOptions {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  duration?: string; // ISO 8601 format e.g. "PT10M30S"
+  contentUrl?: string;
+  embedUrl?: string;
+  locale?: Locale;
+}
+
+export function generateVideoSchema(options: VideoSchemaOptions) {
+  const {
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    duration,
+    contentUrl,
+    embedUrl,
+    locale = 'en',
+  } = options;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name,
+    description,
+    thumbnailUrl: thumbnailUrl.startsWith('http') 
+      ? thumbnailUrl 
+      : `${BASE_URL}${thumbnailUrl}`,
+    uploadDate,
+    ...(duration ? { duration } : {}),
+    ...(contentUrl ? { contentUrl } : {}),
+    ...(embedUrl ? { embedUrl } : {}),
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: siteConfig.name,
+    },
+    inLanguage: locale === 'de' ? 'de-DE' : 'en-US',
+  };
+}
+
+// Review Schema (for testimonials)
+export interface ReviewSchemaOptions {
+  author: string;
+  reviewBody: string;
+  ratingValue: number;
+  datePublished: string;
+  itemReviewed: {
+    type: 'Service' | 'Product' | 'Organization';
+    name: string;
+  };
+}
+
+export function generateReviewSchema(options: ReviewSchemaOptions) {
+  const { author, reviewBody, ratingValue, datePublished, itemReviewed } = options;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    author: {
+      '@type': 'Person',
+      name: author,
+    },
+    reviewBody,
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    datePublished,
+    itemReviewed: {
+      '@type': itemReviewed.type,
+      name: itemReviewed.name,
+      ...(itemReviewed.type === 'Organization' ? {
+        '@id': `${BASE_URL}/#organization`,
+      } : {}),
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+    },
+  };
+}
+
+// Course Schema (for educational content)
+export interface CourseSchemaOptions {
+  name: string;
+  description: string;
+  url: string;
+  provider?: string;
+  price?: string;
+  priceCurrency?: string;
+  hasCourseInstance?: {
+    startDate?: string;
+    endDate?: string;
+    courseMode?: 'online' | 'onsite' | 'blended';
+  };
+}
+
+export function generateCourseSchema(options: CourseSchemaOptions) {
+  const {
+    name,
+    description,
+    url,
+    provider = siteConfig.name,
+    price,
+    priceCurrency = 'USD',
+    hasCourseInstance,
+  } = options;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name,
+    description,
+    url,
+    provider: {
+      '@type': 'Organization',
+      name: provider,
+      '@id': `${BASE_URL}/#organization`,
+    },
+    ...(price ? {
+      offers: {
+        '@type': 'Offer',
+        price,
+        priceCurrency,
+        availability: 'https://schema.org/InStock',
+        url,
+      },
+    } : {}),
+    ...(hasCourseInstance ? {
+      hasCourseInstance: {
+        '@type': 'CourseInstance',
+        courseMode: hasCourseInstance.courseMode || 'online',
+        ...(hasCourseInstance.startDate ? { startDate: hasCourseInstance.startDate } : {}),
+        ...(hasCourseInstance.endDate ? { endDate: hasCourseInstance.endDate } : {}),
+      },
+    } : {}),
+  };
+}
+
+// Event Schema (for webinars, workshops)
+export interface EventSchemaOptions {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate?: string;
+  location?: {
+    type: 'VirtualLocation' | 'Place';
+    name?: string;
+    url?: string;
+    address?: string;
+  };
+  image?: string;
+  url?: string;
+  price?: string;
+  priceCurrency?: string;
+  eventStatus?: 'Scheduled' | 'Cancelled' | 'Postponed' | 'Rescheduled';
+  eventAttendanceMode?: 'Online' | 'Offline' | 'Mixed';
+}
+
+export function generateEventSchema(options: EventSchemaOptions) {
+  const {
+    name,
+    description,
+    startDate,
+    endDate,
+    location,
+    image,
+    url,
+    price,
+    priceCurrency = 'USD',
+    eventStatus = 'Scheduled',
+    eventAttendanceMode = 'Online',
+  } = options;
+
+  const attendanceModeMap = {
+    Online: 'https://schema.org/OnlineEventAttendanceMode',
+    Offline: 'https://schema.org/OfflineEventAttendanceMode',
+    Mixed: 'https://schema.org/MixedEventAttendanceMode',
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name,
+    description,
+    startDate,
+    ...(endDate ? { endDate } : {}),
+    eventStatus: `https://schema.org/Event${eventStatus}`,
+    eventAttendanceMode: attendanceModeMap[eventAttendanceMode],
+    ...(location ? {
+      location: location.type === 'VirtualLocation' 
+        ? {
+            '@type': 'VirtualLocation',
+            url: location.url || BASE_URL,
+          }
+        : {
+            '@type': 'Place',
+            name: location.name,
+            address: location.address,
+          },
+    } : {
+      location: {
+        '@type': 'VirtualLocation',
+        url: BASE_URL,
+      },
+    }),
+    organizer: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: siteConfig.name,
+    },
+    ...(image ? {
+      image: image.startsWith('http') ? image : `${BASE_URL}${image}`,
+    } : {}),
+    ...(url ? { url } : {}),
+    ...(price ? {
+      offers: {
+        '@type': 'Offer',
+        price,
+        priceCurrency,
+        availability: 'https://schema.org/InStock',
+        url: url || BASE_URL,
+      },
+    } : {}),
+  };
+}
+
+// Person Schema (for author pages)
+export interface PersonSchemaOptions {
+  name: string;
+  jobTitle?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  sameAs?: string[];
+}
+
+export function generatePersonSchema(options: PersonSchemaOptions) {
+  const { name, jobTitle, description, image, url, sameAs = [] } = options;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name,
+    ...(jobTitle ? { jobTitle } : {}),
+    ...(description ? { description } : {}),
+    ...(image ? {
+      image: {
+        '@type': 'ImageObject',
+        url: image.startsWith('http') ? image : `${BASE_URL}${image}`,
+      },
+    } : {}),
+    ...(url ? { url } : {}),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+    worksFor: {
+      '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
+      name: siteConfig.name,
+    },
+  };
+}

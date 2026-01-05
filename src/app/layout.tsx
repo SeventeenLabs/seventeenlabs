@@ -114,6 +114,18 @@ export default async function RootLayout({
   }
   return (
     <html lang={htmlLang} suppressHydrationWarning>
+      <head>
+        {/* Resource Hints for Performance */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to common third-party services */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        {/* Preload critical assets */}
+        <link rel="preload" href="/favicon.ico" as="image" />
+      </head>
       <body 
         className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
         suppressHydrationWarning
