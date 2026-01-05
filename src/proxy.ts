@@ -38,6 +38,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith('/favicon.ico') ||
     pathname.startsWith('/robots.txt') ||
     pathname.startsWith('/sitemap.xml') ||
+    pathname.startsWith('/manifest.webmanifest') ||
     pathname.startsWith('/rss') ||
     pathname.startsWith('/feed') ||
     pathname.startsWith('/workflows') ||
