@@ -3,6 +3,8 @@ import { notFound, redirect } from 'next/navigation';
 import { getAllPosts, getAllCategories } from '@/lib/notion-blog';
 import { BlogPageClient } from '../../BlogPageClient';
 import { BlogSEO } from '@/components/blog/blog-seo';
+import { generateCategoryMetadata } from '@/lib/seo/metadata';
+import { AutoBreadcrumb } from '@/components/seo/breadcrumb';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -13,34 +15,14 @@ interface CategoryPageProps {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { category } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  
   const decodedCategory = decodeURIComponent(category);
-  const categoryUrl = `${baseUrl}/blog/category/${category}`;
   
-  const title = `${decodedCategory} Posts | SeventeenLabs AI Automation Blog`;
-  const description = `Discover all posts in the ${decodedCategory} category. Expert guides and case studies for AI automation.`;
+  const allPosts = await getAllPosts();
+  const categoryPosts = allPosts.filter(post => 
+    post.category.toLowerCase() === decodedCategory.toLowerCase()
+  );
 
-  return {
-    metadataBase: new URL(baseUrl),
-    title,
-    description,
-    robots: {
-      index: true,
-      follow: true,
-    },
-    alternates: {
-      canonical: categoryUrl,
-    },
-    openGraph: {
-      title,
-      description,
-      type: 'website',
-      locale: 'en_US',
-      url: categoryUrl,
-      siteName: 'SeventeenLabs',
-    },
-  };
+  return generateCategoryMetadata(decodedCategory, categoryPosts.length);
 }
 
 export async function generateStaticParams() {
@@ -72,10 +54,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         type="category"
         category={decodedCategory}
       />
+      <div className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <AutoBreadcrumb
+            path={`/blog/category/${category}`}
+            locale="en"
+            labels={{ [category]: decodedCategory }}
+          />
+        </div>
+      </div>
       <BlogPageClient 
         allPosts={categoryPosts}
         featuredPost={null}
         pageTitle={decodedCategory}
+        pageDescription={`${categoryPosts.length} articles in the ${decodedCategory} category`}
       />
     </>
   );

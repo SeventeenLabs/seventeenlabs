@@ -584,18 +584,18 @@ export const getRelatedPosts = unstable_cache(
   }
 );
 
-// Get all categories (simplified - you'll need to maintain this manually or fetch from database properties)
+// Get all categories from actual posts
 export async function getAllCategories(): Promise<string[]> {
-  // For now, return common categories. 
-  // In a full implementation, you'd fetch this from the database schema
-  return ['AI Automation', 'Automation Tutorials', 'Business Optimization', 'AI & Marketing', 'Productivity'];
+  const posts = await getAllPosts();
+  const categories = [...new Set(posts.map((post) => post.category).filter(Boolean))];
+  return categories.sort();
 }
 
-// Get all tags (simplified - you'll need to maintain this manually or fetch from database properties)
+// Get all tags from actual posts
 export async function getAllTags(): Promise<string[]> {
-  // For now, return common tags.
-  // In a full implementation, you'd fetch this from the database schema
-  return ['AI', 'automation', 'workflow', 'n8n', 'productivity', 'business transformation', 'no-code', 'integration'];
+  const posts = await getAllPosts();
+  const tags = [...new Set(posts.flatMap((post) => post.tags || []).filter(Boolean))];
+  return tags.sort();
 }
 
 // Revalidate all blog data caches

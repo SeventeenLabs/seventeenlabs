@@ -1,20 +1,31 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/notion-blog';
+import { servicePages } from '@/lib/seo/config';
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
 
+// Core pages with SEO priorities
 const localizedPages: Array<{ path: string; priority: number; changeFreq: ChangeFrequency }> = [
+  // Homepage - highest priority
   { path: '', priority: 1.0, changeFreq: 'daily' },
+  
+  // Service pages - high priority (from config)
+  ...servicePages.map((page) => ({
+    path: `/${page.slug}`,
+    priority: page.priority,
+    changeFreq: page.changeFrequency,
+  })),
+  
+  // Company pages
   { path: '/about', priority: 0.75, changeFreq: 'monthly' },
-  { path: '/products/reportflow-engine', priority: 0.9, changeFreq: 'daily' },
-  { path: '/industries/marketing-agencies', priority: 0.85, changeFreq: 'weekly' },
+  
+  // Additional product pages
   { path: '/ai-assistants', priority: 0.65, changeFreq: 'monthly' },
   { path: '/ai-ingestion', priority: 0.55, changeFreq: 'monthly' },
-  { path: '/services/ai-audit', priority: 0.8, changeFreq: 'weekly' },
-  { path: '/services/ai-consulting', priority: 0.8, changeFreq: 'weekly' },
-  { path: '/services/ai-development', priority: 0.8, changeFreq: 'weekly' },
-  { path: '/privacy', priority: 0.4, changeFreq: 'yearly' },
-  { path: '/terms', priority: 0.4, changeFreq: 'yearly' },
+  
+  // Legal pages - low priority
+  { path: '/privacy', priority: 0.3, changeFreq: 'yearly' },
+  { path: '/terms', priority: 0.3, changeFreq: 'yearly' },
 ];
 
 const getPathForLocale = (locale: 'en' | 'de', path: string) => {
@@ -94,7 +105,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPosts = await getAllPosts();
   const categories = [...new Set(blogPosts.map((post) => post.category).filter(Boolean))];
+  const allTags = [...new Set(blogPosts.flatMap((post) => post.tags || []).filter(Boolean))];
 
+  // Category pages
   categories.forEach((category) => {
     const encodedCategory = encodeURIComponent(category);
     const englishCategoryUrl = `${baseUrl}/blog/category/${encodedCategory}`;
@@ -106,6 +119,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     });
   });
+
+  // Tag pages for programmatic SEO
+  allTags.forEach((tag) => {
+    const encodedTag = encodeURIComponent(tag);
+    const tagUrl = `${baseUrl}/blog/tag/${encodedTag}`;
+
+    pushEntry({
+      url: tagUrl,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    });
+  });
+
+  // Individual blog posts
 
   blogPosts.forEach((post) => {
     const postLastModified = new Date(post.updated_at || post.published_at || post.created_at);

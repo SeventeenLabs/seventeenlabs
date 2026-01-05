@@ -161,7 +161,7 @@ export default function SiteFooter() {
                 {t.about}
               </Link>
               <Link
-                href={getLocalizedPath(locale, '/blog')}
+                href="/blog"
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.blog}
@@ -172,14 +172,51 @@ export default function SiteFooter() {
               >
                 {t.contact}
               </a>
+              <Link
+                href={getLocalizedPath(locale, '/privacy')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {locale === 'de' ? 'Datenschutz' : 'Privacy Policy'}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/terms')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {locale === 'de' ? 'AGB' : 'Terms of Service'}
+              </Link>
             </nav>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/10">
-          <div className="text-xs text-white/40 font-light">
-            © {new Date().getFullYear()} {t.copyright}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-xs text-white/40 font-light">
+              © {new Date().getFullYear()} {t.copyright}
+            </div>
+            <nav className="flex items-center gap-4 text-xs text-white/40">
+              <Link
+                href="/rss"
+                className="hover:text-white transition-colors"
+                title="RSS Feed"
+              >
+                RSS
+              </Link>
+              <Link
+                href="/feed"
+                className="hover:text-white transition-colors"
+                title="JSON Feed"
+              >
+                JSON Feed
+              </Link>
+              <Link
+                href="/sitemap.xml"
+                className="hover:text-white transition-colors"
+                title="Sitemap"
+              >
+                Sitemap
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

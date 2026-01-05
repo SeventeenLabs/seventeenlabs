@@ -4,6 +4,9 @@ import WhatIsAudit from "@/components/services/audit/what-is-audit";
 import AuditProcess from "@/components/services/audit/audit-process";
 import AuditDeliverables from "@/components/services/audit/audit-deliverables";
 import AuditCta from "@/components/services/audit/audit-cta";
+import { generateServicePageMetadata } from "@/lib/seo/metadata";
+import { AutoBreadcrumb } from "@/components/seo/breadcrumb";
+import { Locale } from "@/lib/i18n/config";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -13,70 +16,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const isGerman = locale === "de";
-  const pagePath = isGerman ? "/de/services/ai-audit" : "/services/ai-audit";
-
-  const title = isGerman
-    ? "KI-Audit & Automatisierungspotenzial | SeventeenLabs"
-    : "AI Audit & Automation Opportunity Assessment | SeventeenLabs";
-
-  const description = isGerman
-    ? "Identifizieren Sie Automatisierungspotenziale mit einem ganzheitlichen KI-Audit. Wir analysieren Prozesse, Systeme und Daten, um einen umsetzbaren Fahrplan für Ihre AI-Strategie zu liefern."
-    : "Identify automation opportunities with a comprehensive AI audit. We analyze processes, systems, and data to deliver an actionable roadmap for your AI strategy.";
-
-  return {
-    title,
-    description,
-    keywords: isGerman
-      ? [
-          "KI Audit",
-          "Automatisierungspotenzial",
-          "Prozessanalyse",
-          "AI Strategie",
-          "Workflow Audit",
-          "Digitalisierung Agentur",
-        ]
-      : [
-          "AI audit",
-          "automation opportunity assessment",
-          "process analysis",
-          "AI roadmap",
-          "workflow audit",
-          "automation strategy",
-        ],
-    alternates: {
-      canonical: `${baseUrl}${pagePath}`,
-      languages: {
-        en: `${baseUrl}/services/ai-audit`,
-        de: `${baseUrl}/de/services/ai-audit`,
-        'x-default': `${baseUrl}/services/ai-audit`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      url: `${baseUrl}${pagePath}`,
-      type: "website",
-      siteName: "SeventeenLabs",
-      locale: isGerman ? "de_DE" : "en_US",
-      images: [
-        {
-          url: `${baseUrl}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: isGerman
-            ? "SeventeenLabs KI-Audit"
-            : "SeventeenLabs AI Audit",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [`${baseUrl}/opengraph-image`],
-    },
-  };
+  return generateServicePageMetadata('services/ai-audit', locale as Locale);
 }
 
 export default async function AiAuditPage({ params }: PageProps) {

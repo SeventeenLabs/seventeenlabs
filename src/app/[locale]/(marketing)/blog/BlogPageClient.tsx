@@ -15,6 +15,7 @@ interface BlogPageClientProps {
   allPosts: BlogPostMetadata[];
   featuredPost: BlogPostMetadata | null;
   pageTitle?: string;
+  pageDescription?: string;
 }
 
 const SUBSCRIBE_MODAL_STORAGE_KEY = 'sl_blog_subscribe_prompt_v1';
@@ -30,7 +31,7 @@ const blogCopy = {
   ctaSecondaryButton: 'Explore services',
 };
 
-function BlogPageContent({ allPosts, featuredPost, pageTitle }: BlogPageClientProps) {
+function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }: BlogPageClientProps) {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [subscribeModalOpen, setSubscribeModalOpen] = useState(false);
   

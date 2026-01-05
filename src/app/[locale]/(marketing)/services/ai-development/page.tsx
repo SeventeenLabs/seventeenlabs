@@ -4,6 +4,8 @@ import DevelopmentCapabilities from "@/components/services/development/developme
 import DevelopmentTechStack from "@/components/services/development/development-tech-stack";
 import DevelopmentProcess from "@/components/services/development/development-process";
 import DevelopmentCta from "@/components/services/development/development-cta";
+import { generateServicePageMetadata } from "@/lib/seo/metadata";
+import { Locale } from "@/lib/i18n/config";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -13,72 +15,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const isGerman = locale === "de";
-  const pagePath = isGerman
-    ? "/de/services/ai-development"
-    : "/services/ai-development";
-
-  const title = isGerman
-    ? "Maßgeschneiderte KI- & Automatisierungsentwicklung"
-    : "Custom AI Development & Automation Engineering";
-
-  const description = isGerman
-    ? "Wir entwickeln individuelle KI-Anwendungen, Automatisierungsworkflows und Integrationen, die exakt zu Ihren Prozessen passen."
-    : "We build custom AI applications, automation workflows, and integrations tailored to your processes and tech stack.";
-
-  return {
-    title,
-    description,
-    keywords: isGerman
-      ? [
-          "Individuelle KI Entwicklung",
-          "Automatisierungsworkflows",
-          "n8n Entwicklung",
-          "SaaS Prototyping",
-          "LLM Integration",
-          "SeventeenLabs Entwicklung",
-        ]
-      : [
-          "custom AI development",
-          "automation engineering",
-          "n8n workflow development",
-          "LLM integration",
-          "AI product development",
-          "SeventeenLabs developers",
-        ],
-    alternates: {
-      canonical: `${baseUrl}${pagePath}`,
-      languages: {
-        en: `${baseUrl}/services/ai-development`,
-        de: `${baseUrl}/de/services/ai-development`,
-        'x-default': `${baseUrl}/services/ai-development`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      url: `${baseUrl}${pagePath}`,
-      siteName: "SeventeenLabs",
-      type: "website",
-      locale: isGerman ? "de_DE" : "en_US",
-      images: [
-        {
-          url: `${baseUrl}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: isGerman
-            ? "SeventeenLabs KI-Entwicklung"
-            : "SeventeenLabs AI Development",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [`${baseUrl}/opengraph-image`],
-    },
-  };
+  return generateServicePageMetadata('services/ai-development', locale as Locale);
 }
 
 export default async function AiDevelopmentPage({ params }: PageProps) {
