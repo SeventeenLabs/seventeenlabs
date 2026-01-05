@@ -1,47 +1,78 @@
-import { MetadataRoute } from 'next';
+import { NextResponse } from 'next/server';
 import { getAllPosts } from '@/lib/notion-blog';
 
 export const dynamic = 'force-static';
 export const revalidate = 86400; // Revalidate daily
 
-export default async function imageSitemap(): Promise<MetadataRoute.Sitemap> {
+export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const entries: MetadataRoute.Sitemap = [];
-
+  
   // Get all blog posts with images
   const blogPosts = await getAllPosts();
   
+  // Build image sitemap XML
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`;
+
+  // Blog posts with featured images
   for (const post of blogPosts) {
     if (post.featured_image) {
-      entries.push({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.updated_at || post.published_at || post.created_at),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-        // Note: Next.js sitemap doesn't directly support image tags,
-        // but Google will crawl images from the page itself
-      });
+      const imageUrl = post.featured_image.startsWith('http') 
+        ? post.featured_image 
+        : `${baseUrl}${post.featured_image}`;
+      
+      xml += `
+  <url>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <image:image>
+      <image:loc>${escapeXml(imageUrl)}</image:loc>
+      <image:title>${escapeXml(post.title)}</image:title>
+      ${post.image_alt ? `<image:caption>${escapeXml(post.image_alt)}</image:caption>` : ''}
+    </image:image>
+  </url>`;
     }
   }
 
-  // Static pages with images
+  // Static pages with known images
   const staticPages = [
-    { url: '/', priority: 1.0 },
-    { url: '/about', priority: 0.8 },
-    { url: '/services/ai-audit', priority: 0.9 },
-    { url: '/services/ai-consulting', priority: 0.9 },
-    { url: '/services/ai-development', priority: 0.9 },
-    { url: '/products/reportflow-engine', priority: 0.9 },
+    { url: '/', images: ['/opengraph-image'] },
+    { url: '/about', images: ['/opengraph-image'] },
+    { url: '/services/ai-audit', images: ['/opengraph-image'] },
+    { url: '/services/ai-consulting', images: ['/opengraph-image'] },
+    { url: '/services/ai-development', images: ['/opengraph-image'] },
   ];
 
   for (const page of staticPages) {
-    entries.push({
-      url: `${baseUrl}${page.url}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: page.priority,
-    });
+    xml += `
+  <url>
+    <loc>${baseUrl}${page.url}</loc>`;
+    for (const image of page.images) {
+      xml += `
+    <image:image>
+      <image:loc>${baseUrl}${image}</image:loc>
+    </image:image>`;
+    }
+    xml += `
+  </url>`;
   }
 
-  return entries;
+  xml += `
+</urlset>`;
+
+  return new NextResponse(xml, {
+    headers: {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+    },
+  });
+}
+
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
