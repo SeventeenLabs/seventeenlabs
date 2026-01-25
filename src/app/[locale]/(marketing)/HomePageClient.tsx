@@ -5,11 +5,10 @@ import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
 import SiteFooter from "@/components/site-footer";
 import WhatWeDo from "@/components/what-we-do";
-import AiAuditService from "@/components/services/ai-audit-service";
-import ConsultingService from "@/components/services/consulting-service";
-import DevelopmentService from "@/components/services/development-service";
+import BetaPilotProgram from "@/components/beta-pilot-program";
 import ProcessTimeline from "@/components/process-timeline";
-import FinalCta from "@/components/final-cta";
+import ResultsExamples from "@/components/results-examples";
+import AboutChris from "@/components/about-chris";
 
 export default function HomePageClient() {
   return (
@@ -23,13 +22,23 @@ export default function HomePageClient() {
         <div className="relative z-10">
           <LandingHeader />
           <main>
+            {/* Hero with personal touch and Calendly CTA */}
             <LandingHero />
+            
+            {/* Beta Pilot Program - Quick Win / Low-barrier offer */}
+            <BetaPilotProgram />
+            
+            {/* Services Overview - What We Do */}
             <WhatWeDo />
-            <AiAuditService />
-            <ConsultingService />
-            <DevelopmentService />
+            
+            {/* Process / Journey Timeline */}
             <ProcessTimeline />
-            <FinalCta />
+            
+            {/* Results & Examples - Social Proof */}
+            <ResultsExamples />
+            
+            {/* About Chris - Personal branding */}
+            <AboutChris />
           </main>
           <SiteFooter />
         </div>

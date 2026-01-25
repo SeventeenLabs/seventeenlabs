@@ -30,10 +30,10 @@ export function AboutTech({ locale }: AboutTechProps) {
           title: 'Automation Platforms',
           technologies: [
             'n8n Workflows',
-            'Make.com',
-            'Zapier',
             'Custom APIs',
+            'Zapier',
             'Event-Driven Architecture',
+            'Webhook Integrations',
           ],
         },
         {
@@ -81,10 +81,10 @@ export function AboutTech({ locale }: AboutTechProps) {
           title: 'Automatisierungsplattformen',
           technologies: [
             'n8n Workflows',
-            'Make.com',
-            'Zapier',
             'Benutzerdefinierte APIs',
+            'Zapier',
             'Event-gesteuerte Architektur',
+            'Webhook-Integrationen',
           ],
         },
         {

@@ -163,13 +163,33 @@ export default function LandingHeader() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
+                  {/* Results Link - No dropdown */}
+                  <NavigationMenuItem>
+                    <Link
+                      href="#results"
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                    >
+                      {locale === 'de' ? 'Ergebnisse' : 'Results'}
+                    </Link>
+                  </NavigationMenuItem>
+
                   {/* About Link - No dropdown */}
                   <NavigationMenuItem>
                     <Link
-                      href={getLocalizedPath(locale, '/about')}
+                      href="#about"
                       className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
                     >
                       {locale === 'de' ? 'Über uns' : 'About'}
+                    </Link>
+                  </NavigationMenuItem>
+
+                  {/* Blog Link */}
+                  <NavigationMenuItem>
+                    <Link
+                      href={getLocalizedPath(locale, '/blog')}
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                    >
+                      Blog
                     </Link>
                   </NavigationMenuItem>
 
@@ -203,13 +223,18 @@ export default function LandingHeader() {
                 delay: 0.3
               }}
             >
-              <button
-                onClick={() => setContactModalOpen(true)}
-                className="group relative px-6 py-2.5 text-sm font-light text-white border border-white/30 rounded-lg hover:border-white/60 transition-all duration-300 overflow-hidden"
+              <a
+                href="https://cal.com/christian-lutz-pw2nn4/15min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-6 py-2.5 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all duration-300 overflow-hidden inline-flex items-center gap-2"
               >
-                <span className="relative z-10">{t("common.getInTouch")}</span>
-                <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
-              </button>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
+                  <path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/>
+                </svg>
+                <span className="relative z-10">{locale === 'de' ? 'Termin buchen' : 'Book a Call'}</span>
+              </a>
             </motion.div>
           </div>
         </nav>
@@ -300,14 +325,28 @@ export default function LandingHeader() {
                     </div>
                   </div>
                   
-                  {/* About Link */}
+                  {/* Results, About & Blog Links */}
                   <div className="py-6 border-y border-white/20 space-y-2">
                     <Link
-                      href={getLocalizedPath(locale, '/about')}
+                      href="#results"
+                      className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {locale === 'de' ? 'Ergebnisse' : 'Results'}
+                    </Link>
+                    <Link
+                      href="#about"
                       className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {locale === 'de' ? 'Über uns' : 'About'}
+                    </Link>
+                    <Link
+                      href={getLocalizedPath(locale, '/blog')}
+                      className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Blog
                     </Link>
                   </div>
                   
@@ -315,15 +354,19 @@ export default function LandingHeader() {
                     <div className="px-3">
                       <LanguageSwitcher />
                     </div>
-                    <button
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setContactModalOpen(true);
-                      }}
-                      className="w-full px-6 py-2.5 text-sm font-medium text-black bg-white rounded-md hover:bg-white/90 transition-all duration-200"
+                    <a
+                      href="https://cal.com/christian-lutz-pw2nn4/15min"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full px-6 py-2.5 text-sm font-medium text-black bg-white rounded-md hover:bg-white/90 transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                      {t("common.getInTouch")}
-                    </button>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
+                        <path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/>
+                      </svg>
+                      {locale === 'de' ? 'Termin buchen' : 'Book a Call'}
+                    </a>
                   </div>
                 </div>
               </div>

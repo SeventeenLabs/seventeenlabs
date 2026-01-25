@@ -185,10 +185,10 @@ export default function LandingHero() {
   };
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-black/70">
+    <div className="relative w-full min-h-screen overflow-hidden bg-black">
 
       {/* Prism Background */}
-        <div className="absolute w-full h-full transparent">
+        <div className="absolute w-full h-full transparent opacity-80">
           <ColorBends
             colors={["#ff6b35ff", "#2c5aa0"]}
             rotation={10}
@@ -209,7 +209,7 @@ export default function LandingHero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-20"
+            className="w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-12 sm:py-20"
           >
             <div className="max-w-6xl">
               <motion.div
@@ -218,8 +218,8 @@ export default function LandingHero() {
                 transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
                 className="mb-6 sm:mb-8"
               >
-                <span className="text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.1em] sm:tracking-[0.15em] leading-relaxed">
-                  YOUR AI GROWTH PARTNER FOR FAST-MOVING B2B COMPANIES
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-medium uppercase tracking-wider">
+                  {locale === 'de' ? 'KI-Automatisierung für B2B' : 'AI Automation for B2B'}
                 </span>
               </motion.div>
 
@@ -230,7 +230,9 @@ export default function LandingHero() {
                   transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[1.1] tracking-tight"
                 >
-                  Transform Your Business with AI<br />Strategic Consulting & Development
+                  {locale === 'de' 
+                    ? <>Gewinnen Sie 20+ Stunden pro Woche zurück.<br />Ohne zusätzliche Mitarbeiter.</>
+                    : <>Win Back 20+ Hours a Week.<br />Without Hiring.</>}
                 </motion.h1>
               </div>
 
@@ -240,9 +242,9 @@ export default function LandingHero() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
                 className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-full sm:max-w-4xl mb-8 sm:mb-12"
               >
-                The future belongs to businesses that move beyond AI curiosity to become AI-native. 
-                <br />
-                We build the automations, systems, and strategic foundations that don't just improve your operations—they redefine how your teams create value and compete.
+                {locale === 'de' 
+                  ? <>Wir bauen KI-Workflows, die Ihre wiederkehrenden Aufgaben übernehmen – Lead-Qualifizierung, Reporting, Support-Tickets, Dateneingabe. Sie konzentrieren sich auf Wachstum. Die Systeme erledigen den Rest.</>
+                  : <>We build AI workflows that handle your recurring tasks – lead qualification, reporting, support tickets, data entry. You focus on growth. The systems handle the rest.</>}
               </motion.p>
 
               <motion.div
@@ -251,19 +253,55 @@ export default function LandingHero() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4 sm:gap-6"
               >
-                <button
-                  onClick={() => handlePrimaryCTA("I'm interested in exploring how AI can transform my business operations and drive growth. Let's discuss a strategic implementation plan.")}
-                  className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white text-black font-medium text-sm sm:text-base hover:bg-gray-100 transition-all duration-200 hover:scale-[1.02] shadow-lg w-full sm:w-auto"
+                <a
+                  href="https://cal.com/christian-lutz-pw2nn4/15min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative px-8 py-4 rounded-xl bg-white text-black font-medium text-base hover:bg-white/90 transition-all duration-300 shadow-lg shadow-white/20 w-full sm:w-auto inline-flex items-center justify-center gap-2"
                 >
-                  <span className="relative">Start Your AI Journey</span>
-                </button>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/>
+                  </svg>
+                  <span className="relative">{locale === 'de' ? 'Gratis Gespräch – 15 Min' : 'Free Chat – 15 Min'}</span>
+                </a>
                 
-                <button
-                  onClick={() => handlePrimaryCTA("I'd like to learn more about your AI transformation methodology and see case studies of successful implementations.")}
-                  className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-white/40 text-white font-medium text-sm sm:text-base hover:border-white/60 hover:bg-white/10 transition-all duration-200 hover:scale-[1.02] backdrop-blur-sm w-full sm:w-auto"
+                <a
+                  href="#results"
+                  className="group relative px-8 py-4 rounded-xl border border-white/20 text-white font-medium text-base hover:border-white/40 hover:bg-white/5 transition-all duration-300 w-full sm:w-auto inline-flex items-center justify-center gap-2"
                 >
-                  <span className="relative">Explore Our Approach</span>
-                </button>
+                  <span className="relative">{locale === 'de' ? 'Beispiele ansehen' : 'See Examples'}</span>
+                  <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+              </motion.div>
+
+              {/* Quick trust indicators */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.8 }}
+                className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-white/50"
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
+                  <span>{locale === 'de' ? 'Kostenlose Erstberatung' : 'Free initial consultation'}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
+                  <span>{locale === 'de' ? 'Kein Risiko, keine Verpflichtung' : 'No risk, no commitment'}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
+                  <span>{locale === 'de' ? 'Antwort innerhalb von 24h' : 'Response within 24h'}</span>
+                </div>
               </motion.div>
             </div>
           </motion.div>

@@ -112,7 +112,7 @@ export default function LocationInsights({ location, service, isGerman }: Locati
         opportunities: {
           title: "Unser Tech-Ansatz",
           items: [
-            "Moderne Automation: n8n, Make für robuste Workflows",
+            "Moderne Automation: n8n für robuste Workflows",
             "AI-Integration: OpenAI, Anthropic – DSGVO-konform",
             "Web-Entwicklung: Next.js, React, TypeScript",
             "Lokales Hosting: Deutsche Rechenzentren verfügbar",
@@ -293,7 +293,7 @@ export default function LocationInsights({ location, service, isGerman }: Locati
         opportunities: {
           title: "Our Tech Approach",
           items: [
-            "Modern automation: n8n, Make for robust workflows",
+            "Modern automation: n8n for robust workflows",
             "AI integration: OpenAI, Anthropic – GDPR-compliant",
             "Web development: Next.js, React, TypeScript",
             "Local hosting: German data centers available",

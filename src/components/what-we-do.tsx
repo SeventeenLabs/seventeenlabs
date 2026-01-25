@@ -36,6 +36,12 @@ export default function WhatWeDo() {
 
   return (
     <section id="what-we-do" className="relative bg-black py-24 lg:py-32">
+      {/* Section divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.01] to-transparent pointer-events-none"></div>
+      
       <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,10 +50,13 @@ export default function WhatWeDo() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-medium uppercase tracking-wider mb-6">
+            {locale === 'de' ? 'Was wir anbieten' : 'What We Offer'}
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight mb-4">
             {t("whatWeDo.title")}
           </h2>
-          <p className="mt-6 text-lg text-white/60 max-w-2xl font-light">
+          <p className="text-lg text-white/60 max-w-2xl font-light leading-relaxed">
             {t("whatWeDo.subtitle")}
           </p>
         </motion.div>
@@ -97,9 +106,17 @@ export default function WhatWeDo() {
                     <h3 className="text-2xl font-light text-white mb-4 group-hover:text-white/90 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-white/60 font-light leading-relaxed">
+                    <p className="text-white/60 font-light leading-relaxed flex-grow">
                       {service.description}
                     </p>
+                    
+                    {/* Learn more link */}
+                    <div className={`mt-6 flex items-center gap-2 text-sm ${colors.iconColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                      <span>{locale === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                     
                     {/* Hover accent */}
                     <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${colors.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl`}></div>
