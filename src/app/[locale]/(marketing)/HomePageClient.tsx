@@ -11,9 +11,7 @@ import ResultsExamples from "@/components/results-examples";
 import AboutChris from "@/components/about-chris";
 import TrustSignals from "@/components/trust-signals";
 import UseCases from "@/components/use-cases";
-import FAQSection from "@/components/faq-section";
 import LatestBlogPosts from "@/components/latest-blog-posts";
-import { useTranslations } from "@/lib/i18n/context";
 import { BlogPostMetadata } from "@/lib/notion-blog";
 
 interface HomePageClientProps {
@@ -21,7 +19,6 @@ interface HomePageClientProps {
 }
 
 export default function HomePageClient({ latestPosts }: HomePageClientProps) {
-  const { t } = useTranslations();
   return (
     <>
       <div className="bg-slate-950">
@@ -51,13 +48,6 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
               
               {/* Results & Examples - More Social Proof */}
               <ResultsExamples />
-              
-              {/* FAQ Section - Handle objections */}
-              <FAQSection
-                title={t.faq?.general?.title}
-                subtitle={t.faq?.general?.subtitle}
-                items={t.faq?.general?.items || []}
-              />
               
               {/* Latest Blog Posts */}
               <LatestBlogPosts posts={latestPosts} />

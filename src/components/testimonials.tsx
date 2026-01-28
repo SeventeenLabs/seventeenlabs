@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
-import { useTranslations } from "@/lib/i18n/context";
+import { useLocale } from "@/lib/i18n/context";
 import Image from "next/image";
 
 interface Testimonial {
@@ -16,10 +16,23 @@ interface Testimonial {
 }
 
 export default function Testimonials() {
-  const { t } = useTranslations();
+  const locale = useLocale();
+
+  const content = {
+    en: {
+      title: "What Our Clients Say",
+      subtitle: "Real results from businesses who transformed their operations with AI automation",
+    },
+    de: {
+      title: "Was unsere Kunden sagen",
+      subtitle: "Echte Ergebnisse von Unternehmen, die ihre Abläufe mit KI-Automatisierung transformiert haben",
+    },
+  };
+
+  const t = content[locale as keyof typeof content] || content.en;
 
   // Default testimonials - will be replaced with real data
-  const testimonials: Testimonial[] = t.testimonials?.items || [
+  const testimonials: Testimonial[] = [
     {
       name: "Sarah Mitchell",
       role: "Marketing Director",
@@ -57,11 +70,10 @@ export default function Testimonials() {
           className="text-center mb-20"
         >
           <h2 className="text-4xl lg:text-5xl font-light text-white mb-4">
-            {t.testimonials?.title || "What Our Clients Say"}
+            {t.title}
           </h2>
           <p className="text-xl text-white/60 font-light max-w-2xl mx-auto">
-            {t.testimonials?.subtitle || 
-              "Real results from businesses who transformed their operations with AI automation"}
+            {t.subtitle}
           </p>
         </motion.div>
 
