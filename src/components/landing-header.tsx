@@ -163,20 +163,10 @@ export default function LandingHeader() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
-                  {/* Results Link - No dropdown */}
-                  <NavigationMenuItem>
-                    <Link
-                      href="#results"
-                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
-                    >
-                      {locale === 'de' ? 'Ergebnisse' : 'Results'}
-                    </Link>
-                  </NavigationMenuItem>
-
                   {/* About Link - No dropdown */}
                   <NavigationMenuItem>
                     <Link
-                      href="#about"
+                      href={getLocalizedPath(locale, '/about')}
                       className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
                     >
                       {locale === 'de' ? 'Über uns' : 'About'}
@@ -325,17 +315,10 @@ export default function LandingHeader() {
                     </div>
                   </div>
                   
-                  {/* Results, About & Blog Links */}
+                  {/* About & Blog Links */}
                   <div className="py-6 border-y border-white/20 space-y-2">
                     <Link
-                      href="#results"
-                      className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {locale === 'de' ? 'Ergebnisse' : 'Results'}
-                    </Link>
-                    <Link
-                      href="#about"
+                      href={getLocalizedPath(locale, '/about')}
                       className="block rounded-lg px-6 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >

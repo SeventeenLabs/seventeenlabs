@@ -1,6 +1,10 @@
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  // Redirect to English locale page (root is now English)
+  // Root page now redirects to English locale without /en prefix
+  // This reduces redirect overhead and improves SEO
   redirect('/en');
 }
+
+// TODO: Consider making / serve content directly instead of redirecting
+// This would eliminate the redirect overhead and improve Core Web Vitals

@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   
   // Experimental features for performance
   experimental: {
-    optimizeCss: true, // Optimize CSS with critters
+    // optimizeCss: true, // Temporarily disabled - requires critters package
   },
   
   // Image optimization

@@ -14,14 +14,14 @@ export function AboutCTA({ locale }: AboutCTAProps) {
 
   const content = {
     en: {
-      title: 'Ready to Start Your AI Journey?',
-      description: "Whether you need an AI audit, strategic guidance, or custom development—we're here to help you every step of the way.",
-      cta: 'Schedule Free Consultation',
+      title: 'Let\'s Talk About Your Workflow',
+      description: 'Tell me what\'s eating your time. I\'ll show you what can be automated—and how fast we can get it running.',
+      cta: 'Book a 15-min Call',
     },
     de: {
-      title: 'Bereit, Ihre KI-Reise zu beginnen?',
-      description: 'Ob Sie ein KI-Audit, strategische Beratung oder maßgeschneiderte Entwicklung benötigen—wir sind da, um Ihnen bei jedem Schritt zu helfen.',
-      cta: 'Kostenlose Beratung vereinbaren',
+      title: 'Lass uns über deinen Workflow reden',
+      description: 'Sag mir, was deine Zeit frisst. Ich zeige dir, was automatisiert werden kann—und wie schnell wir es zum Laufen bringen.',
+      cta: '15-Min Call buchen',
     },
   };
 

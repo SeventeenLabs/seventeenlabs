@@ -5,7 +5,6 @@ import { AboutValues } from '@/components/about/about-values';
 import { AboutApproach } from '@/components/about/about-approach';
 import { AboutMetrics } from '@/components/about/about-metrics';
 import { AboutTech } from '@/components/about/about-tech';
-import { AboutCTA } from '@/components/about/about-cta';
 import SiteFooter from '@/components/site-footer';
 
 interface PageProps {
@@ -90,7 +89,6 @@ export default async function AboutPage({ params }: PageProps) {
         <AboutApproach locale={locale} />
         <AboutMetrics locale={locale} />
         <AboutTech locale={locale} />
-        <AboutCTA locale={locale} />
       </main>
       <SiteFooter />
     </>

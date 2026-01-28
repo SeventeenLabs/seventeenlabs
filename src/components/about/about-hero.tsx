@@ -11,45 +11,45 @@ interface AboutHeroProps {
 export function AboutHero({ locale }: AboutHeroProps) {
   const content = {
     en: {
-      eyebrow: 'About Seventeen Labs',
-      title: 'AI Transformation',
-      titleHighlight: 'From Strategy to Scale',
-      description: 'We help businesses unlock their AI potential through comprehensive audits, strategic consulting, and custom development solutions. From identifying opportunities to building and scaling AI solutions.',
+      eyebrow: 'About SeventeenLabs',
+      title: 'One Person.',
+      titleHighlight: 'Real Automation.',
+      description: 'I\'m Christian Lutz. I help B2B teams—agencies, consultants, and SaaS companies—stop wasting hours on work that machines should do. No fancy agency. Just fast, working automation.',
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Transform how businesses leverage AI—from initial discovery to full-scale implementation. We turn AI potential into measurable business results.',
+        description: 'Build automation systems that actually work and save real time—in weeks, not months.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'A future where AI adoption is straightforward, accessible, and delivers clear ROI for every business, regardless of size or industry.',
+        description: 'A world where B2B teams focus on high-value work while repetitive tasks run themselves.',
       },
       approach: {
         icon: Rocket,
         title: 'Approach',
-        description: 'Strategic thinking meets hands-on execution. We don\'t just advise—we build, implement, and optimize alongside you.',
+        description: 'No overhead. Direct communication. I build, you review, we iterate fast.',
       },
     },
     de: {
-      eyebrow: 'Über Seventeen Labs',
-      title: 'KI-Transformation',
-      titleHighlight: 'Von der Strategie zur Skalierung',
-      description: 'Wir helfen Unternehmen, ihr KI-Potenzial durch umfassende Audits, strategische Beratung und maßgeschneiderte Entwicklungslösungen zu erschließen. Von der Identifizierung von Möglichkeiten bis zum Aufbau und zur Skalierung von KI-Lösungen.',
+      eyebrow: 'Über SeventeenLabs',
+      title: 'Eine Person.',
+      titleHighlight: 'Echte Automatisierung.',
+      description: 'Ich bin Christian Lutz. Ich helfe B2B-Teams—Agenturen, Beratern und SaaS-Unternehmen—aufzuhören, Stunden mit Arbeit zu verschwenden, die Maschinen erledigen sollten. Keine große Agentur. Nur schnelle, funktionierende Automatisierung.',
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Die Art und Weise transformieren, wie Unternehmen KI nutzen—von der ersten Entdeckung bis zur vollständigen Implementierung. Wir verwandeln KI-Potenzial in messbare Geschäftsergebnisse.',
+        description: 'Automatisierungssysteme bauen, die wirklich funktionieren und echte Zeit sparen—in Wochen, nicht Monaten.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'Eine Zukunft, in der KI-Adoption unkompliziert, zugänglich ist und klaren ROI für jedes Unternehmen liefert, unabhängig von Größe oder Branche.',
+        description: 'Eine Welt, in der B2B-Teams sich auf wertvolle Arbeit konzentrieren, während repetitive Aufgaben von selbst laufen.',
       },
       approach: {
         icon: Rocket,
         title: 'Ansatz',
-        description: 'Strategisches Denken trifft auf praktische Umsetzung. Wir beraten nicht nur—wir entwickeln, implementieren und optimieren gemeinsam mit Ihnen.',
+        description: 'Kein Overhead. Direkte Kommunikation. Ich baue, du prüfst, wir iterieren schnell.',
       },
     },
   };

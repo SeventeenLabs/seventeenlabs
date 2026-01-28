@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.",
       images: [
         {
-          url: "/opengraph-image",
+          url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: "SeventeenLabs - AI Automation Agency",
@@ -69,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "SeventeenLabs - AI Automation Agency",
       description:
         "AI automation agency specializing in custom workflow automation and intelligent process optimization.",
-      images: ["/opengraph-image"],
+      images: [`${baseUrl}/opengraph-image`],
       creator: "@seventeenlabs",
       site: "@seventeenlabs",
     },
@@ -86,8 +86,13 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     icons: {
-      icon: "/favicon.ico",
-      apple: "/favicon.ico",
+      icon: [
+        { url: "/favicon.ico", sizes: "32x32" },
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: [
+        { url: "/apple-touch-icon.png", sizes: "180x180" },
+      ],
     },
     category: "Technology",
     classification: "Business Services",

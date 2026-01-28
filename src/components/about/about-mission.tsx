@@ -13,34 +13,34 @@ export function AboutMission({ locale }: AboutMissionProps) {
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Guide businesses through their complete AI journey—from discovering opportunities to implementing and scaling intelligent solutions.',
+        description: 'Help B2B teams reclaim hours every week by building automation that actually works—no fluff, no months of consulting.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'Make AI transformation accessible to every business through a clear, proven process: Audit, Strategy, Build, Scale.',
+        description: 'Every repetitive task that drains your team should run itself. I\'m here to make that happen.',
       },
       approach: {
         icon: Rocket,
         title: 'Approach',
-        description: 'Combine deep industry expertise with hands-on execution to deliver measurable results at every stage of your AI journey.',
+        description: 'One person, direct access, fast iteration. You get working automation in weeks, with 30 days of support included.',
       },
     },
     de: {
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Unternehmen durch ihre komplette KI-Reise begleiten—von der Entdeckung von Möglichkeiten bis zur Implementierung und Skalierung intelligenter Lösungen.',
+        description: 'B2B-Teams helfen, jede Woche Stunden zurückzugewinnen—durch Automatisierung, die wirklich funktioniert. Kein Blähstoff, keine monatelange Beratung.',
       },
       vision: {
         icon: Lightbulb,
         title: 'Vision',
-        description: 'KI-Transformation für jedes Unternehmen zugänglich machen durch einen klaren, bewährten Prozess: Audit, Strategie, Entwicklung, Skalierung.',
+        description: 'Jede repetitive Aufgabe, die dein Team auslaugt, sollte von selbst laufen. Ich bin hier, um das möglich zu machen.',
       },
       approach: {
         icon: Rocket,
         title: 'Ansatz',
-        description: 'Tiefe Branchenexpertise mit praktischer Umsetzung kombinieren, um messbare Ergebnisse in jeder Phase Ihrer KI-Reise zu liefern.',
+        description: 'Eine Person, direkter Zugang, schnelle Iteration. Du bekommst funktionierende Automatisierung in Wochen, mit 30 Tagen Support inklusive.',
       },
     },
   };

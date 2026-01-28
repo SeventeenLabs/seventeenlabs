@@ -32,23 +32,23 @@
     }
   },
   "hero": {
-    "title": "Smart Business Automation & AI Tools for Growth",
-    "description": "From ready-to-deploy workflows to custom AI applications and expert implementation support - we provide everything small businesses need to automate operations and accelerate profitable growth.",
+    "title": "Save 20+ Hours Every Week with AI Automation",
+    "description": "For marketing agencies, consultants & SaaS companies who want automation that actually works—without the complexity. Get measurable results in weeks, not months.",
     "eyebrow": "Live AI Building",
-    "mainTitle": "Your new AI employee starts working in 10 seconds",
+    "mainTitle": "See Exactly How We'll Automate Your Busywork",
     "mainTitleSecond": "",
-    "subheadline": "Tell us what you want automated. Get your custom solution instantly.",
+    "subheadline": "Tell us what drains your time. Get a custom automation blueprint in 10 seconds.",
     "inputLabel": "What should I automate for you?",
     "inputPlaceholder": "Describe your AI automation needs - audit, consulting, or custom development",
-    "buildButton": "Get Started",
+    "buildButton": "Get My Blueprint",
     "ctaSupport": "Professional AI implementation | Strategic consulting | Custom solutions",
-    "samplesLabel": "Steal an idea",
-    "loadingMessage": "Building your personal AI... (8-12 seconds)",
+    "samplesLabel": "Popular automation ideas",
+    "loadingMessage": "Building your automation blueprint... (8-12 seconds)",
     "result": {
       "placeholder": "Drop any task above and I'll show you the exact system I'd build.",
-      "title": "Here is what I'd automate",
-      "ctaLabel": "Show me this live",
-      "ctaHelper": "I'll walk you through the build in real time."
+      "title": "Here's your automation blueprint",
+      "ctaLabel": "Let's build this together",
+      "ctaHelper": "Book a free 20-minute call to discuss your specific needs."
     },
     "stats": {
       "deployment": "10 seconds",
@@ -1129,5 +1129,130 @@
       },
       "contact": "Have questions first? Email us at <a href=\"mailto:chris@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">chris@seventeenlabs.io</a>"
     }
+  },
+  "trustSignals": {
+    "guarantees": {
+      "moneyBack": "30-Day Guarantee",
+      "moneyBackDesc": "Full refund if not satisfied",
+      "fastSetup": "Quick Setup",
+      "fastSetupDesc": "Live in days, not months",
+      "support": "Personal Support",
+      "supportDesc": "No ticket system, real conversations",
+      "flexible": "No Lock-In",
+      "flexibleDesc": "Own your workflows completely"
+    }
+  },
+  "useCases": {
+    "title": "What I Automate",
+    "subtitle": "Real tasks that eat your week — gone by next Friday",
+    "items": {
+      "reporting": {
+        "title": "Client Reporting",
+        "before": "4 hours copying data into spreadsheets",
+        "after": "Auto-generated reports sent every Monday",
+        "time": "4h → 0h"
+      },
+      "leads": {
+        "title": "Lead Follow-up",
+        "before": "Manually checking and emailing new leads",
+        "after": "Instant personalized response in 30 seconds",
+        "time": "2h → 0h"
+      },
+      "dataEntry": {
+        "title": "Data Entry",
+        "before": "Copy-pasting between CRM, sheets, tools",
+        "after": "Everything syncs automatically",
+        "time": "5h → 0h"
+      },
+      "onboarding": {
+        "title": "Client Onboarding",
+        "before": "Sending 5 emails and creating accounts manually",
+        "after": "One click sets up everything",
+        "time": "1h → 2min"
+      },
+      "analytics": {
+        "title": "Analytics Collection",
+        "before": "Logging into 6 platforms to gather stats",
+        "after": "One dashboard with all data",
+        "time": "3h → 0h"
+      },
+      "invoicing": {
+        "title": "Invoicing",
+        "before": "Creating invoices from project tracking",
+        "after": "Invoice auto-created when project closes",
+        "time": "2h → 0h"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Real results from real businesses who transformed their operations with AI automation",
+    "items": [
+      {
+        "name": "Sarah Mitchell",
+        "role": "Marketing Director",
+        "company": "Growth Agency Co.",
+        "quote": "SeventeenLabs automated our entire client reporting process. We're saving 23 hours every month and our clients love the new dashboards.",
+        "rating": 5,
+        "result": "23 hours saved monthly"
+      },
+      {
+        "name": "Michael Chen",
+        "role": "Founder",
+        "company": "TechConsult Pro",
+        "quote": "The AI automation they built for our CRM integration works flawlessly. What would have taken us months to develop was done in 3 weeks.",
+        "rating": 5,
+        "result": "3-week delivery"
+      },
+      {
+        "name": "Emma Rodriguez",
+        "role": "Operations Manager",
+        "company": "Scale SaaS",
+        "quote": "Our team was drowning in manual data entry. Now everything syncs automatically. Game-changer for our productivity.",
+        "rating": 5,
+        "result": "Zero manual data entry"
+      }
+    ]
+  },
+  "faq": {
+    "general": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about working with SeventeenLabs",
+      "items": [
+        {
+          "question": "Is this right for my business size?",
+          "answer": "Our automations work for businesses of all sizes. Whether you're a solo consultant spending 10 hours/week on manual tasks or a 50-person agency, we can help. We've worked with everyone from solopreneurs to enterprise teams."
+        },
+        {
+          "question": "How long until I see results?",
+          "answer": "Most automations are live within 2-4 weeks. You'll start saving time immediately after deployment. Simple integrations can be done even faster—sometimes in just a few days."
+        },
+        {
+          "question": "What if it doesn't work for my workflow?",
+          "answer": "We start with a free audit to ensure automation makes sense for you. If we can't deliver meaningful results, we'll tell you upfront. Plus, we include 30 days of adjustments to make sure everything works perfectly."
+        },
+        {
+          "question": "Do I need technical knowledge?",
+          "answer": "Not at all. We handle all the technical setup and configuration. You just tell us what you want automated, and we make it happen. We'll train your team on using the final system—it's typically as simple as clicking a button."
+        },
+        {
+          "question": "What happens after the initial setup?",
+          "answer": "All our automations include 30 days of free adjustments and tweaks. After that, we offer ongoing support packages if you need help maintaining or expanding your automations. Many clients run independently after the initial setup."
+        },
+        {
+          "question": "Can you integrate with my existing tools?",
+          "answer": "Probably yes! We work with 1000+ apps through n8n, including all major platforms (Google Workspace, HubSpot, Salesforce, Slack, Stripe, etc.). If your tool has an API, we can connect it."
+        },
+        {
+          "question": "How much does it cost?",
+          "answer": "Our Beta Pilot Program starts at €990 for your first automation (50% off our regular rate). This includes discovery, implementation, and 30 days of support. Custom projects are quoted after a free audit call."
+        },
+        {
+          "question": "What's included in the Beta Pilot Program?",
+          "answer": "You get a free automation audit (30-min call), one fully working automation deployed to your business, 30 days of tweaks and support, and early access to new solutions. Plus you save 50% vs our regular pricing."
+        }
+      ]
+    }
   }
 }
+```

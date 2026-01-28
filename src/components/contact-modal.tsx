@@ -1,31 +1,104 @@
 "use client";
 
-import { Dialog } from "./ui/dialog";
-import { useTranslations } from "@/lib/i18n/context";
-import { useState, FormEvent, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, FormEvent } from "react";
+import { ArrowRight, Calendar, Mail, X } from "lucide-react";
+import { useLocale } from "@/lib/i18n/context";
 
 interface ContactModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   prefillMessage?: string;
+  scrollTrigger?: boolean;
 }
 
-export default function ContactModal({ isOpen, onClose, prefillMessage }: ContactModalProps) {
-  const { t } = useTranslations();
+export default function ContactModal({ 
+  isOpen: externalIsOpen, 
+  onClose: externalOnClose,
+  prefillMessage,
+  scrollTrigger = false 
+}: ContactModalProps) {
+  const locale = useLocale();
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [hasShown, setHasShown] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: '',
-    company: '',
-    website: '',
-    companySize: '',
-    revenue: '',
-    budget: '',
-    services: '',
     message: '',
   });
+
+  // Determine if controlled or uncontrolled
+  const isControlled = externalIsOpen !== undefined;
+  const isOpen = isControlled ? externalIsOpen : internalIsOpen;
+  const setIsOpen = isControlled ? (v: boolean) => !v && externalOnClose?.() : setInternalIsOpen;
+
+  const content = {
+    en: {
+      title: "Let's talk",
+      subtitle: "Tell me what's eating your time. I'll show you how to fix it.",
+      orCall: "Or book a call directly",
+      bookCall: "Book 15-min Call",
+      name: "Your name",
+      email: "Email",
+      message: "What should I automate for you?",
+      messagePlaceholder: "e.g. I spend 4 hours/week on client reporting...",
+      send: "Send Message",
+      sending: "Sending...",
+      success: "Got it! I'll reply within 24 hours.",
+      error: "Something went wrong. Try chris@seventeenlabs.io instead.",
+    },
+    de: {
+      title: "Lass uns reden",
+      subtitle: "Sag mir, was deine Zeit frisst. Ich zeige dir, wie du es löst.",
+      orCall: "Oder direkt einen Call buchen",
+      bookCall: "15-Min Call buchen",
+      name: "Dein Name",
+      email: "E-Mail",
+      message: "Was soll ich für dich automatisieren?",
+      messagePlaceholder: "z.B. Ich verbringe 4h/Woche mit Kunden-Reporting...",
+      send: "Nachricht senden",
+      sending: "Wird gesendet...",
+      success: "Erhalten! Ich melde mich innerhalb von 24 Stunden.",
+      error: "Etwas ist schiefgegangen. Versuch's mit chris@seventeenlabs.io",
+    },
+  };
+
+  const t = content[locale as keyof typeof content] || content.en;
+
+  // Scroll trigger (only when scrollTrigger=true and not controlled)
+  useEffect(() => {
+    if (!scrollTrigger || isControlled || hasShown) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const triggerPoint = 800;
+      
+      if (scrollY > triggerPoint && !hasShown) {
+        setInternalIsOpen(true);
+        setHasShown(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollTrigger, isControlled, hasShown]);
+
+  // Prefill message when modal opens
+  useEffect(() => {
+    if (isOpen && prefillMessage && formData.message.trim() === '') {
+      setFormData(prev => ({ ...prev, message: prefillMessage }));
+    }
+  }, [isOpen, prefillMessage, formData.message]);
+
+  // Reset form when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setFormData({ name: '', email: '', message: '' });
+      setSubmitStatus('idle');
+    }
+  }, [isOpen]);
 
   const isFormValid = 
     formData.name.trim() !== '' &&
@@ -33,90 +106,48 @@ export default function ContactModal({ isOpen, onClose, prefillMessage }: Contac
     formData.email.includes('@') &&
     formData.message.trim() !== '';
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
   };
 
-  // Reset form when modal closes
-  useEffect(() => {
-    if (!isOpen) {
-      setFormData({
-        name: '',
-        email: '',
-        role: '',
-        company: '',
-        website: '',
-        companySize: '',
-        revenue: '',
-        budget: '',
-        services: '',
-        message: '',
-      });
-      setSubmitStatus('idle');
+  const handleClose = () => {
+    if (isControlled) {
+      externalOnClose?.();
+    } else {
+      setInternalIsOpen(false);
     }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && prefillMessage && formData.message.trim() === '') {
-      setFormData(prev => ({
-        ...prev,
-        message: prefillMessage,
-      }));
-    }
-  }, [isOpen, prefillMessage, formData.message]);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
     if (!isFormValid) return;
     
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    const data = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-    };
-
     try {
       const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL || '';
-      
       const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
+      if (!response.ok) throw new Error('Failed');
       setSubmitStatus('success');
       
-      // Reset form and close modal after 2 seconds
       setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          role: '',
-          company: '',
-          website: '',
-          companySize: '',
-          revenue: '',
-          budget: '',
-          services: '',
-          message: '',
-        });
+        setFormData({ name: '', email: '', message: '' });
         setSubmitStatus('idle');
-        onClose();
-      }, 2000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
+        handleClose();
+      }, 2500);
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -124,237 +155,148 @@ export default function ContactModal({ isOpen, onClose, prefillMessage }: Contac
   };
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose}>
-      <div className="h-full flex flex-col bg-zinc-950">
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
-            {t("contactModal.title")}
-          </h2>
-          
-          <form id="contact-form" onSubmit={handleSubmit} className="space-y-4">
-            {/* Name and Email Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.name.label")}
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder={t("contactModal.fields.name.placeholder")}
-                  required
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.email.label")}
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder={t("contactModal.fields.email.placeholder")}
-                  required
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
-                />
-              </div>
-            </div>
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+          />
 
-            {/* Role */}
-            <div>
-              <label htmlFor="role" className="block text-xs font-medium text-white/70 mb-1">
-                {t("contactModal.fields.role.label")}
-              </label>
-              <input
-                type="text"
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                placeholder={t("contactModal.fields.role.placeholder")}
-                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Company Name and Website Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="company" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.company.label")}
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  placeholder={t("contactModal.fields.company.placeholder")}
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="website" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.website.label")}
-                </label>
-                <input
-                  type="url"
-                  id="website"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  placeholder={t("contactModal.fields.website.placeholder")}
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* Company Size and Revenue Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="companySize" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.companySize.label")}
-                </label>
-                <select
-                  id="companySize"
-                  name="companySize"
-                  value={formData.companySize}
-                  onChange={handleInputChange}
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
-                >
-                  <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.placeholder")}</option>
-                  <option value="1-10" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.1-10")}</option>
-                  <option value="11-50" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.11-50")}</option>
-                  <option value="51-200" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.51-200")}</option>
-                  <option value="201-500" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.201-500")}</option>
-                  <option value="500+" className="bg-zinc-900 text-white">{t("contactModal.fields.companySize.options.500+")}</option>
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="revenue" className="block text-xs font-medium text-white/70 mb-1">
-                  {t("contactModal.fields.revenue.label")}
-                </label>
-                <select
-                  id="revenue"
-                  name="revenue"
-                  value={formData.revenue}
-                  onChange={handleInputChange}
-                  className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
-                >
-                  <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.placeholder")}</option>
-                  <option value="0-100k" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.0-100k")}</option>
-                  <option value="100k-500k" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.100k-500k")}</option>
-                  <option value="500k-1m" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.500k-1m")}</option>
-                  <option value="1m-5m" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.1m-5m")}</option>
-                  <option value="5m+" className="bg-zinc-900 text-white">{t("contactModal.fields.revenue.options.5m+")}</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Project Budget */}
-            <div>
-              <label htmlFor="budget" className="block text-xs font-medium text-white/70 mb-1">
-                {t("contactModal.fields.budget.label")}
-              </label>
-              <select
-                id="budget"
-                name="budget"
-                value={formData.budget}
-                onChange={handleInputChange}
-                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
-              >
-                <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.placeholder")}</option>
-                <option value="0-5k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.0-5k")}</option>
-                <option value="5k-10k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.5k-10k")}</option>
-                <option value="10k-25k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.10k-25k")}</option>
-                <option value="25k-50k" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.25k-50k")}</option>
-                <option value="50k+" className="bg-zinc-900 text-white">{t("contactModal.fields.budget.options.50k+")}</option>
-              </select>
-            </div>
-
-            {/* Services */}
-            <div>
-              <label htmlFor="services" className="block text-xs font-medium text-white/70 mb-1">
-                {t("contactModal.fields.services.label")}
-              </label>
-              <select
-                id="services"
-                name="services"
-                value={formData.services}
-                onChange={handleInputChange}
-                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm focus:border-white/50 focus:outline-none transition-colors appearance-none cursor-pointer"
-              >
-                <option value="" className="bg-zinc-900 text-white">{t("contactModal.fields.services.placeholder")}</option>
-                <option value="workflows" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.workflows")}</option>
-                <option value="apps" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.apps")}</option>
-                <option value="consulting" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.consulting")}</option>
-                <option value="integration" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.integration")}</option>
-                <option value="other" className="bg-zinc-900 text-white">{t("contactModal.fields.services.options.other")}</option>
-              </select>
-            </div>
-
-            {/* Message */}
-            <div>
-              <label htmlFor="message" className="block text-xs font-medium text-white/70 mb-1">
-                {t("contactModal.fields.message.label")}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder={t("contactModal.fields.message.placeholder")}
-                required
-                className="w-full px-0 py-1.5 border-b border-white/20 bg-transparent text-white text-sm placeholder-white/40 focus:border-white/50 focus:outline-none transition-colors resize-none"
-              />
-            </div>
-
-            {/* Status Messages */}
-            {submitStatus === 'success' && (
-              <div className="text-sm text-green-400 bg-green-950/30 border border-green-500/20 rounded-lg p-3">
-                ✓ Message sent successfully! We&apos;ll get back to you soon.
-              </div>
-            )}
-            {submitStatus === 'error' && (
-              <div className="text-sm text-red-400 bg-red-950/30 border border-red-500/20 rounded-lg p-3">
-                ✗ Something went wrong. Please try again or email us directly.
-              </div>
-            )}
-          </form>
-        </div>
-
-        {/* Fixed Submit Button */}
-        <div className="border-t border-white/10 p-6 bg-zinc-950">
-          <button
-            type="submit"
-            form="contact-form"
-            disabled={isSubmitting || !isFormValid}
-            className="w-full bg-white text-black py-3 px-6 rounded-lg font-semibold hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
           >
-            {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Sending...
-              </span>
-            ) : (
-              t("contactModal.submit")
-            )}
-          </button>
-        </div>
-      </div>
-    </Dialog>
+            <div className="relative bg-black border border-white/10 rounded-2xl max-w-lg w-full overflow-hidden pointer-events-auto">
+              {/* Close button */}
+              <button
+                onClick={handleClose}
+                className="absolute top-4 right-4 p-2 text-white/40 hover:text-white/80 transition-colors z-10"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="p-8">
+                {/* Header */}
+                <div className="mb-8">
+                  <h2 className="text-2xl font-light text-white mb-2">
+                    {t.title}
+                  </h2>
+                  <p className="text-white/50 text-sm">
+                    {t.subtitle}
+                  </p>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder={t.name}
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm focus:border-white/30 focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder={t.email}
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm focus:border-white/30 focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <textarea
+                      name="message"
+                      rows={3}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder={t.messagePlaceholder}
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm focus:border-white/30 focus:outline-none transition-colors resize-none"
+                    />
+                    <p className="text-[11px] text-white/30 mt-1.5 ml-1">
+                      {t.message}
+                    </p>
+                  </div>
+
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
+                      ✓ {t.success}
+                    </div>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-center">
+                      {t.error}
+                    </div>
+                  )}
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !isFormValid}
+                    className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 px-6 rounded-full font-medium hover:bg-white/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {t.sending}
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="w-4 h-4" />
+                        {t.send}
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                {/* Divider */}
+                <div className="relative my-6">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-white/10"></div>
+                  </div>
+                  <div className="relative flex justify-center">
+                    <span className="px-3 bg-black text-white/30 text-xs">{t.orCall}</span>
+                  </div>
+                </div>
+
+                {/* Book Call CTA */}
+                <a
+                  href="https://cal.com/christian-lutz-pw2nn4/15min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 border border-white/20 text-white py-3.5 px-6 rounded-full font-medium hover:bg-white/5 hover:border-white/30 transition-all"
+                >
+                  <Calendar className="w-4 h-4" />
+                  {t.bookCall}
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }

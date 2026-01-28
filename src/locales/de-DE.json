@@ -1129,5 +1129,59 @@
       },
       "contact": "Noch Fragen? Schreiben Sie uns an <a href=\"mailto:chris@seventeenlabs.io\" className=\"text-blue-400 hover:text-blue-300 transition-colors\">chris@seventeenlabs.io</a>"
     }
+  },
+  "useCases": {
+    "title": "Was ich automatisiere",
+    "subtitle": "Aufgaben, die Ihre Woche fressen — ab nächsten Freitag erledigt",
+    "items": {
+      "reporting": {
+        "title": "Kunden-Reporting",
+        "before": "4 Stunden Daten in Tabellen kopieren",
+        "after": "Reports werden jeden Montag automatisch versendet",
+        "time": "4h → 0h"
+      },
+      "leads": {
+        "title": "Lead-Nachverfolgung",
+        "before": "Manuell neue Leads prüfen und anschreiben",
+        "after": "Personalisierte Antwort in 30 Sekunden",
+        "time": "2h → 0h"
+      },
+      "dataEntry": {
+        "title": "Dateneingabe",
+        "before": "Copy-Paste zwischen CRM, Tabellen, Tools",
+        "after": "Alles synchronisiert sich automatisch",
+        "time": "5h → 0h"
+      },
+      "onboarding": {
+        "title": "Kunden-Onboarding",
+        "before": "5 E-Mails senden und Accounts manuell anlegen",
+        "after": "Ein Klick richtet alles ein",
+        "time": "1h → 2min"
+      },
+      "analytics": {
+        "title": "Analytics sammeln",
+        "before": "In 6 Plattformen einloggen für Statistiken",
+        "after": "Ein Dashboard mit allen Daten",
+        "time": "3h → 0h"
+      },
+      "invoicing": {
+        "title": "Rechnungsstellung",
+        "before": "Rechnungen aus Projekt-Tracking erstellen",
+        "after": "Rechnung wird bei Projektabschluss erstellt",
+        "time": "2h → 0h"
+      }
+    }
+  },
+  "trustSignals": {
+    "guarantees": {
+      "moneyBack": "30-Tage-Garantie",
+      "moneyBackDesc": "Volle Rückerstattung bei Unzufriedenheit",
+      "fastSetup": "Schnelle Einrichtung",
+      "fastSetupDesc": "Live in Tagen, nicht Monaten",
+      "support": "Persönlicher Support",
+      "supportDesc": "Kein Ticket-System, echte Gespräche",
+      "flexible": "Volle Kontrolle",
+      "flexibleDesc": "Jederzeit kündbar, Workflows bleiben bei Ihnen"
+    }
   }
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomePageClient from "./HomePageClient";
+import { getAllPosts } from "@/lib/notion-blog";
 
 interface HomePageMetadataProps {
   params: Promise<{
@@ -15,12 +16,12 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
-    ? "KI-Automatisierungsagentur für moderne Unternehmen"
-    : "AI Automation Agency for Modern Businesses";
+    ? "Sparen Sie 20+ Stunden pro Woche mit KI-Automatisierung | SeventeenLabs"
+    : "Save 20+ Hours Every Week with AI Automation | SeventeenLabs";
 
   const description = isGerman
-    ? "SeventeenLabs entwickelt KI-Strategien, Audits und maßgeschneiderte Automatisierungen, damit Teams schneller skalieren und effizienter arbeiten."
-    : "SeventeenLabs delivers AI strategy, audits, and custom automation to streamline operations, scale teams, and drive profitable growth.";
+    ? "Für Marketing-Agenturen, Berater & SaaS-Unternehmen, die Automatisierung wollen, die wirklich funktioniert. Messbare Ergebnisse in Wochen, nicht Monaten."
+    : "For marketing agencies, consultants & SaaS companies who want automation that actually works. Get measurable results in weeks, not months.";
 
   return {
     title,
@@ -75,6 +76,9 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   };
 }
 
-export default function HomePage() {
-  return <HomePageClient />;
+export default async function HomePage() {
+  const posts = await getAllPosts();
+  const latestPosts = posts.slice(0, 3);
+  
+  return <HomePageClient latestPosts={latestPosts} />;
 }
