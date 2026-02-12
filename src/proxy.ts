@@ -41,8 +41,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith('/manifest.webmanifest') ||
     pathname.startsWith('/rss') ||
     pathname.startsWith('/feed') ||
-    pathname.startsWith('/workflows') ||
-    pathname.startsWith('/(apps)') ||
+    pathname.startsWith('/hub') ||
     pathname.startsWith('/opengraph-image') ||
     pathname.startsWith('/project/')
   ) {
@@ -53,26 +52,6 @@ export function proxy(request: NextRequest) {
     });
   }
 
-  // Handle workflows subdomain
-  if (hostname === "workflows.seventeenlabs.io" || 
-      hostname === "workflows.localhost:3000" || 
-      hostname === "workflows.localhost") {
-    const url = request.nextUrl.clone();
-    
-    if (locale === 'de') {
-      // Remove /de prefix for subdomain routing
-      const pathWithoutLocale = pathname.replace('/de', '') || '/';
-      url.pathname = `/workflows${pathWithoutLocale}`;
-    } else {
-      url.pathname = `/workflows${pathname}`;
-    }
-    return NextResponse.rewrite(url, {
-      request: {
-        headers: requestHeaders,
-      },
-    });
-  }
-  
   // Handle agency subdomain
   if (hostname === "agency.seventeenlabs.io" || 
       hostname === "agency.localhost:3000" || 
