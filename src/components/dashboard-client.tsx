@@ -143,6 +143,7 @@ export function DashboardClient(props: Props) {
   const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(null);
   const [isLeftOpen, setIsLeftOpen] = useState(true);
   const [isRightOpen, setIsRightOpen] = useState(true);
+  const [isQuadChatOpen, setIsQuadChatOpen] = useState(false);
 
   const selectedTask = useMemo(
     () => taskList.find((t) => t.id === selectedTaskId) || null,
@@ -167,6 +168,12 @@ export function DashboardClient(props: Props) {
       .map((ta) => ta.agent_id);
     return activityList.filter((a) => assignedAgentIds.includes(a.agent_id));
   }, [activityList, taskAssigneeList, selectedTaskId]);
+
+  const recentMessages = useMemo(() => {
+    return [...messageList]
+      .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
+      .slice(0, 50);
+  }, [messageList]);
 
   const taskAssigneeAgents = useMemo(() => {
     const ids = taskAssigneeList.filter((ta) => ta.task_id === selectedTaskId).map((ta) => ta.agent_id);
@@ -413,6 +420,13 @@ export function DashboardClient(props: Props) {
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsQuadChatOpen(true)}
+              className="rounded border border-slate-300 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-slate-900"
+            >
+              Quad Chat
+            </button>
             <button className="rounded border border-slate-300 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-700 hover:bg-slate-50">
               + New Task
             </button>
@@ -864,6 +878,67 @@ export function DashboardClient(props: Props) {
                 </ReactMarkdown>
               ) : (
                 <div className="flex h-full items-center justify-center text-sm text-slate-500">No content</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isQuadChatOpen && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
+          <div className="flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-6 py-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-600">Quad Chat</p>
+                <h2 className="text-xl font-black leading-tight text-slate-900">All Messages</h2>
+                <p className="text-[10px] text-slate-500">Showing latest {recentMessages.length} messages</p>
+              </div>
+              <button
+                onClick={() => setIsQuadChatOpen(false)}
+                className="rounded p-2 text-slate-500 hover:bg-slate-200 hover:text-slate-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto bg-slate-50 px-6 py-4">
+              {recentMessages.length === 0 ? (
+                <div className="rounded-lg border-2 border-dashed border-slate-200 bg-white p-6 text-center">
+                  <p className="text-sm font-semibold text-slate-500">No messages yet</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {recentMessages.map((msg) => {
+                    const agent = agentList.find((a) => a.id === msg.from_agent_id);
+                    const task = taskList.find((t) => t.id === msg.task_id);
+                    return (
+                      <div key={msg.id} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                        <div className="mb-2 flex items-center gap-3">
+                          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white">
+                            {agent?.avatar || "??"}
+                          </div>
+                          <div className="flex flex-1 flex-col">
+                            <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-700">
+                              <span>{agent?.name || "Unknown"}</span>
+                              <span>·</span>
+                              <span>{formatDate(msg.created_at)}</span>
+                            </div>
+                            {task ? (
+                              <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+                                Task: {task.title}
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="text-sm leading-relaxed text-slate-800">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {msg.content}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </div>
