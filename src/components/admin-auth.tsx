@@ -194,10 +194,10 @@ export default function AdminAuth({ children }: AdminAuthProps) {
   return (
     <div className="relative">
       {children}
-      {/* Logout button - positioned absolutely in top right */}
+      {/* Subtle logout control anchored away from primary UI */}
       <button
         onClick={handleLogout}
-        className="fixed top-4 right-4 z-50 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg transition-colors duration-200"
+        className="fixed bottom-4 left-4 z-50 rounded-full bg-white/90 px-4 py-2 text-xs font-medium text-slate-700 shadow-md ring-1 ring-slate-200 backdrop-blur transition hover:bg-white hover:shadow-lg"
         title="Logout from admin"
       >
         Logout
