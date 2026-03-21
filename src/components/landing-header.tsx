@@ -15,10 +15,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import ContactModal from "@/components/contact-modal";
 import { cn } from "@/lib/utils";
 
 export default function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useTranslations();
   const locale = useLocale();
@@ -331,7 +333,16 @@ export default function LandingHeader() {
                 ease: "easeOut",
                 delay: 0.3
               }}
+              className="flex items-center gap-3"
             >
+              <button
+                type="button"
+                onClick={() => setContactModalOpen(true)}
+                className="inline-flex items-center rounded-lg border border-white/25 px-4 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:border-white/45 hover:bg-white/10"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                {locale === 'de' ? 'Vertrieb kontaktieren' : 'Contact Sales'}
+              </button>
               <Link
                 href={getLocalizedPath(locale, '/products')}
                 className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
@@ -346,6 +357,11 @@ export default function LandingHeader() {
             </motion.div>
           </div>
         </nav>
+
+        <ContactModal
+          isOpen={contactModalOpen}
+          onClose={() => setContactModalOpen(false)}
+        />
         
         {/* Mobile menu */}
         {mobileMenuOpen && (
