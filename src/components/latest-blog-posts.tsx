@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useLocale } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/utils";
+import { Locale } from "@/lib/i18n/config";
 import { BlogPostMetadata } from "@/lib/notion-blog";
 import { format } from "date-fns";
 import { de, enUS } from "date-fns/locale";
@@ -103,7 +104,7 @@ function FeaturedCard({
 }: {
   post: BlogPostMetadata;
   dateLocale: typeof de | typeof enUS;
-  locale: string;
+  locale: Locale;
   readLabel: string;
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -166,7 +167,7 @@ function FeaturedCard({
   );
 }
 
-function SmallCard({ post, dateLocale, locale }: { post: BlogPostMetadata; dateLocale: typeof de | typeof enUS; locale: string }) {
+function SmallCard({ post, dateLocale, locale }: { post: BlogPostMetadata; dateLocale: typeof de | typeof enUS; locale: Locale }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const href = getLocalizedPath(locale, `/blog/${post.slug}`);
   

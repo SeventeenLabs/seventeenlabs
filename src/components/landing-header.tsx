@@ -425,7 +425,7 @@ export default function LandingHeader() {
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           <div className="font-medium">{item.title}</div>
-                          {'description' in item && item.description ? (
+                          {"description" in item && typeof item.description === "string" && item.description ? (
                             <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
                           ) : null}
                         </Link>
