@@ -12,44 +12,44 @@ export function AboutHero({ locale }: AboutHeroProps) {
   const content = {
     en: {
       eyebrow: 'About SeventeenLabs',
-      title: 'One Person.',
-      titleHighlight: 'Real Automation.',
-      description: 'I\'m Christian Lutz. I help B2B teams—agencies, consultants, and SaaS companies—stop wasting hours on work that machines should do. No fancy agency. Just fast, working automation.',
+      title: 'Product Studio.',
+      titleHighlight: 'Operator Platform.',
+      description: 'SeventeenLabs builds local-first AI operator software that helps people and teams plan, approve, and execute real work safely. Relay is our flagship product.',
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Build automation systems that actually work and save real time—in weeks, not months.',
+        description: 'Give every team a trustworthy AI operator that can execute real workflows without losing human control.',
       },
       vision: {
         icon: Lightbulb,
-        title: 'Vision',
-        description: 'A world where B2B teams focus on high-value work while repetitive tasks run themselves.',
+        title: 'Positioning',
+        description: 'Approval-driven AI operations software for teams that need both speed and governance.',
       },
       approach: {
         icon: Rocket,
-        title: 'Approach',
-        description: 'No overhead. Direct communication. I build, you review, we iterate fast.',
+        title: 'Brand Promise',
+        description: 'Automation that does real work, with clear visibility and human approval at critical steps.',
       },
     },
     de: {
       eyebrow: 'Über SeventeenLabs',
-      title: 'Eine Person.',
-      titleHighlight: 'Echte Automatisierung.',
-      description: 'Ich bin Christian Lutz. Ich helfe B2B-Teams—Agenturen, Beratern und SaaS-Unternehmen—aufzuhören, Stunden mit Arbeit zu verschwenden, die Maschinen erledigen sollten. Keine große Agentur. Nur schnelle, funktionierende Automatisierung.',
+      title: 'Produktstudio.',
+      titleHighlight: 'Operator-Plattform.',
+      description: 'SeventeenLabs entwickelt lokal-first KI-Operator-Software, mit der Menschen und Teams reale Arbeit planen, freigeben und sicher ausfuhren konnen. Relay ist unser Flaggschiffprodukt.',
       mission: {
         icon: Target,
         title: 'Mission',
-        description: 'Automatisierungssysteme bauen, die wirklich funktionieren und echte Zeit sparen—in Wochen, nicht Monaten.',
+        description: 'Jedes Team soll einen vertrauenswurdigen KI-Operator erhalten, der echte Workflows ausfuhren kann, ohne menschliche Kontrolle zu verlieren.',
       },
       vision: {
         icon: Lightbulb,
-        title: 'Vision',
-        description: 'Eine Welt, in der B2B-Teams sich auf wertvolle Arbeit konzentrieren, während repetitive Aufgaben von selbst laufen.',
+        title: 'Positionierung',
+        description: 'Freigabegetriebene KI-Operations-Software fur Teams, die sowohl Geschwindigkeit als auch Governance brauchen.',
       },
       approach: {
         icon: Rocket,
-        title: 'Ansatz',
-        description: 'Kein Overhead. Direkte Kommunikation. Ich baue, du prüfst, wir iterieren schnell.',
+        title: 'Markenversprechen',
+        description: 'Automatisierung, die echte Arbeit erledigt, mit klarer Sichtbarkeit und menschlicher Freigabe an kritischen Punkten.',
       },
     },
   };
@@ -72,7 +72,7 @@ export function AboutHero({ locale }: AboutHeroProps) {
       </div>
       
       {/* Hero Content */}
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 pt-32 sm:pt-40 pb-16 flex-1 flex items-start">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-32 sm:pt-40 pb-16 flex-1 flex items-start">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -116,7 +116,7 @@ export function AboutHero({ locale }: AboutHeroProps) {
       </div>
 
       {/* Mission, Vision, Approach - Bottom Section */}
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 pb-12 sm:pb-16">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 pb-12 sm:pb-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           {[t.mission, t.vision, t.approach].map((item, index) => (
             <motion.div

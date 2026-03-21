@@ -14,7 +14,7 @@ function HeroContent() {
   }, [searchParams]);
 
   const description = useMemo(() => {
-    return t('reportFlowEngine.hero.description').replace('marketing agencies', targetCustomer);
+    return t('aiAppointmentEngine.hero.description').replace('marketing agencies', targetCustomer);
   }, [t, targetCustomer]);
 
   return (
@@ -39,7 +39,7 @@ function HeroContent() {
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
             >
               <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase">
-                {t('reportFlowEngine.hero.eyebrow')}
+                {t('aiAppointmentEngine.hero.eyebrow')}
               </span>
             </motion.div>
             
@@ -49,7 +49,7 @@ function HeroContent() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white tracking-tight mb-4 sm:mb-6 leading-tight mt-4 sm:mt-6"
             >
-              <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.hero.title') }} />
+              <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.hero.title') }} />
             </motion.h1>
             
             <motion.p
@@ -68,14 +68,14 @@ function HeroContent() {
             >
               <div className="mb-4">
                 <a href="https://calendly.com/chris-seventeenlabs/30min" target="_blank" rel="noopener noreferrer" className="inline-flex group px-10 py-5 text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300 shadow-lg shadow-blue-500/25 items-center gap-3">
-                  {t('reportFlowEngine.hero.primaryCta')}
+                  {t('aiAppointmentEngine.hero.primaryCta')}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </a>
               </div>
               <p className="text-white/60 font-light text-sm">
-                {t('reportFlowEngine.hero.ctaSubtext')}
+                {t('aiAppointmentEngine.hero.ctaSubtext')}
               </p>
             </motion.div>
           </motion.div>
@@ -89,7 +89,7 @@ function HeroContent() {
         transition={{ duration: 0.7, delay: 0.8 }}
         className="py-12"
       >
-        <div className="max-w-4xl px-6 sm:px-12 lg:px-16 xl:px-20">
+        <div className="max-w-4xl px-4 sm:px-8 lg:px-12 xl:px-16">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-zinc-800/60 flex items-center justify-center">
@@ -98,8 +98,8 @@ function HeroContent() {
                 </svg>
               </div>
               <div>
-                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('reportFlowEngine.hero.stats.hoursSaved')}</div>
-                <div className="text-zinc-400 text-xs">{t('reportFlowEngine.hero.stats.hoursSavedDesc')}</div>
+                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('aiAppointmentEngine.hero.stats.hoursSaved')}</div>
+                <div className="text-zinc-400 text-xs">{t('aiAppointmentEngine.hero.stats.hoursSavedDesc')}</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -109,8 +109,8 @@ function HeroContent() {
                 </svg>
               </div>
               <div>
-                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('reportFlowEngine.hero.stats.netProfit')}</div>
-                <div className="text-zinc-400 text-xs">{t('reportFlowEngine.hero.stats.netProfitDesc')}</div>
+                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('aiAppointmentEngine.hero.stats.netProfit')}</div>
+                <div className="text-zinc-400 text-xs">{t('aiAppointmentEngine.hero.stats.netProfitDesc')}</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -120,8 +120,8 @@ function HeroContent() {
                 </svg>
               </div>
               <div>
-                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('reportFlowEngine.hero.stats.guarantee')}</div>
-                <div className="text-zinc-400 text-xs">{t('reportFlowEngine.hero.stats.guaranteeDesc')}</div>
+                <div className="text-xl text-zinc-100 font-medium mb-0.5">{t('aiAppointmentEngine.hero.stats.guarantee')}</div>
+                <div className="text-zinc-400 text-xs">{t('aiAppointmentEngine.hero.stats.guaranteeDesc')}</div>
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ export default function GuaranteeSection() {
   const { t } = useTranslations();
   const locale = useLocale();
   const translations = getTranslations(locale);
-  const impactItems = translations.reportFlowEngine?.guarantee?.math?.items || [];
+  const impactItems = translations.aiAppointmentEngine?.guarantee?.math?.items || [];
   
   const impactIcons = [Clock, Zap, TrendingUp, Users];
   
@@ -24,13 +24,13 @@ export default function GuaranteeSection() {
           className="max-w-4xl"
         >
           <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase mb-6 sm:mb-8 block">
-            {t('reportFlowEngine.guarantee.eyebrow')}
+            {t('aiAppointmentEngine.guarantee.eyebrow')}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light text-white tracking-tight mb-6 sm:mb-8 leading-tight">
-            <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.guarantee.title') }} />
+            <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.guarantee.title') }} />
           </h2>
           <p className="text-lg sm:text-xl text-white/70 font-light leading-relaxed mb-12 sm:mb-16 max-w-3xl">
-            {t('reportFlowEngine.guarantee.description')}
+            {t('aiAppointmentEngine.guarantee.description')}
           </p>
 
           <div className="space-y-8 sm:space-y-12">
@@ -48,15 +48,15 @@ export default function GuaranteeSection() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-light text-white mb-3 sm:mb-4">
-                    {t('reportFlowEngine.guarantee.timeGuarantee.title')}
+                    {t('aiAppointmentEngine.guarantee.timeGuarantee.title')}
                   </h3>
                   <p className="text-base sm:text-lg text-white/80 font-light leading-relaxed mb-3 sm:mb-4">
-                    {t('reportFlowEngine.guarantee.timeGuarantee.description')}
+                    {t('aiAppointmentEngine.guarantee.timeGuarantee.description')}
                   </p>
                   <div className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                     <p className="text-sm sm:text-base text-white/60 font-light">
-                      {t('reportFlowEngine.guarantee.timeGuarantee.subtext')}
+                      {t('aiAppointmentEngine.guarantee.timeGuarantee.subtext')}
                     </p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function GuaranteeSection() {
             {/* Impact Grid */}
             <div>
               <h3 className="text-2xl sm:text-3xl font-light text-white mb-6 sm:mb-8">
-                {t('reportFlowEngine.guarantee.math.title')}
+                {t('aiAppointmentEngine.guarantee.math.title')}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {impactItems.map((item: string, index: number) => {

@@ -405,7 +405,7 @@ export default function LocationInsights({ location, service, isGerman }: Locati
 
   return (
     <section className="relative bg-black/95 py-20 lg:py-32">
-      <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Title & Intro */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

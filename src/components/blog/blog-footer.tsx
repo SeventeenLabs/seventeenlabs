@@ -7,7 +7,7 @@ import { Mail, Linkedin, Rss } from 'lucide-react';
 export function BlogFooter() {
   return (
     <footer className="bg-gray-950 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-5 lg:px-6 py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1 space-y-4">

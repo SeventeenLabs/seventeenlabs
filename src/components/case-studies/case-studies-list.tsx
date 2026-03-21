@@ -35,8 +35,8 @@ export default function CaseStudiesList({ locale }: CaseStudiesListProps) {
         ? "Verbrachten 23 Stunden pro Monat mit manueller Berichtserstellung für 15 Kunden"
         : "Spent 23 hours monthly creating manual reports for 15 clients",
       solution: isGerman
-        ? "ReportFlow Engine™ - automatisierte Datensammlung aus 5 Plattformen, KI-generierte Insights, automatischer Versand"
-        : "ReportFlow Engine™ - automated data collection from 5 platforms, AI-generated insights, automatic delivery",
+        ? "AI Appointment Engine™ - automatisierte Datensammlung aus 5 Plattformen, KI-generierte Insights, automatischer Versand"
+        : "AI Appointment Engine™ - automated data collection from 5 platforms, AI-generated insights, automatic delivery",
       results: [
         { metric: isGerman ? "Zeit gespart" : "Time Saved", value: "23 hrs/mo" },
         { metric: isGerman ? "Kundenzufriedenheit" : "Client Satisfaction", value: "+35%" },

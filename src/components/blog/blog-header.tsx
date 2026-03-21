@@ -19,7 +19,7 @@ export function BlogHeader({ post, showTitle }: BlogHeaderProps) {
         : 'bg-white/80 backdrop-blur-sm'
     }`}>
       {/* Main Header Row */}
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-5 lg:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Left Section */}
           <div className="flex items-center gap-6 flex-1">

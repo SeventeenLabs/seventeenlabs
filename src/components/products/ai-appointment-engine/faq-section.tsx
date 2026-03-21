@@ -14,7 +14,7 @@ export default function FAQSection() {
   const { t } = useTranslations();
   const locale = useLocale();
   const translations = getTranslations(locale);
-  const faqItems = translations.reportFlowEngine?.faq?.items || [];
+  const faqItems = translations.aiAppointmentEngine?.faq?.items || [];
 
   return (
     <section id="faq" className="relative py-16 sm:py-24 lg:py-32 bg-black">
@@ -28,10 +28,10 @@ export default function FAQSection() {
             className="mb-12 sm:mb-16 lg:mb-20"
           >
             <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase mb-6 sm:mb-8 block">
-              {t('reportFlowEngine.faq.eyebrow')}
+              {t('aiAppointmentEngine.faq.eyebrow')}
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light text-white tracking-tight leading-tight">
-              <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.faq.title') }} />
+              <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.faq.title') }} />
             </h2>
           </motion.div>
 

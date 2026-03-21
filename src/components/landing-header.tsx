@@ -8,8 +8,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { useTranslations, useLocale } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/utils";
-import ContactModal from "./contact-modal";
-import LanguageSwitcher from "./language-switcher";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,65 +20,69 @@ import { cn } from "@/lib/utils";
 
 export default function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useTranslations();
   const locale = useLocale();
 
-  // Industries - What problems we solve (industry-specific)
-  const industriesItems = [
-    {
-      title: locale === 'de' ? "Marketing-Agenturen" : "Marketing Agencies",
-      description: locale === 'de' 
-        ? "Lead-Management, Social Media Automatisierung & Client Reporting"
-        : "Lead management, social media automation & client reporting",
-      href: getLocalizedPath(locale, '/industries/marketing-agencies'),
-    },
-    // Add more industry solutions here later
-  ];
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
 
-  // Products - Ready-to-use tools
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const productsItems = [
     {
-      title: locale === 'de' ? 'ReportFlow Engine™' : 'ReportFlow Engine™',
+      title: locale === 'de' ? 'Relay by SeventeenLabs' : 'Relay by SeventeenLabs',
       description: locale === 'de' 
-        ? '23+ Stunden monatlich sparen mit automatisierten Client-Berichten'
-        : 'Save 23+ hours monthly with automated client reporting',
-      href: getLocalizedPath(locale, '/products/reportflow-engine'),
+        ? 'Praktisches KI-System für Planung, Freigaben und verantwortbare Ausführung im Tagesbetrieb'
+        : 'Practical AI system for planning, approvals, and accountable daily execution',
+      href: getLocalizedPath(locale, '/products/relay'),
     },
   ];
 
-  // Services - Custom development
-  const servicesItems = [
+  const platformItems = [
     {
-      title: locale === 'de' ? "AI Audit" : "AI Audit",
+      title: locale === 'de' ? "Produktbibliothek" : "Product Library",
       description: locale === 'de' 
-        ? "Potenzialanalyse für AI-Integration in Ihrem Unternehmen"
-        : "Potential analysis for AI integration in your business",
-      href: getLocalizedPath(locale, '/services/ai-audit'),
+        ? "Workflows, Patterns und Ressourcen für kontrollierte KI-Operationen"
+        : "Workflows, patterns, and resources for governed AI operations",
+      href: '/workflows',
     },
     {
-      title: locale === 'de' ? "Strategische Beratung" : "Strategic Consulting",
+      title: locale === 'de' ? "Blog" : "Blog",
       description: locale === 'de'
-        ? "Maßgeschneiderte AI-Strategie und Implementierungsplanung"
-        : "Custom AI strategy and implementation planning",
-      href: getLocalizedPath(locale, '/services/ai-consulting'),
+        ? "Praktische Insights zur sicheren KI-Integration in den Betriebsalltag"
+        : "Practical insights for safely integrating AI into daily operations",
+      href: getLocalizedPath(locale, '/blog'),
     },
     {
-      title: locale === 'de' ? "Individuelle Entwicklung" : "Custom Development",
+      title: locale === 'de' ? "Unternehmen" : "Company",
       description: locale === 'de'
-        ? "Maßgeschneiderte AI-Lösungen und Automatisierungen"
-        : "Custom AI solutions and automations tailored to your needs",
-      href: getLocalizedPath(locale, '/services/ai-development'),
+        ? "Mission, Positionierung und Roadmap von SeventeenLabs"
+        : "Mission, positioning, and roadmap of SeventeenLabs",
+      href: getLocalizedPath(locale, '/about'),
     },
   ];
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-200",
+        isScrolled
+          ? "border-b border-white/10 bg-black/70 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full px-6 sm:px-12 lg:px-16 xl:px-20 py-6"
+        className="mx-auto w-full max-w-[84rem] px-4 py-4 sm:px-6 lg:px-8 xl:px-10"
+        style={{ fontFamily: "var(--font-display)" }}
       >
         <nav className="flex items-center justify-between" aria-label="Global">
           {/* Logo and Navigation */}
@@ -103,29 +105,9 @@ export default function LandingHeader() {
             <div className="hidden lg:flex lg:items-center">
               <NavigationMenu>
                 <NavigationMenuList className="space-x-6">
-                  {/* Services Dropdown - Custom work */}
+                  {/* Products Dropdown */}
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
-                      {t("common.services")}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
-                        {servicesItems.map((item) => (
-                          <ListItem
-                            key={item.title}
-                            title={item.title}
-                            href={item.href}
-                          >
-                            {item.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  {/* Products Dropdown - Ready-to-use tools */}
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
+                    <NavigationMenuTrigger className="text-sm font-medium tracking-wide text-white/70 hover:text-white">
                       {t("common.products")}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -143,14 +125,14 @@ export default function LandingHeader() {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
-                  {/* Industries Dropdown - Industry-specific */}
+                  {/* Platform Dropdown */}
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium text-white/70 hover:text-white">
-                      {locale === 'de' ? 'Branchen' : 'Industries'}
+                    <NavigationMenuTrigger className="text-sm font-medium tracking-wide text-white/70 hover:text-white">
+                      {locale === 'de' ? 'Plattform' : 'Platform'}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1">
-                        {industriesItems.map((item) => (
+                        {platformItems.map((item) => (
                           <ListItem
                             key={item.title}
                             title={item.title}
@@ -167,7 +149,7 @@ export default function LandingHeader() {
                   <NavigationMenuItem>
                     <Link
                       href={getLocalizedPath(locale, '/about')}
-                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                      className="px-4 py-2 text-sm font-medium tracking-wide text-white/70 transition-colors hover:text-white"
                     >
                       {locale === 'de' ? 'Über uns' : 'About'}
                     </Link>
@@ -177,7 +159,7 @@ export default function LandingHeader() {
                   <NavigationMenuItem>
                     <Link
                       href={getLocalizedPath(locale, '/blog')}
-                      className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2"
+                      className="px-4 py-2 text-sm font-medium tracking-wide text-white/70 transition-colors hover:text-white"
                     >
                       Blog
                     </Link>
@@ -201,9 +183,8 @@ export default function LandingHeader() {
             </button>
           </div>
           
-          {/* CTA Button and Language Switcher */}
+          {/* CTA Button */}
           <div className="hidden lg:flex lg:items-center lg:gap-4">
-            <LanguageSwitcher />
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -213,18 +194,17 @@ export default function LandingHeader() {
                 delay: 0.3
               }}
             >
-              <a
-                href="https://cal.com/christian-lutz-pw2nn4/15min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative px-6 py-2.5 text-sm font-medium text-black bg-white rounded-lg hover:bg-white/90 transition-all duration-300 overflow-hidden inline-flex items-center gap-2"
+              <Link
+                href={getLocalizedPath(locale, '/products/relay')}
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-black transition-all duration-300 hover:bg-white/90"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
-                  <path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/>
+                  <path d="M5 12h14" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M13 6l6 6-6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="relative z-10">{locale === 'de' ? 'Termin buchen' : 'Book a Call'}</span>
-              </a>
+                <span className="relative z-10">{locale === 'de' ? 'Relay entdecken' : 'Explore Relay'}</span>
+              </Link>
             </motion.div>
           </div>
         </nav>
@@ -263,24 +243,6 @@ export default function LandingHeader() {
                     {/* Services */}
                     <div className="px-3 py-2">
                       <div className="text-sm font-semibold text-white/50 mb-2">
-                        {t("common.services")}
-                      </div>
-                      {servicesItems.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          <div className="font-medium">{item.title}</div>
-                          <div className="text-xs text-white/60 mt-0.5">{item.description}</div>
-                        </Link>
-                      ))}
-                    </div>
-
-                    {/* Products */}
-                    <div className="px-3 py-2">
-                      <div className="text-sm font-semibold text-white/50 mb-2">
                         {t("common.products")}
                       </div>
                       {productsItems.map((item) => (
@@ -296,12 +258,12 @@ export default function LandingHeader() {
                       ))}
                     </div>
 
-                    {/* Industries - Industry-specific */}
+                    {/* Products */}
                     <div className="px-3 py-2">
                       <div className="text-sm font-semibold text-white/50 mb-2">
-                        {locale === 'de' ? 'Branchen' : 'Industries'}
+                        {locale === 'de' ? 'Plattform' : 'Platform'}
                       </div>
-                      {industriesItems.map((item) => (
+                      {platformItems.map((item) => (
                         <Link
                           key={item.title}
                           href={item.href}
@@ -313,6 +275,7 @@ export default function LandingHeader() {
                         </Link>
                       ))}
                     </div>
+
                   </div>
                   
                   {/* About & Blog Links */}
@@ -334,22 +297,18 @@ export default function LandingHeader() {
                   </div>
                   
                   <div className="py-6 space-y-4">
-                    <div className="px-3">
-                      <LanguageSwitcher />
-                    </div>
-                    <a
-                      href="https://cal.com/christian-lutz-pw2nn4/15min"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={getLocalizedPath(locale, '/products/relay')}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full px-6 py-2.5 text-sm font-medium text-black bg-white rounded-md hover:bg-white/90 transition-all duration-200 flex items-center justify-center gap-2"
+                      className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-6 py-2.5 text-sm font-medium text-black transition-all duration-200 hover:bg-white/90"
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
-                        <path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/>
+                        <path d="M5 12h14" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M13 6l6 6-6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      {locale === 'de' ? 'Termin buchen' : 'Book a Call'}
-                    </a>
+                      {locale === 'de' ? 'Relay entdecken' : 'Explore Relay'}
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -357,12 +316,6 @@ export default function LandingHeader() {
           </motion.div>
         )}
       </motion.div>
-
-      {/* Contact Modal */}
-      <ContactModal 
-        isOpen={contactModalOpen} 
-        onClose={() => setContactModalOpen(false)} 
-      />
     </header>
   );
 }

@@ -53,7 +53,7 @@ export default function MarketingAgenciesCTA({ locale }: MarketingAgenciesCTAPro
   return (
     <>
     <section className="relative py-24 sm:py-32 bg-zinc-950">
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <div className="mb-16">
           <motion.span

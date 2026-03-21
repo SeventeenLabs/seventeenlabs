@@ -28,9 +28,10 @@ const keywordToPageMap: Record<string, { path: string; anchor: string }> = {
   'workflow automation': { path: '/services/ai-development', anchor: 'workflow automation' },
   
   // Products
-  'reportflow': { path: '/products/reportflow-engine', anchor: 'ReportFlow Engine' },
-  'automated reporting': { path: '/products/reportflow-engine', anchor: 'automated reporting' },
-  'report automation': { path: '/products/reportflow-engine', anchor: 'report automation' },
+  'ai appointment engine': { path: '/products/relay', anchor: 'Relay' },
+  'automated reporting': { path: '/products/relay', anchor: 'Relay' },
+  'report automation': { path: '/products/relay', anchor: 'Relay' },
+  'relay': { path: '/products/relay', anchor: 'Relay' },
   
   // Industries
   'marketing agency': { path: '/industries/marketing-agencies', anchor: 'marketing agency automation' },

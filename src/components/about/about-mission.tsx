@@ -49,7 +49,7 @@ export function AboutMission({ locale }: AboutMissionProps) {
 
   return (
     <section className="bg-black py-16 sm:py-20 border-t border-white/10">
-      <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           {[t.mission, t.vision, t.approach].map((item, index) => (
             <motion.div

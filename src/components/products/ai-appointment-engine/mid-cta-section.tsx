@@ -21,11 +21,11 @@ export default function MidCtaSection() {
           className="max-w-4xl"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight mb-6 leading-tight">
-            <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.midCta.title') }} />
+            <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.midCta.title') }} />
           </h2>
           
           <p className="text-lg sm:text-xl text-white/70 font-light leading-relaxed mb-10">
-            {t('reportFlowEngine.midCta.description')}
+            {t('aiAppointmentEngine.midCta.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-start gap-4">
@@ -36,7 +36,7 @@ export default function MidCtaSection() {
               className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-medium text-black bg-blue-500 rounded-lg hover:bg-blue-400 transition-all duration-300"
             >
               <Calendar className="w-5 h-5" />
-              {t('reportFlowEngine.midCta.primaryButton')}
+              {t('aiAppointmentEngine.midCta.primaryButton')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             
@@ -44,12 +44,12 @@ export default function MidCtaSection() {
               href="#faq" 
               className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-light text-white/80 hover:text-white border border-white/20 rounded-lg hover:border-white/40 transition-all duration-300"
             >
-              {t('reportFlowEngine.midCta.secondaryButton')}
+              {t('aiAppointmentEngine.midCta.secondaryButton')}
             </a>
           </div>
 
           <p className="text-sm text-white/50 font-light mt-6">
-            {t('reportFlowEngine.midCta.subtext')}
+            {t('aiAppointmentEngine.midCta.subtext')}
           </p>
         </motion.div>
       </div>

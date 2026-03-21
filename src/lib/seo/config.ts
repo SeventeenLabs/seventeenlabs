@@ -151,20 +151,20 @@ export const servicePages: ServicePageConfig[] = [
     },
   },
   {
-    slug: 'products/reportflow-engine',
+    slug: 'products/relay',
     priority: 0.9,
     changeFrequency: 'weekly',
     keywords: {
-      en: ['ReportFlow Engine', 'automated reporting', 'report automation', 'business intelligence'],
-      de: ['ReportFlow Engine', 'Automatisierte Berichterstattung', 'Report-Automatisierung', 'Business Intelligence'],
+      en: ['Relay', 'AI operator software', 'approval-driven workflows', 'business automation'],
+      de: ['Relay', 'KI-Operator-Software', 'Freigabegetriebene Workflows', 'Geschaftsautomatisierung'],
     },
     title: {
-      en: 'ReportFlow Engine™ - Automated Business Reporting',
-      de: 'ReportFlow Engine™ - Automatisierte Geschäftsberichte',
+      en: 'Relay by SeventeenLabs - AI Operator Software',
+      de: 'Relay by SeventeenLabs - KI-Operator-Software',
     },
     description: {
-      en: 'Transform your reporting with ReportFlow Engine™. Automated data collection, analysis, and beautiful report generation.',
-      de: 'Transformieren Sie Ihre Berichterstattung mit ReportFlow Engine™. Automatisierte Datenerfassung, Analyse und schöne Berichtgenerierung.',
+      en: 'Plan, approve, and execute real work with Relay by SeventeenLabs, the flagship AI operator platform.',
+      de: 'Planen, freigeben und ausfuhren Sie echte Arbeit mit Relay by SeventeenLabs, der KI-Operator-Plattform.',
     },
   },
   {
@@ -253,11 +253,11 @@ export const internalLinks: InternalLink[] = [
     category: 'service',
   },
   {
-    href: '/products/reportflow-engine',
-    label: { en: 'ReportFlow Engine', de: 'ReportFlow Engine' },
+    href: '/products/relay',
+    label: { en: 'Relay', de: 'Relay' },
     description: {
-      en: 'Automated business reporting platform',
-      de: 'Automatisierte Berichtsplattform',
+      en: 'Approval-driven AI operator platform',
+      de: 'Freigabegetriebene KI-Operator-Plattform',
     },
     priority: 8,
     category: 'product',

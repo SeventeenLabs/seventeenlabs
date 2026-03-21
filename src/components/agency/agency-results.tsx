@@ -17,7 +17,7 @@ export default function AgencyResults({ stats }: AgencyResultsProps) {
   const { t } = useTranslations();
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950">
+    <section className="relative py-32 px-4 sm:px-5 lg:px-6 bg-gradient-to-b from-slate-900 to-slate-950">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl" />

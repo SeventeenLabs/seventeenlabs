@@ -69,7 +69,7 @@ export function AutomationApproach({ locale }: AutomationApproachProps) {
 
   return (
     <section className="py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-5 lg:px-6">
         <div className="mb-16 text-center">
           <div className="mb-4 inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
             <span className="text-sm font-medium text-primary">{t.badge}</span>

@@ -5,82 +5,80 @@ import Image from "next/image";
 import { useLocale } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/utils";
 import { Mail, Linkedin, Calendar, Twitter, ArrowRight } from "lucide-react";
+import LanguageSwitcher from "./language-switcher";
 
 export default function SiteFooter() {
   const locale = useLocale();
 
   const content = {
     en: {
-      services: 'Services',
-      aiAudit: 'AI Audit',
-      aiConsulting: 'Strategic Consulting',
-      aiDevelopment: 'Custom Development',
-      industries: 'Industries',
-      marketingAgencies: 'Marketing Agencies',
+      productsNav: 'Products',
+      platform: 'Platform',
+      relay: 'Relay by SeventeenLabs',
+      workflows: 'Product Library',
+      blogNav: 'Blog',
       products: 'Products',
-      workflows: 'Workflows Library',
       company: 'Company',
       about: 'About',
       blog: 'Blog',
       contact: 'Contact',
-      tagline: 'Transform your business with AI audits, strategic consulting, and custom development solutions',
+      tagline: 'SeventeenLabs builds practical AI systems for companies integrating AI into daily business operations.',
       copyright: 'SeventeenLabs. All rights reserved.',
-      ctaTitle: 'Ready to Get Started?',
-      ctaSubtitle: 'Book a free 15-minute discovery call to discuss your automation needs.',
-      ctaButton: 'Book Free Call',
-      builtWith: 'Built with',
+      ctaTitle: 'Integrate AI into daily operations with control',
+      ctaSubtitle: 'Capture AI upside while reducing risk through governance, human approval, and accountable execution.',
+      ctaButton: 'Explore Relay',
     },
     de: {
-      services: 'Services',
-      aiAudit: 'KI-Audit',
-      aiConsulting: 'Strategische Beratung',
-      aiDevelopment: 'Individuelle Entwicklung',
-      industries: 'Branchen',
-      marketingAgencies: 'Marketing-Agenturen',
+      productsNav: 'Produkte',
+      platform: 'Plattform',
+      relay: 'Relay by SeventeenLabs',
+      workflows: 'Produktbibliothek',
+      blogNav: 'Blog',
       products: 'Produkte',
-      workflows: 'Workflows-Bibliothek',
       company: 'Unternehmen',
       about: 'Über uns',
       blog: 'Blog',
       contact: 'Kontakt',
-      tagline: 'Transformieren Sie Ihr Unternehmen mit KI-Audits, strategischer Beratung und maßgeschneiderten Entwicklungslösungen',
+      tagline: 'SeventeenLabs baut praktische KI-Systeme für Unternehmen, die KI in tägliche Geschäftsprozesse integrieren.',
       copyright: 'SeventeenLabs. Alle Rechte vorbehalten.',
-      ctaTitle: 'Bereit loszulegen?',
-      ctaSubtitle: 'Buchen Sie ein kostenloses 15-minütiges Erstgespräch, um Ihre Automatisierungsbedürfnisse zu besprechen.',
-      ctaButton: 'Kostenlos buchen',
-      builtWith: 'Gebaut mit',
+      ctaTitle: 'KI kontrolliert in tägliche Abläufe integrieren',
+      ctaSubtitle: 'Nutzen Sie KI-Upside und reduzieren Sie Risiko durch Governance, menschliche Freigabe und nachvollziehbare Ausführung.',
+      ctaButton: 'Relay entdecken',
     },
   };
 
   const t = content[locale as keyof typeof content] || content.en;
 
   return (
-    <footer className="bg-black border-t border-white/10">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-black">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(255,255,255,0.05),transparent_36%)]" />
       {/* CTA Section before footer */}
-      <div className="border-b border-white/10">
-        <div className="px-6 sm:px-12 lg:px-16 xl:px-20 py-12">
+      <div className="relative border-b border-white/10">
+        <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-12">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl lg:text-3xl font-light text-white mb-3">
+            <h3 className="mb-3 text-2xl font-light text-white lg:text-3xl" style={{ fontFamily: "var(--font-display)" }}>
               {t.ctaTitle}
             </h3>
-            <p className="text-white/60 font-light mb-6">
+            <p
+              className="mb-6 font-light text-white/60"
+              style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}
+            >
               {t.ctaSubtitle}
             </p>
-            <a
-              href="https://cal.com/christian-lutz-pw2nn4/15min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-white text-black font-medium hover:bg-white/90 transition-all duration-300"
+            <Link
+              href={getLocalizedPath(locale, '/products/relay')}
+              className="group inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 text-black transition-all duration-300 hover:bg-white/90"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               <Calendar className="w-5 h-5" />
               {t.ctaButton}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
       
-      <div className="px-6 sm:px-12 lg:px-16 xl:px-20 py-16">
+      <div className="relative px-4 py-16 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2 space-y-6">
@@ -93,7 +91,10 @@ export default function SiteFooter() {
                 className="h-5 w-auto"
               />
             </div>
-            <p className="text-sm text-white/60 font-light leading-relaxed max-w-sm">
+            <p
+              className="max-w-sm text-sm font-light leading-relaxed text-white/60"
+              style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}
+            >
               {t.tagline}
             </p>
             {/* Social Links */}
@@ -131,73 +132,40 @@ export default function SiteFooter() {
               </a>
             </div>
             
-            {/* Trust Badges */}
-            <div className="pt-4">
-              <p className="text-xs text-white/40 mb-3">{t.builtWith}</p>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="px-3 py-1.5 text-xs text-white/50 bg-white/5 border border-white/10 rounded-md">n8n</span>
-                <span className="px-3 py-1.5 text-xs text-white/50 bg-white/5 border border-white/10 rounded-md">OpenAI</span>
-                <span className="px-3 py-1.5 text-xs text-white/50 bg-white/5 border border-white/10 rounded-md">Next.js</span>
-                <span className="px-3 py-1.5 text-xs text-white/50 bg-white/5 border border-white/10 rounded-md">Supabase</span>
-              </div>
-            </div>
           </div>
 
-          {/* Services */}
+          {/* Products */}
           <div>
             <h3 className="text-sm font-light text-white/40 uppercase tracking-wider mb-4">
-              {t.services}
+              {t.productsNav}
             </h3>
             <nav className="space-y-3">
               <Link
-                href={getLocalizedPath(locale, '/services/ai-audit')}
+                href={getLocalizedPath(locale, '/products/relay')}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
-                {t.aiAudit}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/services/ai-consulting')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.aiConsulting}
-              </Link>
-              <Link
-                href={getLocalizedPath(locale, '/services/ai-development')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {t.aiDevelopment}
+                {t.relay}
               </Link>
             </nav>
           </div>
 
-          {/* Products & Industries */}
+          {/* Platform */}
           <div>
             <h3 className="text-sm font-light text-white/40 uppercase tracking-wider mb-4">
-              {t.products}
+              {t.platform}
             </h3>
             <nav className="space-y-3">
-              <Link
-                href={getLocalizedPath(locale, '/products/reportflow-engine')}
-                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
-              >
-                {locale === 'de' ? 'ReportFlow Engine™' : 'ReportFlow Engine™'}
-              </Link>
               <Link
                 href={getLocalizedPath(locale, '/workflows', { skipLocale: true })}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.workflows}
               </Link>
-            </nav>
-            <h3 className="text-sm font-light text-white/40 uppercase tracking-wider mb-4 mt-6">
-              {t.industries}
-            </h3>
-            <nav className="space-y-3">
               <Link
-                href={getLocalizedPath(locale, '/industries/marketing-agencies')}
+                href={getLocalizedPath(locale, '/blog')}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
-                {t.marketingAgencies}
+                {t.blogNav}
               </Link>
             </nav>
           </div>
@@ -215,7 +183,7 @@ export default function SiteFooter() {
                 {t.about}
               </Link>
               <Link
-                href="/blog"
+                href={getLocalizedPath(locale, '/blog')}
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.blog}
@@ -248,29 +216,32 @@ export default function SiteFooter() {
             <div className="text-xs text-white/40 font-light">
               © {new Date().getFullYear()} {t.copyright}
             </div>
-            <nav className="flex items-center gap-4 text-xs text-white/40">
-              <Link
-                href="/rss"
-                className="hover:text-white transition-colors"
-                title="RSS Feed"
-              >
-                RSS
-              </Link>
-              <Link
-                href="/feed"
-                className="hover:text-white transition-colors"
-                title="JSON Feed"
-              >
-                JSON Feed
-              </Link>
-              <Link
-                href="/sitemap.xml"
-                className="hover:text-white transition-colors"
-                title="Sitemap"
-              >
-                Sitemap
-              </Link>
-            </nav>
+            <div className="flex items-center gap-4">
+              <LanguageSwitcher />
+              <nav className="flex items-center gap-4 text-xs text-white/40">
+                <Link
+                  href="/rss"
+                  className="hover:text-white transition-colors"
+                  title="RSS Feed"
+                >
+                  RSS
+                </Link>
+                <Link
+                  href="/feed"
+                  className="hover:text-white transition-colors"
+                  title="JSON Feed"
+                >
+                  JSON Feed
+                </Link>
+                <Link
+                  href="/sitemap.xml"
+                  className="hover:text-white transition-colors"
+                  title="Sitemap"
+                >
+                  Sitemap
+                </Link>
+              </nav>
+            </div>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ export default function AgencyHero({ onContactClick, locale }: AgencyHeroProps) 
   const { t } = useTranslations();
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-5 lg:px-6 pt-32 pb-20">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image

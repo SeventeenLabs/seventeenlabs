@@ -50,7 +50,7 @@ export default function AIAppointmentEngineProcess() {
         className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]"
       />
 
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
