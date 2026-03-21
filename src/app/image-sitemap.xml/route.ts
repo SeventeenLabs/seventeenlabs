@@ -38,9 +38,9 @@ export async function GET() {
   const staticPages = [
     { url: '/', images: ['/opengraph-image'] },
     { url: '/about', images: ['/opengraph-image'] },
-    { url: '/services/ai-audit', images: ['/opengraph-image'] },
-    { url: '/services/ai-consulting', images: ['/opengraph-image'] },
-    { url: '/services/ai-development', images: ['/opengraph-image'] },
+    { url: '/products', images: ['/opengraph-image'] },
+    { url: '/products/relay', images: ['/opengraph-image'] },
+    { url: '/products/core', images: ['/opengraph-image'] },
   ];
 
   for (const page of staticPages) {

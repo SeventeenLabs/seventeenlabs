@@ -164,25 +164,25 @@ export function ServiceLinks({ exclude = [], className }: ServiceLinksProps) {
   
   const services = [
     {
-      href: locale === 'de' ? '/de/services/ai-audit' : '/services/ai-audit',
-      label: locale === 'de' ? 'KI-Audit' : 'AI Audit',
+      href: locale === 'de' ? '/de/products' : '/products',
+      label: locale === 'de' ? 'Produkte' : 'Products',
       description: locale === 'de' 
-        ? 'Identifizieren Sie Automatisierungspotenziale'
-        : 'Identify automation opportunities',
+        ? 'Relay und Core im Überblick'
+        : 'Explore Relay and Core',
     },
     {
-      href: locale === 'de' ? '/de/services/ai-consulting' : '/services/ai-consulting',
-      label: locale === 'de' ? 'KI-Beratung' : 'AI Consulting',
+      href: locale === 'de' ? '/de/products/relay' : '/products/relay',
+      label: 'Relay',
       description: locale === 'de'
-        ? 'Strategische KI-Beratung'
-        : 'Strategic AI advisory',
+        ? 'KI-Operator für Planung und Freigaben'
+        : 'AI operator for planning and approvals',
     },
     {
-      href: locale === 'de' ? '/de/services/ai-development' : '/services/ai-development',
-      label: locale === 'de' ? 'KI-Entwicklung' : 'AI Development',
+      href: locale === 'de' ? '/de/products/core' : '/products/core',
+      label: 'Core',
       description: locale === 'de'
-        ? 'Maßgeschneiderte KI-Lösungen'
-        : 'Custom AI solutions',
+        ? 'Plattform für Kontext und Governance'
+        : 'Platform for context and governance',
     },
   ].filter((service) => !exclude.some((e) => service.href.includes(e)));
 

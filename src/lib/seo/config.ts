@@ -100,54 +100,20 @@ export interface ServicePageConfig {
 
 export const servicePages: ServicePageConfig[] = [
   {
-    slug: 'services/ai-audit',
+    slug: 'products',
     priority: 0.9,
     changeFrequency: 'weekly',
     keywords: {
-      en: ['AI audit', 'automation assessment', 'AI opportunity analysis', 'process audit'],
-      de: ['KI-Audit', 'Automatisierungspotenzial', 'KI-Analyse', 'Prozessaudit'],
+      en: ['SeventeenLabs products', 'AI products', 'Relay and Core', 'AI systems'],
+      de: ['SeventeenLabs Produkte', 'KI-Produkte', 'Relay und Core', 'KI-Systeme'],
     },
     title: {
-      en: 'AI Audit & Automation Opportunity Assessment',
-      de: 'KI-Audit & Automatisierungspotenzial-Analyse',
+      en: 'Products | SeventeenLabs',
+      de: 'Produkte | SeventeenLabs',
     },
     description: {
-      en: 'Identify automation opportunities with a comprehensive AI audit. We analyze processes, systems, and data to deliver an actionable roadmap.',
-      de: 'Identifizieren Sie Automatisierungspotenziale mit einem umfassenden KI-Audit. Wir analysieren Prozesse, Systeme und Daten für einen umsetzbaren Fahrplan.',
-    },
-  },
-  {
-    slug: 'services/ai-consulting',
-    priority: 0.9,
-    changeFrequency: 'weekly',
-    keywords: {
-      en: ['AI consulting', 'AI strategy', 'automation strategy', 'digital transformation'],
-      de: ['KI-Beratung', 'KI-Strategie', 'Automatisierungsstrategie', 'Digitale Transformation'],
-    },
-    title: {
-      en: 'AI Consulting & Strategic Advisory',
-      de: 'KI-Beratung & Strategische Beratung',
-    },
-    description: {
-      en: 'Expert AI consulting to define your automation strategy. Get a clear roadmap for AI adoption and digital transformation.',
-      de: 'Experten-KI-Beratung zur Definition Ihrer Automatisierungsstrategie. Erhalten Sie einen klaren Fahrplan für KI-Adoption und digitale Transformation.',
-    },
-  },
-  {
-    slug: 'services/ai-development',
-    priority: 0.9,
-    changeFrequency: 'weekly',
-    keywords: {
-      en: ['AI development', 'custom AI solutions', 'automation development', 'AI integration'],
-      de: ['KI-Entwicklung', 'Maßgeschneiderte KI-Lösungen', 'Automatisierungsentwicklung', 'KI-Integration'],
-    },
-    title: {
-      en: 'Custom AI Development & Integration',
-      de: 'Individuelle KI-Entwicklung & Integration',
-    },
-    description: {
-      en: 'Custom AI development and integration services. Build scalable automation solutions tailored to your business needs.',
-      de: 'Individuelle KI-Entwicklung und Integrationsservices. Erstellen Sie skalierbare Automatisierungslösungen für Ihre Geschäftsanforderungen.',
+      en: 'Explore Relay and Core by SeventeenLabs.',
+      de: 'Entdecken Sie Relay und Core von SeventeenLabs.',
     },
   },
   {
@@ -168,20 +134,20 @@ export const servicePages: ServicePageConfig[] = [
     },
   },
   {
-    slug: 'industries/marketing-agencies',
-    priority: 0.85,
+    slug: 'products/core',
+    priority: 0.88,
     changeFrequency: 'weekly',
     keywords: {
-      en: ['marketing agency automation', 'agency workflow automation', 'marketing AI tools'],
-      de: ['Marketing-Agentur-Automatisierung', 'Agentur-Workflow-Automatisierung', 'Marketing-KI-Tools'],
+      en: ['Core', 'AI platform', 'AI governance', 'agent orchestration'],
+      de: ['Core', 'KI-Plattform', 'KI-Governance', 'Agenten-Orchestrierung'],
     },
     title: {
-      en: 'AI Automation for Marketing Agencies',
-      de: 'KI-Automatisierung für Marketing-Agenturen',
+      en: 'Core by SeventeenLabs - AI Platform Layer',
+      de: 'Core by SeventeenLabs - KI-Plattformschicht',
     },
     description: {
-      en: 'Streamline your marketing agency operations with AI automation. Client reporting, content workflows, and campaign management automation.',
-      de: 'Optimieren Sie Ihre Marketing-Agentur-Operationen mit KI-Automatisierung. Kundenberichte, Content-Workflows und Kampagnenmanagement-Automatisierung.',
+      en: 'Core provides context, governance, and agent orchestration for daily business operations.',
+      de: 'Core bietet Kontext, Governance und Agenten-Orchestrierung für tägliche Geschäftsabläufe.',
     },
   },
 ];
@@ -223,34 +189,14 @@ export interface InternalLink {
 
 export const internalLinks: InternalLink[] = [
   {
-    href: '/services/ai-audit',
-    label: { en: 'AI Audit', de: 'KI-Audit' },
+    href: '/products',
+    label: { en: 'Products', de: 'Produkte' },
     description: {
-      en: 'Comprehensive AI opportunity assessment',
-      de: 'Umfassende KI-Potenzialanalyse',
+      en: 'SeventeenLabs product portfolio',
+      de: 'SeventeenLabs Produktportfolio',
     },
     priority: 10,
-    category: 'service',
-  },
-  {
-    href: '/services/ai-consulting',
-    label: { en: 'AI Consulting', de: 'KI-Beratung' },
-    description: {
-      en: 'Strategic AI advisory services',
-      de: 'Strategische KI-Beratung',
-    },
-    priority: 9,
-    category: 'service',
-  },
-  {
-    href: '/services/ai-development',
-    label: { en: 'Custom AI Development', de: 'Individuelle KI-Entwicklung' },
-    description: {
-      en: 'Tailored AI solutions development',
-      de: 'Maßgeschneiderte KI-Lösungsentwicklung',
-    },
-    priority: 9,
-    category: 'service',
+    category: 'product',
   },
   {
     href: '/products/relay',
@@ -263,14 +209,14 @@ export const internalLinks: InternalLink[] = [
     category: 'product',
   },
   {
-    href: '/industries/marketing-agencies',
-    label: { en: 'Marketing Agencies', de: 'Marketing-Agenturen' },
+    href: '/products/core',
+    label: { en: 'Core', de: 'Core' },
     description: {
-      en: 'AI solutions for agencies',
-      de: 'KI-Lösungen für Agenturen',
+      en: 'Platform layer for governed AI operations',
+      de: 'Plattformschicht für governte KI-Operationen',
     },
-    priority: 7,
-    category: 'industry',
+    priority: 8,
+    category: 'product',
   },
   {
     href: '/blog',

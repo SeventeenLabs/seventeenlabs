@@ -36,9 +36,9 @@ export default function LandingHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="w-full px-4 pb-14 pt-28 sm:px-8 sm:pb-18 sm:pt-32 lg:px-12 lg:pb-20 lg:pt-36 xl:px-16"
+            className="mx-auto w-full max-w-[94rem] px-2.5 pb-14 pt-28 sm:px-3 sm:pb-18 sm:pt-32 lg:px-4 lg:pb-20 lg:pt-36"
           >
-            <div className="mx-auto max-w-7xl">
+            <div className="w-full">
               <div className="text-left">
                 <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
                   <motion.h1

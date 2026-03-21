@@ -18,24 +18,23 @@ export interface ContextualLink {
 
 // Keywords to page mapping for contextual linking
 const keywordToPageMap: Record<string, { path: string; anchor: string }> = {
-  // Services
-  'ai audit': { path: '/services/ai-audit', anchor: 'AI Audit' },
-  'automation audit': { path: '/services/ai-audit', anchor: 'automation assessment' },
-  'ai consulting': { path: '/services/ai-consulting', anchor: 'AI Consulting' },
-  'ai strategy': { path: '/services/ai-consulting', anchor: 'AI strategy consulting' },
-  'ai development': { path: '/services/ai-development', anchor: 'AI Development' },
-  'custom ai': { path: '/services/ai-development', anchor: 'custom AI solutions' },
-  'workflow automation': { path: '/services/ai-development', anchor: 'workflow automation' },
+  // Product intent
+  'ai audit': { path: '/products/core', anchor: 'Core' },
+  'automation audit': { path: '/products/core', anchor: 'Core platform' },
+  'ai consulting': { path: '/products/core', anchor: 'Core' },
+  'ai strategy': { path: '/products/core', anchor: 'Core platform' },
+  'ai development': { path: '/products/relay', anchor: 'Relay' },
+  'custom ai': { path: '/products/relay', anchor: 'Relay' },
+  'workflow automation': { path: '/products', anchor: 'product portfolio' },
   
   // Products
   'ai appointment engine': { path: '/products/relay', anchor: 'Relay' },
   'automated reporting': { path: '/products/relay', anchor: 'Relay' },
   'report automation': { path: '/products/relay', anchor: 'Relay' },
   'relay': { path: '/products/relay', anchor: 'Relay' },
-  
-  // Industries
-  'marketing agency': { path: '/industries/marketing-agencies', anchor: 'marketing agency automation' },
-  'agency automation': { path: '/industries/marketing-agencies', anchor: 'agency automation' },
+  'core': { path: '/products/core', anchor: 'Core' },
+  'ai operating system': { path: '/products/core', anchor: 'Core' },
+  'ai platform': { path: '/products/core', anchor: 'Core platform' },
   
   // General
   'n8n': { path: '/workflows', anchor: 'n8n workflows' },
@@ -90,12 +89,8 @@ export function getRelatedPages(
   // Determine category of current page
   let currentCategory: string | null = null;
   
-  if (currentPath.includes('/services/')) {
-    currentCategory = 'service';
-  } else if (currentPath.includes('/products/')) {
+  if (currentPath.includes('/products/')) {
     currentCategory = 'product';
-  } else if (currentPath.includes('/industries/')) {
-    currentCategory = 'industry';
   } else if (currentPath.includes('/blog')) {
     currentCategory = 'resource';
   }
@@ -121,16 +116,12 @@ export function getRelatedPages(
 
 function getRelatedCategories(category: string | null): string[] {
   switch (category) {
-    case 'service':
-      return ['service', 'product', 'industry'];
     case 'product':
-      return ['product', 'service', 'resource'];
-    case 'industry':
-      return ['industry', 'service', 'product'];
+      return ['product', 'resource', 'company'];
     case 'resource':
-      return ['resource', 'service', 'product'];
+      return ['resource', 'product', 'company'];
     default:
-      return ['service', 'product', 'industry', 'resource'];
+      return ['product', 'resource', 'company'];
   }
 }
 

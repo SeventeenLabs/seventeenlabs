@@ -47,7 +47,7 @@ export default function WorkflowsHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-6">
+      <div className="mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link className="flex items-center" href="/">
@@ -117,7 +117,7 @@ export default function WorkflowsHeader() {
       {/* Mobile menu */}
       {isMenuOpen && (
         <div className="border-t md:hidden">
-          <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-6">
+          <div className="mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4">
             <nav className="flex flex-col space-y-1 py-4">
               <Link
                 className="px-3 py-2 text-sm font-medium transition-colors hover:bg-accent rounded-md"

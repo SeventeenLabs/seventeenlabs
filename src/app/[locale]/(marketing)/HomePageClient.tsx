@@ -5,6 +5,8 @@ import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
 import SiteFooter from "@/components/site-footer";
 import WhatWeOffer from "@/components/what-we-offer";
+import ContextCross from "@/components/context-cross";
+import DataHubMap from "@/components/data-hub-map";
 import AiOsExplainer from "@/components/ai-os-explainer";
 import LatestBlogPosts from "@/components/latest-blog-posts";
 import { BlogPostMetadata } from "@/lib/notion-blog";
@@ -28,6 +30,8 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
             <main>
               <LandingHero />
               <WhatWeOffer />
+              <ContextCross />
+              <DataHubMap />
               <AiOsExplainer />
               
               {/* Latest Blog Posts */}

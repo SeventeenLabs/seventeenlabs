@@ -104,7 +104,7 @@ export default function AiOsExplainer() {
     <section className="relative border-t border-white/10 bg-black py-28 lg:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(255,255,255,0.06),transparent_35%),radial-gradient(circle_at_85%_12%,rgba(255,255,255,0.04),transparent_35%)]" />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-12 xl:px-16">
+      <div className="relative mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -78,29 +78,29 @@ export function BlogFooter() {
             </nav>
           </div>
 
-          {/* Services */}
+          {/* Products */}
           <div>
             <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
-              Services
+              Products
             </h3>
             <nav className="space-y-2">
               <Link
-                href="/services/ai-audit"
+                href="/products/relay"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                AI Audit
+                Relay
               </Link>
               <Link
-                href="/services/ai-consulting"
+                href="/products/core"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                Strategic Consulting
+                Core
               </Link>
               <Link
-                href="/services/ai-development"
+                href="/products"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                Custom Development
+                All Products
               </Link>
             </nav>
           </div>

@@ -35,10 +35,10 @@ export default function manifest(): MetadataRoute.Manifest {
         url: '/blog',
       },
       {
-        name: 'Services',
-        short_name: 'Services',
-        description: 'Explore our AI automation services',
-        url: '/services/ai-consulting',
+        name: 'Products',
+        short_name: 'Products',
+        description: 'Explore Relay and Core',
+        url: '/products',
       },
       {
         name: 'Contact',

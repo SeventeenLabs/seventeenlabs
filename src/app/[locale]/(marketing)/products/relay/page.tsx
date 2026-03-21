@@ -79,15 +79,24 @@ export default async function RelayPage({ params }: PageProps) {
 	const pageUrl = isGerman ? `${baseUrl}/de/products/relay` : `${baseUrl}/products/relay`;
 	const content = {
 		en: {
-			eyebrow: "Flagship Product",
-			title: "AI Operating Systems for Governed Business Execution",
+				eyebrow: "Product / Relay",
+				title: "Delegate Real Work. Keep Human Control.",
 			subtitle:
-				"The SeventeenLabs AI operator for planning, approvals, and real execution. Built local-first with human governance at every critical step.",
-			primaryCta: "Request a Relay Walkthrough",
-			secondaryCta: "Read Operator Notes",
-			availability: "For operations, finance, and delivery teams that need speed without risk",
+					"Relay is the SeventeenLabs AI operator for planning, approvals, and execution across your business stack. Teams move faster because every critical action stays reviewable and governed.",
+				primaryCta: "Book a Relay Walkthrough",
+				secondaryCta: "See Use Cases",
+				availability: "Built for operations, finance, and delivery teams that need execution speed without black-box risk",
 			panelTitle: "Live Operating Model",
 			panelStatus: "Human-governed",
+				taskPromptLabel: "Task prompt",
+				executionPlanLabel: "Execution plan",
+				stepLabel: "Step",
+				taskBoardPrompt: "Build a weekly operations briefing from Slack, Notion, CRM, and finance updates. Show me the plan first. Only execute after approval.",
+				taskBoardPlan: [
+					"Collect context from connected systems",
+					"Draft briefing structure and priority list",
+					"Request approval before publishing and notifying owners",
+				],
 			panelItems: [
 				"Relay drafts executable plans from requests and context",
 				"Approvals are enforced before high-impact actions",
@@ -98,7 +107,32 @@ export default async function RelayPage({ params }: PageProps) {
 				{ label: "Decision visibility", value: "Full trail" },
 				{ label: "Deployment model", value: "Local-first" },
 			],
-			highlights: ["Plan with context", "Approve with control", "Execute with accountability"],
+				highlights: ["Context-aware planning", "Approval-driven execution", "Persistent decision memory"],
+				demoActions: ["Create a briefing", "Crunch numbers", "Draft a plan", "Prep updates", "Review tasks", "Notify team"],
+				demoPrompt: "Summarize this week across Slack, Notion, CRM, and finance updates. Build an action plan and wait for approval before sending.",
+				demoFolderLabel: "Work in workspace",
+				demoButton: "Run task",
+				mediaLabel: "Product Preview",
+				mediaHint: "Place image or video here",
+				workflowTitle: "How Relay runs work",
+				workflowSubtitle: "A clear operator loop inspired by modern coworking AI systems, adapted for governed business execution.",
+				workflowSteps: [
+					{
+						title: "Share what needs to happen",
+						description:
+							"Describe the outcome, grant scoped access, and provide context from files, tools, and operating constraints.",
+					},
+					{
+						title: "Relay plans and executes",
+						description:
+							"Relay breaks work into steps, tracks progress, and executes only where permissions and policy allow.",
+					},
+					{
+						title: "You approve and steer",
+						description:
+							"For high-impact actions, teams review the plan, approve changes, and keep a full audit trail of what happened.",
+					},
+				],
 			suiteTitle: "Product suite",
 			suiteSubtitle: "A focused operator stack for governed AI execution in production teams.",
 			suite: [
@@ -188,15 +222,24 @@ export default async function RelayPage({ params }: PageProps) {
 			finalSecondary: "Contact Team",
 		},
 		de: {
-			eyebrow: "Flaggschiffprodukt",
-			title: "KI-Betriebssysteme fur governte Geschaftsausfuhrung",
+					eyebrow: "Produkt / Relay",
+					title: "Echte Arbeit delegieren. Menschliche Kontrolle behalten.",
 			subtitle:
-				"Der KI-Operator von SeventeenLabs fur Planung, Freigaben und echte Ausfuhrung. Lokal-first gebaut, mit menschlicher Governance an jedem kritischen Schritt.",
-			primaryCta: "Relay Walkthrough anfragen",
-			secondaryCta: "Operator-Notizen lesen",
-			availability: "Fur Operations-, Finance- und Delivery-Teams mit hohem Kontrollanspruch",
+						"Relay ist der SeventeenLabs KI-Operator fur Planung, Freigaben und Ausfuhrung uber Ihren gesamten Stack. Teams werden schneller, weil kritische Aktionen kontrollierbar und nachvollziehbar bleiben.",
+					primaryCta: "Relay Walkthrough buchen",
+					secondaryCta: "Use Cases ansehen",
+					availability: "Fur Operations-, Finance- und Delivery-Teams, die Geschwindigkeit ohne Black-Box-Risiko brauchen",
 			panelTitle: "Live-Betriebsmodell",
 			panelStatus: "Menschlich governet",
+				taskPromptLabel: "Aufgaben-Prompt",
+				executionPlanLabel: "Ausfuehrungsplan",
+				stepLabel: "Schritt",
+					taskBoardPrompt: "Erstelle ein woechentliches Operations-Briefing aus Slack, Notion, CRM und Finance-Updates. Zeig mir zuerst den Plan. Erst nach Freigabe ausfuehren.",
+					taskBoardPlan: [
+						"Kontext aus verbundenen Systemen sammeln",
+						"Briefing-Struktur und Prioritaeten entwerfen",
+						"Vor Veroeffentlichung und Benachrichtigung Freigabe einholen",
+					],
 			panelItems: [
 				"Relay erstellt aus Anforderungen ausfuhrbare Plane",
 				"Freigaben werden vor wirkungskritischen Aktionen erzwungen",
@@ -207,7 +250,32 @@ export default async function RelayPage({ params }: PageProps) {
 				{ label: "Entscheidungssichtbarkeit", value: "Volle Historie" },
 				{ label: "Bereitstellungsmodell", value: "Lokal-first" },
 			],
-			highlights: ["Mit Kontext planen", "Mit Kontrolle freigeben", "Verantwortlich ausfuhren"],
+					highlights: ["Kontextbasiert planen", "Freigabegetrieben ausfuehren", "Persistente Entscheidungs-Historie"],
+					demoActions: ["Briefing erstellen", "Zahlen auswerten", "Plan entwerfen", "Updates vorbereiten", "Aufgaben pruefen", "Team informieren"],
+					demoPrompt: "Fasse diese Woche aus Slack, Notion, CRM und Finance-Updates zusammen. Erstelle einen Aktionsplan und warte vor dem Senden auf Freigabe.",
+					demoFolderLabel: "Im Workspace arbeiten",
+					demoButton: "Aufgabe starten",
+					mediaLabel: "Produktvorschau",
+					mediaHint: "Platz fuer Bild oder Video",
+					workflowTitle: "So laeuft Arbeit mit Relay",
+					workflowSubtitle: "Ein klarer Operator-Loop, inspiriert von modernen Cowork-AI-Systemen und fuer governte Geschaeftsausfuehrung optimiert.",
+					workflowSteps: [
+						{
+							title: "Ziel und Kontext teilen",
+							description:
+								"Beschreiben Sie das Ergebnis, geben Sie gezielten Zugriff frei und liefern Sie Kontext aus Dateien, Tools und Regeln.",
+						},
+						{
+							title: "Relay plant und fuehrt aus",
+							description:
+								"Relay zerlegt Aufgaben in Schritte, verfolgt den Fortschritt und fuehrt nur aus, was Rechte und Richtlinien erlauben.",
+						},
+						{
+							title: "Sie geben frei und steuern nach",
+							description:
+								"Bei kritischen Aktionen pruift Ihr Team den Plan, gibt gezielt frei und behaelt volle Nachvollziehbarkeit.",
+						},
+					],
 			suiteTitle: "Produktsuite",
 			suiteSubtitle: "Ein fokussierter Operator-Stack fur governte KI-Ausfuhrung in produktiven Teams.",
 			suite: [
@@ -298,6 +366,7 @@ export default async function RelayPage({ params }: PageProps) {
 		},
 	} as const;
 	const t = isGerman ? content.de : content.en;
+	const pageContainer = "mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4";
 
 	const serviceSchema = {
 		"@context": "https://schema.org",
@@ -324,15 +393,15 @@ export default async function RelayPage({ params }: PageProps) {
 			/>
 			<main className="min-h-screen bg-neutral-950 text-white">
 				<section className="relative overflow-hidden border-b border-white/10">
-					<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(255,255,255,0.13),transparent_38%),radial-gradient(circle_at_88%_2%,rgba(255,255,255,0.08),transparent_34%)]" />
-					<div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-5 sm:py-20 lg:px-6 lg:py-24">
-						<div className="grid gap-10 lg:grid-cols-[1.1fr,0.9fr] lg:items-start">
+					<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_12%,rgba(255,255,255,0.13),transparent_30%),radial-gradient(circle_at_90%_4%,rgba(163,230,53,0.14),transparent_34%),linear-gradient(to_bottom,rgba(255,255,255,0.04),rgba(255,255,255,0))]" />
+					<div className={`${pageContainer} relative pb-16 pt-10 sm:pb-20 sm:pt-12 lg:pb-24 lg:pt-14`}>
+						<div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[0.95fr,1.05fr] lg:items-center">
 							<div>
-								<p className="mb-5 inline-flex items-center rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/70">
+								<p className="mb-5 inline-flex items-center rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">
 									{t.eyebrow}
 								</p>
-								<h1 className="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">{t.title}</h1>
-								<p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">{t.subtitle}</p>
+								<h1 className="max-w-2xl text-4xl font-semibold leading-[1.06] sm:text-5xl lg:text-7xl">{t.title}</h1>
+								<p className="mt-6 max-w-xl text-base leading-relaxed text-white/72 sm:text-[1.15rem]">{t.subtitle}</p>
 
 								<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
 									<Link
@@ -360,37 +429,90 @@ export default async function RelayPage({ params }: PageProps) {
 								</div>
 							</div>
 
-							<aside className="rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-5 shadow-[0_20px_60px_-25px_rgba(0,0,0,0.7)] sm:p-6">
-								<div className="flex items-center justify-between border-b border-white/10 pb-4">
-									<h2 className="text-sm font-semibold tracking-wide text-white/90">{t.panelTitle}</h2>
-									<span className="rounded-full border border-emerald-300/25 bg-emerald-300/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-200">
-										{t.panelStatus}
-									</span>
+							<aside className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-[#f2f1ed] p-4 shadow-[0_24px_80px_-28px_rgba(0,0,0,0.8)] sm:p-6">
+								<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[size:28px_28px]" />
+								<div className="relative mb-4 overflow-hidden rounded-2xl border border-black/10 bg-white">
+									<div className="aspect-[16/9] w-full bg-[linear-gradient(135deg,rgba(0,0,0,0.08),rgba(0,0,0,0.02))]" />
+									<div className="absolute inset-0 flex items-center justify-center">
+										<div className="rounded-xl border border-black/15 bg-white/85 px-4 py-3 text-center">
+											<p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">{t.mediaLabel}</p>
+											<p className="mt-1 text-sm text-zinc-700">{t.mediaHint}</p>
+										</div>
+									</div>
+								</div>
+								<div className="relative rounded-2xl border border-black/10 bg-white/85 p-4 sm:p-5">
+									<div className="grid gap-2 sm:grid-cols-3">
+										{t.demoActions.map((action) => (
+											<div key={action} className="rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-medium text-zinc-700">
+												{action}
+											</div>
+										))}
+									</div>
+
+									<div className="relative mt-4 rounded-xl border border-black/10 bg-white px-3 py-3.5">
+										<p className="pr-24 text-sm leading-snug text-zinc-700">{t.demoPrompt}</p>
+										<button
+											type="button"
+											className="absolute bottom-2.5 right-2.5 rounded-md bg-[#c25d39] px-3 py-1.5 text-xs font-semibold text-white"
+										>
+											{t.demoButton}
+										</button>
+									</div>
+
+									<div className="mt-2 flex items-center justify-between text-[11px] text-zinc-500">
+										<span>{t.demoFolderLabel}</span>
+										<span>{t.panelStatus}</span>
+									</div>
 								</div>
 
-								<ul className="mt-5 space-y-3">
-									{t.panelItems.map((item) => (
-										<li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-white/80">
-											<span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white/70" />
-											<span>{item}</span>
-										</li>
-									))}
-								</ul>
+								<div className="relative mt-4 rounded-2xl border border-black/10 bg-black/95 p-4 text-white">
+									<div className="mb-3 flex items-center justify-between">
+										<h2 className="text-sm font-semibold tracking-wide text-white/90">{t.panelTitle}</h2>
+										<span className="rounded-full border border-lime-300/30 bg-lime-300/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-lime-100">
+											{t.panelStatus}
+										</span>
+									</div>
 
-								<dl className="mt-6 grid gap-3 sm:grid-cols-3">
-									{t.metrics.map((metric) => (
-										<div key={metric.label} className="rounded-xl border border-white/10 bg-black/30 px-3 py-3">
-											<dt className="text-[10px] uppercase tracking-wide text-white/55">{metric.label}</dt>
-											<dd className="mt-1 text-sm font-semibold text-white">{metric.value}</dd>
-										</div>
-									))}
-								</dl>
+									<ul className="space-y-2.5">
+										{t.panelItems.map((item) => (
+											<li key={item} className="flex items-start gap-2.5 text-xs leading-relaxed text-white/80 sm:text-sm">
+												<span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-lime-200" />
+												<span>{item}</span>
+											</li>
+										))}
+									</ul>
+
+									<dl className="mt-4 grid gap-2 sm:grid-cols-3">
+										{t.metrics.map((metric) => (
+											<div key={metric.label} className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-2.5">
+												<dt className="text-[10px] uppercase tracking-wide text-white/55">{metric.label}</dt>
+												<dd className="mt-1 text-xs font-semibold text-white sm:text-sm">{metric.value}</dd>
+											</div>
+										))}
+									</dl>
+								</div>
 							</aside>
 						</div>
 					</div>
 				</section>
 
-				<section className="mx-auto max-w-7xl px-4 py-16 sm:px-5 lg:px-6">
+				<section className={`${pageContainer} py-16`}>
+					<div className="mb-8 flex flex-col gap-3 sm:mb-10">
+						<h2 className="text-2xl font-semibold sm:text-3xl">{t.workflowTitle}</h2>
+						<p className="max-w-3xl text-sm text-white/70 sm:text-base">{t.workflowSubtitle}</p>
+					</div>
+					<div className="grid gap-4 md:grid-cols-3">
+						{t.workflowSteps.map((step, idx) => (
+							<article key={step.title} className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-5">
+								<p className="text-xs font-semibold uppercase tracking-wider text-lime-200/90">{t.stepLabel} {idx + 1}</p>
+								<h3 className="mt-2 text-lg font-medium text-white">{step.title}</h3>
+								<p className="mt-3 text-sm leading-relaxed text-white/70">{step.description}</p>
+							</article>
+						))}
+					</div>
+				</section>
+
+				<section className={`${pageContainer} py-16`}>
 					<div className="mb-8 flex flex-col gap-3 sm:mb-10">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.suiteTitle}</h2>
 						<p className="max-w-3xl text-sm text-white/70 sm:text-base">{t.suiteSubtitle}</p>
@@ -408,7 +530,7 @@ export default async function RelayPage({ params }: PageProps) {
 					</div>
 				</section>
 
-				<section className="mx-auto max-w-7xl border-y border-white/10 px-4 py-16 sm:px-5 lg:px-6">
+				<section className={`${pageContainer} border-y border-white/10 py-16`}>
 					<h2 className="text-2xl font-semibold sm:text-3xl">{t.sectionsTitle}</h2>
 					<div className="mt-8 grid gap-6 md:grid-cols-3">
 						{t.sections.map((section) => (
@@ -420,7 +542,7 @@ export default async function RelayPage({ params }: PageProps) {
 					</div>
 				</section>
 
-				<section className="mx-auto max-w-7xl px-4 py-16 sm:px-5 lg:px-6">
+				<section className={`${pageContainer} py-16`}>
 					<div className="mb-8 flex flex-col gap-3 sm:mb-10">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.futureTitle}</h2>
 						<p className="max-w-3xl text-sm text-white/70 sm:text-base">{t.futureSubtitle}</p>
@@ -448,7 +570,7 @@ export default async function RelayPage({ params }: PageProps) {
 					</div>
 				</section>
 
-				<section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-5 lg:grid-cols-[0.95fr,1.05fr] lg:px-6">
+				<section className={`${pageContainer} grid gap-6 py-16 lg:grid-cols-[0.95fr,1.05fr]`}>
 					<div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-7">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.useCasesTitle}</h2>
 						<ul className="mt-6 space-y-3">
@@ -476,7 +598,7 @@ export default async function RelayPage({ params }: PageProps) {
 				</section>
 
 				<section className="border-t border-white/10 bg-white/[0.02]">
-					<div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-14 sm:px-5 lg:flex-row lg:items-center lg:justify-between lg:px-6">
+					<div className={`${pageContainer} flex flex-col gap-5 py-14 lg:flex-row lg:items-center lg:justify-between`}>
 						<div>
 							<h2 className="text-2xl font-semibold sm:text-3xl">{t.finalTitle}</h2>
 							<p className="mt-3 max-w-2xl text-sm text-white/70 sm:text-base">{t.finalDescription}</p>

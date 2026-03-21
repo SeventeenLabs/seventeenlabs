@@ -89,8 +89,8 @@ export default function WhatWeOffer() {
     <section className="relative overflow-hidden border-t border-white/10 bg-black">
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-      <div className="px-4 py-28 sm:px-8 lg:px-12 xl:px-16 lg:py-32">
-        <div className="mx-auto max-w-6xl space-y-24">
+      <div className="mx-auto w-full max-w-[94rem] px-2.5 py-28 sm:px-3 lg:px-4 lg:py-32">
+        <div className="w-full space-y-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -15,6 +15,7 @@ export default function SiteFooter() {
       productsNav: 'Products',
       platform: 'Platform',
       relay: 'Relay by SeventeenLabs',
+      core: 'Core by SeventeenLabs',
       workflows: 'Product Library',
       blogNav: 'Blog',
       products: 'Products',
@@ -26,12 +27,13 @@ export default function SiteFooter() {
       copyright: 'SeventeenLabs. All rights reserved.',
       ctaTitle: 'Integrate AI into daily operations with control',
       ctaSubtitle: 'Capture AI upside while reducing risk through governance, human approval, and accountable execution.',
-      ctaButton: 'Explore Relay',
+      ctaButton: 'View Products',
     },
     de: {
       productsNav: 'Produkte',
       platform: 'Plattform',
       relay: 'Relay by SeventeenLabs',
+      core: 'Core by SeventeenLabs',
       workflows: 'Produktbibliothek',
       blogNav: 'Blog',
       products: 'Produkte',
@@ -43,7 +45,7 @@ export default function SiteFooter() {
       copyright: 'SeventeenLabs. Alle Rechte vorbehalten.',
       ctaTitle: 'KI kontrolliert in tägliche Abläufe integrieren',
       ctaSubtitle: 'Nutzen Sie KI-Upside und reduzieren Sie Risiko durch Governance, menschliche Freigabe und nachvollziehbare Ausführung.',
-      ctaButton: 'Relay entdecken',
+      ctaButton: 'Produkte ansehen',
     },
   };
 
@@ -66,7 +68,7 @@ export default function SiteFooter() {
               {t.ctaSubtitle}
             </p>
             <Link
-              href={getLocalizedPath(locale, '/products/relay')}
+              href={getLocalizedPath(locale, '/products')}
               className="group inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 text-black transition-all duration-300 hover:bg-white/90"
               style={{ fontFamily: "var(--font-display)" }}
             >
@@ -145,6 +147,12 @@ export default function SiteFooter() {
                 className="block text-sm text-white/70 hover:text-white transition-colors font-light"
               >
                 {t.relay}
+              </Link>
+              <Link
+                href={getLocalizedPath(locale, '/products/core')}
+                className="block text-sm text-white/70 hover:text-white transition-colors font-light"
+              >
+                {t.core}
               </Link>
             </nav>
           </div>
