@@ -142,13 +142,15 @@ export default function LandingHeader() {
           <div className="flex items-center gap-8">
             {/* Logo */}
             <Link href={getLocalizedPath(locale)} className="-m-1.5 p-1.5 flex items-center gap-2">
-              <Image
-                src="/logo_anim.svg"
-                alt="SeventeenLabs Logo"
-                width={110}
-                height={20}
-                className="h-5 w-auto"
-              />
+              <span className="relative block h-[18px] w-[136px] sm:h-[21px] sm:w-[156px]">
+                <Image
+                  src="/logo_anim.svg"
+                  alt="SeventeenLabs Logo"
+                  fill
+                  sizes="(min-width: 640px) 156px, 136px"
+                  className="object-contain object-left"
+                />
+              </span>
             </Link>
             
             {/* Divider */}
@@ -373,13 +375,15 @@ export default function LandingHeader() {
             <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black/95 backdrop-blur-lg px-6 py-6 sm:max-w-sm">
               <div className="flex items-center justify-between">
                 <Link href={getLocalizedPath(locale)} className="-m-1.5 p-1.5">
-                  <Image
-                    src="/logo_anim.svg"
-                    alt="SeventeenLabs Logo"
-                    width={110}
-                    height={20}
-                    className="h-5 w-auto"
-                  />
+                  <span className="relative block h-[18px] w-[128px]">
+                    <Image
+                      src="/logo_anim.svg"
+                      alt="SeventeenLabs Logo"
+                      fill
+                      sizes="128px"
+                      className="object-contain object-left"
+                    />
+                  </span>
                 </Link>
                 <button
                   type="button"
