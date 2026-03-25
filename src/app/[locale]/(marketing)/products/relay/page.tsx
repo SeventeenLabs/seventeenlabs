@@ -753,16 +753,19 @@ export default async function RelayPage({ params }: PageProps) {
 					</div>
 					<div className="grid gap-4 md:grid-cols-3">
 						{t.suite.map((item) => (
+							(() => {
+								const isExternal = "external" in item && item.external;
+								return (
 							<article key={item.title} className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-lime-300/35 hover:bg-white/[0.06]">
 								<h3 className="text-lg font-medium text-white">{item.title}</h3>
 								<p className="mt-3 text-sm leading-relaxed text-white/70">{item.description}</p>
 								<Link
 									href={item.href}
-									target={item.external ? "_blank" : undefined}
-									rel={item.external ? "noreferrer" : undefined}
+									target={isExternal ? "_blank" : undefined}
+									rel={isExternal ? "noreferrer" : undefined}
 									className="mt-5 inline-flex text-sm font-semibold text-lime-200 transition group-hover:text-lime-100"
 								>
-									{item.external ? (
+									{isExternal ? (
 										<span className="inline-flex items-center gap-2">
 											{githubIcon}
 											<span>{item.cta}</span>
@@ -772,6 +775,8 @@ export default async function RelayPage({ params }: PageProps) {
 									)}
 								</Link>
 							</article>
+								);
+							})()
 						))}
 					</div>
 					<div className="mt-8 flex flex-col gap-3 sm:flex-row">
