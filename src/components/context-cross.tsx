@@ -33,10 +33,10 @@ export default function ContextCross() {
       };
 
   return (
-    <section className="relative border-t border-white/10 bg-black py-24 lg:py-28">
+    <section className="relative border-t border-white/10 bg-black py-20 sm:py-24 lg:py-28">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.05),transparent_36%),radial-gradient(circle_at_82%_16%,rgba(255,255,255,0.04),transparent_34%)]" />
 
-      <div className="relative mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4">
+      <div className="relative mx-auto w-full max-w-[94rem] px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export default function ContextCross() {
           className="max-w-3xl"
         >
           <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">{copy.eyebrow}</p>
-          <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+          <h2 className="text-2xl font-medium tracking-tight text-white sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
             {copy.title}
           </h2>
           <p className="mt-5 text-base leading-relaxed text-white/72" style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}>

@@ -89,7 +89,7 @@ export default function WhatWeOffer() {
     <section className="relative overflow-hidden border-t border-white/10 bg-black">
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-      <div className="mx-auto w-full max-w-[94rem] px-2.5 py-28 sm:px-3 lg:px-4 lg:py-32">
+      <div className="mx-auto w-full max-w-[94rem] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
         <div className="w-full space-y-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function WhatWeOffer() {
               {isGerman ? "Was Eigentumer wissen wollen" : "What owners need to know"}
             </p>
             <h2
-              className="text-4xl font-light tracking-tight text-white md:text-5xl lg:text-6xl"
+              className="text-3xl font-light tracking-tight text-white md:text-5xl lg:text-6xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {isGerman ? "KI im Tagesbetrieb: Wirkung, Risiko, Kontrolle" : "AI in daily operations: upside, risk, control"}

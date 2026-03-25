@@ -220,13 +220,13 @@ export default function SiteFooter() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/10">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
             <div className="text-xs text-white/40 font-light">
               © {new Date().getFullYear()} {t.copyright}
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
               <LanguageSwitcher />
-              <nav className="flex items-center gap-4 text-xs text-white/40">
+              <nav className="flex flex-wrap items-center justify-center gap-3 text-xs text-white/40 sm:justify-end">
                 <Link
                   href="/rss"
                   className="hover:text-white transition-colors"

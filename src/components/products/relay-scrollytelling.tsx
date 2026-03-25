@@ -88,12 +88,12 @@ export default function RelayScrollytelling({
 					</span>
 				</div>
 				<p className="text-xs font-semibold uppercase tracking-[0.14em] text-lime-300/90">{eyebrow}</p>
-				<h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">{title}</h2>
-				<p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">{subtitle}</p>
+				<h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">{title}</h2>
+				<p className="mt-4 text-sm leading-relaxed text-white/70 sm:text-lg">{subtitle}</p>
 			</header>
 
-			<div className="grid items-start gap-8 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] md:gap-10 lg:gap-12">
-				<div className="space-y-16 lg:space-y-24">
+			<div className="grid items-start gap-7 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] md:gap-10 lg:gap-12">
+				<div className="space-y-8 sm:space-y-10 lg:space-y-24">
 					{steps.map((step, index) => {
 						const StepIcon = iconMap[step.icon];
 						const isActive = index === activeIndex;
@@ -104,7 +104,7 @@ export default function RelayScrollytelling({
 									itemRefs.current[index] = el;
 								}}
 								data-step-index={index}
-								className="flex min-h-[calc(100vh-6rem)] flex-col justify-center px-2 py-6 sm:px-3 sm:py-7"
+								className="flex min-h-0 flex-col justify-center px-0 py-4 sm:px-1 sm:py-5 md:min-h-[calc(100vh-6rem)] md:px-2 md:py-6 lg:px-3 lg:py-7"
 							>
 								<div className="flex items-center gap-3">
 									<span
@@ -116,9 +116,16 @@ export default function RelayScrollytelling({
 									>
 										<StepIcon className="h-4.5 w-4.5" />
 									</span>
-									<h3 className="text-xl font-medium text-white sm:text-2xl">{step.title}</h3>
+									<h3 className="text-lg font-medium text-white sm:text-xl lg:text-2xl">{step.title}</h3>
 								</div>
 								<p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">{step.description}</p>
+
+								<div className="mt-4 md:hidden">
+									<div className="relative aspect-[16/10] w-full">
+										<img src={step.mediaSrc} alt={step.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
+									</div>
+								</div>
+
 								<ul className="mt-5 space-y-2.5">
 									{step.bullets.map((item) => (
 										<li key={item} className="flex items-start gap-2.5 py-1 text-sm text-white/80">
@@ -132,7 +139,7 @@ export default function RelayScrollytelling({
 					})}
 				</div>
 
-				<div className="relative md:sticky md:top-24 md:self-start md:pl-2 lg:pl-4">
+				<div className="relative hidden md:sticky md:top-24 md:block md:self-start md:pl-2 lg:pl-4">
 					<div className="md:flex md:min-h-[calc(100vh-6rem)] md:w-full md:items-center">
 						<AnimatePresence mode="wait">
 							<motion.div
@@ -143,9 +150,8 @@ export default function RelayScrollytelling({
 								exit={{ opacity: 0, y: -6 }}
 								transition={{ duration: 0.22, ease: "easeOut" }}
 							>
-								<div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/15">
+								<div className="relative aspect-[16/10] w-full">
 									<img src={activeStep.mediaSrc} alt={activeStep.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
-									<div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent" />
 								</div>
 							</motion.div>
 						</AnimatePresence>

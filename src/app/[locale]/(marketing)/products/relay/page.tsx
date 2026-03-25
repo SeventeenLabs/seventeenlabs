@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import RelayScrollytelling from "@/components/products/relay-scrollytelling";
-import RelayModernShowcase from "@/components/products/relay-modern-showcase";
 
 interface PageProps {
 	params: Promise<{ locale: string }>;
@@ -84,9 +83,9 @@ export default async function RelayPage({ params }: PageProps) {
 				eyebrow: "Product / Relay",
 				title: "Delegate Real Work. Keep Human Control.",
 			subtitle:
-					"Relay is the SeventeenLabs AI operator for planning, approvals, and execution across your business stack. Teams move faster because every critical action stays reviewable and governed.",
+					"Relay gives operators a self-hosted, model-agnostic control plane to dispatch tasks, review outcomes, approve risky actions, and keep work grounded in project context.",
 				primaryCta: "Download Relay",
-				secondaryCta: "See Use Cases",
+				secondaryCta: "See Features",
 				availability: "Built for operations, finance, and delivery teams that need execution speed without black-box risk",
 			panelTitle: "Live Operating Model",
 			panelStatus: "Human-governed",
@@ -117,119 +116,155 @@ export default async function RelayPage({ params }: PageProps) {
 				mediaLabel: "Product Preview",
 				mediaHint: "Place image or video here",
 				workflowTitle: "How Relay runs work",
-				workflowSubtitle: "A clear operator loop inspired by modern coworking AI systems, adapted for governed business execution.",
+				workflowSubtitle: "A governed operator loop that keeps humans in control while AI handles practical execution.",
 				workflowSteps: [
 					{
-						title: "Share what needs to happen",
+						title: "Define the outcome and context",
 						description:
-							"Describe the outcome, grant scoped access, and provide context from files, tools, and operating constraints.",
+							"Start from a project with a clear folder boundary, objective, and connector access so execution stays grounded.",
 					},
 					{
-						title: "Relay plans and executes",
+						title: "Relay plans and prepares execution",
 						description:
-							"Relay breaks work into steps, tracks progress, and executes only where permissions and policy allow.",
+							"Relay builds a step-by-step plan, maps actions to risk scopes, and prepares the run with full visibility.",
 					},
 					{
-						title: "You approve and steer",
+						title: "Approve, run, and review artifacts",
 						description:
-							"For high-impact actions, teams review the plan, approve changes, and keep a full audit trail of what happened.",
+							"High-risk actions wait for approval, then Relay executes and records outcomes, file changes, and decision traces.",
 					},
 				],
-			suiteTitle: "Product suite",
-			suiteSubtitle: "A focused operator stack for governed AI execution in production teams.",
+			suiteTitle: "Shipping now",
+			suiteSubtitle: "Core Relay capabilities available today for governed operator workflows.",
 			suite: [
 				{
-					title: "Relay",
-					description: "AI operator software for governed planning, approvals, and execution.",
-					href: "/products/relay",
-					cta: "Current product",
+					title: "Desktop operator interface",
+					description: "One desktop surface for Cowork, Files, Activity, Memory, Schedule, Safety, and Settings.",
+					href: "#how-relay-works",
+					cta: "See workflow",
 				},
 				{
-					title: "Governance Patterns",
-					description: "Implementation patterns for approvals, audit trails, and operational controls.",
-					href: "/blog",
-					cta: "Explore",
+					title: "Chat and cowork task execution",
+					description: "Move from conversation to execution with task states, run feedback, and recents in one loop.",
+					href: "#how-relay-works",
+					cta: "Explore loop",
 				},
 				{
-					title: "Insights",
-					description: "Implementation notes, strategy articles, and product guidance for operating teams.",
-					href: "/blog",
-					cta: "Read",
+					title: "Project-based context",
+					description: "Bind each cowork run to a named project and root folder to reduce context drift and file mistakes.",
+					href: "#how-relay-works",
+					cta: "View project model",
+				},
+				{
+					title: "File operations and browsing",
+					description: "Review project files and local files with preview, metadata, and direct file actions from the same desk.",
+					href: "#governance-and-workspace",
+					cta: "Inspect workspace",
+				},
+				{
+					title: "Safety policy and approvals",
+					description: "Use low, medium, high, and critical scopes with per-scope approval requirements for risky actions.",
+					href: "#governance-and-workspace",
+					cta: "Review controls",
+				},
+				{
+					title: "Connector foundation",
+					description: "Run policy-aware actions through connectors with File System active and Shell/Web Fetch available.",
+					href: "#shipping-now",
+					cta: "See connectors",
+				},
+				{
+					title: "Schedule and memory visibility",
+					description: "Track scheduled jobs and reusable memory context so operators reduce repeated prompting.",
+					href: "#roadmap",
+					cta: "See roadmap",
+				},
+				{
+					title: "Endpoint routing",
+					description: "Connect Relay to local, VPS, or custom OpenClaw endpoints without changing operator workflow.",
+					href: "https://github.com/SeventeenLabs/relay",
+					cta: "Star on GitHub",
+					external: true,
 				},
 			],
-			sectionsTitle: "How Relay works",
+			sectionsTitle: "Feature highlights",
 			sections: [
 				{
-					title: "Plan",
+					title: "Project-bound execution",
 					description:
-						"Relay turns goals into structured action plans with constraints, dependencies, and ownership before execution starts.",
+						"Every run stays tied to a project and folder boundary so context remains stable across planning and execution.",
 				},
 				{
-					title: "Approve",
+					title: "Approval-first risk control",
 					description:
-						"Approval checkpoints ensure people stay in control of risk, budget, and quality while preserving team velocity.",
+						"High-risk scopes require operator approval before sensitive actions proceed, preserving speed without losing oversight.",
 				},
 				{
-					title: "Execute",
+					title: "Local-first file operations",
 					description:
-						"After approval, Relay executes workflows with status tracking, evidence capture, and clear accountability.",
+						"Inspect, create, and update artifacts where work happens so outputs stay visible and reviewable.",
 				},
 			],
-			futureTitle: "Future of enterprise AI",
+			futureTitle: "In build and near-term roadmap",
 			futureSubtitle:
-				"Teams are moving from isolated copilots to governed agent systems that can run real workflows with human oversight.",
+				"These items are in active development and should be positioned as coming next, not as current core claims.",
 			futureCards: [
 				{
-					title: "What companies want",
+					title: "Dispatch mode and background queue",
 					description:
-						"Faster decisions, less context switching, higher execution consistency, and automation that improves margin instead of adding risk.",
+						"Persisted result delivery for background task runs so operators can delegate and return with full context.",
 				},
 				{
-					title: "What companies need",
+					title: "Server-side persistent threads",
 					description:
-						"A clear context layer, unified operational data, policy-gated agent orchestration, and measurable KPI impact per workflow.",
+						"A stronger shared source of truth for session continuity and long-running operational workflows.",
 				},
 				{
-					title: "How autonomy should scale",
+					title: "Expanded connector ecosystem",
 					description:
-						"Inform, recommend, confirm, then constrained autonomy. High-risk actions stay human-approved until trust is proven.",
+						"Slack, GitHub, Notion, Drive, and Calendar connectors to extend execution while preserving policy controls.",
+				},
+				{
+					title: "Deeper governance and audit",
+					description:
+						"Richer audit tooling and stronger schedule authoring flows for teams with stricter operating requirements.",
 				},
 			],
-			futureNeedsTitle: "Operating requirements for production AI",
+			futureNeedsTitle: "Claim guardrails for product copy",
 			futureNeeds: [
-				"Governance by default: approvals, ownership, traceable decision logs",
-				"Enterprise memory: CRM, finance, comms, transcripts, SOPs, and policies",
-				"Execution fabric: tool-connected agents with retries, rollback, and escalation",
-				"Observability: quality, drift, latency, and business-outcome telemetry",
+				"Use confidently: desktop operator desk for AI work",
+				"Use confidently: self-hosted, local-first friendly, model-agnostic through OpenClaw",
+				"Avoid unqualified claims: fully autonomous unattended operations",
+				"Avoid unqualified claims: complete compliance certification out of the box",
 			],
-			useCasesTitle: "Built for real business workflows",
+			useCasesTitle: "FAQ",
 			useCases: [
-				"Campaign planning and launch operations",
-				"Cross-functional reporting and stakeholder updates",
-				"Client delivery runbooks with approval guardrails",
-				"Internal SOP execution with compliance traces",
+				"Is Relay the AI model? No. Relay is the operator interface and control plane.",
+				"Can Relay run self-hosted? Yes. Relay is designed for local-first and self-hosted operation models.",
+				"Is Relay tied to one provider? No. Relay is model-agnostic through OpenClaw routing.",
+				"How are risky actions handled? Safety scopes and approval requirements gate sensitive actions.",
 			],
-			governanceTitle: "Governance by default",
+			governanceTitle: "Why teams switch to Relay",
 			governanceDescription:
-				"Relay is designed for organizations that want AI leverage without black-box execution. Every step can be reviewed, approved, and traced.",
+				"Relay is built for teams that need execution governance, data control, and model flexibility without giving up operator velocity.",
 			governancePoints: [
-				"Human-in-the-loop controls on critical actions",
-				"Role-aware approvals and decision ownership",
-				"Persistent event logs for audits and retrospectives",
+				"We already use chat tools -> Relay governs execution, not just prompting",
+				"We need strict approvals -> Relay supports scope-based approval controls",
+				"We cannot lock into one model vendor -> Relay is model-agnostic via OpenClaw",
 			],
-			finalTitle: "Deploy Relay in your operating model",
+			finalTitle: "Run your first governed task",
 			finalDescription:
-				"See how Relay maps to your existing processes, control requirements, and team workflows.",
-			finalPrimary: "Book a Demo",
-			finalSecondary: "Contact Team",
+				"Start local-first with Relay, connect your endpoint, and execute AI work with approval controls from day one.",
+			finalPrimary: "Download Relay",
+			finalSecondary: "Star on GitHub",
 		},
 		de: {
 					eyebrow: "Produkt / Relay",
 					title: "Echte Arbeit delegieren. Menschliche Kontrolle behalten.",
 			subtitle:
-						"Relay ist der SeventeenLabs KI-Operator fur Planung, Freigaben und Ausfuhrung uber Ihren gesamten Stack. Teams werden schneller, weil kritische Aktionen kontrollierbar und nachvollziehbar bleiben.",
+						"Relay ist eine self-hosted, modell-agnostische Operator-Oberflaeche, mit der Teams Aufgaben starten, Ergebnisse pruefen und riskante Aktionen gezielt freigeben.",
 					primaryCta: "Relay herunterladen",
-					secondaryCta: "Use Cases ansehen",
+					secondaryCta: "Features ansehen",
 					availability: "Fur Operations-, Finance- und Delivery-Teams, die Geschwindigkeit ohne Black-Box-Risiko brauchen",
 			panelTitle: "Live-Betriebsmodell",
 			panelStatus: "Menschlich governet",
@@ -260,231 +295,240 @@ export default async function RelayPage({ params }: PageProps) {
 					mediaLabel: "Produktvorschau",
 					mediaHint: "Platz fuer Bild oder Video",
 					workflowTitle: "So laeuft Arbeit mit Relay",
-					workflowSubtitle: "Ein klarer Operator-Loop, inspiriert von modernen Cowork-AI-Systemen und fuer governte Geschaeftsausfuehrung optimiert.",
+					workflowSubtitle: "Ein governter Operator-Loop mit menschlicher Kontrolle bei kritischen Schritten.",
 					workflowSteps: [
 						{
-							title: "Ziel und Kontext teilen",
+							title: "Outcome und Kontext definieren",
 							description:
-								"Beschreiben Sie das Ergebnis, geben Sie gezielten Zugriff frei und liefern Sie Kontext aus Dateien, Tools und Regeln.",
+								"Starten Sie im richtigen Projekt mit klarem Ordnerbezug, Ziel und Connector-Zugriff.",
 						},
 						{
-							title: "Relay plant und fuehrt aus",
+							title: "Relay plant und bereitet aus",
 							description:
-								"Relay zerlegt Aufgaben in Schritte, verfolgt den Fortschritt und fuehrt nur aus, was Rechte und Richtlinien erlauben.",
+								"Relay erstellt einen Schrittplan, ordnet Risiken zu und bereitet die Ausfuehrung transparent vor.",
 						},
 						{
-							title: "Sie geben frei und steuern nach",
+							title: "Freigeben, ausfuehren, Ergebnisse pruefen",
 							description:
-								"Bei kritischen Aktionen pruift Ihr Team den Plan, gibt gezielt frei und behaelt volle Nachvollziehbarkeit.",
+								"Kritische Aktionen warten auf Freigabe. Danach dokumentiert Relay Entscheidungen und Artefakte nachvollziehbar.",
 						},
 					],
-			suiteTitle: "Produktsuite",
-			suiteSubtitle: "Ein fokussierter Operator-Stack fur governte KI-Ausfuhrung in produktiven Teams.",
+			suiteTitle: "Jetzt verfuegbar",
+			suiteSubtitle: "Aktuelle Relay-Funktionen fuer governte Operator-Workflows.",
 			suite: [
 				{
-					title: "Relay",
-					description: "KI-Operator-Software fur governte Planung, Freigaben und Ausfuhrung.",
-					href: "/de/products/relay",
-					cta: "Aktuelles Produkt",
+					title: "Desktop Operator Interface",
+					description: "Eine zentrale Oberflaeche fur Cowork, Files, Activity, Memory, Schedule, Safety und Settings.",
+					href: "#how-relay-works",
+					cta: "Workflow ansehen",
 				},
 				{
-					title: "Governance Patterns",
-					description: "Umsetzungsmuster fur Freigaben, Audit-Trails und operative Kontrolle.",
-					href: "/de/blog",
-					cta: "Entdecken",
+					title: "Chat und Cowork Ausfuehrung",
+					description: "Von Unterhaltung zu Task-Ausfuehrung mit Status, Run-Feedback und Recents.",
+					href: "#how-relay-works",
+					cta: "Loop ansehen",
 				},
 				{
-					title: "Insights",
-					description: "Umsetzungswissen, Strategieartikel und Produktleitfaden fur operative Teams.",
-					href: "/de/blog",
-					cta: "Lesen",
+					title: "Projektbasierter Kontext",
+					description: "Jeder Run bleibt an Projekt und Root-Ordner gebunden, damit Kontextdrift reduziert wird.",
+					href: "#how-relay-works",
+					cta: "Projektmodell ansehen",
+				},
+				{
+					title: "Dateioperationen und Browsing",
+					description: "Projekt- und lokale Dateien inklusive Vorschau, Metadaten und direkter Aktionen.",
+					href: "#governance-and-workspace",
+					cta: "Workspace pruefen",
+				},
+				{
+					title: "Safety Policy und Freigaben",
+					description: "Risikostufen low bis critical mit konfigurierter Freigabepflicht fur sensible Aktionen.",
+					href: "#governance-and-workspace",
+					cta: "Kontrollen ansehen",
+				},
+				{
+					title: "Connector Foundation",
+					description: "Policy-aware Connector-Aktionen mit aktivem File System und optionalem Shell/Web Fetch.",
+					href: "#shipping-now",
+					cta: "Connectoren ansehen",
+				},
+				{
+					title: "Schedule und Memory Sichtbarkeit",
+					description: "Geplante Jobs und wiederverwendbarer Kontext in einer Bedienoberflaeche.",
+					href: "#roadmap",
+					cta: "Roadmap ansehen",
+				},
+				{
+					title: "Endpoint Routing",
+					description: "Relay verbindet lokale, VPS- oder benutzerdefinierte OpenClaw-Endpunkte ohne Workflow-Bruch.",
+					href: "https://github.com/SeventeenLabs/relay",
+					cta: "GitHub Star",
+					external: true,
 				},
 			],
-			sectionsTitle: "So funktioniert Relay",
+			sectionsTitle: "Feature Highlights",
 			sections: [
 				{
-					title: "Planen",
+					title: "Projektgebundene Ausfuehrung",
 					description:
-						"Relay wandelt Ziele in strukturierte Aktionsplane mit Abhangigkeiten, Einschrankungen und Verantwortlichkeiten um.",
+						"Jeder Run bleibt an Projekt- und Ordnergrenzen gebunden, damit der Kontext stabil bleibt.",
 				},
 				{
-					title: "Freigeben",
+					title: "Freigabeorientierte Risikokontrolle",
 					description:
-						"Freigabe-Checkpoints halten Menschen bei Risiko, Budget und Qualitat in Kontrolle, ohne die Geschwindigkeit zu bremsen.",
+						"Sensible Aktionen werden erst nach Operator-Freigabe ausgefuehrt.",
 				},
 				{
-					title: "Ausfuhren",
+					title: "Local-first Dateioperationen",
 					description:
-						"Nach Freigabe fuhrt Relay Workflows mit Status-Tracking, Evidenz-Erfassung und klarer Verantwortlichkeit aus.",
+						"Artefakte lassen sich dort einsehen und bearbeiten, wo die Arbeit entsteht.",
 				},
 			],
-			futureTitle: "Zukunft von Enterprise-KI",
+			futureTitle: "In Build und naechste Schritte",
 			futureSubtitle:
-				"Teams bewegen sich von isolierten Copilots zu governter Agenten-Orchestrierung mit menschlicher Aufsicht.",
+				"Diese Punkte sind in aktiver Entwicklung und sollten als Roadmap kommuniziert werden.",
 			futureCards: [
 				{
-					title: "Was Unternehmen wollen",
+					title: "Dispatch Mode und Background Queue",
 					description:
-						"Schnellere Entscheidungen, weniger Kontextwechsel, konsistentere Ausfuhrung und Automation mit echtem Ergebnisbeitrag.",
+						"Persistente Ergebniszustellung fuer asynchrone Task-Ausfuehrung.",
 				},
 				{
-					title: "Was Unternehmen brauchen",
+					title: "Serverseitige persistente Threads",
 					description:
-						"Eine klare Kontextschicht, vereinheitlichte Betriebsdaten, policy-gesteuerte Agenten und messbare KPI-Wirkung pro Workflow.",
+						"Staerkere Session-Kontinuitaet als zentrale Quelle fuer laufende Workflows.",
 				},
 				{
-					title: "Wie Autonomie skaliert",
+					title: "Erweiterte Connectoren",
 					description:
-						"Informieren, empfehlen, bestaetigen, dann begrenzte Autonomie. Kritische Aktionen bleiben menschlich freigegeben.",
+						"Slack, GitHub, Notion, Drive und Calendar Connectoren in Arbeit.",
+				},
+				{
+					title: "Tiefere Governance und Audit",
+					description:
+						"Ausbau von Audit-Werkzeugen und staerkeren Schedule-Flows.",
 				},
 			],
-			futureNeedsTitle: "Betriebsanforderungen fur produktive KI",
+			futureNeedsTitle: "Claim Guardrails",
 			futureNeeds: [
-				"Governance als Standard: Freigaben, Rollenverantwortung, nachvollziehbare Entscheidungslogs",
-				"Enterprise Memory: CRM, Finance, Kommunikation, Transkripte, SOPs und Richtlinien",
-				"Execution Layer: tool-verbundene Agenten mit Retry, Rollback und Eskalation",
-				"Observability: Qualitat, Drift, Latenz und Wirkung auf Business-KPIs",
+				"Sicher verwendbar: Desktop Operator Desk fuer AI Work",
+				"Sicher verwendbar: self-hosted, local-first, modell-agnostisch ueber OpenClaw",
+				"Vermeiden ohne Nachweis: vollautonomer unbeaufsichtigter Betrieb",
+				"Vermeiden ohne Nachweis: vollstaendige Compliance-Zertifizierung out of the box",
 			],
-			useCasesTitle: "Fur echte Business-Workflows gebaut",
+			useCasesTitle: "FAQ",
 			useCases: [
-				"Kampagnenplanung und Launch-Operations",
-				"Cross-funktionales Reporting und Stakeholder-Updates",
-				"Client-Delivery-Runbooks mit Freigabe-Leitplanken",
-				"Interne SOP-Ausfuhrung mit Compliance-Nachweisen",
+				"Ist Relay das Modell? Nein. Relay ist Interface und Kontrolloberflaeche.",
+				"Kann Relay self-hosted laufen? Ja, Relay ist local-first und self-hosted ausgelegt.",
+				"Ist Relay an einen Modellanbieter gebunden? Nein, Routing laeuft modell-agnostisch ueber OpenClaw.",
+				"Wie werden riskante Aktionen gesteuert? Ueber Safety Scopes und Freigabepflichten.",
 			],
-			governanceTitle: "Governance als Standard",
+			governanceTitle: "Warum Teams zu Relay wechseln",
 			governanceDescription:
-				"Relay ist fur Organisationen gebaut, die KI-Hebel ohne Black-Box-Ausfuhrung wollen. Jeder Schritt kann gepruft, freigegeben und nachvollzogen werden.",
+				"Relay passt fuer Teams, die Ausfuehrungsgeschwindigkeit wollen, aber dabei Governance, Datensouveraenitaet und Modellfreiheit behalten muessen.",
 			governancePoints: [
-				"Mensch-in-der-Schleife-Kontrollen fur kritische Aktionen",
-				"Rollenbasierte Freigaben und klare Entscheidungsverantwortung",
-				"Persistente Event-Logs fur Audits und Retrospektiven",
+				"Wir nutzen bereits Chat-Tools -> Relay steuert Ausfuehrung statt nur Prompts",
+				"Wir brauchen strikte Freigaben -> Relay bietet scope-basierte Freigabegrenzen",
+				"Wir wollen keinen Vendor Lock-in -> Relay ist modell-agnostisch via OpenClaw",
 			],
-			finalTitle: "Relay in Ihr Betriebsmodell integrieren",
+			finalTitle: "Starten Sie Ihren ersten governten Task",
 			finalDescription:
-				"Sehen Sie, wie Relay auf Ihre Prozesse, Kontrollanforderungen und Team-Workflows gemappt wird.",
-			finalPrimary: "Demo buchen",
-			finalSecondary: "Team kontaktieren",
+				"Starten Sie local-first, verbinden Sie Ihren Endpoint und fuehren Sie AI Work mit Freigabekontrolle aus.",
+			finalPrimary: "Relay herunterladen",
+			finalSecondary: "GitHub Star",
 		},
 	} as const;
 	const t = isGerman ? content.de : content.en;
-	const pageContainer = "mx-auto w-full max-w-[94rem] px-2.5 sm:px-3 lg:px-4";
-	const heroContainer = "mx-auto w-full max-w-[94rem] pl-2.5 pr-0 sm:pl-3 sm:pr-0 lg:pl-4 lg:pr-0";
+	const pageContainer = "mx-auto w-full max-w-[94rem] px-4 sm:px-6 lg:px-8";
+	const heroContainer = "mx-auto w-full max-w-[94rem] px-4 sm:px-6 lg:px-8";
 	const eyebrowPrimary = isGerman ? "Produkt" : "Product";
 	const journeyTitle = isGerman
-		? "Von Intent zu governter Ausfuhrung"
-		: "From Intent To Governed Execution";
+		? "Von Intent zu governter Ausfuehrung"
+		: "From Intent to Governed Execution";
 	const journeySubtitle = isGerman
 		? "Scrollen Sie durch den Operator-Flow. Rechts bleibt die Live-Ansicht fixiert und aktualisiert sich pro Schritt."
 		: "Scroll through the operator flow. The live panel on the right stays fixed and updates for each step.";
 	const journeyEyebrow = isGerman ? "Relay Operator Loop" : "Relay Operator Loop";
-	const showcaseEyebrow = isGerman ? "Operator System" : "Operator System";
-	const showcaseTitle = isGerman
-		? "Ein modernes KI-Betriebssystem fur echte Teams"
-		: "A modern AI operating system for real teams";
-	const showcaseSubtitle = isGerman
-		? "Relay verbindet Kontext, Daten, Funktion und Governance in einer klaren Steueroberflaeche statt in verstreuten Tools."
-		: "Relay unifies context, data, function, and governance in one clear operating surface instead of scattered tools.";
-	const showcasePillars = [
-		{
-			id: "context",
-			label: isGerman ? "Kontext" : "Context",
-			title: isGerman ? "Intent in klare Operator-Ziele" : "Intent into clear operator goals",
-			description: isGerman
-				? "Relay ubersetzt rohe Anfragen in strukturierte Ziele mit Rollen, Grenzen und Prioritaeten."
-				: "Relay translates raw requests into structured goals with ownership, constraints, and priorities.",
-			bullets: isGerman
-				? [
-					"Rollen und Verantwortlichkeiten automatisch zuordnen",
-					"Abhangigkeiten fruh sichtbar machen",
-					"Freigaben an Risikoklasse koppeln",
-					"Priorisierung auf Outcome statt Aktivitat",
-				]
-				: [
-					"Auto-map owners and responsibilities",
-					"Expose dependencies early",
-					"Tie approvals to risk class",
-					"Prioritize by outcome, not activity",
+	const firstSection = isGerman
+		? {
+				eyebrow: "Operator Desk",
+				title: "Ein governter Operator Desk statt Tool-Chaos",
+				subtitle:
+					"Relay reduziert Kontextwechsel und Entscheidungsstress, indem Planung, Freigaben und Ausfuehrung in einer Oberflaeche zusammenlaufen.",
+				positioning: [
+					"Self-hosted",
+					"Modell-agnostisch",
+					"Human-in-the-loop",
+					"Projektgebunden",
+					"Operator-first",
 				],
-		},
-		{
-			id: "data",
-			label: isGerman ? "Daten" : "Data",
-			title: isGerman ? "Unternehmenswissen als aktive Memory-Layer" : "Company knowledge as an active memory layer",
-			description: isGerman
-				? "CRM, Finance, SOPs und Kommunikation werden in laufende Entscheidungen integriert statt nur abgefragt."
-				: "CRM, finance, SOPs, and communications become part of every decision instead of separate lookups.",
-			bullets: isGerman
-				? [
-					"Kontext aus mehreren Systemen zusammenfuhren",
-					"Historische Entscheidungen wiederverwenden",
-					"Datengrenzen pro Team einhalten",
-					"Quellen fur Audits nachvollziehbar halten",
-				]
-				: [
-					"Merge context from multiple systems",
-					"Reuse historical decisions",
-					"Enforce team-level data boundaries",
-					"Keep traceable source lineage",
+				beforeTitle: "Vor Relay",
+				beforeItems: [
+					"Arbeit verteilt sich auf Tabs, Terminal und Einzelloesungen",
+					"Ordner- und Projektkontext driftet zwischen Tasks",
+					"Riskante Aktionen laufen ohne klare Freigabegrenzen",
+					"Operatoren verlieren Sichtbarkeit ueber Aenderungen und Entscheidungen",
 				],
-		},
-		{
-			id: "function",
-			label: isGerman ? "Funktion" : "Function",
-			title: isGerman ? "Agenten, die echte Arbeit ausfuhren" : "Agents that execute real work",
-			description: isGerman
-				? "Von Plan bis Ausfuhrung wird jeder Schritt orchestriert, gemessen und auf Team-Workflows abgestimmt."
-				: "From plan to execution, every step is orchestrated, measured, and adapted to how your team actually works.",
-			bullets: isGerman
-				? [
-					"Task-Orchestrierung uber den gesamten Stack",
-					"Status, Blocker und Eskalation in Echtzeit",
-					"Wiederholbare Playbooks statt Ad-hoc-Chaos",
-					"Rollbacks und Retries fur stabile Ausfuhrung",
-				]
-				: [
-					"Task orchestration across your stack",
-					"Real-time status, blockers, and escalation",
-					"Repeatable playbooks over ad-hoc chaos",
-					"Retries and rollbacks for stable delivery",
+				afterTitle: "Mit Relay",
+				afterItems: [
+					"Ein Desk fuer Dispatch, Review und Aufsicht",
+					"Projektgebundene Ausfuehrung reduziert Kontextfehler",
+					"Safety Scopes und Freigaben steuern sensible Aktionen",
+					"Aktivitaet und Artefakte bleiben durchgehend nachvollziehbar",
 				],
-		},
-		{
-			id: "governance",
-			label: isGerman ? "Governance" : "Governance",
-			title: isGerman ? "Kontrolle ohne Tempoverlust" : "Control without slowing teams down",
-			description: isGerman
-				? "Freigaben, Richtlinien und Audit-Trails sind eingebaut, damit Autonomie sicher wachsen kann."
-				: "Approvals, policy checks, and audit logs are built in so autonomy can scale safely.",
-			bullets: isGerman
-				? [
-					"Mensch-in-der-Schleife bei kritischen Aktionen",
-					"Policy-Gates je Workflow und Risiko",
-					"Volle Historie jeder Entscheidung",
-					"Klare Verantwortlichkeit pro Schritt",
-				]
-				: [
-					"Human-in-the-loop for critical actions",
-					"Policy gates per workflow and risk tier",
-					"Full history for every decision",
-					"Clear accountability per step",
+				fitLabel: "Best fit fuer",
+				fitText:
+					"Founder-Operatoren, Operations-Leads und SMB-Teams mit 1-3 produktiven Agenten.",
+				notForLabel: "Nicht ideal fuer",
+				notForText:
+					"Teams, die vollautonome, unbeaufsichtigte Ausfuehrung ohne Freigaben suchen.",
+				proof: "Gebaut fuer kontrollierte Ausfuehrung statt Demo-Automation.",
+				primaryCta: "Funktionen ansehen",
+				secondaryCta: "GitHub Star",
+		  }
+		: {
+				eyebrow: "Operator Desk",
+				title: "A governed operator desk instead of tool sprawl",
+				subtitle:
+					"Relay reduces context switching and decision overhead by unifying planning, approvals, and execution in one control surface.",
+				positioning: [
+					"Self-hosted",
+					"Model-agnostic",
+					"Human-in-the-loop",
+					"Project-scoped",
+					"Operator-first",
 				],
-		},
-	] as const;
-	const showcaseOutcomeTitle = isGerman ? "Operator Outcomes" : "Operator Outcomes";
-	const showcaseOutcomes = [
-		{ label: isGerman ? "Cycle Time" : "Cycle Time", value: isGerman ? "-37%" : "-37%" },
-		{ label: isGerman ? "Freigabequote" : "Approval Rate", value: isGerman ? "94%" : "94%" },
-		{ label: isGerman ? "Audit Readiness" : "Audit Readiness", value: isGerman ? "100%" : "100%" },
-		{ label: isGerman ? "Operator Focus" : "Operator Focus", value: isGerman ? "+2.3x" : "+2.3x" },
-	] as const;
+				beforeTitle: "Before Relay",
+				beforeItems: [
+					"Execution is split across tabs, terminals, and disconnected tools",
+					"Folder and project context drifts between tasks",
+					"Risky actions happen without clear approval boundaries",
+					"Operators lose visibility into what changed and why",
+				],
+				afterTitle: "With Relay",
+				afterItems: [
+					"One desk for dispatch, review, and oversight",
+					"Project-bound execution reduces context mistakes",
+					"Safety scopes and approvals gate sensitive actions",
+					"Activity and artifacts remain traceable by default",
+				],
+				fitLabel: "Best fit for",
+				fitText:
+					"Founder-operators, ops leads, and SMB teams running 1-3 practical agents.",
+				notForLabel: "Not ideal for",
+				notForText:
+					"Teams looking for fully autonomous, unattended execution with no approval layer.",
+				proof: "Built for governed execution, not demo automation.",
+				primaryCta: "See shipping features",
+				secondaryCta: "Star on GitHub",
+		  };
 	const journeySteps = [
 		{
 			id: "intake",
 			title: t.workflowSteps[0].title,
 			description: t.workflowSteps[0].description,
 			icon: "message",
-			mediaSrc: "/images/relay-step-01.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-04-context-grounding.svg",
 			mediaAlt: isGerman ? "Relay Intake Ansicht" : "Relay intake view",
 			visualLabel: isGerman ? "Anfrage" : "Intake",
 			bullets: [t.useCases[0], t.useCases[1]],
@@ -494,7 +538,7 @@ export default async function RelayPage({ params }: PageProps) {
 			title: t.sections[0].title,
 			description: t.sections[0].description,
 			icon: "list",
-			mediaSrc: "/images/relay-step-02.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-03-signal-grid.svg",
 			mediaAlt: isGerman ? "Relay Planungsansicht" : "Relay planning view",
 			visualLabel: isGerman ? "Plan" : "Plan",
 			bullets: [t.futureNeeds[0], t.futureNeeds[1]],
@@ -504,7 +548,7 @@ export default async function RelayPage({ params }: PageProps) {
 			title: t.workflowSteps[1].title,
 			description: t.workflowSteps[1].description,
 			icon: "bot",
-			mediaSrc: "/images/relay-step-03.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-05-model-routing.svg",
 			mediaAlt: isGerman ? "Relay Ausfuhrungsansicht" : "Relay execution view",
 			visualLabel: isGerman ? "Ausfuehrung" : "Execution",
 			bullets: [t.useCases[2], t.useCases[3]],
@@ -514,7 +558,7 @@ export default async function RelayPage({ params }: PageProps) {
 			title: t.sections[1].title,
 			description: t.sections[1].description,
 			icon: "check",
-			mediaSrc: "/images/relay-step-04.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-06-approval-first-control.svg",
 			mediaAlt: isGerman ? "Relay Freigabeansicht" : "Relay approval view",
 			visualLabel: isGerman ? "Freigabe" : "Approval",
 			bullets: [t.governancePoints[0], t.governancePoints[1]],
@@ -524,7 +568,7 @@ export default async function RelayPage({ params }: PageProps) {
 			title: t.workflowSteps[2].title,
 			description: t.workflowSteps[2].description,
 			icon: "shield",
-			mediaSrc: "/images/relay-step-05.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-02-approval-flow.svg",
 			mediaAlt: isGerman ? "Relay Governance Ansicht" : "Relay governance view",
 			visualLabel: isGerman ? "Governance" : "Governance",
 			bullets: [t.governancePoints[1], t.governancePoints[2]],
@@ -534,7 +578,7 @@ export default async function RelayPage({ params }: PageProps) {
 			title: t.sections[2].title,
 			description: t.sections[2].description,
 			icon: "play",
-			mediaSrc: "/images/relay-step-06.svg",
+			mediaSrc: "/abstract-svg/relay-abstract-07-artifact-trace.svg",
 			mediaAlt: isGerman ? "Relay Lieferansicht" : "Relay delivery view",
 			visualLabel: isGerman ? "Lieferung" : "Delivery",
 			bullets: [t.futureNeeds[2], t.futureNeeds[3]],
@@ -558,6 +602,12 @@ export default async function RelayPage({ params }: PageProps) {
 		url: pageUrl,
 	};
 
+	const githubIcon = (
+		<svg viewBox="0 0 24 24" aria-hidden="true" className="h-3.5 w-3.5 text-white fill-current">
+			<path d="M12 0.5C5.65 0.5 0.5 5.66 0.5 12.03c0 5.1 3.3 9.42 7.88 10.95.58.1.8-.25.8-.56 0-.27-.01-1.18-.02-2.14-3.2.7-3.87-1.38-3.87-1.38-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.69.08-.69 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.72 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.18 1.19a11.01 11.01 0 0 1 5.8 0c2.21-1.5 3.18-1.19 3.18-1.19.63 1.6.23 2.78.11 3.07.74.81 1.19 1.85 1.19 3.11 0 4.45-2.69 5.43-5.25 5.72.41.35.78 1.03.78 2.08 0 1.5-.01 2.71-.01 3.08 0 .31.21.66.81.55 4.57-1.53 7.86-5.85 7.86-10.95C23.5 5.66 18.35.5 12 .5Z" />
+		</svg>
+	);
+
 	return (
 		<>
 			<script
@@ -568,12 +618,21 @@ export default async function RelayPage({ params }: PageProps) {
 				<section className="relative flex min-h-[calc(100svh-4.5rem)] overflow-hidden border-b border-white/10 lg:min-h-[calc(100svh-5rem)]">
 					<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_12%,rgba(255,255,255,0.13),transparent_30%),radial-gradient(circle_at_90%_4%,rgba(163,230,53,0.14),transparent_34%),linear-gradient(to_bottom,rgba(255,255,255,0.04),rgba(255,255,255,0))]" />
 					<div className={`${heroContainer} relative flex w-full min-h-[calc(100svh-4.5rem)] items-center py-8 sm:py-10 lg:min-h-[calc(100svh-5rem)] lg:py-12`}>
-						<div className="grid gap-12 md:grid-cols-2 md:gap-14 lg:grid-cols-[0.86fr,1.14fr] lg:gap-20 lg:items-center">
+						<div className="grid gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-[0.78fr,1.22fr] lg:gap-14 lg:items-center">
 							<div>
 								<p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">
 									{eyebrowPrimary} <span className="text-lime-300">/</span> Relay
 								</p>
-								<h1 className="max-w-2xl text-4xl font-semibold leading-[1.06] sm:text-5xl lg:text-7xl">{t.title}</h1>
+								<h1 className="max-w-2xl text-3xl font-semibold leading-[1.08] sm:text-4xl lg:text-6xl">
+									{isGerman ? (
+										t.title
+									) : (
+										<>
+											<span className="block">Delegate Real Work.</span>
+											<span className="block">Keep Human Control.</span>
+										</>
+									)}
+								</h1>
 								<p className="mt-6 max-w-xl text-base leading-relaxed text-white/72 sm:text-[1.15rem]">{t.subtitle}</p>
 
 								<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -584,41 +643,101 @@ export default async function RelayPage({ params }: PageProps) {
 										{t.primaryCta}
 									</Link>
 									<Link
-										href={isGerman ? "/de/blog" : "/blog"}
-										className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+										href="https://github.com/SeventeenLabs/relay"
+										target="_blank"
+										rel="noreferrer"
+										className="inline-flex min-h-11 items-center justify-center rounded-lg border border-lime-300/45 bg-lime-300/[0.08] px-6 py-3 text-sm font-semibold text-lime-100 transition hover:border-lime-200 hover:bg-lime-300/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-300/50"
 									>
-										{t.secondaryCta}
+										<span className="inline-flex items-center gap-2">
+												{githubIcon}
+											<span>{isGerman ? "GitHub Star" : "Star on GitHub"}</span>
+										</span>
 									</Link>
 								</div>
 							</div>
 
-							<aside className="relative w-full overflow-hidden rounded-[2rem] border border-black/10 bg-[#f2f1ed] p-4 shadow-[0_24px_80px_-28px_rgba(0,0,0,0.8)] sm:p-6 lg:ml-auto lg:justify-self-end lg:translate-x-2">
-								<div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white">
-									<div className="aspect-[16/9] w-full bg-[linear-gradient(135deg,rgba(0,0,0,0.08),rgba(0,0,0,0.02))]" />
-									<div className="absolute inset-0 flex items-center justify-center">
-										<div className="rounded-xl border border-black/15 bg-white/85 px-4 py-3 text-center">
-											<p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500">{t.mediaLabel}</p>
-											<p className="mt-1 text-sm text-zinc-700">{t.mediaHint}</p>
-										</div>
-									</div>
-								</div>
+							<aside className="relative w-full lg:ml-auto lg:w-[112%] lg:justify-self-end lg:translate-x-3">
+								<img
+									src="/abstract-svg/relay-abstract-01-operator-desk.svg"
+									alt={isGerman ? "Relay Operator Desk Screenshot" : "Relay operator desk screenshot"}
+									className="block h-auto w-full"
+								/>
 							</aside>
 						</div>
 					</div>
 				</section>
 
 				<section className={`${pageContainer} py-16 lg:py-24`}>
-					<RelayModernShowcase
-						eyebrow={showcaseEyebrow}
-						title={showcaseTitle}
-						subtitle={showcaseSubtitle}
-						pillars={showcasePillars}
-						outcomeTitle={showcaseOutcomeTitle}
-						outcomes={showcaseOutcomes}
-					/>
+					<div className="grid gap-10 lg:grid-cols-[1.05fr,0.95fr] lg:items-start">
+						<div>
+							<p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-lime-200/90">{firstSection.eyebrow}</p>
+							<h2 className="mt-4 max-w-3xl text-2xl font-semibold leading-tight sm:text-3xl lg:text-4xl">{firstSection.title}</h2>
+							<p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/72 sm:text-base">{firstSection.subtitle}</p>
+							<div className="mt-6 flex flex-wrap gap-2.5">
+								{firstSection.positioning.map((item) => (
+									<span key={item} className="inline-flex rounded-full border border-white/15 bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-white/85">
+										{item}
+									</span>
+								))}
+							</div>
+							<p className="mt-6 text-sm text-white/75 sm:text-base">
+								<span className="font-semibold text-white">{firstSection.fitLabel}: </span>
+								{firstSection.fitText}
+							</p>
+							<p className="mt-2 text-sm text-white/65 sm:text-base">
+								<span className="font-semibold text-white">{firstSection.notForLabel}: </span>
+								{firstSection.notForText}
+							</p>
+							<p className="mt-4 text-sm font-medium text-lime-100/90">{firstSection.proof}</p>
+						</div>
+
+						<div className="grid gap-4 sm:grid-cols-2">
+							<div className="rounded-2xl border border-red-300/20 bg-red-300/[0.04] p-5 sm:p-6">
+								<p className="text-xs font-semibold uppercase tracking-[0.14em] text-red-100/90">{firstSection.beforeTitle}</p>
+								<ul className="mt-4 space-y-3">
+									{firstSection.beforeItems.map((item) => (
+										<li key={item} className="flex items-start gap-2.5 text-sm text-white/78">
+											<span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-200/80" />
+											<span>{item}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+							<div className="rounded-2xl border border-lime-300/25 bg-lime-300/[0.05] p-5 sm:p-6">
+								<p className="text-xs font-semibold uppercase tracking-[0.14em] text-lime-100/90">{firstSection.afterTitle}</p>
+								<ul className="mt-4 space-y-3">
+									{firstSection.afterItems.map((item) => (
+										<li key={item} className="flex items-start gap-2.5 text-sm text-white/86">
+											<span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-lime-200" />
+											<span>{item}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div className="mt-10 flex flex-col gap-3 sm:flex-row">
+						<Link
+							href="#shipping-now"
+							className="inline-flex min-h-11 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+						>
+							{firstSection.primaryCta}
+						</Link>
+						<Link
+							href="https://github.com/SeventeenLabs/relay"
+							target="_blank"
+							rel="noreferrer"
+							className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+						>
+							<span className="inline-flex items-center gap-2">
+								{githubIcon}
+								<span>{firstSection.secondaryCta}</span>
+							</span>
+						</Link>
+					</div>
 				</section>
 
-				<section className={`${pageContainer} py-16 lg:py-24`}>
+				<section id="how-relay-works" className={`${pageContainer} py-16 lg:py-24`}>
 					<RelayScrollytelling
 						eyebrow={journeyEyebrow}
 						title={journeyTitle}
@@ -627,7 +746,7 @@ export default async function RelayPage({ params }: PageProps) {
 					/>
 				</section>
 
-				<section className={`${pageContainer} border-t border-white/10 py-16 lg:py-20`}>
+				<section id="shipping-now" className={`${pageContainer} border-t border-white/10 py-16 lg:py-20`}>
 					<div className="mb-8 flex flex-col gap-3 sm:mb-10">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.suiteTitle}</h2>
 						<p className="max-w-3xl text-sm text-white/70 sm:text-base">{t.suiteSubtitle}</p>
@@ -637,15 +756,41 @@ export default async function RelayPage({ params }: PageProps) {
 							<article key={item.title} className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-lime-300/35 hover:bg-white/[0.06]">
 								<h3 className="text-lg font-medium text-white">{item.title}</h3>
 								<p className="mt-3 text-sm leading-relaxed text-white/70">{item.description}</p>
-								<Link href={item.href} className="mt-5 inline-flex text-sm font-semibold text-lime-200 transition group-hover:text-lime-100">
-									{item.cta}
+								<Link
+									href={item.href}
+									target={item.external ? "_blank" : undefined}
+									rel={item.external ? "noreferrer" : undefined}
+									className="mt-5 inline-flex text-sm font-semibold text-lime-200 transition group-hover:text-lime-100"
+								>
+									{item.external ? (
+										<span className="inline-flex items-center gap-2">
+											{githubIcon}
+											<span>{item.cta}</span>
+										</span>
+									) : (
+										item.cta
+									)}
 								</Link>
 							</article>
 						))}
 					</div>
+					<div className="mt-8 flex flex-col gap-3 sm:flex-row">
+						<Link
+							href="/hub"
+							className="inline-flex min-h-11 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+						>
+							{isGerman ? "Relay herunterladen" : "Download Relay"}
+						</Link>
+						<Link
+							href="#roadmap"
+							className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+						>
+							{isGerman ? "Roadmap ansehen" : "View roadmap"}
+						</Link>
+					</div>
 				</section>
 
-				<section className={`${pageContainer} py-16`}>
+				<section id="roadmap" className={`${pageContainer} py-16`}>
 					<div className="mb-8 flex flex-col gap-3 sm:mb-10">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.futureTitle}</h2>
 						<p className="max-w-3xl text-sm text-white/70 sm:text-base">{t.futureSubtitle}</p>
@@ -671,9 +816,28 @@ export default async function RelayPage({ params }: PageProps) {
 							))}
 						</ul>
 					</div>
+					<div className="mt-8 flex flex-col gap-3 sm:flex-row">
+						<Link
+							href={isGerman ? "/de/blog" : "/blog"}
+							className="inline-flex min-h-11 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+						>
+							{isGerman ? "Release Updates lesen" : "Read release updates"}
+						</Link>
+						<Link
+							href="https://github.com/SeventeenLabs/relay"
+							target="_blank"
+							rel="noreferrer"
+							className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+						>
+							<span className="inline-flex items-center gap-2">
+								{githubIcon}
+								<span>{isGerman ? "Roadmap auf GitHub" : "Track roadmap on GitHub"}</span>
+							</span>
+						</Link>
+					</div>
 				</section>
 
-				<section className={`${pageContainer} grid gap-6 py-16 lg:grid-cols-2`}>
+				<section id="governance-and-workspace" className={`${pageContainer} grid gap-6 py-16 lg:grid-cols-2`}>
 					<div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-7">
 						<h2 className="text-2xl font-semibold sm:text-3xl">{t.useCasesTitle}</h2>
 						<ul className="mt-6 space-y-3">
@@ -697,6 +861,25 @@ export default async function RelayPage({ params }: PageProps) {
 								</li>
 							))}
 						</ul>
+						<div className="mt-7 flex flex-col gap-3 sm:flex-row">
+							<Link
+								href="/hub"
+								className="inline-flex min-h-11 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+							>
+								{isGerman ? "Lokal starten" : "Start local-first"}
+							</Link>
+							<Link
+								href="https://github.com/SeventeenLabs/relay"
+								target="_blank"
+								rel="noreferrer"
+								className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+							>
+								<span className="inline-flex items-center gap-2">
+									{githubIcon}
+									<span>{isGerman ? "GitHub Star" : "Star on GitHub"}</span>
+								</span>
+							</Link>
+						</div>
 					</div>
 				</section>
 
@@ -714,10 +897,15 @@ export default async function RelayPage({ params }: PageProps) {
 								{t.finalPrimary}
 							</Link>
 							<Link
-								href={isGerman ? "/de/about" : "/about"}
+								href="https://github.com/SeventeenLabs/relay"
+								target="_blank"
+								rel="noreferrer"
 								className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
 							>
-								{t.finalSecondary}
+								<span className="inline-flex items-center gap-2">
+									{githubIcon}
+									<span>{t.finalSecondary}</span>
+								</span>
 							</Link>
 						</div>
 					</div>

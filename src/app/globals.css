@@ -8,6 +8,13 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -127,10 +134,49 @@ html {
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    min-width: 0;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Global mobile safety: keep common content types from causing horizontal scroll */
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video,
+canvas {
+  height: auto;
+}
+
+pre,
+code {
+  overflow-wrap: anywhere;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
 }
 
 /* Line clamp utilities for text truncation */

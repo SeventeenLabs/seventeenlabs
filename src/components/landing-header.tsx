@@ -134,7 +134,7 @@ export default function LandingHeader() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="mx-auto w-full max-w-[94rem] px-2.5 py-4 sm:px-3 lg:px-4"
+        className="mx-auto w-full max-w-[94rem] px-4 py-3 sm:px-6 sm:py-4 lg:px-8"
         style={{ fontFamily: "var(--font-display)" }}
       >
         <nav className="flex items-center justify-between" aria-label="Global">

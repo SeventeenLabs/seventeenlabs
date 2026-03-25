@@ -36,7 +36,7 @@ export default function LandingHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mx-auto w-full max-w-[94rem] px-2.5 pb-14 pt-28 sm:px-3 sm:pb-18 sm:pt-32 lg:px-4 lg:pb-20 lg:pt-36"
+            className="mx-auto w-full max-w-[94rem] px-4 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28 lg:px-8 lg:pb-20 lg:pt-36"
           >
             <div className="w-full">
               <div className="text-left">
@@ -45,7 +45,7 @@ export default function LandingHero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.2 }}
-                    className="lg:col-span-8 max-w-4xl text-3xl font-semibold leading-[1.03] tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl"
+                    className="lg:col-span-8 max-w-4xl text-2xl font-semibold leading-[1.06] tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {isGerman
@@ -68,7 +68,7 @@ export default function LandingHero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.3 }}
-                    className="lg:col-span-4 lg:self-end max-w-md text-lg leading-relaxed text-white/82 sm:text-xl"
+                    className="lg:col-span-4 lg:self-end max-w-md text-base leading-relaxed text-white/82 sm:text-xl"
                     style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}
                   >
                     {isGerman
@@ -81,7 +81,7 @@ export default function LandingHero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.4 }}
-                  className="mt-10 mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center"
+                  className="mt-9 mb-4 flex flex-col items-stretch gap-3 sm:mb-6 sm:flex-row sm:items-center"
                 >
                   <Link
                     href={aboutHref}
