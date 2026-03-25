@@ -7,7 +7,7 @@ import { Mail, Linkedin, Rss } from 'lucide-react';
 export function BlogFooter() {
   return (
     <footer className="bg-gray-950 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-5 lg:px-6 py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1 space-y-4">
@@ -78,29 +78,29 @@ export function BlogFooter() {
             </nav>
           </div>
 
-          {/* Services */}
+          {/* Products */}
           <div>
             <h3 className="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
-              Services
+              Products
             </h3>
             <nav className="space-y-2">
               <Link
-                href="/services/ai-audit"
+                href="/products/relay"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                AI Audit
+                Relay
               </Link>
               <Link
-                href="/services/ai-consulting"
+                href="/products/core"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                Strategic Consulting
+                Core
               </Link>
               <Link
-                href="/services/ai-development"
+                href="/products"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
-                Custom Development
+                All Products
               </Link>
             </nav>
           </div>

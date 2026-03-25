@@ -899,11 +899,11 @@
       "subtitle": "Try selecting a different category."
     }
   },
-  "reportFlowEngine": {
+  "aiAppointmentEngine": {
     "hero": {
-      "eyebrow": "ReportFlow Engine™",
+      "eyebrow": "AI Appointment Engine™",
       "title": "Save <strong>23+ Hours Monthly</strong> With Automated Client Reporting",
-      "description": "We help marketing agencies save 23+ hours per month on client reporting while increasing customer satisfaction rates by 35% through our intelligent ReportFlow Engine.",
+      "description": "We help marketing agencies save 23+ hours per month on client reporting while increasing customer satisfaction rates by 35% through our intelligent AI Appointment Engine.",
       "primaryCta": "Schedule Free Strategy Call",
       "secondaryCta": "View Pricing",
       "ctaSubtext": "30-minute call · No commitment required",
@@ -975,7 +975,7 @@
     },
     "midCta": {
       "title": "This System Can Work <span class='text-blue-400'>for Your Agency</span>",
-      "description": "Every marketing agency has unique data sources and reporting needs. Let's discuss your specific workflow and show you how we'll customize ReportFlow Engine to fit perfectly.",
+      "description": "Every marketing agency has unique data sources and reporting needs. Let's discuss your specific workflow and show you how we'll customize AI Appointment Engine to fit perfectly.",
       "primaryButton": "Book Free Consultation",
       "secondaryButton": "Learn More",
       "subtext": "No commitment required · 30-minute call"
@@ -1059,7 +1059,7 @@
       },
       "cta": {
         "title": "Ready to Eliminate Manual Reporting?",
-        "description": "Schedule a free 30-minute strategy call to discuss your agency's reporting needs and see if ReportFlow Engine™ is the right fit.",
+        "description": "Schedule a free 30-minute strategy call to discuss your agency's reporting needs and see if AI Appointment Engine™ is the right fit.",
         "button": "Schedule Free Strategy Call"
       }
     },
@@ -1087,7 +1087,7 @@
       "title": "Frequently Asked <strong>Questions</strong>",
       "items": [
         {
-          "question": "What exactly does ReportFlow Engine automate?",
+          "question": "What exactly does AI Appointment Engine automate?",
           "answer": "It automatically collects data from your marketing platforms, generates AI powered performance summaries, creates visual dashboards, and delivers reports to your clients on schedule. Everything that takes your team hours every week happens automatically."
         },
         {
@@ -1117,12 +1117,12 @@
       "title": "Ready to Reclaim <strong>23+ Hours</strong> Every Month?",
       "description": "Stop drowning in spreadsheets and manual data collection. Let us build your automated reporting system so you can focus on growing your agency.",
       "button": "Book Your Free Consultation",
-      "buttonSubtext": "30-minute call to see if ReportFlow Engine is right for you",
+      "buttonSubtext": "30-minute call to see if AI Appointment Engine is right for you",
       "benefits": {
         "title": "What happens on the call:",
         "items": [
           "We review your current reporting workflow",
-          "Show you exactly what ReportFlow Engine can automate",
+          "Show you exactly what AI Appointment Engine can automate",
           "Answer your questions about implementation",
           "Discuss timeline and next steps (if it's a fit)"
         ]

@@ -31,7 +31,7 @@ export default function FinalCta() {
       {/* Subtle gradient accent */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
       
-      <div className="relative w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="relative w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -39,7 +39,7 @@ export function AutomationHero({ locale }: AutomationHeroProps) {
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-background/50 pt-32 pb-20">
       <div className="absolute inset-0 bg-grid-white/5 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
       
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container relative z-10 mx-auto px-4 sm:px-5 lg:px-6">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

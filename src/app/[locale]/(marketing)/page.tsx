@@ -16,32 +16,32 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
-    ? "Sparen Sie 20+ Stunden pro Woche mit KI-Automatisierung | SeventeenLabs"
-    : "Save 20+ Hours Every Week with AI Automation | SeventeenLabs";
+    ? "SeventeenLabs | Lokale KI-Operator-Software mit Relay"
+    : "SeventeenLabs | Local-First AI Operator Software with Relay";
 
   const description = isGerman
-    ? "Für Marketing-Agenturen, Berater & SaaS-Unternehmen, die Automatisierung wollen, die wirklich funktioniert. Messbare Ergebnisse in Wochen, nicht Monaten."
-    : "For marketing agencies, consultants & SaaS companies who want automation that actually works. Get measurable results in weeks, not months.";
+    ? "Praktische KI-Systeme fur Unternehmen, die KI in tagliche Geschaftsprozesse integrieren. SeventeenLabs verbindet Governance, menschliche Freigabe und verantwortbare Ausfuhrung."
+    : "Practical AI systems for companies integrating AI into daily business operations. SeventeenLabs combines governance, human approval, and accountable execution.";
 
   return {
     title,
     description,
     keywords: isGerman
       ? [
-          "KI Automatisierungsagentur",
-          "Workflow Automatisierung",
-          "KI Beratung",
-          "Automatisierungsstrategie",
-          "Prozessoptimierung",
-          "n8n Workflows",
+          "KI Operator Software",
+          "lokal-first KI",
+          "Relay by SeventeenLabs",
+          "Freigabegetriebene KI Operationen",
+          "AI Workflows mit Governance",
+          "SeventeenLabs Produkte",
         ]
       : [
-          "AI automation agency",
-          "workflow automation",
-          "AI consulting",
-          "automation strategy",
-          "process optimization",
-          "n8n workflows",
+          "AI operator software",
+          "local-first AI",
+          "Relay by SeventeenLabs",
+          "approval-driven AI operations",
+          "governed AI workflows",
+          "SeventeenLabs products",
         ],
     alternates: {
       canonical: `${baseUrl}${pagePath}`,
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs - AI Automation Agency",
+          alt: "SeventeenLabs - Local-First AI Operator Software",
         },
       ],
     },

@@ -335,7 +335,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
       />
 
       <div className="bg-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
           <div className="flex gap-8">
             {/* Main Content */}
             <main className="flex-1 max-w-4xl mx-auto lg:mx-0">
@@ -882,7 +882,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
         {/* Footer */}
         <footer className="bg-gray-50 border-t border-gray-200 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
             <div className="py-12">
               {/* Main Footer Content */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">

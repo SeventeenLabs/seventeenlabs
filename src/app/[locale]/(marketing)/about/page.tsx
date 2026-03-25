@@ -19,30 +19,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pagePath = isGerman ? "/de/about" : "/about";
 
   const title = isGerman
-    ? "Über SeventeenLabs | KI-Automatisierungsteam"
-    : "About SeventeenLabs | AI Automation Team";
+    ? "Über SeventeenLabs | Produktstudio fur AI Operator Software"
+    : "About SeventeenLabs | Product Studio for AI Operator Software";
 
   const description = isGerman
-    ? "Lernen Sie das Team hinter SeventeenLabs kennen. Wir kombinieren KI-Strategie, Workflow-Automatisierung und Full-Stack-Entwicklung, um Unternehmen schneller skalieren zu lassen."
-    : "Meet the SeventeenLabs team. We blend AI strategy, workflow automation, and full-stack development to help companies scale faster.";
+    ? "SeventeenLabs ist das Produktstudio hinter Relay. Wir entwickeln lokal-first AI Operator Software fur Planung, Freigaben und sichere Ausfuhrung."
+    : "SeventeenLabs is the product studio behind Relay. We build local-first AI operator software for planning, approvals, and safe execution.";
 
   return {
     title,
     description,
     keywords: isGerman
       ? [
-          "SeventeenLabs Team",
-          "KI Automatisierung Agentur",
-          "AI Experten",
-          "Automatisierungsagentur",
-          "Digitale Transformation",
+          "SeventeenLabs Unternehmen",
+          "Relay Produkt",
+          "KI Operator Plattform",
+          "lokal-first KI Software",
+          "Freigabegetriebene KI Operationen",
         ]
       : [
-          "SeventeenLabs team",
-          "AI automation agency",
-          "automation experts",
-          "AI implementation",
-          "digital transformation",
+          "SeventeenLabs company",
+          "Relay product",
+          "AI operator platform",
+          "local-first AI software",
+          "approval-driven AI operations",
         ],
     alternates: {
       canonical: `${baseUrl}${pagePath}`,

@@ -143,6 +143,14 @@ export function DashboardClient(props: Props) {
   const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(null);
   const [isLeftOpen, setIsLeftOpen] = useState(true);
   const [isRightOpen, setIsRightOpen] = useState(true);
+  const [isQuadChatOpen, setIsQuadChatOpen] = useState(false);
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [newTaskDescription, setNewTaskDescription] = useState("");
+  const [newTaskStatus, setNewTaskStatus] = useState<string>("inbox");
+  const [newTaskAssignees, setNewTaskAssignees] = useState<string[]>([]);
+  const [isSavingTask, setIsSavingTask] = useState(false);
+  const [taskSaveError, setTaskSaveError] = useState<string | null>(null);
 
   const selectedTask = useMemo(
     () => taskList.find((t) => t.id === selectedTaskId) || null,
@@ -167,6 +175,12 @@ export function DashboardClient(props: Props) {
       .map((ta) => ta.agent_id);
     return activityList.filter((a) => assignedAgentIds.includes(a.agent_id));
   }, [activityList, taskAssigneeList, selectedTaskId]);
+
+  const recentMessages = useMemo(() => {
+    return [...messageList]
+      .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
+      .slice(0, 50);
+  }, [messageList]);
 
   const taskAssigneeAgents = useMemo(() => {
     const ids = taskAssigneeList.filter((ta) => ta.task_id === selectedTaskId).map((ta) => ta.agent_id);
@@ -201,6 +215,88 @@ export function DashboardClient(props: Props) {
     }
     return activitiesByAgent;
   }, [activityList]);
+
+  const toggleAssignee = (agentId: string) => {
+    setNewTaskAssignees((prev) =>
+      prev.includes(agentId) ? prev.filter((id) => id !== agentId) : [...prev, agentId]
+    );
+  };
+
+  async function handleCreateTask() {
+    if (isSavingTask) return; // prevent double submission
+    if (!newTaskTitle.trim()) {
+      setTaskSaveError("Title is required");
+      return;
+    }
+
+    setIsSavingTask(true);
+    setTaskSaveError(null);
+    const now = new Date().toISOString();
+
+    try {
+      const { data: task, error } = await supabase
+        .from("tasks")
+        .insert({
+          title: newTaskTitle.trim(),
+          description: newTaskDescription.trim() || null,
+          status: newTaskStatus,
+          created_at: now,
+          updated_at: now,
+        })
+        .select()
+        .single();
+
+      if (error || !task) {
+        throw new Error(error?.message || "Failed to create task");
+      }
+
+      let createdAssignees: TaskAssignee[] = [];
+      if (newTaskAssignees.length > 0) {
+        const assigneeRows = newTaskAssignees.map((agentId) => ({
+          task_id: task.id,
+          agent_id: agentId,
+          created_at: now,
+        }));
+        const { data: assignees, error: assigneeError } = await supabase
+          .from("task_assignees")
+          .insert(assigneeRows)
+          .select();
+        if (assigneeError) {
+          throw new Error(assigneeError.message);
+        }
+        createdAssignees = assignees || [];
+        setTaskAssigneeList((prev) => [...createdAssignees, ...prev]);
+      }
+
+        setTaskList((prev) => {
+          const filtered = prev.filter((t) => t.id !== task.id);
+          return [task, ...filtered];
+        });
+      setSelectedTaskId(task.id);
+      setIsCreateTaskOpen(false);
+      setNewTaskTitle("");
+      setNewTaskDescription("");
+      setNewTaskStatus("inbox");
+      setNewTaskAssignees([]);
+    } catch (err: any) {
+      setTaskSaveError(err?.message || "Failed to create task");
+    } finally {
+      setIsSavingTask(false);
+    }
+  }
+
+  async function handleDeleteTask(taskId: string) {
+    // Optimistically remove task and related state
+    setTaskList((prev) => prev.filter((t) => t.id !== taskId));
+    setTaskAssigneeList((prev) => prev.filter((ta) => ta.task_id !== taskId));
+    setMessageList((prev) => prev.filter((m) => m.task_id !== taskId));
+    setDocumentList((prev) => prev.filter((d) => d.task_id !== taskId));
+    if (selectedTaskId === taskId) setSelectedTaskId(null);
+
+    await supabase.from("tasks").delete().eq("id", taskId);
+    // Clean up task_assignees explicitly in case FK is not cascading
+    await supabase.from("task_assignees").delete().eq("task_id", taskId);
+  }
 
   async function markTaskDone(taskId: string) {
     setTaskList((prev) => prev.map((t) => (t.id === taskId ? { ...t, status: "done", updated_at: new Date().toISOString() } : t)));
@@ -413,7 +509,23 @@ export function DashboardClient(props: Props) {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <button className="rounded border border-slate-300 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-700 hover:bg-slate-50">
+            <button
+              type="button"
+              onClick={() => setIsQuadChatOpen(true)}
+              className="rounded border border-slate-300 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-slate-900"
+            >
+              Quad Chat
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsCreateTaskOpen(true);
+                if (selectedAgentId) {
+                  setNewTaskAssignees((prev) => (prev.length ? prev : [selectedAgentId]));
+                }
+              }}
+              className="rounded border border-slate-300 bg-slate-900 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm transition hover:bg-slate-800"
+            >
               + New Task
             </button>
           </div>
@@ -495,6 +607,20 @@ export function DashboardClient(props: Props) {
                             <span>{formatDate(task.updated_at)}</span>
                             <span className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">{task.status.replace("_", " ")}</span>
                           </div>
+                          {(status === "inbox" || status === "assigned") && (
+                            <div className="mt-3 flex justify-end">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteTask(task.id);
+                                }}
+                                className="rounded border border-rose-200 bg-rose-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-rose-800 shadow-sm transition hover:bg-rose-100 hover:border-rose-300"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
                           {status === "review" && (
                             <div className="mt-3 flex justify-end">
                               <button
@@ -865,6 +991,181 @@ export function DashboardClient(props: Props) {
               ) : (
                 <div className="flex h-full items-center justify-center text-sm text-slate-500">No content</div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isQuadChatOpen && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
+          <div className="flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-lg border border-slate-300 bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-6 py-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-600">Quad Chat</p>
+                <h2 className="text-xl font-black leading-tight text-slate-900">All Messages</h2>
+                <p className="text-[10px] text-slate-500">Showing latest {recentMessages.length} messages</p>
+              </div>
+              <button
+                onClick={() => setIsQuadChatOpen(false)}
+                className="rounded p-2 text-slate-500 hover:bg-slate-200 hover:text-slate-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto bg-slate-50 px-6 py-4">
+              {recentMessages.length === 0 ? (
+                <div className="rounded-lg border-2 border-dashed border-slate-200 bg-white p-6 text-center">
+                  <p className="text-sm font-semibold text-slate-500">No messages yet</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {recentMessages.map((msg) => {
+                    const agent = agentList.find((a) => a.id === msg.from_agent_id);
+                    const task = taskList.find((t) => t.id === msg.task_id);
+                    return (
+                      <div key={msg.id} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                        <div className="mb-2 flex items-center gap-3">
+                          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-900 text-[10px] font-bold text-white">
+                            {agent?.avatar || "??"}
+                          </div>
+                          <div className="flex flex-1 flex-col">
+                            <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-700">
+                              <span>{agent?.name || "Unknown"}</span>
+                              <span>·</span>
+                              <span>{formatDate(msg.created_at)}</span>
+                            </div>
+                            {task ? (
+                              <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+                                Task: {task.title}
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="text-sm leading-relaxed text-slate-800">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {msg.content}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isCreateTaskOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
+          <div className="w-full max-w-xl rounded-lg border border-slate-300 bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-6 py-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-600">Create Task</p>
+                <h2 className="text-xl font-black leading-tight text-slate-900">New task</h2>
+              </div>
+              <button
+                onClick={() => setIsCreateTaskOpen(false)}
+                className="rounded p-2 text-slate-500 hover:bg-slate-200 hover:text-slate-700"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4 p-6">
+              <div className="space-y-1">
+                <label className="text-[11px] font-semibold uppercase tracking-wide text-slate-700">Title</label>
+                <input
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  className="w-full rounded border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                  placeholder="What needs to get done?"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[11px] font-semibold uppercase tracking-wide text-slate-700">Description</label>
+                <textarea
+                  value={newTaskDescription}
+                  onChange={(e) => setNewTaskDescription(e.target.value)}
+                  className="w-full rounded border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                  rows={4}
+                  placeholder="Optional details or acceptance criteria"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold uppercase tracking-wide text-slate-700">Status</label>
+                  <select
+                    value={newTaskStatus}
+                    onChange={(e) => setNewTaskStatus(e.target.value)}
+                    className="w-full rounded border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                  >
+                    <option value="inbox">Inbox</option>
+                    <option value="assigned">Assigned</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="review">Review</option>
+                    <option value="done">Done</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold uppercase tracking-wide text-slate-700">Assign Agents</label>
+                  <div className="flex flex-wrap gap-2">
+                    {agentList.length === 0 ? (
+                      <span className="text-[11px] text-slate-500">No agents</span>
+                    ) : (
+                      agentList.map((agent) => {
+                        const selected = newTaskAssignees.includes(agent.id);
+                        return (
+                          <button
+                            key={agent.id}
+                            type="button"
+                            onClick={() => toggleAssignee(agent.id)}
+                            className={`flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold transition ${
+                              selected
+                                ? "border-slate-900 bg-slate-900 text-white"
+                                : "border-slate-300 bg-white text-slate-700 hover:border-slate-400"
+                            }`}
+                          >
+                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 text-[10px] font-bold text-slate-900">
+                              {agent.avatar}
+                            </span>
+                            {agent.name}
+                          </button>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {taskSaveError ? (
+                <div className="rounded border border-rose-200 bg-rose-50 px-3 py-2 text-[11px] font-semibold text-rose-800">
+                  {taskSaveError}
+                </div>
+              ) : null}
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsCreateTaskOpen(false)}
+                  className="rounded border border-slate-300 bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-wide text-slate-700 hover:bg-slate-100"
+                  disabled={isSavingTask}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCreateTask}
+                  className="rounded border border-slate-900 bg-slate-900 px-4 py-2 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm transition hover:bg-slate-800 disabled:opacity-60"
+                  disabled={isSavingTask}
+                >
+                  {isSavingTask ? "Saving..." : "Create Task"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

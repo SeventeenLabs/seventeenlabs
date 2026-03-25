@@ -147,7 +147,7 @@ export default function LocationHero({ location, service, isGerman }: LocationHe
 
       <div className="relative z-10 w-full">
         <div className="flex min-h-screen items-center">
-          <div className="px-6 sm:px-12 lg:px-16 xl:px-20 py-32 lg:py-40 w-full">
+          <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-32 lg:py-40 w-full">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left column - Content */}
               <motion.div

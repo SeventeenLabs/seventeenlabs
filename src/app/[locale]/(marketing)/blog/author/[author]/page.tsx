@@ -119,7 +119,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
       <div className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6 pt-8">
           <AutoBreadcrumb
             path={`/blog/author/${author}`}
             locale="en"
@@ -130,7 +130,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       
       {/* Author Header */}
       <div className="bg-gradient-to-b from-gray-50 to-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
           <div className="flex items-center gap-6">
             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
               <span className="text-2xl font-bold text-white">

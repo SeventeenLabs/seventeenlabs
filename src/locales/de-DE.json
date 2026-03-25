@@ -899,11 +899,11 @@
       "subtitle": "Versuchen Sie eine andere Kategorie auszuwählen."
     }
   },
-  "reportFlowEngine": {
+  "aiAppointmentEngine": {
     "hero": {
-      "eyebrow": "ReportFlow Engine™",
+      "eyebrow": "AI Appointment Engine™",
       "title": "<strong>23+ Stunden monatlich</strong> mit automatisiertem Reporting sparen",
-      "description": "Mit unserer intelligenten ReportFlow Engine helfen wir Marketing-Agenturen, über 23 Stunden pro Monat beim Client-Reporting einzusparen und gleichzeitig die Kundenzufriedenheit um 35% zu steigern.",
+      "description": "Mit unserer intelligenten AI Appointment Engine helfen wir Marketing-Agenturen, über 23 Stunden pro Monat beim Client-Reporting einzusparen und gleichzeitig die Kundenzufriedenheit um 35% zu steigern.",
       "primaryCta": "Kostenlose Strategieberatung",
       "secondaryCta": "Preise anzeigen",
       "ctaSubtext": "30-minütiges Gespräch · Keine Verpflichtung",
@@ -975,7 +975,7 @@
     },
     "midCta": {
       "title": "Dieses System kann <span class='text-blue-400'>für Ihre Agentur</span> funktionieren",
-      "description": "Jede Marketing-Agentur hat einzigartige Datenquellen und Reporting-Anforderungen. Lassen Sie uns über Ihren spezifischen Workflow sprechen und zeigen, wie wir die ReportFlow Engine perfekt für Sie anpassen.",
+      "description": "Jede Marketing-Agentur hat einzigartige Datenquellen und Reporting-Anforderungen. Lassen Sie uns über Ihren spezifischen Workflow sprechen und zeigen, wie wir die AI Appointment Engine perfekt für Sie anpassen.",
       "primaryButton": "Kostenlose Beratung buchen",
       "secondaryButton": "Mehr erfahren",
       "subtext": "Keine Verpflichtung · 30-minütiges Gespräch"
@@ -1059,7 +1059,7 @@
       },
       "cta": {
         "title": "Bereit, manuelles Reporting zu eliminieren?",
-        "description": "Vereinbaren Sie ein kostenloses 30-minütiges Strategiegespräch, um die Reporting-Bedürfnisse Ihrer Agentur zu besprechen und zu sehen, ob ReportFlow Engine™ die richtige Lösung ist.",
+        "description": "Vereinbaren Sie ein kostenloses 30-minütiges Strategiegespräch, um die Reporting-Bedürfnisse Ihrer Agentur zu besprechen und zu sehen, ob AI Appointment Engine™ die richtige Lösung ist.",
         "button": "Kostenlose Strategieberatung"
       }
     },
@@ -1087,7 +1087,7 @@
       "title": "Häufig gestellte <strong>Fragen</strong>",
       "items": [
         {
-          "question": "Was genau automatisiert die ReportFlow Engine?",
+          "question": "Was genau automatisiert die AI Appointment Engine?",
           "answer": "Sie sammelt automatisch Daten von Ihren Marketing-Plattformen, generiert KI-gestützte Performance-Zusammenfassungen, erstellt visuelle Dashboards und liefert Berichte an Ihre Kunden nach Zeitplan. Alles, wofür Ihr Team jede Woche Stunden braucht, passiert automatisch."
         },
         {
@@ -1117,12 +1117,12 @@
       "title": "Bereit, <strong>über 23 Stunden</strong> monatlich zurückzugewinnen?",
       "description": "Schluss mit Tabellen und manueller Datenpflege. Lassen Sie uns Ihr automatisiertes Reporting-System aufbauen, damit Sie sich auf das Wachstum Ihrer Agentur konzentrieren können.",
       "button": "Kostenlose Beratung buchen",
-      "buttonSubtext": "30-minütiges Gespräch um zu sehen, ob die ReportFlow Engine zu Ihnen passt",
+      "buttonSubtext": "30-minütiges Gespräch um zu sehen, ob die AI Appointment Engine zu Ihnen passt",
       "benefits": {
         "title": "Was im Gespräch passiert:",
         "items": [
           "Wir analysieren Ihren aktuellen Reporting-Workflow",
-          "Zeigen Ihnen, was die ReportFlow Engine automatisieren kann",
+          "Zeigen Ihnen, was die AI Appointment Engine automatisieren kann",
           "Beantworten Ihre Fragen zur Implementierung",
           "Besprechen Zeitplan und nächste Schritte (falls es passt)"
         ]

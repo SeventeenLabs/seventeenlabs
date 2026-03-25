@@ -8,7 +8,7 @@ export default function SolutionSection() {
   const { t } = useTranslations();
   const locale = useLocale();
   const translations = getTranslations(locale);
-  const solutionItems = translations.reportFlowEngine?.solution?.items || [];
+  const solutionItems = translations.aiAppointmentEngine?.solution?.items || [];
 
   return (
     <section className="relative py-12 sm:py-20 lg:py-28 bg-zinc-950 overflow-hidden">
@@ -27,10 +27,10 @@ export default function SolutionSection() {
             viewport={{ once: true }}
           >
             <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase mb-4 sm:mb-6 block">
-              {t('reportFlowEngine.solution.eyebrow')}
+              {t('aiAppointmentEngine.solution.eyebrow')}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-white tracking-tight mb-8 sm:mb-12 leading-tight">
-              {t('reportFlowEngine.solution.title')}
+              {t('aiAppointmentEngine.solution.title')}
             </h2>
             <div className="space-y-4 sm:space-y-6">
               {solutionItems.map((item: any, index: number) => (

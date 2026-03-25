@@ -182,7 +182,7 @@ const defaultLabels: Record<string, { en: string; de: string }> = {
   'ai-consulting': { en: 'AI Consulting', de: 'KI-Beratung' },
   'ai-development': { en: 'AI Development', de: 'KI-Entwicklung' },
   products: { en: 'Products', de: 'Produkte' },
-  'reportflow-engine': { en: 'ReportFlow Engine', de: 'ReportFlow Engine' },
+  relay: { en: 'Relay', de: 'Relay' },
   industries: { en: 'Industries', de: 'Branchen' },
   'marketing-agencies': { en: 'Marketing Agencies', de: 'Marketing-Agenturen' },
   blog: { en: 'Blog', de: 'Blog' },

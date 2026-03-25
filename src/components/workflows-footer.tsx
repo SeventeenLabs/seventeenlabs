@@ -6,7 +6,7 @@ import WorkflowsLogo from "../../public/SeventeenLabsWorkflowsLogo.svg";
 export default function WorkflowsFooter() {
   return (
     <footer className="border-t bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-6 py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
           {/* Brand */}
           <div className="space-y-3">

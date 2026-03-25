@@ -30,7 +30,7 @@ export function AboutCTA({ locale }: AboutCTAProps) {
   return (
     <>
       <section className="bg-black py-16 sm:py-20">
-        <div className="px-6 sm:px-12 lg:px-16 xl:px-20">
+        <div className="px-4 sm:px-8 lg:px-12 xl:px-16">
           <div className="max-w-2xl">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

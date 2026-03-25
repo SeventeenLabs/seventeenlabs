@@ -33,7 +33,7 @@ export default function AiAuditService() {
 
   return (
     <section id="ai-audit" className="relative bg-black/95 py-24 lg:py-32">
-      <div className="w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left side - Content */}
           <motion.div

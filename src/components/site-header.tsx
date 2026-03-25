@@ -15,19 +15,16 @@ import Link from "next/link";
 import { useLocale } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/utils";
 
-const anchorItems = [
-  { name: "Work", href: "#what-we-do" },
-  { name: "Services", href: "#ai-audit" },
-  { name: "Contact", href: "#contact" },
-];
-
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = React.useState(false);
   const locale = useLocale();
   const homeHref = getLocalizedPath(locale, "/");
   const aboutHref = getLocalizedPath(locale, "/about");
+  const relayHref = getLocalizedPath(locale, "/products/relay");
   const navItems = [
-    ...anchorItems,
+    { name: "Relay", href: relayHref },
+    { name: "Products", href: "/workflows" },
+    { name: "Blog", href: getLocalizedPath(locale, "/blog") },
     { name: "About", href: aboutHref },
   ];
 
@@ -48,8 +45,8 @@ export default function SiteHeader() {
         />
 
         <div className="flex items-center space-x-2">
-          <NavbarButton href="#contact" variant="primary">
-            Get Started
+          <NavbarButton href={relayHref} variant="primary">
+            Explore Relay
           </NavbarButton>
         </div>
       </NavBody>
@@ -89,8 +86,8 @@ export default function SiteHeader() {
               </Link>
             )
           ))}
-          <NavbarButton href="#contact" variant="primary" className="mt-4">
-            Get Started
+          <NavbarButton href={relayHref} variant="primary" className="mt-4">
+            Explore Relay
           </NavbarButton>
         </MobileNavMenu>
       </MobileNav>

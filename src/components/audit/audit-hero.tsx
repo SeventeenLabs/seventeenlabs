@@ -46,7 +46,7 @@ export default function AuditHero({ locale, t }: AuditHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black" />
       </div>
       
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20 pt-24 sm:pt-32 pb-8 flex flex-col min-h-screen">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-24 sm:pt-32 pb-8 flex flex-col min-h-screen">
         <div className="max-w-4xl mt-20 mb-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

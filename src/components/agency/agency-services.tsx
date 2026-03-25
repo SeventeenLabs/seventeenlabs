@@ -22,7 +22,7 @@ export default function AgencyServices({ services, locale }: AgencyServicesProps
   const translations = getTranslations(locale as Locale);
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-950 to-slate-900">
+    <section className="relative py-32 px-4 sm:px-5 lg:px-6 bg-gradient-to-b from-slate-950 to-slate-900">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />

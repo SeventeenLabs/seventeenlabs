@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope, Sora } from "next/font/google";
 import "./globals.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -132,7 +132,7 @@ export default async function RootLayout({
         <link rel="preload" href="/favicon.ico" as="image" />
       </head>
       <body 
-        className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased`}
+        className={`${manrope.variable} ${sora.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         {children}

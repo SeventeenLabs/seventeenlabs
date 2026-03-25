@@ -12,7 +12,7 @@ export default function AgencyCTA({ onContactClick }: AgencyCTAProps) {
   const { t } = useTranslations();
 
   return (
-    <section className="relative py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-950/30 via-slate-950 to-purple-950/30 overflow-hidden">
+    <section className="relative py-32 px-4 sm:px-5 lg:px-6 bg-gradient-to-br from-blue-950/30 via-slate-950 to-purple-950/30 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 

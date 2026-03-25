@@ -9,7 +9,7 @@ export default function OutcomeSection() {
   const { t } = useTranslations();
   const locale = useLocale();
   const translations = getTranslations(locale);
-  const outcomeItems = translations.reportFlowEngine?.outcome?.items || [];
+  const outcomeItems = translations.aiAppointmentEngine?.outcome?.items || [];
 
   const iconMap: { [key: number]: any } = {
     0: TrendingUp,  // Save 23+ Hours
@@ -31,10 +31,10 @@ export default function OutcomeSection() {
             viewport={{ once: true }}
           >
             <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase mb-4 sm:mb-6 block">
-              {t('reportFlowEngine.outcome.eyebrow')}
+              {t('aiAppointmentEngine.outcome.eyebrow')}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-white tracking-tight mb-8 sm:mb-12 leading-tight">
-              <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.outcome.title') }} />
+              <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.outcome.title') }} />
             </h2>
             <div className="space-y-4 sm:space-y-6">
               {outcomeItems.map((item: any, index: number) => {

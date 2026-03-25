@@ -8,7 +8,7 @@ export default function ProblemSection() {
   const { t } = useTranslations();
   const locale = useLocale();
   const translations = getTranslations(locale);
-  const problemPoints = translations.reportFlowEngine?.problem?.points || [];
+  const problemPoints = translations.aiAppointmentEngine?.problem?.points || [];
 
   return (
     <section className="relative py-12 sm:py-20 lg:py-28 bg-gradient-to-b from-zinc-950 to-black">
@@ -21,13 +21,13 @@ export default function ProblemSection() {
             viewport={{ once: true }}
           >
             <span className="text-xs sm:text-sm font-light text-white/60 tracking-wider uppercase mb-4 sm:mb-6 block">
-              {t('reportFlowEngine.problem.eyebrow')}
+              {t('aiAppointmentEngine.problem.eyebrow')}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-white tracking-tight mb-4 sm:mb-6 leading-tight">
-              <span dangerouslySetInnerHTML={{ __html: t('reportFlowEngine.problem.title') }} />
+              <span dangerouslySetInnerHTML={{ __html: t('aiAppointmentEngine.problem.title') }} />
             </h2>
             <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 sm:mb-12">
-              {t('reportFlowEngine.problem.description')}
+              {t('aiAppointmentEngine.problem.description')}
             </p>
             <div className="space-y-4 sm:space-y-6">
               {problemPoints.map((item: any, index: number) => (

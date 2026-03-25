@@ -38,7 +38,7 @@ export default function AuditFinalCTA({ locale, t }: AuditFinalCTAProps) {
 
   return (
     <section className="relative py-24 sm:py-32 bg-black">
-      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16 xl:px-20">
+      <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
