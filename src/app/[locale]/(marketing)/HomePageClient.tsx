@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import LandingHeader from "@/components/landing-header";
 import LandingHero from "@/components/landing-hero";
-import SiteFooter from "@/components/site-footer";
 import WhatWeOffer from "@/components/what-we-offer";
 import ContextCross from "@/components/context-cross";
 import DataHubMap from "@/components/data-hub-map";
@@ -26,7 +24,6 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
           <div className="relative z-10">
-            <LandingHeader />
             <main>
               <LandingHero />
               <WhatWeOffer />
@@ -37,7 +34,6 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
               {/* Latest Blog Posts */}
               <LatestBlogPosts posts={latestPosts} />
             </main>
-            <SiteFooter />
           </div>
         </motion.div>
       </div>

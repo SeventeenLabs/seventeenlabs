@@ -1,15 +1,13 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Calendar, Sparkles } from 'lucide-react';
 import { BlogPostMetadata } from '@/lib/notion-blog';
 import { BlogCard } from '@/components/blog/blog-card';
 import { FeaturedPost } from '@/components/blog/featured-post';
 import { SubscribeModal } from '@/components/blog/subscribe-modal';
-import { BlogFooter } from '@/components/blog/blog-footer';
 import ContactModal from '@/components/contact-modal';
 
 interface BlogPageClientProps {
@@ -34,19 +32,22 @@ const blogCopy = {
 
 function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }: BlogPageClientProps) {
   const [contactModalOpen, setContactModalOpen] = useState(false);
-  const [subscribeModalOpen, setSubscribeModalOpen] = useState(false);
+  const [subscribeModalOpen, setSubscribeModalOpen] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    try {
+      const hasSeenPrompt = window.localStorage.getItem(SUBSCRIBE_MODAL_STORAGE_KEY);
+      return !hasSeenPrompt;
+    } catch (error) {
+      console.warn('Subscribe modal localStorage unavailable', error);
+      return false;
+    }
+  });
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const blogUrl = `${baseUrl}/blog`;
-
-  const headerNavItems = useMemo(
-    () => ([
-      { label: 'Highlights', href: '#hero' },
-      { label: 'Articles', href: '#articles' },
-      { label: 'Contact', href: '#cta' },
-    ]),
-    [],
-  );
 
   // Structured Data for Blog Listing Page
   const structuredData = {
@@ -123,21 +124,6 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }:
   // Filter posts based on category
   const filteredPosts = allPosts;
 
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    try {
-      const hasSeenPrompt = window.localStorage.getItem(SUBSCRIBE_MODAL_STORAGE_KEY);
-      if (!hasSeenPrompt) {
-        setSubscribeModalOpen(true);
-      }
-    } catch (error) {
-      console.warn('Subscribe modal localStorage unavailable', error);
-    }
-  }, []);
-
   const markPromptState = (state: 'dismissed' | 'subscribed') => {
     if (typeof window === 'undefined') {
       return;
@@ -166,44 +152,6 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }:
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {/* Navigation Header */}
-      <header className="bg-transparent">
-        <div className="w-full px-6 sm:px-8 lg:px-12 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="group flex items-center gap-4" aria-label="Go to SeventeenLabs homepage">
-              <Image
-                src="/logo_dark.png"
-                alt="SeventeenLabs"
-                width={180}
-                height={42}
-                className="w-[140px] sm:w-[160px] lg:w-[180px] h-auto transition-transform duration-300 ease-out group-hover:scale-105"
-              />
-              <div className="flex items-center gap-3 text-gray-700">
-                <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                <span className="text-sm font-semibold uppercase tracking-[0.3em]">Blog</span>
-              </div>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600" aria-label="Blog navigation">
-              {headerNavItems.map((item) => (
-                <Link key={item.href} href={item.href} className="hover:text-gray-900 transition-colors" prefetch={false}>
-                  {item.label}
-                </Link>
-              ))}
-              <Link
-                href="/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-xs uppercase tracking-[0.3em] text-gray-700 hover:border-gray-300"
-                aria-label="Open RSS feed"
-              >
-                RSS
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section id="hero" className="relative pt-20 pb-24 px-6 sm:px-8 lg:px-12 bg-gradient-to-b from-gray-50 via-white to-transparent overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -225,7 +173,7 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }:
                 {pageTitle || blogCopy.title}
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
-                {blogCopy.subtitle}
+                {pageDescription || blogCopy.subtitle}
               </p>
             </motion.div>
           </div>
@@ -375,8 +323,6 @@ function BlogPageContent({ allPosts, featuredPost, pageTitle, pageDescription }:
         />
       </section>
 
-      {/* Footer */}
-      <BlogFooter />
     </div>
   );
 }

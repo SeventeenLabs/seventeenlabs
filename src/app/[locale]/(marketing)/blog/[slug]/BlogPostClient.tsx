@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { format } from 'date-fns';
 import { BlogPost, BlogPostMetadata } from '@/lib/notion-blog';
 import ReactMarkdown from 'react-markdown';
@@ -11,8 +10,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ReadingProgressBar } from '@/components/blog/reading-progress-bar';
 import { TextSelectionPopup } from '@/components/blog/text-selection-popup';
 import { FloatingShareSidebar } from '@/components/blog/floating-share-sidebar';
-import { BlogHeader } from '@/components/blog/blog-header';
-import { MobileHeaderBar } from '@/components/blog/mobile-header-bar';
 import { TableOfContents } from '@/components/blog/table-of-contents';
 import { NewsletterCTA } from '@/components/blog/newsletter-cta';
 import { ShareSection } from '@/components/blog/share-section';
@@ -36,7 +33,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   const [isScrolling, setIsScrolling] = useState(false);
   const [selectedText, setSelectedText] = useState('');
   const [selectionRect, setSelectionRect] = useState<DOMRect | null>(null);
-  const [showTitle, setShowTitle] = useState(false);
   const clearSelection = useCallback(() => {
     setSelectedText('');
     setSelectionRect(null);
@@ -48,8 +44,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
   const formattedDate = format(new Date(post.published_at || post.created_at), 'MMMM dd, yyyy');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  const homePath = '/';
-  const contactHref = `${homePath}#contact`;
   const blogPath = '/blog';
   const postUrl = `${baseUrl}${blogPath}/${post.slug}`;
   const questionHighlights = useMemo(() => {
@@ -143,9 +137,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         requestAnimationFrame(() => {
           const scrollTop = window.scrollY;
           
-          // Throttle state updates
-          const currentTime = Date.now();
-          
           // Show progress bar when scrolling (less frequent updates)
           setIsScrolling(true);
           
@@ -154,10 +145,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
           scrollTimeout = setTimeout(() => {
             setIsScrolling(false);
           }, 1000); // Reduced timeout
-          
-          // Show title when scrolled past the hero section (less frequent updates)
-          const shouldShowTitle = scrollTop > 400;
-          setShowTitle(prev => prev !== shouldShowTitle ? shouldShowTitle : prev);
           
           // Calculate reading progress (use cached values)
           if (contentElement && contentHeight > 0) {
@@ -320,19 +307,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
       {/* Floating Share Sidebar */}
       <FloatingShareSidebar postTitle={post.title} postUrl={postUrl} />
-
-      {/* Blog Header */}
-      <BlogHeader 
-        post={post}
-        showTitle={showTitle}
-      />
-
-      {/* Mobile Header Bar */}
-      <MobileHeaderBar 
-        post={post}
-        postUrl={postUrl}
-        showTitle={showTitle}
-      />
 
       <div className="bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
@@ -880,108 +854,6 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-gray-50 border-t border-gray-200 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
-            <div className="py-12">
-              {/* Main Footer Content */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                {/* Company Info */}
-                <div className="md:col-span-2">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                      S
-                    </div>
-                    <span className="text-xl font-semibold text-gray-900">SeventeenLabs</span>
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed max-w-md">
-                    We automate business processes with AI-driven solutions for agencies and enterprises.
-                  </p>
-                </div>
-
-                {/* Quick Links */}
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-4">
-                    Quick Links
-                  </h4>
-                  <ul className="space-y-2 text-sm">
-                    <li>
-                      <Link href={blogPath} className="text-gray-600 hover:text-gray-900 transition-colors">
-                        Blog
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
-                        About
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/services" className="text-gray-600 hover:text-gray-900 transition-colors">
-                        Services
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href={contactHref} className="text-gray-600 hover:text-gray-900 transition-colors">
-                        Contact
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Contact Info */}
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-4">
-                    Contact
-                  </h4>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                      <a href="mailto:hello@seventeenlabs.io" className="hover:text-gray-900 transition-colors">
-                        hello@seventeenlabs.io
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 9c1.657 0 3-4.03 3-9s-1.343-9 3-9m-9 9a9 9 0 019-9" />
-                      </svg>
-                      <span>seventeenlabs.io</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Footer */}
-              <div className="pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div className="text-sm text-gray-500">
-                  © {new Date().getFullYear()} SeventeenLabs. All rights reserved.
-                </div>
-                
-                <div className="flex items-center gap-6 text-sm text-gray-500">
-                  <Link href="/privacy" className="hover:text-gray-700 transition-colors">
-                    Privacy
-                  </Link>
-                  <Link href="/terms" className="hover:text-gray-700 transition-colors">
-                    Terms
-                  </Link>
-                  <div className="flex items-center gap-3">
-                    <a href="https://twitter.com/seventeenlabs" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 transition-colors">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                      </svg>
-                    </a>
-                    <a href="https://linkedin.com/company/seventeenlabs" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 transition-colors">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );

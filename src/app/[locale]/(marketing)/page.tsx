@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import HomePageClient from "./HomePageClient";
-import { getAllPosts } from "@/lib/notion-blog";
+import SeventeenLabsLanding from "@/components/seventeenlabs-landing";
+import type { Locale } from "@/lib/i18n/config";
 
 interface HomePageMetadataProps {
   params: Promise<{
@@ -16,12 +16,12 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
-    ? "SeventeenLabs | Lokale KI-Operator-Software mit Relay"
-    : "SeventeenLabs | Local-First AI Operator Software with Relay";
+    ? "SeventeenLabs | Praktische KI-Systeme fur Unternehmen"
+    : "SeventeenLabs | Practical AI Systems for Business Operations";
 
   const description = isGerman
-    ? "Praktische KI-Systeme fur Unternehmen, die KI in tagliche Geschaftsprozesse integrieren. SeventeenLabs verbindet Governance, menschliche Freigabe und verantwortbare Ausfuhrung."
-    : "Practical AI systems for companies integrating AI into daily business operations. SeventeenLabs combines governance, human approval, and accountable execution.";
+    ? "SeventeenLabs entwickelt moderne KI-Systeme fur operative Unternehmensprozesse: kontextbewusste Workflows, Governance, menschliche Freigaben und messbare Umsetzung."
+    : "SeventeenLabs builds modern AI systems for business operations: context-aware workflows, governance, human approval, and measurable execution.";
 
   return {
     title,
@@ -30,18 +30,18 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
       ? [
           "KI Operator Software",
           "lokal-first KI",
-          "Relay by SeventeenLabs",
-          "Freigabegetriebene KI Operationen",
-          "AI Workflows mit Governance",
-          "SeventeenLabs Produkte",
+          "KI Systeme fur Unternehmen",
+          "KI Workflows mit Governance",
+          "AI Implementation",
+          "SeventeenLabs",
         ]
       : [
           "AI operator software",
           "local-first AI",
-          "Relay by SeventeenLabs",
-          "approval-driven AI operations",
+          "AI systems for business operations",
           "governed AI workflows",
-          "SeventeenLabs products",
+          "AI implementation",
+          "SeventeenLabs",
         ],
     alternates: {
       canonical: `${baseUrl}${pagePath}`,
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs - Local-First AI Operator Software",
+          alt: "SeventeenLabs - Practical AI Systems for Business Operations",
         },
       ],
     },
@@ -76,9 +76,7 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   };
 }
 
-export default async function HomePage() {
-  const posts = await getAllPosts();
-  const latestPosts = posts.slice(0, 3);
-  
-  return <HomePageClient latestPosts={latestPosts} />;
+export default async function HomePage({ params }: HomePageMetadataProps) {
+  const { locale } = await params;
+  return <SeventeenLabsLanding locale={locale as Locale} />;
 }

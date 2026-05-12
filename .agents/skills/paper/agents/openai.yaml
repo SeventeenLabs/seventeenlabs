@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper"
+  short_description: "Design directly on Paper canvases"
+  default_prompt: "Use $paper to create a polished Paper MCP canvas for this idea."
