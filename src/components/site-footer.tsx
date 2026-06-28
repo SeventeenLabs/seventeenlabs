@@ -2,57 +2,38 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale } from "@/lib/i18n/context";
-import { getLocalizedPath } from "@/lib/i18n/utils";
-import LanguageSwitcher from "./language-switcher";
 
 export default function SiteFooter() {
-  const locale = useLocale();
-  const isGerman = locale === "de";
+  const t = {
+    title: "AI production for films, pilots, and serialized worlds.",
+    description:
+      "SeventeenLabs helps creators, brands, and studios turn concepts into cinematic AI film assets with story, character, scene, and launch support.",
+    sections: "Sections",
+    company: "Company",
+    resources: "Resources",
+    updatesBody: "Notes on AI filmmaking, production workflows, and creative systems.",
+    updates: "Read updates",
+    contact: "Join private build",
+    rights: "All rights reserved.",
+  };
 
-  const t = isGerman
-    ? {
-        title: "AI production for movies, pilots, and serialized worlds.",
-        description:
-          "SeventeenLabs helps creators, brands, and studios turn concepts into cinematic AI film assets with story, character, scene, and launch support.",
-        sections: "Sections",
-        company: "Company",
-        resources: "Resources",
-        updatesBody: "Notes on AI filmmaking, production workflows, and creative systems.",
-        updates: "Read updates",
-        contact: "Join private build",
-        rights: "All rights reserved.",
-      }
-    : {
-        title: "AI production for movies, pilots, and serialized worlds.",
-        description:
-          "SeventeenLabs helps creators, brands, and studios turn concepts into cinematic AI film assets with story, character, scene, and launch support.",
-        sections: "Sections",
-        company: "Company",
-        resources: "Resources",
-        updatesBody: "Notes on AI filmmaking, production workflows, and creative systems.",
-        updates: "Read updates",
-        contact: "Join private build",
-        rights: "All rights reserved.",
-      };
-
-  const homeHref = getLocalizedPath(locale, "/");
+  const homeHref = "/";
   const earlyAccessHref = `${homeHref}#early-access`;
   const sectionLinks = [
-    { label: isGerman ? "Product" : "Product", href: `${homeHref}#studio` },
+    { label: "Product", href: `${homeHref}#studio` },
     { label: "Workflow", href: `${homeHref}#workflow` },
-    { label: isGerman ? "Outputs" : "Outputs", href: `${homeHref}#formats` },
-    { label: isGerman ? "Private Build" : "Private build", href: `${homeHref}#early-access` },
+    { label: "Outputs", href: `${homeHref}#formats` },
+    { label: "Private build", href: `${homeHref}#early-access` },
   ] as const;
 
   const companyLinks = [
-    { label: isGerman ? "Uber uns" : "About", href: getLocalizedPath(locale, "/about") },
-    { label: "News", href: getLocalizedPath(locale, "/blog") },
+    { label: "About", href: "/about" },
+    { label: "News", href: "/blog" },
   ] as const;
 
   const legalLinks = [
-    { label: isGerman ? "Datenschutz" : "Privacy Policy", href: getLocalizedPath(locale, "/privacy") },
-    { label: isGerman ? "AGB" : "Terms & Conditions", href: getLocalizedPath(locale, "/terms") },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms & Conditions", href: "/terms" },
   ] as const;
 
   return (
@@ -101,7 +82,7 @@ export default function SiteFooter() {
               <p className="mb-3 text-xs font-semibold uppercase text-[oklch(0.58_0.05_285)]">{t.resources}</p>
               <p className="text-sm leading-6">{t.updatesBody}</p>
               <Link
-                href={getLocalizedPath(locale, "/blog")}
+                href="/blog"
                 className="mt-3 inline-flex text-sm font-semibold text-[oklch(0.96_0.006_270)] transition hover:text-[oklch(0.9_0.2_128)]"
               >
                 {t.updates}
@@ -115,8 +96,6 @@ export default function SiteFooter() {
             © {new Date().getFullYear()} SeventeenLabs. {t.rights}
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <LanguageSwitcher />
-            <span className="hidden h-3.5 w-px bg-[oklch(0.24_0.014_270)] sm:inline-block" />
             <div className="flex items-center gap-5">
               {legalLinks.map((item) => (
                 <Link key={item.label} href={item.href} className="transition hover:text-[oklch(0.96_0.006_270)]">

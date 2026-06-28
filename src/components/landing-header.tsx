@@ -4,12 +4,9 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useLocale } from "@/lib/i18n/context";
-import { getLocalizedPath } from "@/lib/i18n/utils";
 import { cn } from "@/lib/utils";
 
 export default function LandingHeader() {
-  const locale = useLocale();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -20,13 +17,12 @@ export default function LandingHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const homeHref = getLocalizedPath(locale, "/");
-  const isGerman = locale === "de";
+  const homeHref = "/";
   const earlyAccessHref = `${homeHref}#early-access`;
   const navItems = [
-    { label: isGerman ? "Product" : "Product", href: `${homeHref}#studio` },
-    { label: isGerman ? "Workflow" : "Workflow", href: `${homeHref}#workflow` },
-    { label: isGerman ? "Private Build" : "Private build", href: `${homeHref}#early-access` },
+    { label: "Product", href: `${homeHref}#studio` },
+    { label: "Workflow", href: `${homeHref}#workflow` },
+    { label: "Private build", href: `${homeHref}#early-access` },
   ] as const;
 
   return (
@@ -57,7 +53,7 @@ export default function LandingHeader() {
             href={earlyAccessHref}
             className="hidden min-h-10 items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] md:inline-flex"
           >
-            {isGerman ? "Private Build" : "Join private build"}
+            Join private build
           </Link>
 
           <button
@@ -90,7 +86,7 @@ export default function LandingHeader() {
             onClick={() => setMobileOpen(false)}
             className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
           >
-            {isGerman ? "Private Build" : "Join private build"}
+            Join private build
           </Link>
         </div>
       ) : null}

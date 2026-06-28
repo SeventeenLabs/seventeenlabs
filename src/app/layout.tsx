@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      locale: normalizedPath.startsWith("/de") ? "de_DE" : "en_US",
+      locale: "en_US",
       url: canonicalUrl,
       siteName: "SeventeenLabs",
       title: "SeventeenLabs | AI Movie and Series Creation SaaS",
@@ -99,26 +99,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Root layout provides HTML structure for routes outside [locale]
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const hintedLocale = headersList.get('x-path-locale');
-  let htmlLang = 'en';
-  if (hintedLocale === 'de') {
-    htmlLang = 'de';
-  } else if (hintedLocale === 'en') {
-    htmlLang = 'en';
-  } else {
-    const pathname = headersList.get('next-url') || '/';
-    const firstSegment = pathname.split('/')[1];
-    htmlLang = firstSegment === 'de' ? 'de' : 'en';
-  }
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Resource Hints for Performance */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
