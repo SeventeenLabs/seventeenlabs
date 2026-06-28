@@ -7,14 +7,6 @@ import { Menu, X } from "lucide-react";
 import { useLocale } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/utils";
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 
 export default function LandingHeader() {
   const locale = useLocale();
@@ -29,34 +21,12 @@ export default function LandingHeader() {
   }, []);
 
   const homeHref = getLocalizedPath(locale, "/");
-  const relayHref = getLocalizedPath(locale, "/products/relay");
-  const productsHref = getLocalizedPath(locale, "/products");
-  const solutionsHref = getLocalizedPath(locale, "/solutions");
-  const blogHref = getLocalizedPath(locale, "/blog");
-  const aboutHref = getLocalizedPath(locale, "/about");
-
-  const solutionsItems = [
-    { label: locale === "de" ? "AI Agents" : "AI agents", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Coding" : "Coding", href: `${solutionsHref}/marketing-agencies` },
-  ] as const;
-
-  const solutionsDepartmentItems = [
-    { label: locale === "de" ? "Security" : "Security", href: `${solutionsHref}/marketing-agencies` },
-  ] as const;
-
-  const solutionsIndustryItems = [
-    { label: locale === "de" ? "Customer Support" : "Customer support", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Education" : "Education", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Financial Services" : "Financial services", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Government" : "Government", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Healthcare" : "Healthcare", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Life Sciences" : "Life sciences", href: `${solutionsHref}/marketing-agencies` },
-    { label: locale === "de" ? "Nonprofits" : "Nonprofits", href: `${solutionsHref}/marketing-agencies` },
-  ] as const;
-
-  const productsItems = [
-    { label: "Relay", href: relayHref },
-    { label: "Core", href: `${productsHref}/core` },
+  const isGerman = locale === "de";
+  const earlyAccessHref = `${homeHref}#early-access`;
+  const navItems = [
+    { label: isGerman ? "Product" : "Product", href: `${homeHref}#studio` },
+    { label: isGerman ? "Workflow" : "Workflow", href: `${homeHref}#workflow` },
+    { label: isGerman ? "Private Build" : "Private build", href: `${homeHref}#early-access` },
   ] as const;
 
   return (
@@ -64,108 +34,36 @@ export default function LandingHeader() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         isScrolled
-          ? "border-b border-[#23252a]/90 bg-[#010102]/85 backdrop-blur-xl"
+          ? "border-b border-[oklch(0.24_0.014_270)] bg-[oklch(0.08_0.012_270_/_0.86)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       )}
     >
-      <nav className="mx-auto flex w-full max-w-[88rem] items-center justify-between px-5 py-4 md:px-8">
-        <Link href={homeHref} className="flex items-center gap-3 text-[#f7f8f8]">
-          <Image src="/logo-white.svg" alt="SeventeenLabs" width={20} height={20} className="h-5 w-5 object-contain" />
-          <span className="text-base font-semibold tracking-[-0.02em]">SeventeenLabs</span>
+      <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between px-5 py-4 md:px-8">
+        <Link href={homeHref} className="flex items-center gap-3 text-[oklch(0.96_0.006_270)]" onClick={() => setMobileOpen(false)}>
+          <Image src="/logo.png" alt="SeventeenLabs" width={24} height={24} className="h-6 w-6 rounded-md object-contain" />
+          <span className="text-base font-semibold">SeventeenLabs</span>
         </Link>
 
-        <div className="ml-auto flex items-center gap-6">
-          <div className="hidden lg:block">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-1 space-x-0">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="h-9 px-3 text-sm font-medium text-[#d0d6e0] hover:text-[#f7f8f8] data-[state=open]:text-[#f7f8f8]">
-                    {locale === "de" ? "Losungen" : "Solutions"}
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-0">
-                    <div className="w-[36rem] rounded-md bg-[#121214] p-4">
-                      <div className="grid grid-cols-[0.95fr_2fr] gap-4">
-                        <div className="border-r border-[#2a2d31] pr-4">
-                          <p className="mb-2 text-xs uppercase tracking-[0.12em] text-[#8a8f98]">{locale === "de" ? "Use Cases" : "Use cases"}</p>
-                          <div className="space-y-1">
-                            {solutionsItems.map((item) => (
-                              <NavigationMenuLink asChild key={`use-${item.label}`}>
-                                <Link href={item.href} className="block rounded-md px-2 py-1.5 text-sm font-semibold text-[#f3f4f6] hover:bg-[#1b1d20]">
-                                  {item.label}
-                                </Link>
-                              </NavigationMenuLink>
-                            ))}
-                          </div>
-                          <p className="mb-2 mt-4 text-xs uppercase tracking-[0.12em] text-[#8a8f98]">{locale === "de" ? "Departments" : "Departments"}</p>
-                          <div className="space-y-1">
-                            {solutionsDepartmentItems.map((item) => (
-                              <NavigationMenuLink asChild key={`dept-${item.label}`}>
-                                <Link href={item.href} className="block rounded-md px-2 py-1.5 text-sm font-semibold text-[#f3f4f6] hover:bg-[#1b1d20]">
-                                  {item.label}
-                                </Link>
-                              </NavigationMenuLink>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <p className="mb-2 text-xs uppercase tracking-[0.12em] text-[#8a8f98]">{locale === "de" ? "Industries" : "Industries"}</p>
-                          <div className="grid grid-cols-2 gap-1.5">
-                            {solutionsIndustryItems.map((item) => (
-                              <NavigationMenuLink asChild key={`ind-${item.label}`}>
-                                <Link href={item.href} className="rounded-md px-2 py-1.5 text-sm font-semibold text-[#f3f4f6] hover:bg-[#1b1d20]">
-                                  {item.label}
-                                </Link>
-                              </NavigationMenuLink>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+        <div className="hidden items-center gap-7 lg:flex">
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} className="text-sm font-medium text-[oklch(0.76_0.012_270)] transition hover:text-[oklch(0.96_0.006_270)]">
+              {item.label}
+            </Link>
+          ))}
+        </div>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="h-9 px-3 text-sm font-medium text-[#d0d6e0] hover:text-[#f7f8f8] data-[state=open]:text-[#f7f8f8]">
-                    {locale === "de" ? "Produkte" : "Products"}
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="p-0">
-                    <div className="w-48 rounded-md bg-[#121214] p-2">
-                      {productsItems.map((item) => (
-                        <NavigationMenuLink asChild key={`prod-${item.label}`}>
-                          <Link href={item.href} className="block rounded-md px-3 py-2 text-sm text-[#d0d6e0] hover:bg-[#1b1d20] hover:text-[#f7f8f8]">
-                            {item.label}
-                          </Link>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href={blogHref} className="inline-flex h-9 items-center px-3 text-sm font-medium text-[#d0d6e0] hover:text-[#f7f8f8]">
-                    News
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href={aboutHref} className="inline-flex h-9 items-center px-3 text-sm font-medium text-[#d0d6e0] hover:text-[#f7f8f8]">
-                    About
-                  </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
-
+        <div className="flex items-center gap-3">
           <Link
-            href={relayHref}
-            className="hidden rounded-md bg-[#5e6ad2] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#828fff] md:inline-flex"
+            href={earlyAccessHref}
+            className="hidden min-h-10 items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] md:inline-flex"
           >
-            {locale === "de" ? "Relay testen" : "Try Relay"}
+            {isGerman ? "Private Build" : "Join private build"}
           </Link>
 
           <button
             type="button"
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[#23252a] bg-[#0f1011] text-white lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[oklch(0.26_0.014_270)] bg-[oklch(0.11_0.012_270)] text-[oklch(0.96_0.006_270)] lg:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -174,47 +72,25 @@ export default function LandingHeader() {
       </nav>
 
       {mobileOpen ? (
-        <div className="border-t border-[#23252a] bg-[#010102] px-5 pb-6 pt-3 lg:hidden">
-          <div className="space-y-2">
-            <div className="rounded-md border border-[#23252a] bg-[#0f1011] p-2">
-              <p className="px-2 py-1 text-xs uppercase tracking-[0.14em] text-[#8a8f98]">{locale === "de" ? "Losungen" : "Solutions"}</p>
-              {[...solutionsItems, ...solutionsDepartmentItems, ...solutionsIndustryItems].map((item) => (
-                <Link
-                  key={`m-sol-${item.label}`}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-md px-2 py-2 text-sm text-[#d0d6e0] transition-colors hover:bg-[#17191b] hover:text-[#f7f8f8]"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <div className="rounded-md border border-[#23252a] bg-[#0f1011] p-2">
-              <p className="px-2 py-1 text-xs uppercase tracking-[0.14em] text-[#8a8f98]">{locale === "de" ? "Produkte" : "Products"}</p>
-              {productsItems.map((item) => (
-                <Link
-                  key={`m-prod-${item.label}`}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-md px-2 py-2 text-sm text-[#d0d6e0] transition-colors hover:bg-[#17191b] hover:text-[#f7f8f8]"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <Link href={blogHref} onClick={() => setMobileOpen(false)} className="block rounded-md px-3 py-2.5 text-sm text-[#d0d6e0] hover:bg-[#0f1011] hover:text-[#f7f8f8]">
-              News
-            </Link>
-            <Link href={aboutHref} onClick={() => setMobileOpen(false)} className="block rounded-md px-3 py-2.5 text-sm text-[#d0d6e0] hover:bg-[#0f1011] hover:text-[#f7f8f8]">
-              About
-            </Link>
+        <div className="border-t border-[oklch(0.24_0.014_270)] bg-[oklch(0.08_0.012_270)] px-5 pb-6 pt-3 lg:hidden">
+          <div className="grid gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={`mobile-${item.label}`}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-md px-3 py-3 text-sm font-medium text-[oklch(0.78_0.012_270)] transition hover:bg-[oklch(0.13_0.012_270)] hover:text-[oklch(0.96_0.006_270)]"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
           <Link
-            href={relayHref}
+            href={earlyAccessHref}
             onClick={() => setMobileOpen(false)}
-            className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-[#5e6ad2] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#828fff]"
+            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
           >
-            {locale === "de" ? "Relay testen" : "Try Relay"}
+            {isGerman ? "Private Build" : "Join private build"}
           </Link>
         </div>
       ) : null}

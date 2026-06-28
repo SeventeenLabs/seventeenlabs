@@ -13,7 +13,7 @@ export function BlogFooter() {
           <div className="lg:col-span-1 space-y-4">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo_anim.svg"
+                src="/logo.png"
                 alt="SeventeenLabs"
                 width={120}
                 height={18}

@@ -6,37 +6,37 @@ brand
 
 ## Users
 
-SeventeenLabs speaks to business operators, founders, executives, and technically literate team leads who are evaluating how AI can become part of real company workflows. They are not looking for generic AI novelty or a broad consulting pitch. They want to understand whether SeventeenLabs can help them make AI useful, controlled, measurable, and credible inside operational work.
+SeventeenLabs speaks to creators, founders, brand teams, agencies, independent filmmakers, and small studios who want a self-serve SaaS workspace for producing cinematic AI movies, pilots, trailers, serialized characters, and recurring video formats.
 
-Visitors may arrive with interest in a specific product such as Relay, but the company website should first establish SeventeenLabs as the source of practical AI systems, implementation patterns, and productized operating infrastructure.
+They are not looking for a generic AI video generator or an agency call. They want a product where they can create an account, open a studio workspace, build a story world, keep assets organized, generate scenes, review versions, and export launch-ready material.
 
 ## Product Purpose
 
-The website positions SeventeenLabs as a premium, technical, pragmatic AI company that builds practical systems for business operations. Success means a visitor understands the company promise quickly: SeventeenLabs helps organizations move AI from demos and experiments into governed workflows with context, human approval, and accountable execution.
+The website positions SeventeenLabs as a premium AI movie and series creation SaaS product. Success means a visitor understands the promise quickly: create a workspace, define a concept, build characters and worlds, generate controlled scenes, and export publishable cinematic assets.
 
-Relay is one product in the portfolio, not the whole company story. Product references should support the company narrative rather than dominate the homepage.
+The brand should feel like a modern creative studio delivered as software. The core promise is not "type a prompt and get a clip." It is the full product loop: story development, visual direction, model orchestration, controlled generation, editing, review, storage, collaboration, pricing, account creation, and release support.
 
 ## Brand Personality
 
-Technical, premium, pragmatic.
+Cinematic, precise, quietly ambitious.
 
-The voice should feel precise and competent without becoming cold. SeventeenLabs should read like a serious systems company with good taste: confident enough to be restrained, specific enough to avoid generic AI claims, and practical enough to make implementation feel real.
-
-Linear is the directional reference: disciplined interface craft, sharp hierarchy, reduced noise, premium product confidence, and a sense that every element has been deliberately placed.
+The voice should feel professional and creative without becoming theatrical. SeventeenLabs should read like a studio that understands story, taste, production constraints, and the current AI video stack. It should be clear enough for a brand team, exciting enough for creators, and credible enough for film-minded buyers.
 
 ## Anti-references
 
-The site must not feel enterprise. Avoid corporate stock-boardroom blandness, procurement-heavy jargon, trust-logo walls as a substitute for substance, and "digital transformation" consultant language.
+Avoid generic AI startup aesthetics: neon grids, robot mascots, vague magic claims, prompt-box hero cliches, glowing abstract blobs, and pages that could belong to any model wrapper.
 
-Also avoid generic AI startup aesthetics: neon gradients, glowing abstract blobs, vague "AI-powered" claims, robotic mascots, and pages that could belong to any model wrapper. The design should not look like a template SaaS page or a Relay-only product page.
+Avoid legacy automation-agency language: workflow automation, AI agents for operations, business process optimization, n8n, governed enterprise AI, Relay-first positioning, book-a-call funnels, and service-only framing.
+
+Avoid Hollywood cosplay. The page should feel cinematic and premium, but not like a fake studio backlot, fan poster, or stock image of a director chair.
 
 ## Design Principles
 
-1. Company first, product second. Lead with SeventeenLabs as the operating-system-minded AI company; introduce products as proof of the philosophy.
-2. Show control, not magic. The more powerful the AI claim, the more visible the governance, human approval, evidence, and accountability should become.
-3. Specific beats grand. Replace broad AI promises with concrete workflow language, operational examples, and implementation logic.
-4. Premium through discipline. Use strong hierarchy, spacing, contrast, and restraint instead of decorative effects.
-5. Practice the product philosophy. The page itself should feel governed: clear sequence, low cognitive noise, and every section doing a defined job.
+1. Show the product, not only the model. Lead with the self-serve studio workspace.
+2. Sell continuity and control. AI video buyers care about repeatable characters, scenes, style, and approval points.
+3. Make the output tangible. Mention pilots, episodes, trailers, posters, shorts, social cuts, and release packages.
+4. Premium through restraint. Use cinematic imagery, strong typography, disciplined layout, and limited color.
+5. Keep humans in the loop. The product should feel creatively directed, not randomly generated.
 
 ## Accessibility & Inclusion
 

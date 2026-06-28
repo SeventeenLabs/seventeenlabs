@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import SeventeenLabsLanding from "@/components/seventeenlabs-landing";
-import type { Locale } from "@/lib/i18n/config";
 
 interface HomePageMetadataProps {
   params: Promise<{
@@ -16,31 +15,31 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
-    ? "SeventeenLabs | Praktische KI-Systeme fur Unternehmen"
-    : "SeventeenLabs | Practical AI Systems for Business Operations";
+    ? "SeventeenLabs | AI Filme und Serien erstellen"
+    : "SeventeenLabs | AI Movie and Series Creation SaaS";
 
   const description = isGerman
-    ? "SeventeenLabs entwickelt moderne KI-Systeme fur operative Unternehmensprozesse: kontextbewusste Workflows, Governance, menschliche Freigaben und messbare Umsetzung."
-    : "SeventeenLabs builds modern AI systems for business operations: context-aware workflows, governance, human approval, and measurable execution.";
+    ? "SeventeenLabs ist ein AI Studio Workspace fur Filme, Serien, Trailer, Piloten, Charaktere, Szenen und Launch-Assets."
+    : "SeventeenLabs is an AI studio workspace for creating movies, series, trailers, pilots, characters, scenes, and launch assets.";
 
   return {
     title,
     description,
     keywords: isGerman
       ? [
-          "KI Operator Software",
-          "lokal-first KI",
-          "KI Systeme fur Unternehmen",
-          "KI Workflows mit Governance",
-          "AI Implementation",
+          "AI Filme erstellen",
+          "AI Serien erstellen",
+          "AI Video Produktion",
+          "AI Filmstudio",
+          "AI Trailer erstellen",
           "SeventeenLabs",
         ]
       : [
-          "AI operator software",
-          "local-first AI",
-          "AI systems for business operations",
-          "governed AI workflows",
-          "AI implementation",
+          "AI movie creation",
+          "AI series creation",
+          "AI video production",
+          "AI film studio",
+          "AI trailer creation",
           "SeventeenLabs",
         ],
     alternates: {
@@ -63,7 +62,7 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs - Practical AI Systems for Business Operations",
+          alt: "SeventeenLabs - AI movie and series creation service",
         },
       ],
     },
@@ -76,7 +75,6 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   };
 }
 
-export default async function HomePage({ params }: HomePageMetadataProps) {
-  const { locale } = await params;
-  return <SeventeenLabsLanding locale={locale as Locale} />;
+export default function HomePage() {
+  return <SeventeenLabsLanding />;
 }

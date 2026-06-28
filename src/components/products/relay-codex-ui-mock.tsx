@@ -18,20 +18,23 @@ import {
 
 export function RelayCodexUiMock() {
   return (
-    <div className="relative mx-auto mt-10 h-full w-full max-w-[1120px] overflow-hidden rounded-[12px] border border-white/20 bg-[#07090d] shadow-[0px_18px_90px_0px_rgba(0,0,0,0.18)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(102,170,255,0.2),transparent_36%),radial-gradient(circle_at_82%_16%,rgba(86,132,255,0.18),transparent_34%),linear-gradient(180deg,rgba(14,27,51,0.35)_0%,rgba(7,12,24,0.2)_100%)]" />
-      <div className="flex min-h-[700px] w-full text-[12px] text-white">
-        <aside className="relative flex w-[23%] min-w-[220px] max-w-[256px] shrink-0 flex-col bg-transparent px-3 py-3 backdrop-blur-xl">
+    <div className="mt-10 w-full overflow-visible">
+      <div className="origin-top-left scale-[0.72] pl-20 sm:scale-[0.86] md:flex md:justify-center md:pl-0 lg:scale-100">
+        <div className="relative h-full w-[1120px] overflow-hidden rounded-[12px] border border-[#11141d] bg-[#07090d] shadow-[0px_18px_90px_0px_rgba(0,0,0,0.18)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_50%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_50%,transparent_100%)] sm:[-webkit-mask-image:none] sm:[mask-image:none]">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(102,170,255,0.2),transparent_36%),radial-gradient(circle_at_82%_16%,rgba(86,132,255,0.18),transparent_34%),linear-gradient(180deg,rgba(14,27,51,0.35)_0%,rgba(7,12,24,0.2)_100%)]" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8 bg-transparent backdrop-blur-xl" />
+          <div className="flex min-h-[700px] w-full text-[12px] text-white">
+        <aside className="relative z-20 flex w-[23%] min-w-[220px] max-w-[256px] shrink-0 flex-col bg-transparent px-3 py-3 backdrop-blur-xl">
           <div className="mb-5 flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-            <PanelLeftClose className="ml-auto h-4 w-4 text-white/55" />
+            <PanelLeftClose className="ml-2 h-4 w-4 text-white/55" />
           </div>
 
           <button className="mb-5 inline-flex items-center gap-2 rounded-md py-1 text-[13px] text-white/82 transition hover:text-white">
             <Plus className="h-4 w-4 text-white/55" />
-            <span>Neuer Chat</span>
+            <span>New chat</span>
           </button>
 
           <div className="mb-3 text-xs font-medium text-white/55">PROJECTS</div>
@@ -52,10 +55,9 @@ export function RelayCodexUiMock() {
           </div>
         </aside>
 
-        <div className="min-w-0 flex-1 bg-transparent">
-          <div className="-ml-px h-8 bg-transparent backdrop-blur-xl" />
+        <div className="min-w-0 flex-1 bg-transparent pt-8">
 
-          <div className="relative mt-px h-[calc(700px-2rem)] overflow-hidden rounded-tl-[22px] border border-white/18 border-r-0 border-b-0 bg-black">
+          <div className="relative mt-px h-[calc(700px-2rem)] overflow-hidden rounded-tl-[14px] border border-[#1a1f2c] border-r-0 border-b-0 bg-black">
             <header className="flex items-center justify-between px-3 py-3">
               <div className="flex items-center gap-2">
                 <span className="text-[13px] font-semibold text-white">New Project</span>
@@ -127,6 +129,23 @@ export function RelayCodexUiMock() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 z-30 flex -translate-y-1/2 justify-center sm:hidden">
+        <div className="w-[96%] max-w-[500px] rounded-[26px] border border-white/12 bg-black/92 p-4 shadow-[0_18px_50px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+          <div className="text-[12px] text-white/70">Ask Relay anything, @ to add files, / for commands</div>
+          <div className="mt-4 flex items-center justify-between">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-[#151922] text-white/85">
+              <Plus className="h-4 w-4" />
+            </span>
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-black">
+              <Send className="h-4 w-4" />
+            </span>
           </div>
         </div>
       </div>

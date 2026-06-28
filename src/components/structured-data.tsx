@@ -26,7 +26,7 @@ export default function StructuredData({ locale = 'en', type = 'home', faqItems 
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${baseUrl}/logo-white.svg`,
+      url: `${baseUrl}/logo.png`,
       width: 200,
       height: 60,
     },

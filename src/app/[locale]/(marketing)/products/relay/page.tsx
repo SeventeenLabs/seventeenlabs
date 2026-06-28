@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { RelayCodexUiMock } from "@/components/products/relay-codex-ui-mock";
+import { RelayCardMock, RelaySectionMock } from "@/components/products/relay-section-mocks";
 
 interface PageProps {
 	params: Promise<{ locale: string }>;
@@ -85,7 +86,7 @@ export default async function RelayPage({ params }: PageProps) {
 		? {
 				eyebrow: "Relay",
 				title: "Relay",
-				subtitle: "Ein AI-Operator fur Planung, Freigaben und sichere Ausfuhrung auf OpenClaw.",
+				subtitle: "Dein Workspace fur dein AI-Backend, um dein Unternehmen im AI-Zeitalter zu steuern.",
 				primaryCta: "Fur Windows herunterladen",
 				secondaryCta: "GitHub ansehen",
 				sectionTitle: "Die beste Art, mit Agenten zu arbeiten",
@@ -96,22 +97,22 @@ export default async function RelayPage({ params }: PageProps) {
 					{
 						title: "Entwickeln und Umsetzung beschleunigen",
 						description: "Relay kombiniert Projektkontext, Planung und Ausfuhrung in einem Operator-Desk statt in mehreren getrennten Tools.",
-						image: "/abstract-svg/relay-abstract-04-context-grounding.svg",
+						mock: 1 as const,
 					},
 					{
 						title: "Fur Multi-Agenten-Workflows gebaut",
 						description: "Von Research bis Umsetzung: Relay halt Kontext und Freigaben stabil, auch wenn mehrere Agents beteiligt sind.",
-						image: "/abstract-svg/relay-abstract-03-signal-grid.svg",
+						mock: 2 as const,
 					},
 					{
 						title: "Passt sich an dein Team an",
 						description: "Safety Scopes, Rollen und Freigaben lassen sich an euer Risikoprofil und euren Workflow anpassen.",
-						image: "/abstract-svg/relay-abstract-06-approval-first-control.svg",
+						mock: 3 as const,
 					},
 					{
 						title: "Fur Dauerbetrieb konzipiert",
 						description: "Aktivitat, Dateien und Entscheidungen bleiben nachvollziehbar, damit langfristige AI-Workflows kontrollierbar bleiben.",
-						image: "/abstract-svg/relay-abstract-07-artifact-trace.svg",
+						mock: 4 as const,
 					},
 				],
 				agentCards: ["In der Relay-App arbeiten", "In einen lokalen Kontext wechseln", "Im Terminal weitermachen"],
@@ -127,7 +128,7 @@ export default async function RelayPage({ params }: PageProps) {
 		: {
 				eyebrow: "Relay",
 				title: "Relay",
-				subtitle: "An AI operator for planning, approvals, and governed execution on OpenClaw.",
+				subtitle: "Your workspace for your AI backend to run your business in the age of AI.",
 				primaryCta: "Download for Windows",
 				secondaryCta: "View on GitHub",
 				sectionTitle: "The best way to build with agents",
@@ -138,22 +139,22 @@ export default async function RelayPage({ params }: PageProps) {
 					{
 						title: "Move development work faster",
 						description: "Relay combines project context, planning, and execution in one operator desk instead of fragmented tools.",
-						image: "/abstract-svg/relay-abstract-04-context-grounding.svg",
+						mock: 1 as const,
 					},
 					{
 						title: "Built for multi-agent workflows",
 						description: "From research to execution, Relay keeps context and approval control stable across multiple agents.",
-						image: "/abstract-svg/relay-abstract-03-signal-grid.svg",
+						mock: 2 as const,
 					},
 					{
 						title: "Fits your team setup",
 						description: "Safety scopes, role boundaries, and approvals adapt to your risk profile and operating model.",
-						image: "/abstract-svg/relay-abstract-06-approval-first-control.svg",
+						mock: 3 as const,
 					},
 					{
 						title: "Designed for continuous operations",
 						description: "Activity, files, and decisions remain reviewable so long-running AI workflows stay controlled.",
-						image: "/abstract-svg/relay-abstract-07-artifact-trace.svg",
+						mock: 4 as const,
 					},
 				],
 				agentCards: ["Work in Relay app", "Switch into local context", "Continue in terminal"],
@@ -190,17 +191,18 @@ export default async function RelayPage({ params }: PageProps) {
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
 			<main className="min-h-screen bg-black text-white">
-				<section className="relative overflow-hidden border-b border-white/10">
+				<section className="relative overflow-hidden">
 					<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(167,197,255,0.36),transparent_40%),radial-gradient(circle_at_86%_14%,rgba(113,124,255,0.34),transparent_38%),radial-gradient(circle_at_50%_98%,rgba(24,86,255,0.35),transparent_54%)]" />
+					<div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-black sm:h-40" />
 					<div className={`${pageContainer} relative py-20 sm:py-24 lg:py-28`}>
-						<div className="mx-auto mb-10 max-w-4xl text-center sm:mb-12">
-							<div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-white p-2 shadow-[0_16px_40px_rgba(35,66,160,0.35)]">
+						<div className="mx-auto mt-6 mb-10 max-w-4xl text-center sm:mt-8 sm:mb-12">
+							<div className="mx-auto mb-10 flex h-20 w-20 items-center justify-center rounded-3xl bg-white p-2 shadow-[0_16px_40px_rgba(35,66,160,0.35)]">
 								<Image src="/images/relay-logo.png" alt="Relay logo" width={60} height={60} className="h-14 w-14 rounded-2xl object-cover" priority />
 							</div>
-							<h1 className="mt-3 text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: "var(--font-display)" }}>
+							<h1 className="mt-3 text-5xl font-semibold tracking-tight sm:text-6xl" style={{ fontFamily: "var(--font-sans)" }}>
 								{t.title}
 							</h1>
-							<p className="mx-auto mt-5 max-w-2xl text-base text-white/82 sm:text-lg" style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}>
+							<p className="mx-auto mt-5 whitespace-nowrap text-sm font-light text-white/82 sm:text-base" style={{ fontFamily: "var(--font-sans)" }}>
 								{t.subtitle}
 							</p>
 							<div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -224,7 +226,7 @@ export default async function RelayPage({ params }: PageProps) {
 				</section>
 
 				<section className={`${pageContainer} py-16 sm:py-20`}>
-					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-sans)" }}>
 						{t.sectionTitle}
 					</h2>
 				</section>
@@ -233,13 +235,17 @@ export default async function RelayPage({ params }: PageProps) {
 					const reverse = index % 2 === 1;
 					return (
 						<section key={feature.title} className="pb-12 sm:pb-16">
-							<div className={`${pageContainer} grid items-center gap-8 md:gap-10 lg:grid-cols-2 lg:gap-16 ${reverse ? "lg:[&>*:first-child]:order-2" : ""}`}>
-								<div className="rounded-2xl border border-white/14 bg-[radial-gradient(circle_at_15%_15%,rgba(153,184,255,0.35),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(57,88,255,0.35),transparent_42%),#0a1024] p-3">
-									<Image src={feature.image} alt={feature.title} width={1200} height={720} className="h-auto w-full rounded-xl" />
-								</div>
-								<div>
+							<div
+								className={`${pageContainer} grid items-center gap-8 md:gap-10 ${
+									reverse
+										? "lg:[grid-template-columns:minmax(0,1fr)_900px]"
+										: "lg:[grid-template-columns:900px_minmax(0,1fr)]"
+								}`}
+							>
+								<RelaySectionMock variant={feature.mock} />
+								<div className={`w-full text-left ${reverse ? "lg:order-first" : ""}`}>
 									<h3 className="text-2xl font-semibold sm:text-3xl">{feature.title}</h3>
-									<p className="mt-4 max-w-xl text-base leading-relaxed text-white/76">{feature.description}</p>
+									<p className="mt-4 text-base leading-relaxed text-white/76">{feature.description}</p>
 								</div>
 							</div>
 						</section>
@@ -247,15 +253,13 @@ export default async function RelayPage({ params }: PageProps) {
 				})}
 
 				<section className={`${pageContainer} py-14 sm:py-18`}>
-					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-sans)" }}>
 						{t.agentTitle}
 					</h2>
 					<div className="mt-8 grid gap-4 md:grid-cols-3">
-						{t.agentCards.map((card, index) => (
-							<div key={card} className="rounded-2xl border border-white/14 bg-white/[0.03] p-3">
-								<div className="rounded-xl border border-white/12 bg-[radial-gradient(circle_at_20%_20%,rgba(153,184,255,0.3),transparent_45%),radial-gradient(circle_at_84%_70%,rgba(57,88,255,0.28),transparent_42%),#0b1228] p-2">
-									<Image src={t.features[index % t.features.length]?.image ?? "/abstract-svg/relay-abstract-02-approval-flow.svg"} alt={card} width={900} height={540} className="h-auto w-full rounded-lg" />
-								</div>
+						{t.agentCards.filter((_, index) => index !== 1).map((card, index) => (
+							<div key={card}>
+								<RelayCardMock variant={([2, 3, 5] as const)[index % 3]} />
 								<p className="mt-3 text-sm text-white/84">{card}</p>
 							</div>
 						))}
@@ -263,7 +267,7 @@ export default async function RelayPage({ params }: PageProps) {
 				</section>
 
 				<section className={`${pageContainer} py-10 sm:py-14`}>
-					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-display)" }}>
+					<h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl" style={{ fontFamily: "var(--font-sans)" }}>
 						{t.testimonialTitle}
 					</h2>
 					<div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -278,10 +282,10 @@ export default async function RelayPage({ params }: PageProps) {
 				<section className="relative mt-10 overflow-hidden border-t border-white/10">
 					<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(167,197,255,0.3),transparent_42%),radial-gradient(circle_at_90%_20%,rgba(113,124,255,0.3),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(24,86,255,0.28),transparent_58%)]" />
 					<div className={`${pageContainer} relative py-20 text-center`}>
-						<h2 className="text-4xl font-semibold tracking-tight sm:text-5xl" style={{ fontFamily: "var(--font-display)" }}>
+						<h2 className="text-4xl font-semibold tracking-tight sm:text-5xl" style={{ fontFamily: "var(--font-sans)" }}>
 							{t.footerTitle}
 						</h2>
-						<p className="mx-auto mt-4 max-w-2xl text-base text-white/80" style={{ fontFamily: "ui-serif, Georgia, Cambria, Times New Roman, Times, serif" }}>
+						<p className="mx-auto mt-4 max-w-2xl text-base text-white/80" style={{ fontFamily: "var(--font-sans)" }}>
 							{t.subtitle}
 						</p>
 						<div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

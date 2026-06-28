@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const isGerman = validLocale === 'de';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
   const title = isGerman
-    ? 'SeventeenLabs | KI-Automatisierungsagentur'
-    : 'SeventeenLabs | AI Automation Agency';
+    ? 'SeventeenLabs | AI Filme und Serien erstellen'
+    : 'SeventeenLabs | AI Movie and Series Creation SaaS';
   const description = isGerman
-    ? 'KI-Automatisierungsagentur für maßgeschneiderte Workflow-Automatisierung und intelligente Prozessoptimierung. Transformieren Sie Ihr Unternehmen mit KI-gestützten Lösungen.'
-    : 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.';
+    ? 'AI Studio Workspace fur Filme, Serien, Trailer, Piloten, Charaktere, Szenen und Launch-Assets.'
+    : 'AI studio workspace for creating movies, series, trailers, pilots, characters, scenes, and launch assets.';
 
   return {
     metadataBase: new URL(baseUrl),
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: 'SeventeenLabs - AI Automation Agency',
+          alt: 'SeventeenLabs - AI movie and series creation SaaS',
         },
       ],
     },

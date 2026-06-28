@@ -18,7 +18,7 @@ export const siteConfig = {
   email: 'hello@seventeenlabs.io',
   foundingDate: '2023',
   logo: {
-    url: `${BASE_URL}/logo-white.svg`,
+    url: `${BASE_URL}/logo.png`,
     width: 200,
     height: 60,
   },

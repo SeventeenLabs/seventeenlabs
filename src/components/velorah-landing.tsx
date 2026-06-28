@@ -127,7 +127,7 @@ export default function VelorahLanding() {
 			>
 				<nav className="mx-auto flex w-full max-w-[88rem] items-center justify-between px-6 py-3 md:px-8">
 					<Link href="/" className="flex items-center gap-3 rounded-full px-2 py-1 transition-colors hover:bg-white/[0.06]">
-						<img src="/logo-white.svg" alt="SeventeenLabs" className="h-6 w-6 object-contain" />
+						<img src="/logo.png" alt="SeventeenLabs" className="h-6 w-6 rounded-md object-contain" />
 						<span className="text-xl tracking-tight text-foreground sm:text-2xl" style={headingStyle}>
 							SeventeenLabs
 						</span>
@@ -419,7 +419,7 @@ export default function VelorahLanding() {
 					<div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.15fr,0.85fr,0.85fr]">
 						<div>
 							<div className="flex items-center gap-3">
-								<img src="/logo-white.svg" alt="SeventeenLabs" className="h-6 w-6 object-contain" />
+								<img src="/logo.png" alt="SeventeenLabs" className="h-6 w-6 rounded-md object-contain" />
 								<span className="text-xl tracking-tight text-foreground" style={headingStyle}>
 									SeventeenLabs
 								</span>
