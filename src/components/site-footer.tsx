@@ -13,17 +13,17 @@ export default function SiteFooter() {
     resources: "Resources",
     updatesBody: "Notes on AI filmmaking, production workflows, and creative systems.",
     updates: "Read updates",
-    contact: "Join private build",
+    contact: "Choose a plan",
     rights: "All rights reserved.",
   };
 
   const homeHref = "/";
-  const earlyAccessHref = `${homeHref}#early-access`;
+  const earlyAccessHref = `${homeHref}#pricing`;
   const sectionLinks = [
     { label: "Product", href: `${homeHref}#studio` },
     { label: "Workflow", href: `${homeHref}#workflow` },
     { label: "Outputs", href: `${homeHref}#formats` },
-    { label: "Private build", href: `${homeHref}#early-access` },
+    { label: "Pricing", href: earlyAccessHref },
   ] as const;
 
   const companyLinks = [

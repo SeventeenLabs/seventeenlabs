@@ -5,17 +5,20 @@ import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
+  Check,
   Film,
   Layers3,
   Wand2,
 } from "lucide-react";
+import { creditNotes, pricingPlans } from "@/lib/early-access-plans";
+import { trackFunnelEvent } from "@/lib/funnel-events";
 
 const audience = ["Creators", "Brand teams", "Small studios", "Agencies", "Founders"];
 
 const buildSignals = [
-  "Private prototype previews",
-  "Workflow updates from the build",
-  "First creator workspace invites",
+  "Creator: $79/month",
+  "Pro: $149/month",
+  "Studio: $299/month",
 ];
 
 const productImages = {
@@ -29,12 +32,12 @@ const productImages = {
 };
 
 const outputs = [
-  "Scene-ready shot lists",
+  "Production bible",
   "Reusable character packs",
   "Location and prop boards",
-  "Camera movement plans",
-  "Continuity notes",
-  "Trailer and social exports",
+  "Shot-generation briefs",
+  "Continuity locks",
+  "Script-to-shot plans",
 ];
 
 const pillars = [
@@ -52,9 +55,9 @@ const pillars = [
   },
   {
     icon: Wand2,
-    title: "Direct camera and motion",
+    title: "Prepare better generation briefs",
     description:
-      "Describe the shot like a director: lens feel, blocking, camera move, start frame, end frame, and performance reference.",
+      "Package shot intent, framing, references, character rules, and continuity notes before you spend credits in generation tools.",
   },
 ];
 
@@ -75,15 +78,15 @@ const workflow = [
   },
   {
     step: "03",
-    title: "Generate, compare, and fix shots",
-    description: "Route each shot to the right AI service, track versions, flag continuity drift, and keep the best takes.",
+    title: "Create shot-generation briefs",
+    description: "Prepare prompts, references, continuity requirements, and fix notes so every retry has a clear reason.",
     image: productImages.workflowVariantFix,
     alt: "Variant comparison and fix pass interface for matching AI-generated shots.",
   },
   {
     step: "04",
-    title: "Assemble the release package",
-    description: "Export the episode cut, trailer hook, poster stills, thumbnails, captions, and vertical clips from the same project.",
+    title: "Review takes and move the scene forward",
+    description: "Keep accepted shots, rejected versions, notes, and next-shot requirements connected to the same production record.",
     image: productImages.workflowReleasePackage,
     alt: "Release package interface with timeline, video previews, vertical crops, audio, and social exports.",
   },
@@ -93,42 +96,62 @@ const proofRows = [
   ["Prompt-only tools", "Characters morph, outfits change, and locations drift between clips", "SeventeenLabs", "Keeps identity, wardrobe, sets, props, and style rules attached to every shot"],
   ["Generic video apps", "You get beautiful five-second clips, then fight to make them work as a scene", "SeventeenLabs", "Starts from the script, scene, beat, camera move, and edit purpose before generation"],
   ["Manual folders", "References, rejected takes, prompts, edits, and continuity notes get scattered everywhere", "SeventeenLabs", "Keeps the production bible, shot history, versions, and exports in one workspace"],
-  ["Credit-burning iteration", "Bad generations cost money because there is no clear way to diagnose what failed", "SeventeenLabs", "Tracks intent, model, reference, version, and fix notes so each retry gets smarter"],
+  ["Credit-burning iteration", "Bad generations cost money because there is no clear way to diagnose what failed", "SeventeenLabs", "Tracks intent, references, continuity requirements, and fix notes so each retry gets smarter"],
 ];
 
 const faqs = [
   {
-    question: "What makes this different from an AI video generator?",
+    question: "What is available now?",
     answer:
-      "AI video generators make clips. SeventeenLabs is built around production memory: characters, locations, props, scene notes, camera direction, references, review states, and exports stay connected so clips can become scenes and scenes can become a series.",
+      "Early access members get first access to Production Bible, script-to-shot planning, continuity locks, and shot-generation briefs. More advanced tooling rolls out after those foundations are working with real projects.",
   },
   {
-    question: "Does it replace Runway, Kling, Sora, Veo, or other generators?",
+    question: "When does access start?",
     answer:
-      "No. The goal is to become the production layer above the models. You plan the scene, preserve continuity, manage versions, and route shots to the right generation tool instead of rebuilding context by hand every time.",
+      "Applications are reviewed manually. After you apply, the confirmation email repeats your selected plan and price. If your project is a fit for the current early access group, you receive the Stripe checkout link for that exact plan with expected onboarding timing.",
   },
   {
-    question: "Who is it for?",
+    question: "Why is it invite-only?",
     answer:
-      "Creators, founders, brand teams, agencies, independent filmmakers, and small studios who want to make AI films, pilots, ads, trailers, and recurring series without filming everything in real life.",
+      "The product is still being shaped around real production workflows. Invite-only access keeps onboarding focused on creators who can give useful feedback and actually use the first capabilities.",
   },
   {
-    question: "Can I start before the full product is public?",
+    question: "Can I cancel?",
     answer:
-      "Yes. SeventeenLabs is in private build. Join the list if you are actively trying to make repeatable AI video projects, and we will share workflow previews, prototype access, and early workspace invites as they open.",
+      "Yes. Each early access plan is monthly. You can cancel before the next billing cycle.",
+  },
+  {
+    question: "Is the founding price locked?",
+    answer:
+      "Yes. Early access members lock in the selected plan price while their subscription remains active.",
+  },
+  {
+    question: "Do generation credits cost extra?",
+    answer:
+      "Each early access plan includes monthly generation credits. Additional credits are available anytime, and credit cost varies by model, duration, resolution, and generation type.",
+  },
+  {
+    question: "Which models will be supported first?",
+    answer:
+      "The first build focuses on planning and production memory around tools creators already use, such as Runway, Kling, Veo, Midjourney, and similar generators. Direct model routing will roll out only after the core workflow is stable.",
   },
 ];
 
 export default function SeventeenLabsLanding() {
+  React.useEffect(() => {
+    trackFunnelEvent("landing_page_view");
+  }, []);
+
   return (
     <main className="min-h-screen overflow-hidden bg-[oklch(0.055_0.012_270)] text-[oklch(0.98_0.006_270)]">
       <Hero />
       <AudienceStrip />
-      <PrivateBuildSection />
+      <EarlyAccessSection />
       <ProblemSection />
       <ProductSection />
       <WorkflowSection />
       <OutputsSection />
+      <PricingSection />
       <FaqSection />
       <FinalCta />
     </main>
@@ -144,15 +167,36 @@ function Hero() {
       <div className="mx-auto flex w-full max-w-[88rem] flex-col items-center">
         <div className="flex max-w-5xl flex-col items-center text-center">
           <p className="mb-5 text-sm font-semibold text-[oklch(0.86_0.2_128)]">
-            Currently in private build for AI filmmakers and creator teams
+            Early access for AI filmmakers and creator teams
           </p>
           <h1 className="text-balance text-5xl font-semibold leading-[0.95] tracking-normal text-[oklch(0.98_0.006_270)] sm:text-6xl md:text-7xl lg:text-[5.4rem]">
             The AI production pipeline for films, pilots, trailers, and series.
           </h1>
           <p className="mt-6 max-w-3xl text-pretty text-base leading-7 text-[oklch(0.78_0.015_270)] sm:text-lg">
-            Plan the script, lock characters and locations, direct camera movement, track every take, and keep continuity from shot to shot without filming everything in real life.
+            Build consistent AI-shot scenes from one production system. Lock characters, wardrobe, locations, references, shot intent, and continuity before generating.
           </p>
-          <EarlyAccessForm className="mt-8 w-full max-w-2xl" />
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#pricing"
+                onClick={() => {
+                  trackFunnelEvent("pricing_viewed", { source: "hero_cta" });
+                  trackFunnelEvent("pricing_section_view", { source: "hero_cta" });
+                }}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[oklch(0.9_0.22_128)] px-6 text-sm font-bold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
+              >
+                Choose a plan
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#workflow"
+                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/16 bg-white/[0.045] px-6 text-sm font-bold text-[oklch(0.9_0.006_270)] transition hover:border-white/28 hover:bg-white/[0.07]"
+              >
+                See the workflow
+              </a>
+            </div>
+            <p className="text-sm text-[oklch(0.7_0.012_270)]">Early access plans from $79 to $299/month. Select a plan before signup.</p>
+          </div>
         </div>
 
         <div className="mt-14 w-full">
@@ -180,19 +224,19 @@ function AudienceStrip() {
   );
 }
 
-function PrivateBuildSection() {
+function EarlyAccessSection() {
   return (
     <section className="border-b border-white/10 bg-[oklch(0.061_0.012_270)] px-5 py-12 md:px-8">
       <div className="mx-auto grid w-full max-w-[82rem] gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[oklch(0.86_0.2_128)]">Private build</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[oklch(0.86_0.2_128)]">Early access</p>
           <h2 className="mt-3 max-w-2xl text-2xl font-semibold leading-tight text-[oklch(0.98_0.006_270)] md:text-3xl">
-            Not a public product yet. A focused build with creators who already feel the pain.
+            Not a public product yet. Early access for creators who already feel the pain.
           </h2>
         </div>
         <div>
           <p className="max-w-3xl text-base leading-7 text-[oklch(0.74_0.014_270)]">
-            We are shaping the first workspace with people trying to make real AI films, pilots, ads, trailers, and recurring series. Join if you want the production pipeline, not another prompt box.
+            We are shaping the first workspace with people trying to make real AI films, pilots, ads, trailers, and recurring series. Select a plan, complete the early access signup, and accepted members receive the Stripe checkout link for that exact plan.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {buildSignals.map((item) => (
@@ -242,7 +286,7 @@ function ProductSection() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeader eyebrow="Product" title="A production pipeline, not another prompt box." />
           <p className="max-w-2xl text-base leading-7 text-[oklch(0.74_0.014_270)] md:text-lg">
-            SeventeenLabs gives AI filmmakers the missing layer between the script and the generator: production bible, scene breakdown, shot planning, continuity memory, model routing, version review, and release exports.
+            SeventeenLabs gives AI filmmakers the missing layer between the script and the generator: production bible, scene breakdown, shot planning, continuity memory, and generation briefs that keep the next take tied to the same creative system.
           </p>
         </div>
 
@@ -255,7 +299,7 @@ function ProductSection() {
         <ShowcaseImage
           className="mt-12"
           src={productImages.shotPlanning}
-          alt="SeventeenLabs shot planning workspace with scenes, beats, shot intent, framing, lens, characters, wardrobe, locations, continuity notes, and model routing."
+          alt="SeventeenLabs shot planning workspace with scenes, beats, shot intent, framing, lens, characters, wardrobe, locations, continuity notes, and generation briefs."
         />
 
         <ShowcaseImage
@@ -313,7 +357,7 @@ function OutputsSection() {
     <section id="formats" className="scroll-mt-24 bg-[oklch(0.98_0.006_270)] px-5 py-20 text-[oklch(0.09_0.012_270)] md:px-8 md:py-28">
       <div className="mx-auto grid w-full max-w-[82rem] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.14_132)]">Outputs</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[oklch(0.42_0.14_132)]">What SeventeenLabs manages</p>
           <h2 className="mt-4 text-balance text-4xl font-semibold leading-tight md:text-6xl">
             Keep every creative asset tied to the scene it belongs to.
           </h2>
@@ -334,85 +378,90 @@ function OutputsSection() {
   );
 }
 
-function EarlyAccessForm({ className = "" }: { className?: string }) {
-  const [email, setEmail] = React.useState("");
-  const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = React.useState("Enter a valid email to join the private build.");
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const normalizedEmail = email.trim().toLowerCase();
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail);
-
-    if (!validEmail) {
-      setErrorMessage("Enter a valid email to join the private build.");
-      setStatus("error");
+function PricingSection() {
+  React.useEffect(() => {
+    const section = document.getElementById("pricing");
+    if (!section) {
       return;
     }
 
-    setStatus("loading");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          trackFunnelEvent("pricing_viewed", { source: "pricing_section" });
+          trackFunnelEvent("pricing_section_view", { source: "pricing_section" });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.45 }
+    );
 
-    try {
-      const response = await fetch("/api/early-access", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: normalizedEmail }),
-      });
-
-      const result = (await response.json().catch(() => null)) as { error?: string } | null;
-
-      if (!response.ok) {
-        setErrorMessage(result?.error || "Could not join the private build. Try again.");
-        setStatus("error");
-        return;
-      }
-
-      setEmail("");
-      setStatus("success");
-    } catch {
-      setErrorMessage("Could not join the private build. Try again.");
-      setStatus("error");
-    }
-  }
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit} className={`text-left ${className}`}>
-      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-        <label htmlFor="early-access-email" className="sr-only">
-          Email address
-        </label>
-        <input
-          id="early-access-email"
-          type="email"
-          value={email}
-          onChange={(event) => {
-            setEmail(event.target.value);
-            setStatus("idle");
-          }}
-          placeholder="you@studio.com"
-          className="min-h-11 rounded-lg border border-white/16 bg-white/[0.055] px-4 text-base text-[oklch(0.98_0.006_270)] outline-none transition placeholder:text-[oklch(0.5_0.012_270)] focus:border-[oklch(0.9_0.22_128)] focus:ring-2 focus:ring-[oklch(0.9_0.22_128_/_0.28)]"
-          aria-describedby="early-access-message"
-          disabled={status === "loading"}
+    <section id="pricing" className="scroll-mt-24 border-y border-white/10 bg-[oklch(0.075_0.014_270)] px-5 py-20 md:px-8 md:py-28">
+      <div className="mx-auto w-full max-w-[82rem]">
+        <SectionHeader
+          eyebrow="Pricing"
+          title="Choose an early access plan before applying."
+          description="This is pricing validation, not final packaging. We are testing which price point and package creators are willing to select for a production system plus generation credits."
         />
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[oklch(0.9_0.22_128)] px-5 text-sm font-bold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {status === "loading" ? "Joining..." : "Join private build"}
-          <ArrowRight className="h-4 w-4" />
-        </button>
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
+          {pricingPlans.map((plan) => (
+            <article
+              key={plan.id}
+              className="flex h-full flex-col rounded-2xl border border-white/10 bg-[oklch(0.09_0.014_270)] p-6 transition hover:border-[oklch(0.9_0.22_128_/_0.45)]"
+            >
+              <p className="text-sm font-semibold text-[oklch(0.86_0.2_128)]">{plan.name}</p>
+              <div className="mt-3 flex items-end gap-2">
+                <span className="text-5xl font-semibold leading-none text-[oklch(0.98_0.006_270)]">{plan.price.replace("/month", "")}</span>
+                <span className="pb-1 text-base text-[oklch(0.68_0.012_270)]">/month</span>
+              </div>
+              <p className="mt-4 text-sm font-semibold text-[oklch(0.86_0.012_270)]">{plan.audience}</p>
+              <p className="mt-2 text-sm leading-6 text-[oklch(0.7_0.012_270)]">{plan.intro}</p>
+              <ul className="mt-6 grid flex-1 gap-3">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex gap-3 text-sm leading-6 text-[oklch(0.78_0.014_270)]">
+                    <Check className="mt-0.5 h-5 w-5 flex-none text-[oklch(0.86_0.2_128)]" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`/apply?plan=${plan.id}`}
+                onClick={() => {
+                  trackFunnelEvent("plan_selected", { plan: plan.name, price: plan.price, planId: plan.id });
+                  plan.clickEvents.forEach((eventName) => {
+                    trackFunnelEvent(eventName, { plan: plan.name, price: plan.price, planId: plan.id });
+                  });
+                }}
+                className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[oklch(0.9_0.22_128)] px-6 text-sm font-bold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
+              >
+                {plan.cta}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </article>
+          ))}
+        </div>
+        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+          <p className="text-sm font-semibold text-[oklch(0.92_0.006_270)]">
+            Early access members lock in their selected price while subscribed.
+          </p>
+          <p className="mt-2 text-sm leading-6 text-[oklch(0.7_0.012_270)]">
+            You are not charged when you apply. Accepted members receive a payment link to activate access for the exact plan they selected.
+          </p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-3">
+            {creditNotes.map((note) => (
+              <div key={note} className="rounded-lg border border-white/10 bg-black/15 px-3 py-2 text-sm text-[oklch(0.76_0.012_270)]">
+                {note}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <p id="early-access-message" className="mt-3 min-h-5 text-sm text-[oklch(0.7_0.012_270)]" aria-live="polite">
-        {status === "success"
-          ? "You are on the private build list."
-          : status === "error"
-            ? errorMessage
-            : "Get build updates, workflow previews, and first creator workspace invites."}
-      </p>
-    </form>
+    </section>
   );
 }
 
@@ -420,7 +469,7 @@ function FaqSection() {
   return (
     <section className="border-t border-white/10 px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto grid w-full max-w-[82rem] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <SectionHeader eyebrow="FAQ" title="Questions before you start?" />
+        <SectionHeader eyebrow="Early access FAQ" title="Questions before you apply?" />
         <div className="grid gap-3">
           {faqs.map((faq) => (
             <article key={faq.question} className="rounded-2xl border border-white/10 bg-white/[0.045] p-6">
@@ -446,8 +495,8 @@ function FinalCta() {
             Bring the script, characters, locations, and shot ideas. SeventeenLabs helps turn them into a repeatable AI production pipeline.
           </p>
         </div>
-        <a href="#early-access" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[oklch(0.9_0.22_128)] px-6 text-sm font-bold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]">
-          Join private build
+        <a href="#pricing" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[oklch(0.9_0.22_128)] px-6 text-sm font-bold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]">
+          View early access plans
           <ArrowRight className="h-4 w-4" />
         </a>
       </div>

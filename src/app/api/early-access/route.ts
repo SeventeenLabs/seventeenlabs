@@ -6,6 +6,15 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function getStringField(payload: unknown, field: string) {
+  if (typeof payload !== "object" || payload === null) {
+    return "";
+  }
+
+  const value = (payload as Record<string, unknown>)[field];
+  return typeof value === "string" ? value.trim() : "";
+}
+
 export async function POST(request: Request) {
   const apiKey = process.env.LOOPS_API_KEY;
 
@@ -24,16 +33,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const email =
-    typeof payload === "object" &&
-    payload !== null &&
-    "email" in payload &&
-    typeof payload.email === "string"
-      ? payload.email.trim().toLowerCase()
-      : "";
+  const email = getStringField(payload, "email").toLowerCase();
+  const plan = getStringField(payload, "plan") || "Early Access Creator";
+  const price = getStringField(payload, "price") || "$79/month";
+  const planId = getStringField(payload, "planId") || "creator";
+  const projectType = getStringField(payload, "projectType");
+  const currentTools = getStringField(payload, "currentTools");
+  const biggestProblem = getStringField(payload, "biggestProblem");
+  const projectLink = getStringField(payload, "projectLink");
+  const trafficSource = getStringField(payload, "trafficSource");
+  const paymentStatus = getStringField(payload, "paymentStatus") || "not_charged_application";
 
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Enter a valid email." }, { status: 400 });
+  }
+
+  if (!projectType || !currentTools || !biggestProblem) {
+    return NextResponse.json(
+      { error: "Tell us what you are making, your current tools, and your biggest production problem." },
+      { status: 400 }
+    );
   }
 
   const loopsResponse = await fetch(loopsEndpoint, {
@@ -45,12 +64,24 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       email,
       source: "seventeenlabs-landing",
-      userGroup: "early-access",
+      userGroup: "early-access-application",
+      plan,
+      planId,
+      price,
+      projectType,
+      currentTools,
+      mainPain: biggestProblem,
+      biggestProductionProblem: biggestProblem,
+      projectLink,
+      trafficSource,
+      paymentStatus,
+      applicationStatus: "applied",
+      funnelStage: "application_completed",
     }),
   });
 
   if (!loopsResponse.ok) {
-    let message = "Could not join the early-access list.";
+    let message = "Could not submit the early access application.";
 
     try {
       const errorBody = await loopsResponse.json();

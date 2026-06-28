@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function LandingHeader() {
@@ -18,11 +18,11 @@ export default function LandingHeader() {
   }, []);
 
   const homeHref = "/";
-  const earlyAccessHref = `${homeHref}#early-access`;
+  const earlyAccessHref = `${homeHref}#pricing`;
   const navItems = [
     { label: "Product", href: `${homeHref}#studio` },
     { label: "Workflow", href: `${homeHref}#workflow` },
-    { label: "Private build", href: `${homeHref}#early-access` },
+    { label: "Pricing", href: earlyAccessHref },
   ] as const;
 
   return (
@@ -51,9 +51,10 @@ export default function LandingHeader() {
         <div className="flex items-center gap-3">
           <Link
             href={earlyAccessHref}
-            className="hidden min-h-10 items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] md:inline-flex"
+            className="hidden min-h-10 items-center justify-center gap-2 rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] md:inline-flex"
           >
-            Join private build
+            Choose a plan
+            <ArrowRight className="h-4 w-4" />
           </Link>
 
           <button
@@ -84,9 +85,10 @@ export default function LandingHeader() {
           <Link
             href={earlyAccessHref}
             onClick={() => setMobileOpen(false)}
-            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
+            className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
           >
-            Join private build
+            Choose a plan
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       ) : null}
