@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 			locale: isGerman ? "de_DE" : "en_US",
 			images: [
 				{
-					url: `${baseUrl}/opengraph-image`,
+					url: `${baseUrl}/og-image.png`,
 					width: 1200,
 					height: 630,
 					alt: "Relay by SeventeenLabs",
@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 			card: "summary_large_image",
 			title,
 			description,
-			images: [`${baseUrl}/opengraph-image`],
+			images: [`${baseUrl}/og-image.png`],
 		},
 	};
 }

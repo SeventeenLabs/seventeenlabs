@@ -23,10 +23,10 @@ export const siteConfig = {
     height: 60,
   },
   defaultImage: {
-    url: `${BASE_URL}/opengraph-image`,
+    url: `${BASE_URL}/og-image.png`,
     width: 1200,
     height: 630,
-    alt: 'SeventeenLabs - AI Automation Agency',
+    alt: 'SeventeenLabs AI production pipeline for films, pilots, trailers, and series',
   },
 };
 
@@ -34,15 +34,15 @@ export const siteConfig = {
 export const localeContent = {
   en: {
     siteName: 'SeventeenLabs',
-    tagline: 'AI Automation Agency',
-    description: 'AI automation agency specializing in custom workflow automation and intelligent process optimization. Transform your business with AI-powered solutions.',
+    tagline: 'AI Production Pipeline for Films and Series',
+    description: 'SeventeenLabs is an AI production pipeline for planning scenes, locking continuity, and generating consistent shots for films, pilots, trailers, and series.',
     locale: 'en_US',
     hreflang: 'en',
   },
   de: {
     siteName: 'SeventeenLabs',
-    tagline: 'KI-Automatisierungsagentur',
-    description: 'KI-Automatisierungsagentur für maßgeschneiderte Workflow-Automatisierung und intelligente Prozessoptimierung. Transformieren Sie Ihr Unternehmen mit KI-gestützten Lösungen.',
+    tagline: 'AI Produktionspipeline fur Filme und Serien',
+    description: 'SeventeenLabs ist eine AI Produktionspipeline, um Szenen zu planen, Kontinuitat zu sichern und konsistente Shots fur Filme, Piloten, Trailer und Serien zu generieren.',
     locale: 'de_DE',
     hreflang: 'de',
   },

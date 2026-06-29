@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'SeventeenLabs - AI Automation Agency',
+    name: 'SeventeenLabs - AI Production Pipeline',
     short_name: 'SeventeenLabs',
-    description: 'AI automation agency specializing in custom workflow automation, intelligent process optimization, and scalable automation solutions.',
+    description: 'AI production pipeline for planning scenes, locking continuity, and generating consistent shots for films, pilots, trailers, and series.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#2563eb',
+    background_color: '#050506',
+    theme_color: '#c8ff00',
     orientation: 'portrait-primary',
     scope: '/',
     lang: 'en',
@@ -29,22 +29,22 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     shortcuts: [
       {
+        name: 'Request early access',
+        short_name: 'Early access',
+        description: 'Apply for early access to SeventeenLabs',
+        url: '/#early-access',
+      },
+      {
+        name: 'Open app',
+        short_name: 'App',
+        description: 'Open the SeventeenLabs studio app',
+        url: '/app',
+      },
+      {
         name: 'Blog',
         short_name: 'Blog',
-        description: 'Read our latest articles on AI automation',
+        description: 'Read notes on AI filmmaking and production workflows',
         url: '/blog',
-      },
-      {
-        name: 'Products',
-        short_name: 'Products',
-        description: 'Explore Relay and Core',
-        url: '/products',
-      },
-      {
-        name: 'Contact',
-        short_name: 'Contact',
-        description: 'Get in touch with us',
-        url: '/about#contact',
       },
     ],
     related_applications: [],

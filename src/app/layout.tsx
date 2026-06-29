@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
+const ogImageUrl = `${baseUrl}/og-image.png`;
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -53,24 +54,24 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       url: canonicalUrl,
       siteName: "SeventeenLabs",
-      title: "SeventeenLabs | AI Movie and Series Creation SaaS",
+      title: "SeventeenLabs | AI Production Pipeline for Films and Series",
       description:
-        "Create cinematic AI movies, series, pilots, trailers, posters, and launch assets in the SeventeenLabs studio workspace.",
+        "Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.",
       images: [
         {
-          url: `${baseUrl}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs - AI movie and series creation service",
+          alt: "SeventeenLabs AI production pipeline for films, pilots, trailers, and series",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "SeventeenLabs - AI Movie and Series Creation SaaS",
+      title: "SeventeenLabs - AI Production Pipeline for Films and Series",
       description:
-        "Create cinematic AI movies, series, pilots, trailers, posters, and launch assets in the SeventeenLabs studio workspace.",
-      images: [`${baseUrl}/opengraph-image`],
+        "Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.",
+      images: [ogImageUrl],
       creator: "@seventeenlabs",
       site: "@seventeenlabs",
     },

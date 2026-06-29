@@ -10,6 +10,7 @@ interface PageProps {
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
+const ogImageUrl = `${baseUrl}/og-image.png`;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -17,12 +18,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const pagePath = isGerman ? "/de/about" : "/about";
 
   const title = isGerman
-    ? "Über SeventeenLabs | Produktstudio fur AI Operator Software"
-    : "About SeventeenLabs | Product Studio for AI Operator Software";
+    ? "Uber SeventeenLabs | AI Produktionspipeline fur Filme und Serien"
+    : "About SeventeenLabs | AI Production Pipeline for Films and Series";
 
   const description = isGerman
-    ? "SeventeenLabs ist das Produktstudio hinter Relay. Wir entwickeln lokal-first AI Operator Software fur Planung, Freigaben und sichere Ausfuhrung."
-    : "SeventeenLabs is the product studio behind Relay. We build local-first AI operator software for planning, approvals, and safe execution.";
+    ? "SeventeenLabs entwickelt eine AI Produktionspipeline fur Filme, Piloten, Trailer und Serien mit Szenenplanung, Kontinuitat und konsistenten Shots."
+    : "SeventeenLabs builds an AI production pipeline for films, pilots, trailers, and series with scene planning, continuity, and consistent shot generation.";
 
   return {
     title,
@@ -30,17 +31,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: isGerman
       ? [
           "SeventeenLabs Unternehmen",
-          "Relay Produkt",
-          "KI Operator Plattform",
-          "lokal-first KI Software",
-          "Freigabegetriebene KI Operationen",
+          "AI Filme erstellen",
+          "AI Serien erstellen",
+          "AI Produktionspipeline",
+          "AI Video Produktion",
         ]
       : [
           "SeventeenLabs company",
-          "Relay product",
-          "AI operator platform",
-          "local-first AI software",
-          "approval-driven AI operations",
+          "AI movie creation",
+          "AI series creation",
+          "AI production pipeline",
+          "AI video production",
         ],
     alternates: {
       canonical: `${baseUrl}${pagePath}`,
@@ -59,10 +60,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: isGerman ? "de_DE" : "en_US",
       images: [
         {
-          url: `${baseUrl}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs About Page",
+          alt: "SeventeenLabs AI production pipeline for films, pilots, trailers, and series",
         },
       ],
     },
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title,
       description,
-      images: [`${baseUrl}/opengraph-image`],
+      images: [ogImageUrl],
     },
   };
 }

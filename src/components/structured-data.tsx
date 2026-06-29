@@ -31,8 +31,8 @@ export default function StructuredData({ locale = 'en', type = 'home', faqItems 
       height: 60,
     },
     description: isGerman
-      ? 'Führende Plattform für KI-gestützte Workflow-Automatisierung und maßgeschneiderte Softwareentwicklung'
-      : 'Leading platform for AI-powered workflow automation and custom software development',
+      ? 'AI Produktionspipeline fur Filme, Piloten, Trailer und Serien mit Szenenplanung, Kontinuitat und konsistenten Shots'
+      : 'AI production pipeline for films, pilots, trailers, and series with scene planning, continuity, and consistent shot generation',
     sameAs: [
       'https://twitter.com/seventeenlabs',
       'https://www.linkedin.com/company/seventeenlabs-io',
@@ -73,12 +73,12 @@ export default function StructuredData({ locale = 'en', type = 'home', faqItems 
     },
   };
 
-  // Software Application schema for workflow platform
+  // Software Application schema for the AI production studio
   const softwareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'SeventeenLabs Workflows',
-    applicationCategory: 'BusinessApplication',
+    name: 'SeventeenLabs',
+    applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
@@ -86,8 +86,8 @@ export default function StructuredData({ locale = 'en', type = 'home', faqItems 
       priceCurrency: 'USD',
     },
     description: isGerman
-      ? 'Automatisieren Sie Ihre Geschäftsprozesse mit KI-gestützten Workflows'
-      : 'Automate your business processes with AI-powered workflows',
+      ? 'Plane Szenen, sichere Kontinuitat und generiere konsistente Shots fur AI Filme, Piloten, Trailer und Serien.'
+      : 'Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.',
   };
 
   // Professional Service schema for agency

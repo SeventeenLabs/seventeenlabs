@@ -8,6 +8,7 @@ interface HomePageMetadataProps {
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
+const ogImageUrl = `${baseUrl}/og-image.png`;
 
 export async function generateMetadata({ params }: HomePageMetadataProps): Promise<Metadata> {
   const { locale } = await params;
@@ -15,12 +16,12 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
   const pagePath = isGerman ? "/de" : "/";
 
   const title = isGerman
-    ? "SeventeenLabs | AI Filme und Serien erstellen"
-    : "SeventeenLabs | AI Movie and Series Creation SaaS";
+    ? "SeventeenLabs | AI Produktionspipeline fur Filme und Serien"
+    : "SeventeenLabs | AI Production Pipeline for Films and Series";
 
   const description = isGerman
-    ? "SeventeenLabs ist ein AI Studio Workspace fur Filme, Serien, Trailer, Piloten, Charaktere, Szenen und Launch-Assets."
-    : "SeventeenLabs is an AI studio workspace for creating movies, series, trailers, pilots, characters, scenes, and launch assets.";
+    ? "Plane Szenen, sichere Kontinuitat und generiere konsistente Shots fur AI Filme, Piloten, Trailer und Serien."
+    : "Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.";
 
   return {
     title,
@@ -59,10 +60,10 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
       locale: isGerman ? "de_DE" : "en_US",
       images: [
         {
-          url: `${baseUrl}/opengraph-image`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: "SeventeenLabs - AI movie and series creation service",
+          alt: "SeventeenLabs AI production pipeline for films, pilots, trailers, and series",
         },
       ],
     },
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }: HomePageMetadataProps): Promi
       card: "summary_large_image",
       title: `${title} | SeventeenLabs`,
       description,
-      images: [`${baseUrl}/opengraph-image`],
+      images: [ogImageUrl],
     },
   };
 }
