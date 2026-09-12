@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CoreProductPage({ params }: PageProps) {
   const { locale } = await params;
   const isGerman = locale === "de";
-  const productsHref = isGerman ? "/de/products" : "/products";
+  const productsHref = isGerman ? "/de/products" : "/frame";
 
   const content = isGerman
     ? {

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Manrope, Sora } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans, Manrope, Sora } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import "./company.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
 const ogImageUrl = `${baseUrl}/og-image.png`;
@@ -19,20 +20,38 @@ const sora = Sora({
   display: "swap",
 });
 
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const requestedPath = headersList.get("next-url") || "/";
-  const normalizedPath = requestedPath.startsWith("/") ? requestedPath : `/${requestedPath}`;
-  const canonicalUrl = new URL(normalizedPath === "/" ? "/" : normalizedPath, baseUrl).toString();
+  const normalizedPath = requestedPath.startsWith("/")
+    ? requestedPath
+    : `/${requestedPath}`;
+  const canonicalUrl = new URL(
+    normalizedPath === "/" ? "/" : normalizedPath,
+    baseUrl,
+  ).toString();
 
   return {
     metadataBase: new URL(baseUrl),
     title: {
-      default: "SeventeenLabs | AI Movie and Series Creation SaaS",
+      default: "SeventeenLabs | Creative software for generative media",
       template: "%s | SeventeenLabs",
     },
     description:
-      "AI studio workspace for creators, brands, and studios. Turn concepts into cinematic movies, series, pilots, trailers, posters, and launch assets.",
+      "SeventeenLabs is an open project building creative software for generative media. Tools for AI-native filmmaking, made in public, from the first idea to the final frame.",
     keywords: [
       "AI movie creation",
       "AI series creation",
@@ -54,23 +73,23 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       url: canonicalUrl,
       siteName: "SeventeenLabs",
-      title: "SeventeenLabs | AI Production Pipeline for Films and Series",
+      title: "SeventeenLabs | Creative software for generative media",
       description:
-        "Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.",
+        "Independent creative software for a new generation of filmmakers. Explore Frame, the generative video editor we’re building.",
       images: [
         {
           url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: "SeventeenLabs AI production pipeline for films, pilots, trailers, and series",
+          width: 1672,
+          height: 941,
+          alt: "SeventeenLabs. Creative software for generative media.",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "SeventeenLabs - AI Production Pipeline for Films and Series",
+      title: "SeventeenLabs | Creative software for generative media",
       description:
-        "Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.",
+        "Independent creative software for a new generation of filmmakers.",
       images: [ogImageUrl],
       creator: "@seventeenlabs",
       site: "@seventeenlabs",
@@ -92,12 +111,10 @@ export async function generateMetadata(): Promise<Metadata> {
         { url: "/favicon.ico", sizes: "32x32" },
         { url: "/icon.svg", type: "image/svg+xml" },
       ],
-      apple: [
-        { url: "/apple-touch-icon.png", sizes: "180x180" },
-      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     },
     category: "Technology",
-    classification: "Business Services",
+    classification: "Creative Software",
   };
 }
 
@@ -107,13 +124,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Resource Hints for Performance */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
@@ -124,8 +145,8 @@ export default async function RootLayout({
         {/* Preload critical assets */}
         <link rel="preload" href="/favicon.ico" as="image" />
       </head>
-      <body 
-        className={`${manrope.variable} ${sora.variable} font-sans antialiased`}
+      <body
+        className={`${manrope.variable} ${sora.variable} ${instrumentSans.variable} ${plexMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         {children}

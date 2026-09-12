@@ -29,7 +29,7 @@ export default function WhatWeDo() {
       icon: Code2,
       title: t("whatWeDo.development.title"),
       description: t("whatWeDo.development.description"),
-  href: getLocalizedPath(locale, "/products"),
+  href: getLocalizedPath(locale, "/frame"),
       color: "emerald",
     },
   ];

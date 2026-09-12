@@ -235,7 +235,7 @@ export default function WorkflowTransformation() {
               size="lg" 
               className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white border-0"
             >
-              <Link href="/products">
+              <Link href="/frame">
                 <Wrench className="w-4 h-4 mr-2" />
                 Get Started Today
               </Link>

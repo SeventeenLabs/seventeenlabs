@@ -23,7 +23,7 @@ const featureTabs = [
 const navItems = [
 	{ label: "Relay", href: "/products/relay" },
 	{ label: "Solutions", href: "/solutions" },
-	{ label: "Products", href: "/products" },
+	{ label: "Products", href: "/frame" },
 	{ label: "Journal", href: "/blog" },
 	{ label: "Contact", href: "/about" },
 ] as const;
@@ -37,7 +37,7 @@ const stats = [
 
 const footerLinks = [
 	{ label: "Relay", href: "/products/relay" },
-	{ label: "Products", href: "/products" },
+	{ label: "Products", href: "/frame" },
 	{ label: "Solutions", href: "/solutions" },
 	{ label: "Community", href: "/blog" },
 	{ label: "Journal", href: "/blog" },

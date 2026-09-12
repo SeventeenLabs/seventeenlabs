@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
 import { I18nProvider } from "@/lib/i18n/context";
 import { getLocaleFromString, locales } from "@/lib/i18n/config";
 import StructuredData from "@/components/structured-data";
 import "../globals.css";
+
+export const dynamicParams = false;
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -14,46 +16,52 @@ interface LocaleLayoutProps {
 }
 
 // Generate metadata dynamically for each locale
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
+  if (!locales.some((supported) => supported === locale)) notFound();
   const validLocale = getLocaleFromString(locale);
-  const isGerman = validLocale === 'de';
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
+  const isGerman = validLocale === "de";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
   const ogImageUrl = `${baseUrl}/og-image.png`;
   const title = isGerman
-    ? 'SeventeenLabs | AI Produktionspipeline fur Filme und Serien'
-    : 'SeventeenLabs | AI Production Pipeline for Films and Series';
+    ? "SeventeenLabs | Kreative Software für generative Medien"
+    : "SeventeenLabs | Creative software for generative media";
   const description = isGerman
-    ? 'Plane Szenen, sichere Kontinuitat und generiere konsistente Shots fur AI Filme, Piloten, Trailer und Serien.'
-    : 'Plan scenes, lock continuity, and generate consistent shots for AI films, pilots, trailers, and series.';
+    ? "SeventeenLabs entwickelt kreative Software für generative Medien."
+    : "SeventeenLabs builds creative software for generative media.";
 
   return {
     metadataBase: new URL(baseUrl),
     title,
     description,
     openGraph: {
-      type: 'website',
-      locale: isGerman ? 'de_DE' : 'en_US',
+      type: "website",
+      locale: isGerman ? "de_DE" : "en_US",
       url: isGerman ? `${baseUrl}/de` : baseUrl,
-      siteName: 'SeventeenLabs',
+      siteName: "SeventeenLabs",
       title,
       description,
       images: [
         {
           url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: 'SeventeenLabs AI production pipeline for films, pilots, trailers, and series',
+          width: 1672,
+          height: 941,
+          alt: "SeventeenLabs. Creative software for generative media.",
         },
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [ogImageUrl],
-      creator: '@seventeenlabs',
-      site: '@seventeenlabs',
+      creator: "@seventeenlabs",
+      site: "@seventeenlabs",
     },
     robots: {
       index: true,
@@ -62,19 +70,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       googleBot: {
         index: true,
         follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
     icons: {
       icon: [
-        { url: '/favicon.ico', sizes: '32x32' },
-        { url: '/icon.svg', type: 'image/svg+xml' },
+        { url: "/favicon.ico", sizes: "32x32" },
+        { url: "/icon.svg", type: "image/svg+xml" },
       ],
-      apple: [
-        { url: '/apple-touch-icon.png', sizes: '180x180' },
-      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     },
   };
 }
@@ -84,21 +90,23 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const { locale } = await params;
-  
+  if (!locales.some((supported) => supported === locale)) notFound();
+
   // Validate locale and ensure it's one of our supported locales
   const validLocale = getLocaleFromString(locale);
-  const isGerman = validLocale === 'de';
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://seventeenlabs.io';
-  
+  const isGerman = validLocale === "de";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "https://seventeenlabs.io";
+
   // Breadcrumb structured data
   const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: [
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 1,
-        name: 'Home',
+        name: "Home",
         item: isGerman ? `${baseUrl}/de` : baseUrl,
       },
     ],
@@ -110,7 +118,7 @@ export default async function LocaleLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      
+
       {/* Google Analytics */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-GP1PFPXNHD"
@@ -124,14 +132,11 @@ export default async function LocaleLayout({
           gtag('config', 'G-GP1PFPXNHD');
         `}
       </Script>
-      
+
       {/* Structured Data */}
       <StructuredData locale={validLocale} type="home" />
-      
-      <I18nProvider locale={validLocale}>
-        {children}
-      </I18nProvider>
-      <Analytics />
+
+      <I18nProvider locale={validLocale}>{children}</I18nProvider>
     </>
   );
 }

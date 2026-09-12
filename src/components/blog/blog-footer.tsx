@@ -97,7 +97,7 @@ export function BlogFooter() {
                 Core
               </Link>
               <Link
-                href="/products"
+                href="/frame"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
                 All Products

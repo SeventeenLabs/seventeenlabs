@@ -1,97 +1,220 @@
 "use client";
-
-import * as React from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
+import { BrandLockup } from "@/components/company/brand-mark";
+
+type NavItem = { label: string; href: string; note: string };
+type NavGroup = { label: string; items: NavItem[] };
+
+const groups: NavGroup[] = [
+  {
+    label: "Product",
+    items: [
+      {
+        label: "Frame",
+        href: "/frame",
+        note: "The generative video editor, in development",
+      },
+      {
+        label: "Our approach",
+        href: "/#approach",
+        note: "How we think the work should feel",
+      },
+      {
+        label: "What it does",
+        href: "/#capabilities",
+        note: "Four things Frame is built around",
+      },
+    ],
+  },
+  {
+    label: "Project",
+    items: [
+      {
+        label: "About the project",
+        href: "/about",
+        note: "An open project, not a company",
+      },
+      {
+        label: "Ways in",
+        href: "/#access",
+        note: "Early access, updates, or just a conversation",
+      },
+      {
+        label: "Questions",
+        href: "/#faq",
+        note: "What we can and can't answer yet",
+      },
+    ],
+  },
+];
 
 export default function LandingHeader() {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menu, setMenu] = useState<string | null>(null);
+  const [notice, setNotice] = useState(true);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const nav = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const home = ["/", "/en", "/de"].includes(pathname);
 
-  React.useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+  useEffect(() => {
+    const scroll = () => setScrolled(window.scrollY > 32);
+    scroll();
+    window.addEventListener("scroll", scroll, { passive: true });
+    return () => window.removeEventListener("scroll", scroll);
   }, []);
 
-  const homeHref = "/";
-  const earlyAccessHref = `${homeHref}#pricing`;
-  const navItems = [
-    { label: "Product", href: `${homeHref}#studio` },
-    { label: "Workflow", href: `${homeHref}#workflow` },
-    { label: "Pricing", href: earlyAccessHref },
-  ] as const;
+  useEffect(() => {
+    if (!open && !menu) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (menu) setMenu(null);
+      else {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [open, menu]);
+
+  useEffect(() => {
+    if (!menu) return;
+    const away = (event: PointerEvent) => {
+      if (!nav.current?.contains(event.target as Node)) setMenu(null);
+    };
+    document.addEventListener("pointerdown", away);
+    return () => document.removeEventListener("pointerdown", away);
+  }, [menu]);
 
   return (
     <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "border-b border-[oklch(0.24_0.014_270)] bg-[oklch(0.08_0.012_270_/_0.86)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
-      )}
+      className={`sl-header ${scrolled || !home || open || menu ? "sl-header-solid" : ""}`}
     >
-      <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between px-5 py-4 md:px-8">
-        <Link href={homeHref} className="flex items-center gap-3 text-[oklch(0.96_0.006_270)]" onClick={() => setMobileOpen(false)}>
-          <Image src="/logo.png" alt="SeventeenLabs" width={24} height={24} className="h-6 w-6 rounded-md object-contain" />
-          <span className="text-base font-semibold">SeventeenLabs</span>
+      <a className="sl-skip" href="#main">
+        Skip to content
+      </a>
+
+      {notice && (
+        <div className="sl-notice">
+          <div className="sl-container">
+            <p>
+              <span>Early access</span> Frame is in development and open by
+              application.
+            </p>
+            <Link href="/apply">
+              Apply <ArrowUpRight size={12} />
+            </Link>
+            <button onClick={() => setNotice(false)} aria-label="Dismiss">
+              <X size={13} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      <nav className="sl-nav sl-container" aria-label="Main navigation">
+        <Link
+          className="sl-brand"
+          href="/"
+          onClick={() => setOpen(false)}
+          aria-label="SeventeenLabs home"
+        >
+          <BrandLockup />
         </Link>
 
-        <div className="hidden items-center gap-7 lg:flex">
-          {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="text-sm font-medium text-[oklch(0.76_0.012_270)] transition hover:text-[oklch(0.96_0.006_270)]">
-              {item.label}
-            </Link>
+        <div className="sl-nav-links" ref={nav} onMouseLeave={() => setMenu(null)}>
+          {groups.map((group) => (
+            <div
+              key={group.label}
+              className="sl-nav-group"
+              onMouseEnter={() => setMenu(group.label)}
+            >
+              <button
+                type="button"
+                aria-expanded={menu === group.label}
+                /* Opening is idempotent: hovering already opened it, so a
+                   click must not toggle it shut. Escape and click-away close. */
+                onClick={() => setMenu(group.label)}
+              >
+                {group.label}
+                <ChevronDown size={14} />
+              </button>
+              {menu === group.label && (
+                <div className="sl-nav-panel">
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMenu(null)}
+                    >
+                      <span>{item.label}</span>
+                      <span>{item.note}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link
-            href={earlyAccessHref}
-            className="hidden min-h-10 items-center justify-center gap-2 rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)] md:inline-flex"
-          >
-            Choose a plan
-            <ArrowRight className="h-4 w-4" />
+        <div className="sl-nav-actions">
+          <a className="sl-nav-contact" href="mailto:hello@seventeenlabs.io">
+            Contact
+          </a>
+          <Link className="sl-button sl-button-primary" href="/apply">
+            Get early access <ArrowUpRight size={16} />
           </Link>
-
           <button
-            type="button"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[oklch(0.26_0.014_270)] bg-[oklch(0.11_0.012_270)] text-[oklch(0.96_0.006_270)] lg:hidden"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            ref={toggle}
+            className="sl-menu-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpen(!open)}
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </nav>
 
-      {mobileOpen ? (
-        <div className="border-t border-[oklch(0.24_0.014_270)] bg-[oklch(0.08_0.012_270)] px-5 pb-6 pt-3 lg:hidden">
-          <div className="grid gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={`mobile-${item.label}`}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className="rounded-md px-3 py-3 text-sm font-medium text-[oklch(0.78_0.012_270)] transition hover:bg-[oklch(0.13_0.012_270)] hover:text-[oklch(0.96_0.006_270)]"
-              >
-                {item.label}
-              </Link>
-            ))}
+      {open && (
+        <nav
+          id="mobile-navigation"
+          className="sl-mobile-nav"
+          aria-label="Mobile navigation"
+        >
+          {groups.map((group) => (
+            <div key={group.label}>
+              <p className="sl-eyebrow">{group.label}</p>
+              {group.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                  <ArrowUpRight size={20} />
+                </Link>
+              ))}
+            </div>
+          ))}
+          <div>
+            <p className="sl-eyebrow">Get in touch</p>
+            <a href="mailto:hello@seventeenlabs.io">
+              hello@seventeenlabs.io
+              <ArrowUpRight size={20} />
+            </a>
+            <Link href="/apply" onClick={() => setOpen(false)}>
+              Get early access
+              <ArrowUpRight size={20} />
+            </Link>
           </div>
-          <Link
-            href={earlyAccessHref}
-            onClick={() => setMobileOpen(false)}
-            className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-[oklch(0.9_0.22_128)] px-4 text-sm font-semibold text-[oklch(0.065_0.015_135)] transition hover:bg-[oklch(0.84_0.22_128)]"
-          >
-            Choose a plan
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      ) : null}
+        </nav>
+      )}
     </header>
   );
 }
