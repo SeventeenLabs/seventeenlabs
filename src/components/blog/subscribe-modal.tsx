@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Check, Mail, Sparkles, X } from 'lucide-react';
 import { useBlogSubscription } from '@/hooks/useBlogSubscription';
@@ -30,13 +30,6 @@ export function SubscribeModal({ isOpen, onClose, onSubscribed }: SubscribeModal
   const isLoading = status === 'loading';
   const isSuccess = status === 'success';
 
-  useEffect(() => {
-    if (!isOpen) {
-      setEmail('');
-      reset();
-    }
-  }, [isOpen, reset]);
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await subscribe(email);
@@ -46,6 +39,8 @@ export function SubscribeModal({ isOpen, onClose, onSubscribed }: SubscribeModal
   };
 
   const closeAndReset = () => {
+    setEmail('');
+    reset();
     onClose();
   };
 

@@ -176,7 +176,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       url: baseUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/logo-white.svg`,
+        url: `${baseUrl}/logo.png`,
         width: 400,
         height: 100,
       },

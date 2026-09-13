@@ -33,7 +33,7 @@ export function BlogSEO({ post, posts, type, category, tag }: BlogSEOProps) {
         url: baseUrl,
         logo: {
           '@type': 'ImageObject',
-          url: `${baseUrl}/logo-white.svg`,
+          url: `${baseUrl}/logo.png`,
         },
       },
       inLanguage: 'en-US',
@@ -97,7 +97,7 @@ export function BlogSEO({ post, posts, type, category, tag }: BlogSEOProps) {
         url: baseUrl,
         logo: {
           '@type': 'ImageObject',
-          url: `${baseUrl}/logo-white.svg`,
+          url: `${baseUrl}/logo.png`,
           width: 400,
           height: 100,
         },

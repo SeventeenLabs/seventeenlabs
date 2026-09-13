@@ -1,53 +1,19 @@
-import { MetadataRoute } from 'next';
-
+import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'SeventeenLabs - AI Automation Agency',
-    short_name: 'SeventeenLabs',
-    description: 'AI automation agency specializing in custom workflow automation, intelligent process optimization, and scalable automation solutions.',
-    start_url: '/',
-    display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#2563eb',
-    orientation: 'portrait-primary',
-    scope: '/',
-    lang: 'en',
-    dir: 'ltr',
-    categories: ['business', 'productivity', 'technology'],
+    name: "SeventeenLabs",
+    short_name: "SeventeenLabs",
+    description: "Creative software for generative media.",
+    start_url: "/",
+    display: "browser",
+    background_color: "#10120f",
+    theme_color: "#10120f",
     icons: [
-      {
-        src: '/favicon.ico',
-        sizes: '48x48',
-        type: 'image/x-icon',
-      },
-      {
-        src: '/logo_dark.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any',
-      },
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
     ],
     shortcuts: [
-      {
-        name: 'Blog',
-        short_name: 'Blog',
-        description: 'Read our latest articles on AI automation',
-        url: '/blog',
-      },
-      {
-        name: 'Products',
-        short_name: 'Products',
-        description: 'Explore Relay and Core',
-        url: '/products',
-      },
-      {
-        name: 'Contact',
-        short_name: 'Contact',
-        description: 'Get in touch with us',
-        url: '/about#contact',
-      },
+      { name: "Frame", url: "/frame" },
+      { name: "Early access", url: "/apply" },
     ],
-    related_applications: [],
-    prefer_related_applications: false,
   };
 }

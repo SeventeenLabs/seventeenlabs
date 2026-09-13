@@ -121,7 +121,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       url: baseUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/logo-white.svg`,
+        url: `${baseUrl}/logo.png`,
       },
     },
     inLanguage: 'en-US',

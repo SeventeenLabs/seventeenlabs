@@ -1,10 +1,15 @@
-import { redirect } from 'next/navigation';
+import LandingHeader from "@/components/landing-header";
+import SeventeenLabsLanding from "@/components/seventeenlabs-landing";
+import SiteFooter from "@/components/site-footer";
+import StructuredData from "@/components/structured-data";
 
 export default function RootPage() {
-  // Root page now redirects to English locale without /en prefix
-  // This reduces redirect overhead and improves SEO
-  redirect('/en');
+  return (
+    <>
+      <StructuredData />
+      <LandingHeader />
+      <SeventeenLabsLanding />
+      <SiteFooter />
+    </>
+  );
 }
-
-// TODO: Consider making / serve content directly instead of redirecting
-// This would eliminate the redirect overhead and improve Core Web Vitals

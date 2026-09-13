@@ -13,7 +13,7 @@ export function BlogFooter() {
           <div className="lg:col-span-1 space-y-4">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo_anim.svg"
+                src="/logo.png"
                 alt="SeventeenLabs"
                 width={120}
                 height={18}
@@ -41,13 +41,13 @@ export function BlogFooter() {
               >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a
+              <Link
                 href="/rss"
                 className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all"
                 aria-label="RSS Feed"
               >
                 <Rss className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -97,7 +97,7 @@ export function BlogFooter() {
                 Core
               </Link>
               <Link
-                href="/products"
+                href="/frame"
                 className="block text-sm text-white/60 hover:text-white transition-colors"
               >
                 All Products

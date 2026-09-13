@@ -121,8 +121,10 @@ export default function RelayScrollytelling({
 								<p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">{step.description}</p>
 
 								<div className="mt-4 md:hidden">
-									<div className="relative aspect-[16/10] w-full">
-										<img src={step.mediaSrc} alt={step.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
+									<div className="rounded-2xl border border-white/20 bg-[radial-gradient(circle_at_12%_10%,rgba(163,230,53,0.2),transparent_40%),radial-gradient(circle_at_88%_8%,rgba(255,255,255,0.14),transparent_42%),linear-gradient(165deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] p-4 shadow-[0_20px_44px_rgba(0,0,0,0.45)] backdrop-blur-sm">
+										<div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/12 bg-black/50">
+											<img src={step.mediaSrc} alt={step.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
+										</div>
 									</div>
 								</div>
 
@@ -150,8 +152,10 @@ export default function RelayScrollytelling({
 								exit={{ opacity: 0, y: -6 }}
 								transition={{ duration: 0.22, ease: "easeOut" }}
 							>
-								<div className="relative aspect-[16/10] w-full">
-									<img src={activeStep.mediaSrc} alt={activeStep.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
+								<div className="rounded-3xl border border-white/20 bg-[radial-gradient(circle_at_12%_10%,rgba(163,230,53,0.2),transparent_40%),radial-gradient(circle_at_88%_8%,rgba(255,255,255,0.14),transparent_42%),linear-gradient(165deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] p-4 shadow-[0_26px_58px_rgba(0,0,0,0.48)] backdrop-blur-sm">
+									<div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/12 bg-black/50">
+										<img src={activeStep.mediaSrc} alt={activeStep.mediaAlt} className="absolute inset-0 h-full w-full object-cover" />
+									</div>
 								</div>
 							</motion.div>
 						</AnimatePresence>

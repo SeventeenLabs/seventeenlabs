@@ -21,7 +21,15 @@ export function NotificationsButton({ notifications, agents }: Props) {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState(notifications);
 
-  useEffect(() => setItems(notifications), [notifications]);
+  useEffect(() => {
+    const timerId = window.setTimeout(() => {
+      setItems(notifications);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timerId);
+    };
+  }, [notifications]);
 
   const unreadList = useMemo(
     () => items.filter((n) => !n.delivered),
