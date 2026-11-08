@@ -42,6 +42,7 @@ export default function SiteFooter() {
         <div className="sl-footer-bottom">
           <span>© {new Date().getFullYear()} SeventeenLabs</span>
           <span>Creative software for generative media.</span>
+          <a href="https://chrislutz.me">Site by Christian Lutz</a>
           <a href="#main">Back to top ↑</a>
         </div>
       </div>
